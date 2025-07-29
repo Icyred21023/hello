@@ -1199,7 +1199,13 @@
                 "description": false
             },
             {
-                "name": "Spider-Man & Storm",
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 10,
+                "description": false
+            },
+            {
+                "name": "Storm",
                 "role": "Duelist",
                 "score": 10,
                 "description": false
@@ -1592,7 +1598,13 @@
                 "description": false
             },
             {
-                "name": "Hela & Spider-Man",
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 10,
+                "description": false
+            },
+            {
+                "name": "Hela",
                 "role": "Duelist",
                 "score": 10,
                 "description": false
@@ -2177,7 +2189,13 @@
                 "description": false
             },
             {
-                "name": "The Punisher & Star-Lord",
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "score": 10,
+                "description": false
+            },
+            {
+                "name": "The Punisher",
                 "role": "Duelist",
                 "score": 10,
                 "description": false
