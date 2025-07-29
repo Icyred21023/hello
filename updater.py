@@ -119,14 +119,18 @@ def check_for_update(auto_accept=False):
             with open(VERSION_FILE, "w") as f:
                 f.write(latest)
 
-            print("Update complete. Restarting...")
-            time.sleep(1)
-            os.execv(sys.executable, ['python'] + sys.argv)
+            # Show message dialog
+            root = tk.Tk()
+            root.withdraw()  # Hide main window
+            messagebox.showinfo("Update Complete", "Update complete.\nPlease relaunch the program.")
+            root.destroy()
+
+            sys.exit()  # Exit instead of restart
         else:
             print("Update canceled.")
     else:
         print("You are on the latest version.")
-        
+
 def check_for_update2(auto_accept=False):
     current = get_current_version()
     latest = get_latest_version()

@@ -1076,7 +1076,7 @@ def close(root,script_dir):
 
 def close2(root):
     root.destroy()
-    #sys.exit(0)
+    sys.exit(0)
 
 def show_launcher(on_trigger,on_match):
     global bhidden, bdebug_menu, indicator_label,main, var2, var1, trigger_func,trigger2_func,root,cb1,cb2,cb3
@@ -1132,15 +1132,15 @@ def show_launcher(on_trigger,on_match):
     global_debugflag = False
     if config.debug_mode:
         frame = rig
-        cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
-        cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+        cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
+        cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
         cb1.pack(anchor="w",padx=0)
         cb2.pack(anchor="w",padx=0)
         global_debugflag = True
 
     
     cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
-    cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug Mode", variable=var4,font=("Calibri", fonts[10]))
+    cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug", variable=var4,font=("Calibri", fonts[10]))
     #cb3 = tk.Checkbutton(deb, text="Option 3", variable=var3)
 
     # Pack them onto the frame
@@ -1149,24 +1149,33 @@ def show_launcher(on_trigger,on_match):
     cb4.pack(anchor="w",padx=0)
     #cb3.pack(anchor="w")
     def toggle_hide():
-        global bhidden
+        global bhidden, bdebug_menu
         bhidden = not bhidden
         if bhidden:
-            main.pack_forget()
+            if bdebug_menu:
+                deb.pack_forget()
+            else:
+                main.pack_forget()
             hide_btn2.config(text="Show")
             
         else:
-            main.pack(fill="x", padx=10,pady=5, side="bottom")
+            if bdebug_menu:
+                deb.pack(fill="x", padx=0,pady=6, side="bottom")
+            else:
+                main.pack(fill="x", padx=10,pady=5, side="bottom")
+            
             hide_btn2.config(text="Hide")
         root.update_idletasks()
         root.geometry("")
     def toggle_debug():
         import config
-        global bdebug_menu,global_random_matchup,global_random_ban,global_dex,global_debugmode,global_debugflag,cb1,cb2,cb3
+        global bdebug_menu,bhidden,global_random_matchup,global_random_ban,global_dex,global_debugmode,global_debugflag,cb1,cb2,cb3
         bdebug_menu = not bdebug_menu
-
+        if bhidden:
+            bhidden = False
+            hide_btn2.config(text="Hide")
         if bdebug_menu:
-
+            
             main.pack_forget()
             debug.config(text="Back")
             
@@ -1178,7 +1187,7 @@ def show_launcher(on_trigger,on_match):
                 if not global_debugflag:
 
                     cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
@@ -1207,7 +1216,7 @@ def show_launcher(on_trigger,on_match):
             if config.debug_mode:
                 if not global_debugflag:
                     cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
@@ -1248,11 +1257,11 @@ def show_launcher(on_trigger,on_match):
 
 
     button = tk.Button(main,text="Bans (F8)", height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger1(var1.get()), cursor="hand2")
-    button.pack(side="left",padx=14)
+    button.pack(side="left",padx=11)
     button.bind("<Enter>", lambda e: button.config(bg="#A18D25"))
     button.bind("<Leave>", lambda e: button.config(bg="#FCD92E"))
     button1 = tk.Button(main,text="Counters (F10)",height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger22(var2.get()), cursor="hand2")
-    button1.pack(side="right",padx=14)
+    button1.pack(side="right",padx=11)
     button1.bind("<Enter>", lambda e: button1.config(bg="#A18D25"))
     button1.bind("<Leave>", lambda e: button1.config(bg="#FCD92E"))
 
