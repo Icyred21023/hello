@@ -6,6 +6,8 @@ import zipfile
 import shutil
 import sys
 import time
+import tkinter as tk
+from tkinter import messagebox
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 VERSION_FILE = os.path.join(script_dir, "version.txt")
@@ -89,6 +91,43 @@ def apply_update(from_path):
             shutil.copy2(src, dst)
 
 def check_for_update(auto_accept=False):
+    current = get_current_version()
+    latest = get_latest_version()
+    if latest is None:
+        return
+
+    if latest != current:
+        print(f"New version available: {latest} (current: {current})")
+        proceed = False
+
+        if auto_accept:
+            proceed = True
+        else:
+            # Create temporary root for messagebox
+            root = tk.Tk()
+            root.withdraw()  # Hide the main window
+            result = messagebox.askyesno("Update Available", f"A new version ({latest}) is available.\nUpdate now?")
+            root.destroy()
+            proceed = result
+
+        if proceed:
+            backup_current_dir(current)
+            download_and_extract_zip(REMOTE_ZIP_URL, os.path.join(script_dir, "update_temp"))
+            apply_update(os.path.join(script_dir, "update_temp"))
+            shutil.rmtree(os.path.join(script_dir, "update_temp"))
+
+            with open(VERSION_FILE, "w") as f:
+                f.write(latest)
+
+            print("Update complete. Restarting...")
+            time.sleep(1)
+            os.execv(sys.executable, ['python'] + sys.argv)
+        else:
+            print("Update canceled.")
+    else:
+        print("You are on the latest version.")
+        
+def check_for_update2(auto_accept=False):
     current = get_current_version()
     latest = get_latest_version()
     if latest is None:

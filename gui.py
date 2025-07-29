@@ -24,8 +24,10 @@ global_dex = False
 global_debugmode = False
 global_debugflag = False
 main = None
+var1 = None
 var2 = None
 trigger2_func = None
+trigger_func = None
 root = None
 cb1 = None
 cb2 = None
@@ -49,6 +51,23 @@ def handle_f10():
             root.after(0, lambda: (root.destroy(), trigger2_func(var2.get())))
     except Exception as e:
         print(f"F10 error: {e}")
+
+def handle_f8():
+    global main, var1, trigger_func, root, is_clickthrough, indicator_label
+    try:
+
+        if is_clickthrough:
+                    make_interactive()
+                    is_clickthrough = False
+                    if indicator_label:
+                        indicator_label.config(text="", bg="#1C2026")
+                        indicator_label.update_idletasks()
+
+        if main and main.winfo_ismapped() and root and root.winfo_exists():
+            # Schedule both actions in the Tkinter main thread
+            root.after(0, lambda: (root.destroy(), trigger_func(var1.get())))
+    except Exception as e:
+        print(f"F8 error: {e}")
         
 def make_clickthrough():
     global hwnd
@@ -1060,7 +1079,7 @@ def close2(root):
     #sys.exit(0)
 
 def show_launcher(on_trigger,on_match):
-    global bhidden, bdebug_menu, indicator_label,main, var2, trigger2_func,root,cb1,cb2,cb3
+    global bhidden, bdebug_menu, indicator_label,main, var2, var1, trigger_func,trigger2_func,root,cb1,cb2,cb3
     global fonts
     
     font_scale = 1
@@ -1134,10 +1153,11 @@ def show_launcher(on_trigger,on_match):
         bhidden = not bhidden
         if bhidden:
             main.pack_forget()
-            
+            hide_btn2.config(text="Show")
             
         else:
             main.pack(fill="x", padx=10,pady=5, side="bottom")
+            hide_btn2.config(text="Hide")
         root.update_idletasks()
         root.geometry("")
     def toggle_debug():
@@ -1157,8 +1177,8 @@ def show_launcher(on_trigger,on_match):
             if config.debug_mode:
                 if not global_debugflag:
 
-                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchups", variable=var2,font=("Calibri", fonts[10]))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
@@ -1186,8 +1206,8 @@ def show_launcher(on_trigger,on_match):
             config.debug_mode = global_debugmode
             if config.debug_mode:
                 if not global_debugflag:
-                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchups", variable=var2,font=("Calibri", fonts[10]))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
@@ -1227,12 +1247,12 @@ def show_launcher(on_trigger,on_match):
     hide_btn2.bind("<Leave>", lambda e: hide_btn2.config(bg="#141420"))
 
 
-    button = tk.Button(main,text="Profiles", height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger(var1.get()), cursor="hand2")
-    button.pack(side="left",padx=15)
+    button = tk.Button(main,text="Bans (F8)", height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger1(var1.get()), cursor="hand2")
+    button.pack(side="left",padx=14)
     button.bind("<Enter>", lambda e: button.config(bg="#A18D25"))
     button.bind("<Leave>", lambda e: button.config(bg="#FCD92E"))
-    button1 = tk.Button(main,text="Matchups",height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger22(var2.get()), cursor="hand2")
-    button1.pack(side="right",padx=15)
+    button1 = tk.Button(main,text="Counters (F10)",height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger22(var2.get()), cursor="hand2")
+    button1.pack(side="right",padx=14)
     button1.bind("<Enter>", lambda e: button1.config(bg="#A18D25"))
     button1.bind("<Leave>", lambda e: button1.config(bg="#FCD92E"))
 
@@ -1255,8 +1275,17 @@ def show_launcher(on_trigger,on_match):
             config.randomize_ban = True
         if after_id:
             root.after_cancel(after_id)
+        #root.destroy()
+        on_trigger()
+
+    def trigger1(flag):
+        if flag:
+            config.randomize_ban = True
+        if after_id:
+            root.after_cancel(after_id)
         root.destroy()
         on_trigger()
+
     def trigger2(flag):
         if flag:
             config.randomize_matchup = True
@@ -1276,9 +1305,18 @@ def show_launcher(on_trigger,on_match):
     hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
     trigger2_func = trigger2
+    trigger_func = trigger
 
     root.mainloop()
 
-keyboard.add_hotkey('f2', toggle_clickthrough)
+import threading
+
+def start_hotkey_listener():
+    keyboard.add_hotkey('f2', toggle_clickthrough)
+    keyboard.wait()  # Keeps the listener alive
+
+listener_thread = threading.Thread(target=start_hotkey_listener, daemon=True)
+listener_thread.start()
+keyboard.add_hotkey('f8', handle_f8)
 
 keyboard.add_hotkey('f10', handle_f10)

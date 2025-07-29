@@ -1,3 +1,6 @@
+from admin_utils import elevate_if_needed
+
+elevate_if_needed()
 from ocr_capture import capture_names
 from tracker_lookup import open_multiple_tracker_profiles
 from player import Player
