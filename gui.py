@@ -1,0 +1,1284 @@
+import tkinter as tk
+from PIL import ImageTk, Image, ImageGrab
+import os
+import sys
+import time
+from main3 import HeroMatch
+import numpy as np
+import config
+import win32gui
+import win32con
+import win32api
+import win32process
+import win32com.client
+import ctypes
+import keyboard
+bhidden = False
+bdebug_menu = False
+is_clickthrough = False
+indicator_label = None
+hwnd = None
+global_random_matchup = False
+global_random_ban = False
+global_dex = False
+global_debugmode = False
+global_debugflag = False
+main = None
+var2 = None
+trigger2_func = None
+root = None
+cb1 = None
+cb2 = None
+cb3 = None
+
+fonts = {}
+
+def handle_f10():
+    global main, var2, trigger2_func, root, is_clickthrough, indicator_label
+    try:
+
+        if is_clickthrough:
+                    make_interactive()
+                    is_clickthrough = False
+                    if indicator_label:
+                        indicator_label.config(text="", bg="#1C2026")
+                        indicator_label.update_idletasks()
+
+        if main and main.winfo_ismapped() and root and root.winfo_exists():
+            # Schedule both actions in the Tkinter main thread
+            root.after(0, lambda: (root.destroy(), trigger2_func(var2.get())))
+    except Exception as e:
+        print(f"F10 error: {e}")
+        
+def make_clickthrough():
+    global hwnd
+    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    style |= win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
+    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    print("Click-through ENABLED")
+
+def make_interactive():
+    global hwnd
+    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    style &= ~win32con.WS_EX_TRANSPARENT
+    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    print("Click-through DISABLED")
+
+def toggle_clickthrough():
+    global is_clickthrough, indicator_label
+    if is_clickthrough:
+        make_interactive()
+        if indicator_label:
+            indicator_label.config(text="")
+            indicator_label.update_idletasks()
+            indicator_label.update()
+    else:
+        make_clickthrough()
+        if indicator_label:
+            indicator_label.config(text="🔒", fg="red")
+            indicator_label.update_idletasks()
+            indicator_label.update()
+            
+    is_clickthrough = not is_clickthrough
+
+
+def scale_font(scale, size):
+    return int(size / scale)                            
+def change_color(value):
+    if value > 2:
+        return "#3ecbff"
+    elif value > 0:
+        return "#5de791"
+    elif value == 0:
+        return "white"
+    elif value  > -3:
+        return "#FFA800"
+    else:
+        return "#FF3C3C"
+    
+    
+def show_suggestion_gui(blue_result, red_result, image_map):
+    global bhidden, indicator_label
+    return_data = {}
+    bhidden = False
+    root = tk.Tk()
+    screen_width = root.winfo_screenwidth()
+    x = (screen_width // 2) - 700
+    root.geometry(f"+{x}+0")
+    root.withdraw()
+
+    win = tk.Toplevel(root)
+    win.title("")
+    def go_back():
+        blue = []
+        red = []
+        for i in range(1, 7):
+            b_member = getattr(blue_result, str(i))
+            r_member = getattr(red_result, str(i))
+            s = b_member.suggestion
+            if not s:
+                s = b_member.character
+                name = s.name
+            else:
+                name = s.original if s else member.character.name
+            blue.append(HeroMatch(name, name, 10, False))
+            name = r_member.character.name
+            red.append(HeroMatch(name, name, 10, False))
+        return_data["teams"] = (blue, red)
+        root.destroy()
+
+
+
+    def toggle_hide():
+        global bhidden
+        bhidden = not bhidden
+        if bhidden:
+            main_frame.pack_forget()
+            hide_btn2.config(text="Show")
+            
+        else:
+            main_frame.pack(padx=0, pady=0)
+            hide_btn2.config(text="Hide")
+        win.update_idletasks()
+        
+
+    win.overrideredirect(True)
+    title_bar2 = tk.Frame(win, bg="#13151A", relief="solid", width=1135,height=17)
+    title_bar2.pack(fill="x", side="top",ipady=3)
+    title_bar2.pack_propagate(False)
+    close_btn2 = tk.Button(title_bar2, command=lambda: close2(root),text="X", width=2,height=1,fg="white", relief="flat",bg="#141420", font=("Lucida Console", fonts[12]), cursor="hand2")
+    close_btn2.pack(side="right", padx=0)
+    hide_btn2 = tk.Button(title_bar2, command=toggle_hide,text="Hide", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[12]), cursor="hand2")
+    hide_btn2.pack(side="right", padx=10)
+    back = tk.Button(title_bar2, command=go_back,text="Back", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[12]), cursor="hand2")
+    back.pack(side="right", padx=10)
+    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#13151A", font=("Arial", fonts[12]))
+    indicator_label.pack(side="left")
+
+    
+    win.geometry(f"+{x}+0")
+    win.title("Team Suggestion Comparison")
+    win.configure(bg="#1C2026")
+    win.attributes("-topmost", True)
+    win.grab_set()
+
+    def get_image(name):
+        img_obj = image_map.get(name)
+        if not img_obj:
+            img_obj = image_map.get("Default")
+        if img_obj:
+            resized = img_obj.copy()
+            resized.thumbnail((128, 128))
+            return ImageTk.PhotoImage(resized)
+        return None
+
+    main_frame = tk.Frame(win, bg="#1C2026")
+    main_frame.pack(padx=0, pady=0)
+    light_blue = "#456093"
+    dark_blue = "#2C334B"
+    suggest_dark = "#354569"
+    suggest_blue = "#6D9EC2"
+    alt_dark = "#2A4A32"
+    alt_light = "#579967"
+    light_red = "#A15444"
+    dark_red = "#6B382E"
+    bord_color = "#1C2026"
+    blue_score = "#4E648A"
+    suggest_score = "#465C8C"
+    green_score = "#41734D"
+    red_score = "#854539"
+
+    original_frame = tk.Frame(main_frame, bg=dark_blue, padx=10, pady=10)
+    suggestion_frame = tk.Frame(main_frame, bg=suggest_dark, padx=10, pady=10)
+    alt_frame = tk.Frame(main_frame, bg=alt_dark, padx=10, pady=10)
+    red_frame = tk.Frame(main_frame, bg=dark_red, padx=10, pady=10)
+
+    original_frame.grid(row=0, column=0, sticky="nw")
+    suggestion_frame.grid(row=0, column=1, sticky="nw")
+    alt_frame.grid(row=0, column=2, sticky="nw")
+    red_frame.grid(row=0, column=3, sticky="nw")
+    if config.dex:
+        string = "Dexerto Counters"
+    else:
+        string = "PeakRivals Counters"
+
+    tk.Label(original_frame, text="Current Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_blue).pack()
+    tk.Label(suggestion_frame, text=string, font=("Arial", fonts[14], "bold"), fg="white", bg=suggest_dark).pack()
+    tk.Label(alt_frame, text="Full Counter Team", font=("Arial", fonts[14], "bold"), fg="white", bg=alt_dark).pack()
+    tk.Label(red_frame, text="Enemy Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_red).pack()
+    score_totals_list = []
+    origs_score = 0
+    new_scores = 0
+    alt_score = 0
+    red_scores1 = 0
+    red_scores2 = 0
+    red_scores3 = 0
+    for i in range(1, 7):
+        member = getattr(blue_result, str(i))
+        s = member.suggestion
+        orig_name = s.original if s else member.character.name
+        orig_score = s.orig_score if s else member.character.matchup_score
+
+        # === Column 1: Original Blue ===
+        row_orig = tk.Frame(original_frame, bg=dark_blue)
+        row_orig.pack(fill="x", pady=6,padx = 1)
+
+        orig_img = get_image(orig_name)
+        if orig_img:
+            outer = tk.Label(row_orig, width=124, height=124,image=orig_img, bg=light_blue, highlightthickness=2,
+                     highlightbackground=bord_color)
+            outer.pack(side="left")
+            outer.pack_propagate(False)
+            row_orig.image = orig_img
+        scolor = change_color(orig_score)
+        tk.Label(row_orig, text=f"{orig_score:+}", highlightthickness=2,
+                 highlightbackground=bord_color, fg=scolor, bg=blue_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+        origs_score += orig_score
+        if s and s.original != s.replacement:
+            # Draw arrow
+            tk.Label(row_orig, text="➡", fg="#08FCEF", bg=dark_blue,
+                     font=("Courier New", fonts[64], "bold")).pack(side="left", padx=(20, 0))
+
+                # === Column 2: Primary Suggestion ===
+        s = member.suggestion
+        row_sugg = tk.Frame(suggestion_frame, bg=suggest_dark)
+        row_sugg.pack(fill="x", padx=10, pady=6)
+
+        if s and s.original != s.replacement:
+            # Draw arrow
+            #tk.Label(row_sugg, text="➡", fg="#08FCEF", bg=suggest_dark,
+                     #font=("Courier New", fonts[26], "bold")).pack(side="left", padx=(0, 15))
+
+            # Suggestion image
+            sugg_img = get_image(s.replacement)
+            if sugg_img:
+                img_label = tk.Label(row_sugg, width=124, height=124,image=sugg_img, bg=suggest_blue,
+                                     highlightthickness=2, highlightbackground=bord_color)
+                img_label.image = sugg_img
+                img_label.pack(side="left")
+                
+                img_label.pack_propagate(False)
+            else:
+                tk.Label(row_sugg, text=s.replacement, fg="white", bg=suggest_blue).pack(side="left")
+
+            # Suggestion score
+            scolor = change_color(s.new_score)
+            tk.Label(row_sugg, text=f"{s.new_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=suggest_score,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+            if s.new_score:
+                new_scores += s.new_score
+
+        else:
+            # No replacement or replacement == original — reserve space
+            spacer = tk.Frame(row_sugg, width=124 + 60, height=124, bg=suggest_dark)
+            spacer.pack_propagate(False)
+            spacer.pack(side="left",pady=4)
+            new_scores += orig_score
+            #tk.Label(spacer, text="No suggestion", fg="white", bg=dark_blue).pack(anchor="center")
+
+        # === Column 3: Alternative Suggestion ===
+        alt = member.alt_suggestion
+        row_alt = tk.Frame(alt_frame, bg=alt_dark)
+        row_alt.pack(fill="x", padx= 25,pady=6)
+        if alt:
+            alt_img = get_image(alt.replacement)
+            if alt_img:
+                outer = tk.Label(row_alt, width=124, height=124,image=alt_img, bg=alt_light, highlightthickness=2,
+                         highlightbackground=bord_color)
+                outer.pack(side="left")
+                outer.pack_propagate(False)
+                row_alt.image = alt_img
+            scolor = "white"
+            scolor = change_color(alt.new_score)
+            alt_score += alt.new_score
+            tk.Label(row_alt, text=f"{alt.new_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=green_score,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+        else:
+            tk.Label(row_alt, text="No alt", fg="white", bg=alt_dark).pack()
+
+        # === Column 4: Red Team ===
+        red_member = getattr(red_result, str(i))
+        red_row = tk.Frame(red_frame, bg=dark_red)
+        red_row.pack(fill="x", pady=6, padx=25)
+
+        red_img = get_image(red_member.character.name)
+        if red_img:
+            outer = tk.Label(red_row,width=124, height=124, image=red_img, bg=light_red, highlightthickness=2,
+                     highlightbackground=bord_color)
+            outer.pack(side="left")
+            outer.pack_propagate(False)
+            red_row.image = red_img
+        scolor = "white"
+        scolor = change_color(red_member.suggestion.orig_score)
+        red_scores1 += red_member.suggestion.orig_score
+        tk.Label(red_row, text=f"{red_member.suggestion.orig_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+        scolor = "white"
+        scolor = change_color(red_member.suggestion.new_score)
+        red_scores2 += red_member.suggestion.new_score
+        tk.Label(red_row, text=f"{red_member.suggestion.new_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+        scolor = change_color(red_member.suggestion.alt_score)
+        tk.Label(red_row, text=f"{red_member.suggestion.alt_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+        red_scores3 += red_member.suggestion.alt_score
+    #Total Scores - Original Score
+    tot_orig = tk.Frame(original_frame, bg="#5B6A9C", highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_orig.pack(fill="x", pady=(6,0),padx = 0, ipady=10)
+    tk.Label(tot_orig, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#5B6A9C").pack(side="left")
+    scolor = change_color(origs_score)
+    tk.Label(tot_orig, text=f"{origs_score:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=blue_score,
+                font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # Total - New Blue
+    tot_new = tk.Frame(suggestion_frame, bg="#556FA8", highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_new.pack(fill="x", pady=(6,0),padx = 2, ipady=10)
+    tk.Label(tot_new, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#556FA8").pack(side="left")
+    scolor = change_color(new_scores)
+    tk.Label(tot_new, text=f"{new_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=suggest_score,
+                font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # Total - Alt Blue
+    row_alt_tot = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                     highlightbackground=bord_color)
+    row_alt_tot.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+    tk.Label(row_alt_tot, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
+    scolor = change_color(alt_score)
+    tk.Label(row_alt_tot, text=f"{alt_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=green_score,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
+    # Total - red 1
+    red1 = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+                     highlightbackground=bord_color)
+    red1.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    scolor = change_color(red_scores1)
+    tk.Label(red1, text="Total Scores: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    tk.Label(red1, text=f"{red_scores1:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # Total - red 2
+    
+    scolor = change_color(red_scores2)
+    tk.Label(red1, text=f"{red_scores2:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # Total - red 3
+    
+    scolor = change_color(red_scores3)
+    tk.Label(red1, text=f"{red_scores3:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=red_score,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    root.update_idletasks()
+    global hwnd
+    hwnd = win32gui.FindWindow(None, root.title())
+    #make_clickthrough()
+    win.update_idletasks()
+    hwnd = win32gui.FindWindow(None, win.title())
+    #make_clickthrough()
+    win.geometry("")
+    root.mainloop()
+    return return_data.get("teams")
+# def show_suggestion_gui(blue_result, red_result,image_map):
+#     root = tk.Tk()
+#     screen_width = root.winfo_screenwidth()
+#     x = (screen_width // 2) - 400
+#     root.geometry(f"+{x}+0")
+#     root.withdraw()
+
+#     win = tk.Toplevel(root)
+#     win.geometry(f"+{x}+0")
+#     win.title("Team Suggestion Comparison")
+#     win.configure(bg="#1C2026")
+#     win.attributes("-topmost", True)
+#     win.grab_set()
+
+#     # Load image assets
+#     script_dir = os.path.dirname(os.path.abspath(__file__))
+#     assets_folder = os.path.join(script_dir, "assets_characters")
+
+#     # image_map = {}
+#     # for filename in os.listdir(assets_folder):
+#     #     if filename.lower().endswith(".png"):
+#     #         key = os.path.splitext(filename)[0]
+#     #         path = os.path.join(assets_folder, filename)
+#     #         image_map[key] = Image.open(path)
+
+#     def get_image(name):
+#         img_obj = image_map.get(name)
+#         if not img_obj:
+#             img_obj = image_map.get("Default")
+#         if img_obj:
+#             resized = img_obj.copy()
+#             resized.thumbnail((128, 128))
+#             return ImageTk.PhotoImage(resized)
+#         return None
+
+#     main_frame = tk.Frame(win, bg="#1C2026")
+#     main_frame.pack(padx=10, pady=10)
+
+#     blue_frame = tk.Frame(main_frame, bg="#2C334B", padx=10, pady=10)
+#     blue_frame.grid(row=0, column=0, sticky="nw")
+
+#     red_frame = tk.Frame(main_frame, bg="#6B382E", padx=10, pady=10)
+#     red_frame.grid(row=0, column=1, sticky="nw")
+
+#     tk.Label(blue_frame, text="BLUE TEAM", font=("Arial", fonts[14], "bold"), fg="white", bg="#2C334B").pack()
+#     tk.Label(red_frame, text="RED TEAM", font=("Arial", fonts[14], "bold"), fg="white", bg="#6B382E").pack()
+
+#     for i in range(1, 7):
+#         member = getattr(blue_result, str(i))
+#         original = member.suggestion.original if member.suggestion else member.character.name
+#         replacement = member.suggestion.replacement if member.suggestion else None
+#         original_score = member.suggestion.orig_score if member.suggestion else member.character.matchup_score
+#         replacement_score = member.suggestion.new_score if member.suggestion else None
+
+#         row_frame = tk.Frame(blue_frame, bg="#2C334B")
+#         row_frame.pack(fill="x", pady=6)
+
+#         # Original character image
+#         orig_img = get_image(original)
+#         if orig_img:
+#             orig_label = tk.Label(row_frame, highlightthickness=2,highlightbackground="#1C2026",image=orig_img, bg="#456093")
+#             orig_label.image = orig_img
+#             orig_label.pack(side="left")
+#         else:
+#             tk.Label(row_frame, text=original, fg="white", bg="#2C334B").pack(side="left")
+#         scolor = "white"
+#         scolor = change_color(original_score)
+#         # Original score
+#         tk.Label(row_frame, text=f"{original_score:+}", highlightthickness=2,highlightbackground="#1C2026", fg=scolor, bg="#456093", font=("Courier New", fonts[18],"bold")).pack(side="left", padx=6)
+
+#         if replacement:
+#             tk.Label(row_frame, text="➡", fg="#08FCEF", bg="#2C334B", font=("Courier New", fonts[24],"bold")).pack(side="left", padx=25)
+
+#             # Suggested character image
+#             sug_img = get_image(replacement)
+#             if sug_img:
+#                 sug_label = tk.Label(row_frame, highlightthickness=2,highlightbackground="#1C2026", image=sug_img, bg="#125A66")
+#                 sug_label.image = sug_img
+#                 sug_label.pack(side="left")
+#             else:
+#                 tk.Label(row_frame, text=replacement, fg="white", bg="#456093").pack(side="left")
+
+#             # Suggested score
+#             scolor = change_color(replacement_score)
+#             tk.Label(row_frame, text=f"{replacement_score:+}", highlightthickness=2,highlightbackground="#1C2026", fg=scolor, bg="#125A66", font=("Courier New", fonts[18],"bold")).pack(side="left", padx=6)
+#         if member.alt_suggestion:
+#             alt = member.alt_suggestion
+#             alt_original = alt.original
+#             alt_replacement = alt.replacement
+#             alt_orig_score = alt.orig_score
+#             alt_new_score = alt.new_score
+
+#             alt_row = tk.Frame(row_frame, bg="#2C334B")
+#             alt_row.pack(fill="x", pady=(2, 0))
+
+#             # Optional: Label like "Alt:"
+#             tk.Label(alt_row, text="Or", fg="#08FCEF", bg="#2C334B", font=("Courier New", fonts[10])).pack(side="left", padx=(4, 10))
+
+#             # Alt replacement image
+#             alt_img = get_image(alt_replacement)
+#             if alt_img:
+#                 alt_label = tk.Label(alt_row, highlightthickness=2, highlightbackground="#1C2026", image=alt_img, bg="#332E6B")
+#                 alt_label.image = alt_img
+#                 alt_label.pack(side="left")
+#             else:
+#                 tk.Label(alt_row, text=alt_replacement, fg="white", bg="#332E6B").pack(side="left")
+
+#             # Alt score
+#             alt_color = change_color(alt_new_score)
+#             tk.Label(alt_row, text=f"{alt_new_score:+}", highlightthickness=2, highlightbackground="#1C2026",
+#                      fg=alt_color, bg="#332E6B", font=("Courier New", fonts[14], "bold")).pack(side="left", padx=6)
+
+    
+
+#     for i in range(1, 7):
+#         member = getattr(red_result, str(i))
+#         char_name = member.character.name
+#         score = member.character.matchup_score
+
+#         row_frame = tk.Frame(red_frame, bg="#6B382E")
+#         row_frame.pack(fill="x", pady=6,padx=25)
+
+#         char_img = get_image(char_name)
+#         if char_img:
+#             char_label = tk.Label(row_frame, highlightthickness=2,highlightbackground="#1C2026", image=char_img, bg="#A15444")
+#             char_label.image = char_img
+#             char_label.pack(side="left")
+#         else:
+#             tk.Label(row_frame, text=char_name, fg="white", bg="#6B382E").pack(side="left")
+#         scolor = change_color(score)
+#         tk.Label(row_frame, text=f"{score:+}", highlightthickness=2,highlightbackground="#1C2026", fg=scolor, bg="#A15444", font=("Courier New", fonts[18],"bold")).pack(side="left", padx=6)
+
+#     root.mainloop()
+
+def show_countdown():
+    global indicator_label
+    root = tk.Tk()
+    root.title("Scoreboard Scan in...")
+    root.configure(bg="#2C334B")
+    root.overrideredirect(True)
+    screen_width = root.winfo_screenwidth()
+    x = screen_width // 2
+    root.geometry(f"200x100+{x}+0")
+    root.attributes("-topmost", True)
+    indicator_label = tk.Label(root, text="", fg="white", bg="#2C334B", font=("Arial", fonts[8]))
+    indicator_label.pack(anchor="w")
+    labela = tk.Label(root, text="Hold\nTAB",bg="#2C334B", fg="yellow",font=("Lucida Console", fonts[14],"bold"))
+    labela.pack(expand=True,anchor="center",pady=0)
+    label = tk.Label(root, text="",bg="#2C334B", fg="white",font=("Arial", fonts[20],"bold"))
+    label.pack(expand=True,pady=5)
+
+    def update_countdown(i):
+        if i > 0:
+            if not is_clickthrough:
+                toggle_clickthrough()
+            label.config(text=str(i))
+            root.update()
+            root.after(1000, update_countdown, i - 1)
+        else:
+            if is_clickthrough:
+                toggle_clickthrough()
+            root.destroy()
+
+    update_countdown(3)
+    
+    root.mainloop()
+
+def get_image_from_map(image_map, base_name, full_name):
+    variants = image_map.get(base_name, [])
+    for variant in variants:
+        if variant["name"] == full_name:
+            return variant["image"]
+    return image_map["Default"][0]["image"]  # fallback
+
+def change_character_dropdown(match, image_map, label_widget):
+    top = tk.Toplevel()
+    top.attributes("-topmost", True)
+    top.title("Change Character")
+    top.grab_set()  # Make it modal
+
+    tk.Label(top, text=f"Current: {match.name}").pack(pady=(10, 2))
+
+    hero_names = sorted(image_map.keys())
+    selected_hero = tk.StringVar(value=match.name)
+
+    # Image preview area
+    img_label = tk.Label(top)
+    img_label.pack(pady=5)
+
+    def update_image(*args):
+        hero = selected_hero.get()
+        img_obj = image_map.get(hero, image_map.get("Default"))
+        if img_obj:
+            preview = img_obj.copy()
+            preview.thumbnail((128, 128))
+            photo = ImageTk.PhotoImage(preview)
+            img_label.configure(image=photo)
+            img_label.image = photo
+        else:
+            img_label.configure(text="No image found", image="")
+
+    selected_hero.trace_add("write", update_image)
+
+    dropdown = tk.OptionMenu(top, selected_hero, *hero_names)
+    dropdown.pack(pady=5)
+
+    def submit():
+        match.name = selected_hero.get()
+        # Refresh the image in the original GUI
+        new_img = image_map.get(match.name, image_map.get("Default")).copy()
+        new_img.thumbnail((128, 128))
+        new_photo = ImageTk.PhotoImage(new_img)
+        label_widget.configure(image=new_photo)
+        label_widget.image = new_photo
+        top.destroy()
+
+    tk.Button(top, text="OK", command=submit).pack(pady=(0, 10))
+
+    update_image()
+    top.wait_window()  # Block interaction with main window
+
+def convert_color(value):
+    mapping = {
+        "#456093": "#2C334B",  # bg_c blue
+        "#A15444": "#6B382E",  # bg_c red
+    }
+    return mapping.get(value, value)  # Return the mapped value, or original if not found
+
+def change_character(match, image_map, label_widget,bg_c):
+    import tkinter as tk
+    from PIL import Image, ImageTk
+    bg_dark = convert_color(bg_c)
+    top = tk.Toplevel()
+    top.configure(bg=bg_dark)
+    top.attributes("-topmost", True)
+    top.title("Change Character")
+    top.grab_set()  # Make it modal
+
+    tk.Label(top, fg="white",bg=bg_dark,text=f"Current: {match.name}",font=("Arial",12,"bold")).pack(pady=(10, 2))
+
+    selected_hero = tk.StringVar(value=match.name)
+
+    # Image preview area
+    img_label = tk.Label(top,bg=bg_c,relief="raised")
+    img_label.pack(pady=5)
+
+    def update_image(*args):
+        hero = selected_hero.get()
+        img_obj = image_map.get(hero, image_map.get("Default"))
+        if img_obj:
+            preview = img_obj.copy()
+            preview.thumbnail((128, 128))
+            photo = ImageTk.PhotoImage(preview)
+            img_label.configure(image=photo, bg = bg_c)
+            img_label.image = photo
+        else:
+            img_label.configure(text="No image found", image="")
+
+    selected_hero.trace_add("write", update_image)
+
+    # --- 6x6 Icon Grid ---
+    grid_frame = tk.Frame(top, bg=bg_dark)
+    grid_frame.pack(pady=10)
+
+    thumbnails = {}
+    max_cols = 6
+    row = col = 0
+
+    for hero_name in sorted(image_map.keys()):
+        img_obj = image_map[hero_name]
+        if not img_obj:
+            continue
+
+        # Make 64x64 thumbnail
+        thumb = img_obj.copy()
+        thumb.thumbnail((64, 64))
+        thumb_img = ImageTk.PhotoImage(thumb)
+        thumbnails[hero_name] = thumb_img  # Prevent garbage collection
+
+        def make_click_callback(name=hero_name):
+            def callback():
+                selected_hero.set(name)  # Triggers preview update
+            return callback
+
+        btn = tk.Button(grid_frame, bg=bg_c, image=thumb_img, command=make_click_callback(), width=64, height=64)
+        btn.grid(row=row, column=col, padx=3, pady=3)
+
+        col += 1
+        if col >= max_cols:
+            col = 0
+            row += 1
+
+    def submit():
+        match.name = selected_hero.get()
+        # Refresh the image in the original GUI
+        new_img = image_map.get(match.name, image_map.get("Default")).copy()
+        new_img.thumbnail((128, 128))
+        new_photo = ImageTk.PhotoImage(new_img)
+        label_widget.configure(image=new_photo)
+        label_widget.image = new_photo
+        top.destroy()
+
+    tk.Button(top, text="OK", command=submit).pack(pady=(0, 10))
+
+    update_image()
+    top.wait_window()  # Block interaction with main window
+
+def show_team_comparison_gui(team1_matches, team2_matches,map):
+    global indicator_label
+    indicator_label = None
+    root = tk.Tk()
+    null = None
+    screen_width = root.winfo_screenwidth()
+    x = screen_width // 2
+    root.geometry(f"+{x}+0")
+    root.withdraw()  # Hide root window
+    result = {"blue": [], "red": []}
+    win = tk.Toplevel(root)
+    win.geometry(f"+{x}+0")
+    
+    
+    win.title("Team Matchup Comparison")
+    win.configure(bg="#1C2026")
+    win.attributes("-topmost", True)
+    win.grab_set()
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    assets_folder = os.path.join(script_dir, "assets_characters")
+
+    image_map = {}
+    for filename in os.listdir(assets_folder):
+        if filename.lower().endswith(".png"):
+            key = os.path.splitext(filename)[0]
+            path = os.path.join(assets_folder, filename)
+            image_map[key] = Image.open(path)  # Store PIL images instead
+
+    # Set layout frame
+    main_frame = tk.Frame(win, bg="#1C2026")
+    main_frame.pack(padx=10, pady=10)
+
+    # Create team frames (left + center + right)
+    left_frame = tk.Frame(main_frame, bg="#2C334B", padx=5, pady=5)
+    left_frame.grid(row=0, column=0, sticky="n")
+    center_frame = tk.Frame(main_frame, bg="#1C2026", padx=10)
+    center_frame.grid(row=0, column=1, sticky="n")
+    right_frame = tk.Frame(main_frame, bg="#6B382E", padx=5, pady=5)
+    right_frame.grid(row=0, column=2, sticky="n")
+    #indicator_label = tk.Label(center_frame, text="", fg="white", bg="#1C2026", font=("Arial", fonts[12]))
+    #indicator_label.pack(side="top")
+    # Team labels
+    tk.Label(left_frame, text="Team 1", font=("Arial", fonts[14], "bold"), fg="white", bg="#2C334B").pack(fill=tk.X)
+    tk.Label(right_frame, text="Team 2", font=("Arial", fonts[14], "bold"), fg="white", bg="#6B382E").pack(fill=tk.X)
+
+    # Add player frames for each match
+    def add_match_widget(frame, match, bg_color):
+        outer = tk.Frame(frame, width=132, height=132, bg=bg_color, highlightthickness=2)
+        outer.pack_propagate(False)
+        outer.pack(pady=3)
+        
+
+        # Adjust border color if score > 50
+        if match.score > 50:
+            outer.config(highlightbackground="yellow")
+        else:
+            outer.config(highlightbackground="black")
+
+        img_obj = get_image_from_map(map, match.name, match.fullname)
+        resized = img_obj.copy()
+        resized.thumbnail((128, 128))
+        img = ImageTk.PhotoImage(resized)
+
+        
+
+        if img:
+            label = tk.Label(outer, image=img, bg=bg_color)
+            label.image = img  # Prevent garbage collection
+        else:
+            label = tk.Label(outer, text=match.name, fg="white", bg=bg_color)
+        
+        label.pack()
+        def on_click(event, match=match, label=label, bg=bg_color):
+            change_character(match, image_map, label, bg)
+
+        label.bind("<Button-1>", on_click)
+        # Hover effect – store a darkened image to use on hover
+        def create_overlay(image):
+            # Ensure consistent image size and mode
+            base = image.copy().convert("RGBA")
+            overlay = Image.new("RGBA", base.size, (0, 0, 0, 100))  # semi-transparent black
+            combined = Image.alpha_composite(base, overlay)
+            return ImageTk.PhotoImage(combined)
+
+        def on_enter(event):
+            hero = match.name
+            img_obj = image_map.get(hero, image_map.get("Default"))
+            resized = img_obj.copy()
+            resized.thumbnail((128, 128))
+            base_img = resized.convert("RGBA")
+            overlay = Image.new("RGBA", base_img.size, (0, 0, 0, 100))
+            combined = Image.alpha_composite(base_img, overlay)
+            hover_img = ImageTk.PhotoImage(combined)
+
+            label.configure(image=hover_img)
+            label.image = hover_img
+            outer.config(bg="#2a2a2a")
+
+        def on_leave(event):
+            hero = match.name
+            img_obj = image_map.get(hero, image_map.get("Default"))
+            resized = img_obj.copy()
+            resized.thumbnail((128, 128))
+            normal_img = ImageTk.PhotoImage(resized)
+
+            label.configure(image=normal_img)
+            label.image = normal_img
+            outer.config(bg=bg_color)
+
+        def on_click(event, match=match, label=label):
+            change_character(match, image_map, label)
+
+        label.bind("<Enter>", on_enter)
+        label.bind("<Leave>", on_leave)
+
+    # Populate both teams using iteration and single match
+    for match in team1_matches:
+        add_match_widget(left_frame, match, "#456093")
+
+    for match in team2_matches:
+        add_match_widget(right_frame, match, "#A15444")
+    def on_save():
+        result["blue"] = [m.name for m in team1_matches]
+        result["red"] = [m.name for m in team2_matches]
+        win.destroy()
+    # Save button in center frame
+    save_btn = tk.Button(center_frame,fg="white", bg="#3B3B3B",text="Save", command=on_save,font=("Arial", fonts[12],"bold"), width=6,cursor="hand2")
+    save_btn.pack(pady=100)
+    a = tk.Label(center_frame,bg="#1C2026", text="Click Hero\nto change\nCharacter",fg="white",font=("Arial", fonts[12],"bold"), width=10)
+    a.pack(pady=10)
+    
+    win.update_idletasks()
+    global hwnd
+    hwnd = win32gui.FindWindow(None, win.title())
+    
+    #make_clickthrough()
+    
+    win.wait_window()  # Block until win is destroyed
+    root.destroy()     # Fully close hidden root window
+    
+    return result["blue"], result["red"], image_map
+
+
+
+def create_player_frame(root, player, image_map):
+    if player.hero1 not in image_map:
+        player.hero1 = "Question"
+    if player.hero2 not in image_map:
+        player.hero2 = "Question"
+    
+    outer = tk.Frame(root, width=300, height=400, borderwidth=2, relief="groove")
+    outer.pack(side="left", fill="x",padx=0, pady=0)
+    outer.pack_propagate(False)
+
+    # Top bar: name + rank icon
+    top_bar = tk.Frame(outer, bg="#2b2e41",height=65)
+    top_bar.pack(fill="x")
+    top_bar.pack_propagate(False)
+    
+    name_label = tk.Label(top_bar, text=player.name,bg="#2b2e41", fg="white",font=("Calibri", fonts[17], "bold"), anchor="w")
+    name_label.pack(side="left", padx=5)
+    
+    rank_img_raw = image_map.get(player.rank) or image_map.get("Default")
+    if rank_img_raw:
+        resized = rank_img_raw.copy()
+        resized.thumbnail((72,72))  # Resize to 32x32
+        rank_img = ImageTk.PhotoImage(resized)
+        rank_label = tk.Label(top_bar,bg="#2b2e41", image=rank_img)
+        rank_label.image = rank_img  # Prevent garbage collection
+        rank_label.pack(side="right", padx=5)
+
+ 
+    #top_bar.image = rank_img
+
+    # Main content split horizontally
+    content = tk.Frame(outer)
+    content.pack(fill="both", expand=True)
+
+    # Left (hero images stacked)
+    left_frame = tk.Frame(content, bg="#151426",width=150)
+    left_frame.pack(side="left", fill="y")
+    left_frame.pack_propagate(False)
+    
+    left_frame_top = tk.Frame(left_frame,bg="#1c1b2d", height=150)
+    left_frame_top.pack(side="top", fill="x",pady=5)
+    left_frame_top.pack_propagate(False)
+    
+    hero1_img = image_map.get(player.hero1, image_map.get("Default"))
+    resized = hero1_img.copy()
+    resized.thumbnail((136,136))
+    hero1_img = ImageTk.PhotoImage(resized)
+    hero1_label = tk.Label(left_frame_top, bg="#1c1b2d",image=hero1_img)
+    hero1_label.pack(pady=5)
+    left_frame_top.image1 = hero1_img
+    
+    left_frame_bot = tk.Frame(left_frame, bg="#1c1b2d",height=150)
+    left_frame_bot.pack(side="bottom", fill="x",pady=5)
+    left_frame_bot.pack_propagate(False)
+    
+    
+
+    hero2_img = image_map.get(player.hero2, image_map.get("Default"))
+    resized = hero2_img.copy()
+    resized.thumbnail((136,136))
+    hero2_img = ImageTk.PhotoImage(resized)
+    hero2_label = tk.Label(left_frame_bot,bg="#1c1b2d", image=hero2_img)
+    hero2_label.pack(pady=5)
+    left_frame_bot.image = hero2_img
+
+    # Right (text stacked)
+    right_frame = tk.Frame(content, bg="#151426",width=150)
+    right_frame.pack(side="right", fill="y")
+    right_frame.pack_propagate(False)
+    
+    right_frame_top = tk.Frame(right_frame, bg="#1c1b2d",height=150)
+    right_frame_top.pack(side="top", fill="x",pady=5)
+    right_frame_top.pack_propagate(False)
+    
+    right_frame_bot = tk.Frame(right_frame,bg="#1c1b2d", height=150)
+    right_frame_bot.pack(side="bottom", fill="x",pady=5)
+    right_frame_bot.pack_propagate(False)
+    
+    kd1 = "white"
+    title = "#BEBFE5"
+    
+    kd2 = "white"
+    dpm1 = "white"
+    dpm2 = "white"
+    
+    if int(float(player.kd1)) >= 3:
+        kd1 = "#3ecbff"
+    elif int(float(player.kd1))>=2:
+        kd1 = "#5de791"
+    elif int(float(player.kd1)) <1:
+        kd1= "#bf868f"
+    if int(float(player.kd2)) >= 3:
+        kd2 = "#3ecbff"
+    elif int(float(player.kd2)) >=2:
+        kd2 = "#5de791"
+    elif int(float(player.kd2)) <1:
+        kd2= "#bf868f"
+
+    if int(float(player.dpm1)) >= 1500:
+        dpm1 = "#3ecbff"
+    elif int(float(player.dpm1))>=1100:
+        dpm1 = "#5de791"
+    elif int(float(player.dpm1)) <750:
+        dpm1= "#bf868f"
+    if int(float(player.dpm2)) >= 1500:
+        dpm2 = "#3ecbff"
+    elif int(float(player.dpm2)) >=1100:
+        dpm2 = "#5de791"
+    elif int(float(player.dpm2)) <750:
+        dpm2= "#bf868f"
+
+
+    latitle= tk.Label(right_frame_top, text=f"\nKD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
+    latitle.pack(pady=0)
+    la= tk.Label(right_frame_top, text=f"{player.kd1}\n",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
+    la.pack(pady=0)
+    la2title= tk.Label(right_frame_top, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    la2title.pack(pady=0)
+    la2= tk.Label(right_frame_top, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
+    la2.pack(pady=0)
+   # tk.Label(right_frame, text="Placeholder 1", font=("Calibri", fonts[4])).pack(pady=5)
+    #tk.Label(right_frame, text="Placeholder 2", font=("Calibri", fonts[4])).pack(pady=5)
+    lbtitle= tk.Label(right_frame_bot, text=f"\nKD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    lbtitle.pack(pady=0)
+    lb = tk.Label(right_frame_bot, text=f"{player.kd2}\n",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
+    lb.pack(pady=0)
+    lb2title= tk.Label(right_frame_bot, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    lb2title.pack(pady=0)
+    lb2= tk.Label(right_frame_bot, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
+    lb2.pack(pady=0)
+    #tk.Label(right_frame, text="Placeholder 3", font=("Calibri", fonts[4])).pack(pady=5)
+    #tk.Label(right_frame, text="Placeholder 4", font=("Calibri", fonts[4])).pack(pady=5)
+    
+    
+
+    return outer
+
+def show_gui(players):
+    global indicator_label
+    root = tk.Tk()
+    root.title("Match Overview")
+    width = len(players) * 300
+    screen_width = root.winfo_screenwidth()
+    x = (screen_width - width) // 2
+    y = 0
+    root.geometry(f"{width}x400+{x}+{y}")
+
+    root.configure(bg="black")
+    root.overrideredirect(True)
+    root.attributes("-topmost", True)  # Always on top
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    assets_folder = os.path.join(script_dir, "assets")
+
+    image_map = {}
+    for filename in os.listdir(assets_folder):
+        if filename.lower().endswith(".png"):
+            key = os.path.splitext(filename)[0]
+            path = os.path.join(assets_folder, filename)
+            image_map[key] = Image.open(path)  # Store PIL images instead
+
+    title_bar = tk.Frame(root, bg="#141420", relief="groove", height=30)
+    title_bar.pack(fill="x", side="top")
+    title_bar.pack_propagate(False)
+    
+    close_btn = tk.Button(title_bar, command=lambda: close(root,script_dir),text="X", width=2,height=1,fg="white", relief="flat",bg="#141420", font=("Lucida Console", fonts[16]), cursor="hand2")
+    close_btn.pack(side="right", padx=0)
+    hide_btn = tk.Button(title_bar, command=lambda: toggle_transparency(root,hide_btn),text="Hide", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[14]), cursor="hand2")
+    hide_btn.pack(side="right", padx=10)
+    indicator_label = tk.Label(title_bar, text="", fg="white", bg="#141420", font=("Arial", fonts[12]))
+    indicator_label.pack(side="left")
+
+    close_btn.bind("<Enter>", lambda e: close_btn.config(bg="#d41c1c"))
+    close_btn.bind("<Leave>", lambda e: close_btn.config(bg="#141420"))
+    
+    
+    for player in players:
+        create_player_frame(root, player, image_map)
+
+    root.update_idletasks()
+    global hwnd
+    hwnd = win32gui.FindWindow(None, root.title())
+    #make_clickthrough()
+
+    root.mainloop()
+def toggle_transparency(root,btn):
+    if hasattr(root, "_is_transparent") and root._is_transparent:
+        # Restore to opaque
+        btn.config(text="Hide")
+        root.attributes("-alpha", 1.0)
+        root._is_transparent = False
+    else:
+        # Set to transparent
+        btn.config(text="Show")
+        root.attributes("-alpha", 0.25)  # You can adjust this value (0.0 to 1.0)
+        root._is_transparent = True
+
+
+    
+
+def close(root,script_dir):
+    debug_path = os.path.join(script_dir, "debug")
+    debug_img = os.path.join(debug_path, "Last Banner.png")
+    root.update()  # Make sure geometry info is up-to-date
+    x = root.winfo_rootx()
+    y = root.winfo_rooty()
+    w = x + root.winfo_width()
+    h = y + root.winfo_height()
+
+    # Capture region and save
+    img = ImageGrab.grab(bbox=(x, y, w, h))
+    img.save(debug_img)
+    print(f"Saved screenshot to {debug_img}")
+    root.destroy()
+    
+    #main3()
+
+def close2(root):
+    root.destroy()
+    #sys.exit(0)
+
+def show_launcher(on_trigger,on_match):
+    global bhidden, bdebug_menu, indicator_label,main, var2, trigger2_func,root,cb1,cb2,cb3
+    global fonts
+    
+    font_scale = 1
+    print(config.mobile_mode)
+    if config.mobile_mode:
+        font_scale = 3.5
+        print(font_scale)
+    font_sizes = list(range(6, 70))
+    fonts = {size: scale_font(font_scale, size) for size in font_sizes}
+    bhidden = False
+    bdebug_menu = False
+    root = tk.Tk()
+    root.title("Capture Names")
+    screen_width = root.winfo_screenwidth()
+    x = (screen_width // 2)-50
+    y = 0
+    root.geometry(f"+{x}+{y}")
+    root.attributes("-topmost", True)
+    root.configure(bg="#151426")
+    root.overrideredirect(True)
+    title_bar2 = tk.Frame(root, bg="#141420", relief="solid", width=250,height=17)
+    title_bar2.pack(fill="x", side="top",ipady=3)
+    title_bar2.pack_propagate(False)
+    main = tk.Frame(root, bg="#151426", relief="solid", height=30, width=250)
+    main.pack(fill="x", padx=10,pady=5, side="bottom")
+    deb = tk.Frame(root, bg="#151426", relief="solid", height=30, width=250)
+    lef = tk.Frame(deb, bg="#151426", relief="solid", height=30, width=125)
+    rig = tk.Frame(deb, bg="#151426", relief="solid", height=30, width=125)
+    lef.pack(fill="x", padx=0,pady=0, side="left")
+    rig.pack(fill="x", padx=0,pady=0, side="right")
+    var1 = tk.BooleanVar()
+    var2 = tk.BooleanVar()
+    var3 = tk.BooleanVar()
+    var4 = tk.BooleanVar()
+    global global_random_ban, global_random_matchup, global_dex, global_debugmode, global_debugflag
+    global_debugmode = config.debug_mode
+    var1.set(global_random_ban)
+    var2.set(global_random_matchup)
+    var3.set(global_dex)
+    var4.set(global_debugmode)
+    # Variables to hold checkbox states
+    
+    #if config.randomize_ban:
+        #var1.set(True)
+    #f config.randomize_matchup:
+        #var2.set(True)
+
+    # Create checkboxes on the 'deb' frame
+    frame = lef
+    global_debugflag = False
+    if config.debug_mode:
+        frame = rig
+        cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
+        cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+        cb1.pack(anchor="w",padx=0)
+        cb2.pack(anchor="w",padx=0)
+        global_debugflag = True
+
+    
+    cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+    cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug Mode", variable=var4,font=("Calibri", fonts[10]))
+    #cb3 = tk.Checkbutton(deb, text="Option 3", variable=var3)
+
+    # Pack them onto the frame
+    
+    cb3.pack(anchor="w",padx=0)
+    cb4.pack(anchor="w",padx=0)
+    #cb3.pack(anchor="w")
+    def toggle_hide():
+        global bhidden
+        bhidden = not bhidden
+        if bhidden:
+            main.pack_forget()
+            
+            
+        else:
+            main.pack(fill="x", padx=10,pady=5, side="bottom")
+        root.update_idletasks()
+        root.geometry("")
+    def toggle_debug():
+        import config
+        global bdebug_menu,global_random_matchup,global_random_ban,global_dex,global_debugmode,global_debugflag,cb1,cb2,cb3
+        bdebug_menu = not bdebug_menu
+
+        if bdebug_menu:
+
+            main.pack_forget()
+            debug.config(text="Back")
+            
+            global_dex = var3.get()
+            config.dex = global_dex
+            global_debugmode = var4.get()
+            config.debug_mode = global_debugmode
+            if config.debug_mode:
+                if not global_debugflag:
+
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb1.pack(anchor="w",padx=0)
+                    cb2.pack(anchor="w",padx=0)
+                    global_debugflag = True
+                    cb3.destroy()
+                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                    cb3.pack(anchor="w",padx=0)
+                global_random_ban = var1.get()
+                global_random_matchup = var2.get()
+                config.randomize_ban = global_random_ban
+                config.randomize_matchup = global_random_matchup
+            elif not config.debug_mode and global_debugflag:
+                cb1.destroy()
+                cb2.destroy()
+                cb3.destroy()
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                cb3.pack(anchor="w",padx=0)
+                global_debugflag = False
+            print(f"Dexerto: {config.dex}")
+            deb.pack(fill="x", padx=0,pady=6, side="bottom")
+            
+        else:
+            global_dex = var3.get()
+            config.dex = global_dex
+            global_debugmode = var4.get()
+            config.debug_mode = global_debugmode
+            if config.debug_mode:
+                if not global_debugflag:
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Bans", font=("Calibri", fonts[10]),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Randomize Matchups", variable=var2,font=("Calibri", fonts[10]))
+                    cb1.pack(anchor="w",padx=0)
+                    cb2.pack(anchor="w",padx=0)
+                    global_debugflag = True
+                    cb3.destroy()
+                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                    cb3.pack(anchor="w",padx=0)
+                global_random_ban = var1.get()
+                global_random_matchup = var2.get()
+                config.randomize_ban = global_random_ban
+                config.randomize_matchup = global_random_matchup
+            elif not config.debug_mode and global_debugflag:
+                cb1.destroy()
+                cb2.destroy()
+                cb3.destroy()
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                cb3.pack(anchor="w",padx=0)
+                global_debugflag = False
+            print(f"Dexerto: {config.dex}")
+            deb.pack_forget()
+            debug.config(text="Debug")
+            main.pack(fill="x", padx=10,pady=5, side="bottom")
+
+    close_btn2 = tk.Button(title_bar2, command=lambda: close2(root),text="X", width=2,height=1,fg="white", relief="flat",bg="#141420", font=("Lucida Console", fonts[11]), cursor="hand2")
+    close_btn2.pack(side="right", padx=0)
+    hide_btn2 = tk.Button(title_bar2, command=toggle_hide,text="Hide", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[10]), cursor="hand2")
+    hide_btn2.pack(side="right", padx=10)
+    
+    if config.debug_mode or config.debug_menu:
+        debug = tk.Button(title_bar2, command=toggle_debug,text="Debug", relief="flat",fg="#FCD92E", bg="#141420", font=("Lucida Console", fonts[10]), cursor="hand2")
+        debug.pack(side="right", padx=10)
+    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#141420", font=("Arial", fonts[12]))
+    indicator_label.pack(side="left")
+    close_btn2.bind("<Enter>", lambda e: close_btn2.config(bg="#d41c1c"))
+    close_btn2.bind("<Leave>", lambda e: close_btn2.config(bg="#141420"))
+
+    hide_btn2.bind("<Enter>", lambda e: hide_btn2.config(bg="#31314D"))
+    hide_btn2.bind("<Leave>", lambda e: hide_btn2.config(bg="#141420"))
+
+
+    button = tk.Button(main,text="Profiles", height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger(var1.get()), cursor="hand2")
+    button.pack(side="left",padx=15)
+    button.bind("<Enter>", lambda e: button.config(bg="#A18D25"))
+    button.bind("<Leave>", lambda e: button.config(bg="#FCD92E"))
+    button1 = tk.Button(main,text="Matchups",height=1, relief="flat", bg="#FCD92E",font=("Calibri", fonts[12], "bold"),command=lambda: trigger22(var2.get()), cursor="hand2")
+    button1.pack(side="right",padx=15)
+    button1.bind("<Enter>", lambda e: button1.config(bg="#A18D25"))
+    button1.bind("<Leave>", lambda e: button1.config(bg="#FCD92E"))
+
+    after_id = None  # Store enforce loop
+    
+
+
+    # def force_focus():
+    #     try:
+    #         root.lift()
+    #         root.focus_force()
+    #         root.attributes('-topmost', True)
+    #     except:
+    #         pass
+    #     nonlocal after_id
+    #     after_id = root.after(1000, force_focus)
+
+    def trigger(flag):
+        if flag:
+            config.randomize_ban = True
+        if after_id:
+            root.after_cancel(after_id)
+        root.destroy()
+        on_trigger()
+    def trigger2(flag):
+        if flag:
+            config.randomize_matchup = True
+        if after_id:
+            root.after_cancel(after_id)
+        #root.destroy()
+        on_match()
+    def trigger22(flag):
+        if flag:
+            config.randomize_matchup = True
+        if after_id:
+            root.after_cancel(after_id)
+        root.destroy()
+        on_match()
+    root.update_idletasks()
+    global hwnd
+    hwnd = win32gui.FindWindow(None, root.title())
+    #make_clickthrough()
+    trigger2_func = trigger2
+
+    root.mainloop()
+
+keyboard.add_hotkey('f2', toggle_clickthrough)
+
+keyboard.add_hotkey('f10', handle_f10)
