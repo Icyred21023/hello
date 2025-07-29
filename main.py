@@ -46,9 +46,8 @@ def on_f8_pressed():
 
     print("\n🔎 Tracker.gg Profile URLs:")
     players = []
-    if not config.debug_mode:
+    if not config.debug_mode or config.dex:
         all_data = open_multiple_tracker_profiles(names)
-        
     for name in names:
         data = all_data[name]
         if "errors" in data:

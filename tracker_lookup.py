@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import json
+import os
 
 def safe_del(self):
     try:
@@ -17,6 +18,9 @@ def open_multiple_tracker_profiles(player_names):
     season = "6"
     options = uc.ChromeOptions()
     # options.add_argument("--headless=new")  # Optional
+    profile_path = os.path.join(os.environ["TEMP"], "selenium_admin_profile")
+    os.makedirs(profile_path, exist_ok=True)
+    options.add_argument(f"--user-data-dir={profile_path}")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
