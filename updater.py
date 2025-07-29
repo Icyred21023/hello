@@ -8,8 +8,8 @@ import sys
 import time
 
 VERSION_FILE = "version.txt"
-REMOTE_VERSION_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/version.txt"
-REMOTE_ZIP_URL = "https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest/download/latest.zip"
+REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Icyred21023/hello/main/version.txt"
+REMOTE_ZIP_URL = "https://github.com/Icyred21023/hello/archive/refs/heads/main.zip"
 
 def get_current_version():
     if not os.path.exists(VERSION_FILE):
@@ -29,15 +29,30 @@ def get_latest_version():
 def download_and_extract_zip(zip_url, extract_to):
     print("Downloading update...")
     local_zip = "update_temp.zip"
+
+    response = requests.get(zip_url, stream=True)
+    response.raise_for_status()
+
+    # Check content type to ensure it's actually a zip
+    if "zip" not in response.headers.get("Content-Type", ""):
+        print("Error: Downloaded file is not a zip archive.")
+        print("Content-Type:", response.headers.get("Content-Type"))
+        return
+
     with open(local_zip, "wb") as f:
-        f.write(requests.get(zip_url).content)
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
+
     with zipfile.ZipFile(local_zip, 'r') as zip_ref:
         zip_ref.extractall(extract_to)
+
     os.remove(local_zip)
 
 def backup_current_dir(version):
     print("Creating backup...")
-    backup_path = os.path.join("update_backup", version)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    backup_path = os.path.join(script_dir,"update_backup", version)
     os.makedirs(backup_path, exist_ok=True)
 
     for item in os.listdir("."):
