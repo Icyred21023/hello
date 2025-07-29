@@ -13,6 +13,7 @@ import os
 import tkinter as tk
 import config
 import random
+import updater
 from collections import Counter
 
 
@@ -141,6 +142,7 @@ def on_matchup():
 
 
 if __name__ == "__main__":
+    updater.check_for_update()
     config.debug_menu = True
     config.debug_mode = False
     config.dex = False
