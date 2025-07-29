@@ -28,7 +28,8 @@ def get_latest_version():
 
 def download_and_extract_zip(zip_url, extract_to):
     print("Downloading update...")
-    local_zip = "update_temp.zip"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    local_zip = os.path.join(script_dir, "update_temp.zip")
 
     response = requests.get(zip_url, stream=True)
     response.raise_for_status()
@@ -55,12 +56,20 @@ def backup_current_dir(version):
     backup_path = os.path.join(script_dir,"update_backup", version)
     os.makedirs(backup_path, exist_ok=True)
 
+    def ignore_dirs(dir, contents):
+        # prevent recursion into backup or temp folders
+        return {"update_backup", "update_temp", "__pycache__", "debug"} & set(contents)
+
     for item in os.listdir("."):
-        if item in ("update_backup", "__pycache__", "debug", "update_temp"): continue
-        if os.path.isdir(item):
-            shutil.copytree(item, os.path.join(backup_path, item))
+        if item in ("update_backup", "__pycache__", "debug", "update_temp"):
+            continue
+        src = os.path.join(".", item)
+        dst = os.path.join(backup_path, item)
+        if os.path.isdir(src):
+            shutil.copytree(src, dst, ignore=ignore_dirs)
         else:
-            shutil.copy2(item, os.path.join(backup_path, item))
+            shutil.copy2(src, dst)
+
 
 def apply_update(from_path):
     print("Applying update...")
@@ -88,7 +97,8 @@ def check_for_update(auto_accept=False):
             download_and_extract_zip(REMOTE_ZIP_URL, "update_temp")
             apply_update("update_temp")
             shutil.rmtree("update_temp")
-
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            VERSION_FILE = os.path.join(script_dir, "version.txt")
             with open(VERSION_FILE, "w") as f:
                 f.write(latest)
 
