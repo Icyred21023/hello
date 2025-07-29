@@ -5,6 +5,34 @@ from selenium.webdriver.common.by import By
 import time
 import json
 import os
+import subprocess
+import psutil
+
+def kill_selenium_chrome():
+    killed = 0
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            if proc.info['name'].lower() == 'chrome.exe':
+                cmdline = ' '.join(proc.info['cmdline'])
+                if '--user-data-dir' in cmdline and 'selenium' in cmdline.lower():
+                    print(f"Killing Selenium Chrome PID {proc.pid}")
+                    proc.kill()
+                    killed += 1
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    if killed == 0:
+        print("No Selenium Chrome processes found.")
+    else:
+        print(f"✔ Killed {killed} Selenium Chrome processes.")
+
+def kill_zombies():
+    try:
+        subprocess.run("taskkill /f /im chromedriver.exe", check=False)
+        #subprocess.run("taskkill /f /im chrome.exe", check=False)
+    except Exception as e:
+        print("Warning: couldn't kill Chrome processes", e)
+
+
 
 def safe_del(self):
     try:
@@ -15,6 +43,7 @@ def safe_del(self):
 uc.Chrome.__del__ = safe_del
 
 def open_multiple_tracker_profiles(player_names):
+    kill_selenium_chrome()
     season = "6"
     options = uc.ChromeOptions()
     # options.add_argument("--headless=new")  # Optional
@@ -54,5 +83,5 @@ def open_multiple_tracker_profiles(player_names):
             driver.quit()
         except Exception:
             pass
-
+    kill_selenium_chrome()
     return results

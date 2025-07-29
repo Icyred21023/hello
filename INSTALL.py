@@ -8,7 +8,8 @@ def install_packages():
         "easyocr",
         "numpy",
         "undetected-chromedriver",
-        "selenium"
+        "selenium",
+        "psutil"
     ]
     for package in packages:
         print(f"Installing {package}...")
