@@ -1184,7 +1184,7 @@ def show_launcher(on_trigger,on_match):
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
                     cb3.destroy()
-                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
                     cb3.pack(anchor="w",padx=0)
                 global_random_ban = var1.get()
                 global_random_matchup = var2.get()
@@ -1194,7 +1194,7 @@ def show_launcher(on_trigger,on_match):
                 cb1.destroy()
                 cb2.destroy()
                 cb3.destroy()
-                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
                 cb3.pack(anchor="w",padx=0)
                 global_debugflag = False
             print(f"Dexerto: {config.dex}")
@@ -1223,7 +1223,7 @@ def show_launcher(on_trigger,on_match):
                 cb1.destroy()
                 cb2.destroy()
                 cb3.destroy()
-                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
                 cb3.pack(anchor="w",padx=0)
                 global_debugflag = False
             print(f"Dexerto: {config.dex}")
