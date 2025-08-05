@@ -91,6 +91,12 @@ def make_interactive():
     win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
     print("Click-through DISABLED")
 
+def widget_exists(widget):
+    try:
+        return bool(widget.winfo_exists())
+    except:
+        return False
+
 def toggle_clickthrough():
     global is_clickthrough, indicator_label, lock
     if is_clickthrough:
@@ -99,10 +105,12 @@ def toggle_clickthrough():
             indicator_label.config(text="")
             indicator_label.update_idletasks()
             indicator_label.update()
-        if lock:
+        if widget_exists(lock):
+            
+        
             current = lock.cget("text")
 
-            print(current)
+            
             lock.config(text="Unlock(F6)" if current == "Lock(F6)" else "Lock(F6)")
     else:
         make_clickthrough()
@@ -110,10 +118,11 @@ def toggle_clickthrough():
             indicator_label.config(text="🔒", fg="red")
             indicator_label.update_idletasks()
             indicator_label.update()
-        if lock:
+        if widget_exists(lock):
+            
             current = lock.cget("text")
 
-            print(current)
+            
             lock.config(text="Unlock(F6)" if current == "Lock(F6)" else "Lock(F6)")
             
     is_clickthrough = not is_clickthrough
