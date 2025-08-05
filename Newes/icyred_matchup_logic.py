@@ -5,7 +5,6 @@ import random
 from collections import defaultdict
 from matchups4 import load_characters
 
-
 class Suggestion:
     def __init__(self, data):
         self.original = data["original"]
@@ -13,7 +12,7 @@ class Suggestion:
         self.orig_score = data["orig_score"]
         self.new_score = data["new_score"]
         self.priority = None
-        self.alt_score = None  # optional third comparison score
+        self.alt_score = 0  # optional third comparison score
 
 class TeamMember:
     def __init__(self, character, suggestion=None, alt_suggestion=None):
@@ -55,12 +54,7 @@ CATEGORY_ADVANTAGE = {
     "Poke": "Brawl",
     "Brawl": "Dive"
 }
-def save_json(path,data):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(script_dir, "debug", path)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-        
+
 def print_team_result_details(team_result):
     print("=== TeamResult ===")
     print(f"Original Score: {team_result.original_score}")
@@ -212,7 +206,7 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
         unused_team = team1
         team1 = suggestions_blueteam
 
-    def calc_multiplie4r(blue_val, red_val, min_gap=10, max_gap=100, max_scale=2):
+    def calc_multiplier4(blue_val, red_val, min_gap=10, max_gap=100, max_scale=2):
         
         #Returns a multiplier that starts scaling after red_val exceeds blue_val by min_gap,
         #and reaches max_scale at max_gap difference.
@@ -223,21 +217,22 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
         scale_range = max_gap - min_gap
         scaled_diff = diff - min_gap
         return min((scaled_diff / scale_range) * max_scale, max_scale)
-
-    def calc_multiplier4(blue_stat, red_stat):
-        if red_stat == 0:
+        
+    def calc_multiplier(blue_stat, red_stat):
+       
+        if blue_stat == 0:
             return 0
-        return round((blue_stat / red_stat), 2)
+        ratio = red_stat / blue_stat
+        multiplier = 1 + ((ratio - 1) * 2)  # baseline 1
+        return round(multiplier, 2)
 
     
 
 
-    def calc_multiplier(blue_stat, red_stat):
+    def calc_multiplier3(blue_stat, red_stat):
         diff = red_stat - blue_stat
-        div = red_stat / blue_stat
-
-        return round(div, 2)
-        return round(1 + (diff ) / (0.1*blue_stat),2)  # Linear scale: 10→1, 100→2
+     
+        return round(1 + (diff ) / 90,2)  # Linear scale: 10→1, 100→2
 
     base_weights = {"dps": 0.15, "hps": 0.15, "health": 0.15}
     multipliers = {
@@ -333,7 +328,7 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
         def stat_score(val, avg):
             if val == 0:
                 return 0
-            return round(max(-3, min(3, (2*(val - avg)) / avg)), 1)
+            return round(max(-3, min(3, (val - avg) / avg)), 1)
         if role == "Strategist":
             print()
 
@@ -341,16 +336,16 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
         hps_avg = round(role_avg_team1[role]["hps"],2) if role == "Strategist" else 0
         hp_avg  = round(role_avg_team1[role]["health"],2) if role != "Strategist" else hp
 
-        dps_score = stat_score(dps, dps_avg) if role == "Duelist" or role == "Vanguard" else stat_score(dps, dps_avg) * 1
+        dps_score = stat_score(dps, dps_avg) if role == "Duelist" or role == "Vanguard" else stat_score(dps, dps_avg) * 0.25
         hps_score = stat_score(hps, hps_avg)
-        hp_score  = stat_score(hp, hp_avg) if role == "Vanguard" else stat_score(hp, hp_avg) * 1
+        hp_score  = stat_score(hp, hp_avg) if role == "Vanguard" else stat_score(hp, hp_avg) * 0.5
         cat = cat_pos - cat_neg
         totalScore = (
     (counted * 1) +
-    (cat * 0.15) +
-    (dps_score * multipliers["dps"] * 0.3) +
-    (hps_score * multipliers["hps"]*0.3) +
-    (hp_score  * multipliers["health"]*0.3)
+    (cat * 0.3) +
+    (dps_score * multipliers["dps"]) +
+    (hps_score * multipliers["hps"]) +
+    (hp_score  * multipliers["health"])
 )
         
         totalScore = round(totalScore, 1)
@@ -463,6 +458,7 @@ def create_class_objects_1(data,new,replacements):
     scores["Blue"] = {"original": round(blue_original_score,1), "new": round(blue_new_score,1)}
     scores["Red"] = {"original": round(red_original_score,1), "new": round(red_new_score,1)}
     blue_result, red_result = build_result(blue_members, red_members, scores)
+    #print_team_result_details(red_result)
     return blue_result, red_result
     # members = []
     # for member in blue_orig:
@@ -626,7 +622,6 @@ def combine_stats(one,two):
     return tots
 def run_counter_logic(blue, red, replacements=None):
     score_dict = homemade_scoring(red, blue, True)
-    save_json("Score_Dict1.json", score_dict)
     score_dict, duelist, vanguard, strategist = sort_end_results(score_dict)
     replacements = find_replacements(score_dict, duelist, vanguard, strategist, blue)
     new_dict,new_red, new_blue = combine_dicts(score_dict,replacements)

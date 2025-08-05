@@ -1,7 +1,7 @@
-from admin_utils import elevate_if_needed
+#from admin_utils import elevate_if_needed
 
-elevate_if_needed()
-from ocr_capture import capture_names
+#elevate_if_needed()
+#from ocr_capture import capture_names
 from tracker_lookup import open_multiple_tracker_profiles
 from player import Player
 import gui
@@ -159,8 +159,8 @@ def on_matchup():
 
 if __name__ == "__main__":
     updater.check_for_update()
-    config.debug_menu = True
-    config.debug_mode = False
+    config.debug_menu = False
+    config.debug_mode = True
     config.dex = False
     config.mobile_mode = False
     script_dir = os.path.dirname(os.path.abspath(__file__))

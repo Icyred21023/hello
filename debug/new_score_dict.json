@@ -1,0 +1,735 @@
+{
+    "Totals": {
+        "BlueTeam": {
+            "teamTotalScore": 10.0,
+            "counters_score": 9,
+            "category_score": 9,
+            "dps_total": 723,
+            "hps_total": 164,
+            "health_total": 2465,
+            "team_list": [
+                "Mantis",
+                "Cloak & Dagger",
+                "The Punisher",
+                "Venom",
+                "Iron Man",
+                "Magneto"
+            ],
+            "multipliers": {
+                "dps": 0.86,
+                "hps": 0.91,
+                "health": 0.96
+            }
+        },
+        "RedTeam": {
+            "teamTotalScore": -10.6,
+            "counters_score": -9,
+            "category_score": -9,
+            "dps_total": 621,
+            "hps_total": 150,
+            "health_total": 2375,
+            "team_list": [
+                "Winter Soldier",
+                "Thor",
+                "Black Panther",
+                "Doctor Strange",
+                "Loki",
+                "Mantis"
+            ],
+            "multipliers": {
+                "dps": 1.16,
+                "hps": 1.09,
+                "health": 1.04
+            }
+        }
+    },
+    "Blue": {
+        "Mantis": {
+            "totalScore": 1.3,
+            "total_counter_score": 1,
+            "total_category_score": 2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 125,
+            "hps": 80,
+            "health": 250,
+            "dps_score": 0.1,
+            "hps_score": -0.0,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": -0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 120.5,
+            "hps_role_avg": 82.0,
+            "health_role_avg": 250,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Cloak & Dagger": {
+            "totalScore": 1.0,
+            "total_counter_score": 1,
+            "total_category_score": 2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 55,
+            "hps": 84,
+            "health": 250,
+            "dps_score": -1.1,
+            "hps_score": 0.0,
+            "health_score": 0.0,
+            "dps_weighted": -0.9,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 120.5,
+            "hps_role_avg": 82.0,
+            "health_role_avg": 250,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "The Punisher": {
+            "totalScore": 3.4,
+            "total_counter_score": 3,
+            "total_category_score": 2,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 205,
+            "hps": 0,
+            "health": 300,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.2,
+            "dps_weighted": 0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.2,
+            "dps_role_avg": 176.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 275.0,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Venom": {
+            "totalScore": 0.6,
+            "total_counter_score": 1,
+            "total_category_score": -3,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "dps": 90,
+            "hps": 0,
+            "health": 765,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": 0.2,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.2,
+            "dps_role_avg": 95.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 707.5,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Iron Man": {
+            "totalScore": 3.3,
+            "total_counter_score": 3,
+            "total_category_score": 3,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 148,
+            "hps": 0,
+            "health": 250,
+            "dps_score": -0.3,
+            "hps_score": 0,
+            "health_score": -0.2,
+            "dps_weighted": -0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.2,
+            "dps_role_avg": 176.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 275.0,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Magneto": {
+            "totalScore": 0.4,
+            "total_counter_score": 0,
+            "total_category_score": 3,
+            "role": "Vanguard",
+            "category": "Poke",
+            "dps": 100,
+            "hps": 0,
+            "health": 650,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": -0.2,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.2,
+            "dps_role_avg": 95.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 707.5,
+            "red_matchup": {
+                "Winter Soldier": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Black Panther": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        }
+    },
+    "Red": {
+        "Winter Soldier": {
+            "totalScore": 0.1,
+            "total_counter_score": 0,
+            "total_category_score": -1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 188,
+            "hps": 0,
+            "health": 275,
+            "dps_score": 0.7,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": 0.8,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 139.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 287.5,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Thor": {
+            "totalScore": -3.6,
+            "total_counter_score": -3,
+            "total_category_score": -3,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "dps": 75,
+            "hps": 0,
+            "health": 600,
+            "dps_score": -0.2,
+            "hps_score": 0,
+            "health_score": -0.2,
+            "dps_weighted": -0.2,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.2,
+            "dps_role_avg": 82.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 650.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Black Panther": {
+            "totalScore": -2.1,
+            "total_counter_score": -2,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Dive",
+            "dps": 90,
+            "hps": 0,
+            "health": 300,
+            "dps_score": -0.7,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": -0.8,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 139.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 287.5,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Doctor Strange": {
+            "totalScore": -0.5,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 90,
+            "hps": 0,
+            "health": 700,
+            "dps_score": 0.2,
+            "hps_score": 0,
+            "health_score": 0.2,
+            "dps_weighted": 0.2,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.2,
+            "dps_role_avg": 82.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 650.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Loki": {
+            "totalScore": -2.5,
+            "total_counter_score": -2,
+            "total_category_score": -1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 53,
+            "hps": 70,
+            "health": 250,
+            "dps_score": -1.0,
+            "hps_score": -0.1,
+            "health_score": 0.0,
+            "dps_weighted": -1.2,
+            "hps_weighted": -0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 103.5,
+            "hps_role_avg": 75.0,
+            "health_role_avg": 250,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Mantis": {
+            "totalScore": -2.0,
+            "total_counter_score": -2,
+            "total_category_score": -1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 125,
+            "hps": 80,
+            "health": 250,
+            "dps_score": 0.4,
+            "hps_score": 0.1,
+            "health_score": 0.0,
+            "dps_weighted": 0.5,
+            "hps_weighted": 0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 103.5,
+            "hps_role_avg": 75.0,
+            "health_role_avg": 250,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Venom": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Magneto": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Poke"
+                }
+            }
+        }
+    },
+    "Suggestions": {}
+}

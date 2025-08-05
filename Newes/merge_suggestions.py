@@ -1,6 +1,5 @@
 from matchups4 import TeamResult, TeamMember, Suggestion
 import copy
-import config
 
 def add_alt_suggestions(base_result: TeamResult, secondary_result: TeamResult,red_result: TeamResult) -> TeamResult:
     # Add alt suggestions to each blue member
@@ -24,10 +23,8 @@ def add_alt_suggestions(base_result: TeamResult, secondary_result: TeamResult,re
             continue
 
         red_char_copy = copy.deepcopy(red_member.character)
-        if config.dex:
-            print("Using Classic Matchup Logic - merge_suggestions.py")
-            red_char_copy.evaluate_vs_team(alt_blue_team)
-            red_member.suggestion.alt_score = red_char_copy.matchup_score
-            red_member.suggestion.priority = red_char_copy.matchup_score
+        #red_char_copy.evaluate_vs_team(alt_blue_team)
+        #red_member.suggestion.alt_score = red_char_copy.matchup_score
+        #red_member.suggestion.priority = red_char_copy.matchup_score
 
     return base_result

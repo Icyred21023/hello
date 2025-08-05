@@ -6,13 +6,14 @@ import time
 from main3 import HeroMatch
 import numpy as np
 import config
-import win32gui
-import win32con
-import win32api
-import win32process
-import win32com.client
-import ctypes
-import keyboard
+from icyred_matchup_logic import print_team_result_details
+#import win32gui
+#import win32con
+#import win32api
+#import win32process
+#import win32com.client
+#import ctypes
+#import keyboard
 lock = None
 bhidden = False
 bdebug_menu = False
@@ -22,7 +23,7 @@ hwnd = None
 global_random_matchup = False
 global_random_ban = False
 global_dex = False
-global_debugmode = False
+global_debugmode = True
 global_debugflag = False
 main = None
 var1 = None
@@ -79,16 +80,16 @@ def toggle_lock(lock_button):
         
 def make_clickthrough():
     global hwnd
-    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
-    style |= win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
-    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    #style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    #style |= win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
+    #win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
     print("Click-through ENABLED")
 
 def make_interactive():
     global hwnd
-    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
-    style &= ~win32con.WS_EX_TRANSPARENT
-    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    #style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+    #style &= ~win32con.WS_EX_TRANSPARENT
+    #win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
     print("Click-through DISABLED")
 
 def widget_exists(widget):
@@ -271,6 +272,8 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     red_scores1 = 0
     red_scores2 = 0
     red_scores3 = 0
+    print("GUI Print/n")
+    print_team_result_details(red_result)
     for i in range(1, 7):
         member = getattr(blue_result, str(i))
         s = member.suggestion
@@ -296,7 +299,7 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
         if s and s.original != s.replacement:
             # Draw arrow
             tk.Label(row_orig, text="➡", fg="#08FCEF", bg=dark_blue,
-                     font=("Courier New", fonts[64], "bold")).pack(side="left", padx=(20, 0))
+                     font=("Courier New", fonts[60], "bold")).pack(side="left", padx=(20, 0))
 
                 # === Column 2: Primary Suggestion ===
         s = member.suggestion
@@ -456,7 +459,7 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     def get_color(value, stat_type, thresholds):
         t = thresholds[stat_type]
         avg = t["avg"]
-        tolerance = 0.005 * avg  # 5% of average
+        tolerance = 0.02 * avg  # 5% of average
     
         # First: check if value is within ±5% of avg
         if abs(value - avg) <= tolerance:
@@ -554,10 +557,10 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     create_stat_frames(stat_red,"Red","1",redbg,red_score)
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    #hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
-    win.update_idletasks()
-    hwnd = win32gui.FindWindow(None, win.title())
+    #win.update_idletasks()
+    #hwnd = win32gui.FindWindow(None, win.title())
     #make_clickthrough()
     win.geometry("")
     root.mainloop()
@@ -934,7 +937,7 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     
     win.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, win.title())
+    #hwnd = win32gui.FindWindow(None, win.title())
     
     #make_clickthrough()
     
@@ -1135,7 +1138,7 @@ def show_gui(players):
 
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    #hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
 
     root.mainloop()
@@ -1181,6 +1184,7 @@ def close3(root):
 def show_launcher(on_trigger,on_match):
     global bhidden, bdebug_menu, indicator_label,main, var2, var1, trigger_func,trigger2_func,root,cb1,cb2,cb3
     global fonts
+    import config
     
     font_scale = 1
     print(config.mobile_mode)
@@ -1219,7 +1223,9 @@ def show_launcher(on_trigger,on_match):
     var1.set(global_random_ban)
     var2.set(global_random_matchup)
     var3.set(global_dex)
-    var4.set(global_debugmode)
+    var4.set(config.debug_mode)
+    #config.debug_mode = var4.get()
+    print(f"var4init: {config.debug_mode}")
     # Variables to hold checkbox states
     
     #if config.randomize_ban:
@@ -1239,7 +1245,7 @@ def show_launcher(on_trigger,on_match):
         global_debugflag = True
 
     
-    cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
+    cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Dex Counters", variable=var3,font=("Calibri", fonts[10]))
     cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug", variable=var4,font=("Calibri", fonts[10]))
     #cb3 = tk.Checkbutton(deb, text="Option 3", variable=var3)
 
@@ -1411,6 +1417,9 @@ def show_launcher(on_trigger,on_match):
         #root.destroy()
         on_match()
     def trigger22(flag):
+        import config
+        config.debug_menu =  var4.get()
+        print(f"Debyg: {config.debug_menu}")
         if flag:
             config.randomize_matchup = True
         if after_id:
@@ -1419,7 +1428,7 @@ def show_launcher(on_trigger,on_match):
         on_match()
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    #hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
     trigger2_func = trigger2
     trigger_func = trigger
@@ -1428,12 +1437,12 @@ def show_launcher(on_trigger,on_match):
 
 import threading
 
-def start_hotkey_listener():
-    keyboard.add_hotkey('f6', toggle_clickthrough)
-    keyboard.wait()  # Keeps the listener alive
+#def start_hotkey_listener():
+    #keyboard.add_hotkey('f6', toggle_clickthrough)
+    #keyboard.wait()  # Keeps the listener alive
 
-listener_thread = threading.Thread(target=start_hotkey_listener, daemon=True)
-listener_thread.start()
-keyboard.add_hotkey('f8', handle_f8)
+#listener_thread = threading.Thread(target=start_hotkey_listener, daemon=True)
+#listener_thread.start()
+#keyboard.add_hotkey('f8', handle_f8)
 
-keyboard.add_hotkey('f10', handle_f10)
+#keyboard.add_hotkey('f10', handle_f10)
