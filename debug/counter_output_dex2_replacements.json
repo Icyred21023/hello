@@ -1,0 +1,34 @@
+{
+    "Replacements": {
+        "The Thing": {
+            "original_score": -2.3,
+            "replacement": "Captain America",
+            "replacement_score": 2.7
+        },
+        "Wolverine": {
+            "original_score": -0.8,
+            "replacement": "Iron Man",
+            "replacement_score": 3.6
+        },
+        "The Punisher": {
+            "original_score": 2.9,
+            "replacement": null,
+            "replacement_score": 0
+        },
+        "Thor": {
+            "original_score": -4.1,
+            "replacement": "Bruce Banner",
+            "replacement_score": 0.5
+        },
+        "Luna Snow": {
+            "original_score": 0.3,
+            "replacement": "Loki",
+            "replacement_score": 2.6
+        },
+        "Ultron": {
+            "original_score": 1.1,
+            "replacement": "Adam Warlock",
+            "replacement_score": 1.3
+        }
+    }
+}

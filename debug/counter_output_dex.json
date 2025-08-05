@@ -1,0 +1,264 @@
+{
+    "Blue": {
+        "Iron Man": {
+            "score_total": 3.5,
+            "score_pos": 5.0,
+            "score_neg": 1.5,
+            "countered": 1,
+            "countering": 4.0,
+            "category_pos": 1.0,
+            "category_neg": 0.5,
+            "role": "Duelist",
+            "category": "Poke",
+            "red_matchup": {
+                "Venom": {
+                    "scored": 1.0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": 1.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": 0.75,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": 0.75,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": 0.75,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Mister Fantastic": {
+            "score_total": -1.5,
+            "score_pos": 0.5,
+            "score_neg": 2.0,
+            "countered": 1,
+            "countering": 0,
+            "category_pos": 0.5,
+            "category_neg": 1.0,
+            "role": "Duelist",
+            "category": "Brawl",
+            "red_matchup": {
+                "Venom": {
+                    "scored": 0.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": -0.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": -1.25,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": 0.25,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Doctor Strange": {
+            "score_total": -0.5,
+            "score_pos": 2.5,
+            "score_neg": 3.0,
+            "countered": 2,
+            "countering": 2,
+            "category_pos": 0.5,
+            "category_neg": 1.0,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "red_matchup": {
+                "Venom": {
+                    "scored": -0.75,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": 0.75,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": 0.75,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": -0.75,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Thor": {
+            "score_total": -1.5,
+            "score_pos": 1.5,
+            "score_neg": 3.0,
+            "countered": 1,
+            "countering": 0,
+            "category_pos": 1.5,
+            "category_neg": 2.0,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "red_matchup": {
+                "Venom": {
+                    "scored": 0.0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": -1.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": 0.0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": 0.25,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": -0.25,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Mantis": {
+            "score_total": 0.0,
+            "score_pos": 1.5,
+            "score_neg": 1.5,
+            "countered": 0,
+            "countering": 0,
+            "category_pos": 1.5,
+            "category_neg": 1.5,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "red_matchup": {
+                "Venom": {
+                    "scored": 0.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": 0.0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": -0.25,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": 0.0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": 0.0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": 0.0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        },
+        "Loki": {
+            "score_total": 3.0,
+            "score_pos": 4.5,
+            "score_neg": 1.5,
+            "countered": 0,
+            "countering": 3,
+            "category_pos": 1.5,
+            "category_neg": 1.5,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "red_matchup": {
+                "Venom": {
+                    "scored": 0.25,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Peni Parker": {
+                    "scored": 1.0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Hawkeye": {
+                    "scored": -0.25,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Black Panther": {
+                    "scored": 1.0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive"
+                },
+                "Luna Snow": {
+                    "scored": 1.0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Loki": {
+                    "scored": 0.0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                }
+            }
+        }
+    },
+    "Red": {},
+    "Suggestions": {}
+}

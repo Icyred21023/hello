@@ -1,0 +1,2674 @@
+{
+    "Totals": {
+        "BlueTeam": {
+            "teamTotalScore": -2.9,
+            "counters_score": -1,
+            "category_score": -6,
+            "dps_total": 565,
+            "hps_total": 170,
+            "health_total": 2290,
+            "team_list": [
+                "The Thing",
+                "Wolverine",
+                "The Punisher",
+                "Thor",
+                "Luna Snow",
+                "Ultron"
+            ],
+            "multipliers": {
+                "dps": 1.28,
+                "hps": 0.67,
+                "health": 0.78
+            }
+        },
+        "RedTeam": {
+            "teamTotalScore": 2.7,
+            "counters_score": 1,
+            "category_score": 6,
+            "dps_total": 590,
+            "hps_total": 140,
+            "health_total": 2270,
+            "team_list": [
+                "Mantis",
+                "Peni Parker",
+                "Doctor Strange",
+                "Squirrel Girl",
+                "Luna Snow",
+                "Wolverine"
+            ],
+            "multipliers": {
+                "dps": 0.72,
+                "hps": 1.33,
+                "health": 1.22
+            }
+        }
+    },
+    "Blue": {
+        "The Thing": {
+            "totalScore": -2.3,
+            "total_counter_score": -1,
+            "total_category_score": -4,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "dps": 75,
+            "hps": 0,
+            "health": 685,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Wolverine": {
+            "totalScore": -0.8,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 165,
+            "hps": 0,
+            "health": 260,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "The Punisher": {
+            "totalScore": 2.9,
+            "total_counter_score": 3,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 95,
+            "hps": 0,
+            "health": 210,
+            "dps_score": -0.3,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": -0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Thor": {
+            "totalScore": -4.1,
+            "total_counter_score": -3,
+            "total_category_score": -4,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "dps": 85,
+            "hps": 0,
+            "health": 705,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Luna Snow": {
+            "totalScore": 0.3,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 100,
+            "hps": 75,
+            "health": 230,
+            "dps_score": 0.025,
+            "hps_score": -0.1,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": -0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 230,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Ultron": {
+            "totalScore": 1.1,
+            "total_counter_score": 0,
+            "total_category_score": 4,
+            "role": "Strategist",
+            "category": "Poke",
+            "dps": 45,
+            "hps": 95,
+            "health": 200,
+            "dps_score": -0.125,
+            "hps_score": 0.1,
+            "health_score": 0.0,
+            "dps_weighted": -0.2,
+            "hps_weighted": 0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 200,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        }
+    },
+    "Red": {
+        "Mantis": {
+            "totalScore": 0.4,
+            "total_counter_score": 0,
+            "total_category_score": 2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 55,
+            "hps": 65,
+            "health": 225,
+            "dps_score": -0.1,
+            "hps_score": -0.1,
+            "health_score": 0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": -0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 98.33,
+            "hps_role_avg": 70.0,
+            "health_role_avg": 225,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Peni Parker": {
+            "totalScore": 1.5,
+            "total_counter_score": 1,
+            "total_category_score": 2,
+            "role": "Vanguard",
+            "category": "Brawl / Poke",
+            "dps": 65,
+            "hps": 0,
+            "health": 660,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 70.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 662.5,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Doctor Strange": {
+            "totalScore": -0.9,
+            "total_counter_score": -1,
+            "total_category_score": 0,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 75,
+            "hps": 0,
+            "health": 665,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 70.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 662.5,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Squirrel Girl": {
+            "totalScore": 1.5,
+            "total_counter_score": 1,
+            "total_category_score": 2,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 130,
+            "hps": 0,
+            "health": 230,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 147.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 245.0,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Luna Snow": {
+            "totalScore": -0.3,
+            "total_counter_score": -1,
+            "total_category_score": 2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 100,
+            "hps": 75,
+            "health": 230,
+            "dps_score": 0.0,
+            "hps_score": 0.1,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 98.33,
+            "hps_role_avg": 70.0,
+            "health_role_avg": 230,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Wolverine": {
+            "totalScore": 0.5,
+            "total_counter_score": 1,
+            "total_category_score": -2,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 165,
+            "hps": 0,
+            "health": 260,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 147.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 245.0,
+            "red_matchup": {
+                "The Thing": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Thor": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Ultron": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        }
+    },
+    "Suggestions": {
+        "Iron Man": {
+            "totalScore": 3.6,
+            "total_counter_score": 2,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 165,
+            "hps": 0,
+            "health": 255,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Captain America": {
+            "totalScore": 2.7,
+            "total_counter_score": 3,
+            "total_category_score": -1,
+            "role": "Vanguard",
+            "category": "Dive",
+            "dps": 80,
+            "hps": 0,
+            "health": 690,
+            "dps_score": 0.0,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Loki": {
+            "totalScore": 2.6,
+            "total_counter_score": 2,
+            "total_category_score": 1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 115,
+            "hps": 120,
+            "health": 205,
+            "dps_score": 0.05,
+            "hps_score": 0.4,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.3,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 205,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Namor": {
+            "totalScore": 2.4,
+            "total_counter_score": 2,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 140,
+            "hps": 0,
+            "health": 220,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Hawkeye": {
+            "totalScore": 1.5,
+            "total_counter_score": 0,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 160,
+            "hps": 0,
+            "health": 280,
+            "dps_score": 0.2,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": 0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Adam Warlock": {
+            "totalScore": 1.3,
+            "total_counter_score": 0,
+            "total_category_score": 4,
+            "role": "Strategist",
+            "category": "Poke",
+            "dps": 80,
+            "hps": 110,
+            "health": 225,
+            "dps_score": -0.05,
+            "hps_score": 0.3,
+            "health_score": 0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.2,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 225,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Squirrel Girl": {
+            "totalScore": 1.2,
+            "total_counter_score": 0,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 130,
+            "hps": 0,
+            "health": 230,
+            "dps_score": 0.0,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Iron Fist": {
+            "totalScore": 1.1,
+            "total_counter_score": 1,
+            "total_category_score": -1,
+            "role": "Duelist",
+            "category": "Dive",
+            "dps": 165,
+            "hps": 0,
+            "health": 270,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Winter Soldier": {
+            "totalScore": 1.0,
+            "total_counter_score": 1,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 100,
+            "hps": 0,
+            "health": 235,
+            "dps_score": -0.2,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": -0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Storm": {
+            "totalScore": 0.9,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 180,
+            "hps": 0,
+            "health": 285,
+            "dps_score": 0.4,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": 0.5,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Human Torch": {
+            "totalScore": 0.8,
+            "total_counter_score": -1,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 185,
+            "hps": 0,
+            "health": 270,
+            "dps_score": 0.4,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.5,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Cloak & Dagger": {
+            "totalScore": 0.8,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 110,
+            "hps": 135,
+            "health": 240,
+            "dps_score": 0.05,
+            "hps_score": 0.6,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.4,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 240,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Psylocke": {
+            "totalScore": 0.8,
+            "total_counter_score": 2,
+            "total_category_score": -4,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 125,
+            "hps": 0,
+            "health": 250,
+            "dps_score": -0.0,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": -0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Bruce Banner": {
+            "totalScore": 0.5,
+            "total_counter_score": 1,
+            "total_category_score": -1,
+            "role": "Vanguard",
+            "category": "Dive",
+            "dps": 75,
+            "hps": 0,
+            "health": 660,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Moon Knight": {
+            "totalScore": 0.5,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 145,
+            "hps": 0,
+            "health": 285,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Black Panther": {
+            "totalScore": 0.2,
+            "total_counter_score": 0,
+            "total_category_score": -1,
+            "role": "Duelist",
+            "category": "Dive",
+            "dps": 170,
+            "hps": 0,
+            "health": 290,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Groot": {
+            "totalScore": 0.2,
+            "total_counter_score": 1,
+            "total_category_score": -3,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 85,
+            "hps": 0,
+            "health": 655,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Black Widow": {
+            "totalScore": 0.1,
+            "total_counter_score": -1,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 115,
+            "hps": 0,
+            "health": 275,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": 0.1,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Magneto": {
+            "totalScore": 0.1,
+            "total_counter_score": -1,
+            "total_category_score": 4,
+            "role": "Vanguard",
+            "category": "Poke",
+            "dps": 80,
+            "hps": 0,
+            "health": 625,
+            "dps_score": 0.0,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Peni Parker": {
+            "totalScore": -0.0,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Vanguard",
+            "category": "Brawl / Poke",
+            "dps": 65,
+            "hps": 0,
+            "health": 660,
+            "dps_score": -0.2,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": -0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Mantis": {
+            "totalScore": 0.0,
+            "total_counter_score": 0,
+            "total_category_score": 1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 55,
+            "hps": 65,
+            "health": 225,
+            "dps_score": -0.1,
+            "hps_score": -0.2,
+            "health_score": 0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": -0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 225,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Phoenix": {
+            "totalScore": -0.1,
+            "total_counter_score": -1,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 100,
+            "hps": 0,
+            "health": 225,
+            "dps_score": -0.2,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Invisible Woman": {
+            "totalScore": -0.6,
+            "total_counter_score": 0,
+            "total_category_score": -3,
+            "role": "Strategist",
+            "category": "Brawl",
+            "dps": 105,
+            "hps": 115,
+            "health": 205,
+            "dps_score": 0.025,
+            "hps_score": 0.4,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.3,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 205,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Mister Fantastic": {
+            "totalScore": -0.6,
+            "total_counter_score": 0,
+            "total_category_score": -3,
+            "role": "Duelist",
+            "category": "Brawl",
+            "dps": 170,
+            "hps": 0,
+            "health": 220,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Jeff The Land Shark": {
+            "totalScore": -0.8,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Strategist",
+            "category": "Dive / Brawl",
+            "dps": 105,
+            "hps": 125,
+            "health": 255,
+            "dps_score": 0.025,
+            "hps_score": 0.5,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.3,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 255,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Scarlet Witch": {
+            "totalScore": -0.9,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 175,
+            "hps": 0,
+            "health": 210,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Hela": {
+            "totalScore": -1.0,
+            "total_counter_score": -2,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 120,
+            "hps": 0,
+            "health": 210,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Spider-Man": {
+            "totalScore": -1.0,
+            "total_counter_score": -1,
+            "total_category_score": -1,
+            "role": "Duelist",
+            "category": "Dive",
+            "dps": 170,
+            "hps": 0,
+            "health": 205,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Doctor Strange": {
+            "totalScore": -1.0,
+            "total_counter_score": 0,
+            "total_category_score": -3,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 75,
+            "hps": 0,
+            "health": 665,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Emma Frost": {
+            "totalScore": -1.1,
+            "total_counter_score": 0,
+            "total_category_score": -3,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 70,
+            "hps": 0,
+            "health": 635,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.1,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Venom": {
+            "totalScore": -1.2,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Vanguard",
+            "category": "Dive / Brawl",
+            "dps": 80,
+            "hps": 0,
+            "health": 715,
+            "dps_score": 0.0,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 80.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 695.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Rocket Raccoon": {
+            "totalScore": -1.2,
+            "total_counter_score": 0,
+            "total_category_score": -4,
+            "role": "Strategist",
+            "category": "Dive / Brawl",
+            "dps": 70,
+            "hps": 90,
+            "health": 200,
+            "dps_score": -0.075,
+            "hps_score": 0.1,
+            "health_score": 0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.1,
+            "health_weighted": 0.0,
+            "dps_role_avg": 94.17,
+            "hps_role_avg": 85.0,
+            "health_role_avg": 200,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Star-Lord": {
+            "totalScore": -2.4,
+            "total_counter_score": -1,
+            "total_category_score": -4,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 100,
+            "hps": 0,
+            "health": 260,
+            "dps_score": -0.2,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": -0.3,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Magik": {
+            "totalScore": -2.5,
+            "total_counter_score": -2,
+            "total_category_score": -3,
+            "role": "Duelist",
+            "category": "Brawl",
+            "dps": 175,
+            "hps": 0,
+            "health": 230,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": 0.4,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 235.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,735 @@
+{
+    "Totals": {
+        "BlueTeam": {
+            "teamTotalScore": 13.4,
+            "counters_score": 11,
+            "category_score": 8,
+            "dps_total": 610,
+            "hps_total": 230,
+            "health_total": 2245,
+            "team_list": [
+                "Captain America",
+                "Iron Man",
+                "The Punisher",
+                "Bruce Banner",
+                "Loki",
+                "Adam Warlock"
+            ],
+            "multipliers": {
+                "dps": 0.78,
+                "hps": 0.0,
+                "health": 1.28
+            }
+        },
+        "RedTeam": {
+            "teamTotalScore": -13.5,
+            "counters_score": -11,
+            "category_score": -8,
+            "dps_total": 590,
+            "hps_total": 140,
+            "health_total": 2270,
+            "team_list": [
+                "Mantis",
+                "Peni Parker",
+                "Doctor Strange",
+                "Squirrel Girl",
+                "Luna Snow",
+                "Wolverine"
+            ],
+            "multipliers": {
+                "dps": 1.22,
+                "hps": 2.0,
+                "health": 0.72
+            }
+        }
+    },
+    "Blue": {
+        "Captain America": {
+            "totalScore": 2.7,
+            "total_counter_score": 3,
+            "total_category_score": -1,
+            "role": "Vanguard",
+            "category": "Dive",
+            "dps": 80,
+            "hps": 0,
+            "health": 690,
+            "dps_score": 0.0,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 77.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 675.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Iron Man": {
+            "totalScore": 3.5,
+            "total_counter_score": 2,
+            "total_category_score": 4,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 165,
+            "hps": 0,
+            "health": 255,
+            "dps_score": 0.3,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.2,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 232.5,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "The Punisher": {
+            "totalScore": 3.0,
+            "total_counter_score": 3,
+            "total_category_score": 1,
+            "role": "Duelist",
+            "category": "Brawl / Poke",
+            "dps": 95,
+            "hps": 0,
+            "health": 210,
+            "dps_score": -0.3,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": -0.2,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.1,
+            "dps_role_avg": 130.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 232.5,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Bruce Banner": {
+            "totalScore": 0.7,
+            "total_counter_score": 1,
+            "total_category_score": -1,
+            "role": "Vanguard",
+            "category": "Dive",
+            "dps": 75,
+            "hps": 0,
+            "health": 660,
+            "dps_score": -0.0,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 77.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 675.0,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Loki": {
+            "totalScore": 2.3,
+            "total_counter_score": 2,
+            "total_category_score": 1,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 115,
+            "hps": 120,
+            "health": 205,
+            "dps_score": 0.025,
+            "hps_score": 0.0,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 101.67,
+            "hps_role_avg": 115.0,
+            "health_role_avg": 205,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        },
+        "Adam Warlock": {
+            "totalScore": 1.2,
+            "total_counter_score": 0,
+            "total_category_score": 4,
+            "role": "Strategist",
+            "category": "Poke",
+            "dps": 80,
+            "hps": 110,
+            "health": 225,
+            "dps_score": -0.05,
+            "hps_score": -0.0,
+            "health_score": 0.0,
+            "dps_weighted": -0.0,
+            "hps_weighted": -0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 101.67,
+            "hps_role_avg": 115.0,
+            "health_role_avg": 225,
+            "red_matchup": {
+                "Mantis": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Peni Parker": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Doctor Strange": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Squirrel Girl": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Luna Snow": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Wolverine": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            }
+        }
+    },
+    "Red": {
+        "Mantis": {
+            "totalScore": -3.9,
+            "total_counter_score": -3,
+            "total_category_score": -2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 55,
+            "hps": 65,
+            "health": 225,
+            "dps_score": -0.1,
+            "hps_score": -0.1,
+            "health_score": 0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": -0.2,
+            "health_weighted": 0.0,
+            "dps_role_avg": 98.33,
+            "hps_role_avg": 70.0,
+            "health_role_avg": 225,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Peni Parker": {
+            "totalScore": -3.7,
+            "total_counter_score": -3,
+            "total_category_score": -2,
+            "role": "Vanguard",
+            "category": "Brawl / Poke",
+            "dps": 65,
+            "hps": 0,
+            "health": 660,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.0,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 70.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 662.5,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Doctor Strange": {
+            "totalScore": -0.5,
+            "total_counter_score": 0,
+            "total_category_score": -2,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 75,
+            "hps": 0,
+            "health": 665,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.0,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 70.0,
+            "hps_role_avg": 0,
+            "health_role_avg": 662.5,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": 1,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Squirrel Girl": {
+            "totalScore": -1.2,
+            "total_counter_score": -1,
+            "total_category_score": 0,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 130,
+            "hps": 0,
+            "health": 230,
+            "dps_score": -0.1,
+            "hps_score": 0,
+            "health_score": -0.05,
+            "dps_weighted": -0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": -0.0,
+            "dps_role_avg": 147.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 245.0,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": -1,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Luna Snow": {
+            "totalScore": -3.4,
+            "total_counter_score": -3,
+            "total_category_score": -2,
+            "role": "Strategist",
+            "category": "Brawl / Poke",
+            "dps": 100,
+            "hps": 75,
+            "health": 230,
+            "dps_score": 0.0,
+            "hps_score": 0.1,
+            "health_score": 0.0,
+            "dps_weighted": 0.0,
+            "hps_weighted": 0.2,
+            "health_weighted": 0.0,
+            "dps_role_avg": 98.33,
+            "hps_role_avg": 70.0,
+            "health_role_avg": 230,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        },
+        "Wolverine": {
+            "totalScore": -0.8,
+            "total_counter_score": -1,
+            "total_category_score": 0,
+            "role": "Duelist",
+            "category": "Dive / Brawl",
+            "dps": 165,
+            "hps": 0,
+            "health": 260,
+            "dps_score": 0.1,
+            "hps_score": 0,
+            "health_score": 0.05,
+            "dps_weighted": 0.1,
+            "hps_weighted": 0.0,
+            "health_weighted": 0.0,
+            "dps_role_avg": 147.5,
+            "hps_role_avg": 0,
+            "health_role_avg": 245.0,
+            "red_matchup": {
+                "Captain America": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Iron Man": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "The Punisher": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Bruce Banner": {
+                    "counter_score": 0,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Dive"
+                },
+                "Loki": {
+                    "counter_score": 0,
+                    "category_score": -1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Adam Warlock": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Poke"
+                }
+            }
+        }
+    },
+    "Suggestions": {}
+}

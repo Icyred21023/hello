@@ -127,7 +127,7 @@ def capture_scoreboard_icons(region_box, dir,flag, name_boxes=NAME_BOXES):
     """Captures a region of the screen and crops hero icons."""
     print(f"Capture Scoreboard Screenshot: {not config.debug_mode}")
     if config.debug_mode:
-        pic = os.path.join(dir,"Untitled.png")
+        pic = os.path.join(dir,"Screenshot.png")
         full_img = Image.open(pic)
     else:
         pic = os.path.join(dir,"Screenshot.png")

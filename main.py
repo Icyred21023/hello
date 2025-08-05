@@ -11,6 +11,7 @@ from main3 import main3,create_heromatches_from_lists,load_hero_assets
 from chatsitecopymodule import run_simple_counter_logic
 from matchups4 import counters, load_characters
 from merge_suggestions import add_alt_suggestions
+from icyred_matchup_logic import run_counter_logic
 import json
 import os
 import tkinter as tk
@@ -116,12 +117,17 @@ def on_matchup():
         blue, red, image_map = show_team_comparison_gui(blueclass, redclass, map)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         if config.dex:
-            matchup_path = os.path.join(script_dir, "dexerto_matchup.json")
-            print("NEW: Dexerto Counters Loaded")
+            matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+            
         else:
-            matchup_path = os.path.join(script_dir, "matchup.json")
-            print("Standard: PeakRivals Counters Loaded")
-        blueresult, redresult = counters(blue, red,matchup_path)
+            matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+            
+        if config.dex:
+            print("Using Classic Matchup Logic")
+            blueresult, redresult = counters(blue, red,matchup_path)
+        else:
+            print("Using Complex Matchup Logic")
+            blueresult, redresult = run_counter_logic(blue, red)
         alt_blueresult, _ = run_simple_counter_logic(blue, red)
         #print(alt_blueresult)
         blueresult = add_alt_suggestions(blueresult, alt_blueresult, redresult)
