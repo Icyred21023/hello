@@ -25,7 +25,7 @@ class HeroMatch:
         return None
 
 # Example fixed boxes (replace with dynamic logic as needed)
-NAME_BOXES = [
+NAME_BOXES = [ #
     (445, 395, 537, 487),  # Example enemy icon 1
     (445, 491, 537, 583),
     (445, 587, 537, 679),
