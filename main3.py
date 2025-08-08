@@ -6,7 +6,8 @@ import os
 from collections import defaultdict
 from matchups4 import counters
 import config
-import pyautogui
+if not config.mobile_mode:
+    import pyautogui
 
 
 class HeroMatch:
@@ -227,7 +228,10 @@ def create_heromatches_from_lists(blue_names, red_names, default_score=20):
 
 def main3():
     ultra_flag = False
-    width, height = pyautogui.size()
+    if not config.mobile_mode:
+        width, height = pyautogui.size()
+    else:
+        width, height = 2560, 1440  
     REGION_BOX = (0, 0, width, height)  # example scoreboard area
     target_w = 2560
     target_h = 1440
@@ -245,7 +249,11 @@ def main3():
     for i, cropped in enumerate(cropped_icons):
         base_name, full_name, score = match_hero_icon(cropped, hero_icons)
         if base_name is None:
-            return (None,) * 5
+            base_name = "Unknown"
+            full_name = "Unknown"
+            score = float("100")
+            bluematches.append(HeroMatch(base_name, full_name, score, cropped))
+            
 
         if score >= 55:
             bluematches.append(HeroMatch(base_name, full_name, score, cropped))
@@ -256,7 +264,11 @@ def main3():
         print(f"Slot {i+1}: Matched with {full_name} (Score: {score:.2f})")
     for i, cropped in enumerate(cropped_enemy_icons):
         base_name, full_name, score = match_hero_icon(cropped, hero_icons)
-
+        if base_name is None:
+            base_name = "Unknown"
+            full_name = "Unknown"
+            score = float("100")
+            redmatches.append(HeroMatch(base_name, full_name, score, cropped))
         if score >= 55:
             redmatches.append(HeroMatch(base_name, full_name,score, cropped))
         else:

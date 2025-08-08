@@ -1,7 +1,10 @@
-from admin_utils import elevate_if_needed
+import config
+if not config.mobile_mode:
+    from admin_utils import elevate_if_needed
 
-elevate_if_needed()
-from ocr_capture import capture_names
+    elevate_if_needed()
+
+    from ocr_capture import capture_names
 from tracker_lookup import open_multiple_tracker_profiles
 from player import Player
 import gui
@@ -15,7 +18,7 @@ from icyred_matchup_logic import run_counter_logic, print_team_result_details, g
 import json
 import os
 import tkinter as tk
-import config
+
 import random
 import updater
 from collections import Counter
@@ -105,7 +108,7 @@ def on_matchup():
         if config.dex:
             matchup_path = os.path.join(script_dir, "dexerto_matchup.json")
         else:
-            matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+            matchup_path = os.path.join(script_dir, config.MATCHUP)
         if config.randomize_matchup:
 
             character_pool = load_characters(matchup_path)
@@ -122,10 +125,10 @@ def on_matchup():
         blue, red, image_map = show_team_comparison_gui(blueclass, redclass, map)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         if config.dex:
-            matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+            matchup_path = os.path.join(script_dir, config.MATCHUP)
             
         else:
-            matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+            matchup_path = os.path.join(script_dir, config.MATCHUP)
             
         if config.dex:
             print("Using Classic Matchup Logic")
@@ -163,6 +166,7 @@ if __name__ == "__main__":
     config.debug_mode = False
     config.dex = False
     config.mobile_mode = False
+    config.MATCHUP = "type_matchupNEWDPS.json"
     script_dir = os.path.dirname(os.path.abspath(__file__))
     debug_path = os.path.join(script_dir, "debug")
     debug_path_list = os.path.join(debug_path, "names_list.txt")

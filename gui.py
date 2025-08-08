@@ -6,13 +6,15 @@ import time
 from main3 import HeroMatch
 import numpy as np
 import config
-import win32gui
-import win32con
-import win32api
-import win32process
-import win32com.client
-import ctypes
-import keyboard
+if not config.mobile_mode:
+    
+    import win32gui
+    import win32con
+    import win32api
+    import win32process
+    import win32com.client
+    import ctypes
+    import keyboard
 lock = None
 bhidden = False
 bdebug_menu = False
@@ -79,16 +81,18 @@ def toggle_lock(lock_button):
         
 def make_clickthrough():
     global hwnd
-    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
-    style |= win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
-    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    if not config.mobile_mode:
+        style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+        style |= win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
+        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
     print("Click-through ENABLED")
 
 def make_interactive():
     global hwnd
-    style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
-    style &= ~win32con.WS_EX_TRANSPARENT
-    win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
+    if not config.mobile_mode:
+        style = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
+        style &= ~win32con.WS_EX_TRANSPARENT
+        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, style)
     print("Click-through DISABLED")
 
 def widget_exists(widget):
@@ -554,10 +558,13 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     create_stat_frames(stat_red,"Red","1",redbg,red_score)
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    if not config.mobile_mode:
+        
+        hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
     win.update_idletasks()
-    hwnd = win32gui.FindWindow(None, win.title())
+    if not config.mobile_mode:
+        hwnd = win32gui.FindWindow(None, win.title())
     #make_clickthrough()
     win.geometry("")
     root.mainloop()
@@ -934,7 +941,8 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     
     win.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, win.title())
+    if not config.mobile_mode:
+        hwnd = win32gui.FindWindow(None, win.title())
     
     #make_clickthrough()
     
@@ -1135,7 +1143,8 @@ def show_gui(players):
 
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    if not config.mobile_mode:
+        hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
 
     root.mainloop()
@@ -1419,21 +1428,23 @@ def show_launcher(on_trigger,on_match):
         on_match()
     root.update_idletasks()
     global hwnd
-    hwnd = win32gui.FindWindow(None, root.title())
+    if not config.mobile_mode:
+        hwnd = win32gui.FindWindow(None, root.title())
     #make_clickthrough()
     trigger2_func = trigger2
     trigger_func = trigger
 
     root.mainloop()
 
-import threading
 
-def start_hotkey_listener():
-    keyboard.add_hotkey('f6', toggle_clickthrough)
-    keyboard.wait()  # Keeps the listener alive
+if not config.mobile_mode:
+    import threading
+    def start_hotkey_listener():
+        keyboard.add_hotkey('f6', toggle_clickthrough)
+        keyboard.wait()  # Keeps the listener alive
 
-listener_thread = threading.Thread(target=start_hotkey_listener, daemon=True)
-listener_thread.start()
-keyboard.add_hotkey('f8', handle_f8)
+    listener_thread = threading.Thread(target=start_hotkey_listener, daemon=True)
+    listener_thread.start()
+    keyboard.add_hotkey('f8', handle_f8)
 
-keyboard.add_hotkey('f10', handle_f10)
+    keyboard.add_hotkey('f10', handle_f10)

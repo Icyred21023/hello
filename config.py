@@ -5,3 +5,4 @@ randomize_matchup = False
 real_debug = False
 dex = False
 debug_menu = False
+MATCHUP = "type_matchupNEWDPS.json"

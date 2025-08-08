@@ -39,6 +39,7 @@ def match_hero_icon(captured_icon, image_map):
         if avg_distance < best_score:
             best_score = avg_distance
             best_match = hero_name
+        
 
     return best_match, best_score
 

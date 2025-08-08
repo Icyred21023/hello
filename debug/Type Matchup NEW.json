@@ -1,0 +1,2767 @@
+{
+    "Phoenix": {
+        "name": "Phoenix",
+        "role": "Duelist",
+        "tier": "B",
+        "counterPicks": [
+            {
+                "name": "Doctor Strange",
+                "upvotes": 20,
+                "downvotes": 2,
+                "voteScore": 18,
+                "role": "Vanguard",
+                "score": 9.5
+            },
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 9.5,
+                "upvotes": 10,
+                "downvotes": 2,
+                "voteScore": 8
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "upvotes": 12,
+                "downvotes": 2,
+                "voteScore": 10,
+                "score": 10
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "upvotes": 5,
+                "downvotes": 2,
+                "voteScore": 3,
+                "score": 9
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "upvotes": 4,
+                "downvotes": 2,
+                "voteScore": 2,
+                "score": 9
+            }
+        ],
+        "goodAgainst": [],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 126,
+        "hps": 0,
+        "health": 275
+    },
+    "Ultron": {
+        "name": "Ultron",
+        "role": "Strategist",
+        "tier": "B",
+        "counterPicks": [
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "score": 9.2,
+                "voteScore": 14
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "score": 9.1,
+                "voteScore": 11
+            },
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 9.1,
+                "upvotes": 8,
+                "downvotes": 2,
+                "voteScore": 8
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist",
+                "score": 8.6,
+                "voteScore": 12
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 9.2,
+                "voteScore": 15
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "score": 10,
+                "voteScore": 6
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 9.3
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 24,
+                "score": 10
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 4,
+                "score": 9.5
+            },
+            {
+                "name": "Black Widow",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 9.4
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 19,
+                "score": 9.98
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "voteScore": 20,
+                "score": 10
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist",
+                "voteScore": 8,
+                "score": 9.5
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "voteScore": 14,
+                "score": 9.12
+            }
+        ],
+        "goodAgainst": [],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 93,
+        "hps": 40,
+        "health": 250
+    },
+    "Emma Frost": {
+        "name": "Emma Frost",
+        "role": "Vanguard",
+        "tier": "A",
+        "goodAgainst": [],
+        "counterPicks": [
+            {
+                "name": "Groot",
+                "role": "Vanguard",
+                "voteScore": 22,
+                "score": 10
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 10
+            },
+            {
+                "name": "Hela",
+                "voteScore": 13,
+                "role": "Duelist",
+                "score": 9
+            },
+            {
+                "name": "The Punisher",
+                "voteScore": 17,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 8,
+                "role": "Duelist",
+                "score": 9
+            }
+        ],
+        "category": "Brawl",
+        "dps": 105,
+        "hps": 0,
+        "health": 650
+    },
+    "The Thing": {
+        "name": "The Thing",
+        "role": "Vanguard",
+        "tier": "A",
+        "goodAgainst": [],
+        "counterPicks": [
+            {
+                "name": "Groot",
+                "role": "Vanguard",
+                "voteScore": 37,
+                "score": 10
+            },
+            {
+                "name": "Ultron",
+                "role": "Strategist",
+                "score": 9,
+                "voteScore": 14
+            },
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 22,
+                "score": 9
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 28,
+                "score": 10
+            },
+            {
+                "name": "Squirrel Girl",
+                "voteScore": 14,
+                "score": 9,
+                "role": "Duelist"
+            },
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 8.1
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist",
+                "voteScore": 16,
+                "score": 9.5
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 8,
+                "score": 9
+            },
+            {
+                "name": "Human Torch",
+                "role": "Duelist",
+                "voteScore": 6,
+                "score": 8.5
+            }
+        ],
+        "category": "Dive / Brawl",
+        "dps": 80,
+        "hps": 0,
+        "health": 700
+    },
+    "Human Torch": {
+        "name": "Human Torch",
+        "role": "Duelist",
+        "tier": "B",
+        "counterPicks": [
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "score": 10,
+                "voteScore": 24
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "score": 10,
+                "voteScore": 27
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "score": 10,
+                "voteScore": 32
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 14,
+                "score": 9.5
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 9.6
+            },
+            {
+                "name": "Adam Warlock",
+                "voteScore": 7,
+                "score": 9,
+                "role": "Strategist"
+            },
+            {
+                "name": "Luna Snow",
+                "voteScore": 12,
+                "role": "Strategist"
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "voteScore": 11,
+                "score": 8.9
+            },
+            {
+                "name": "Mantis",
+                "voteScore": 8,
+                "score": 8.7,
+                "role": "Strategist"
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "score": 9.8,
+                "voteScore": 9
+            }
+        ],
+        "goodAgainst": [],
+        "category": "Poke",
+        "dps": 162,
+        "hps": 0,
+        "health": 250
+    },
+    "Storm": {
+        "name": "Storm",
+        "role": "Duelist",
+        "tier": "S",
+        "situationalCounters": [
+            {
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 8.5
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "score": 8.6
+            },
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist",
+                "score": 8.1
+            }
+        ],
+        "counterPicks": [
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "voteScore": 14,
+                "score": 10
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 11,
+                "score": 9.5
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 28,
+                "score": 10
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 24,
+                "score": 10
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "voteScore": 26,
+                "score": 9.8
+            },
+            {
+                "name": "Iron Fist",
+                "voteScore": 17,
+                "role": "Duelist",
+                "score": 8.5
+            },
+            {
+                "name": "Psylocke",
+                "voteScore": 7,
+                "role": "Duelist",
+                "score": 9
+            },
+            {
+                "name": "Black Widow",
+                "role": "Duelist",
+                "voteScore": 15,
+                "score": 9.3
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist",
+                "voteScore": 13,
+                "score": 8.3
+            },
+            {
+                "name": "Adam Warlock",
+                "role": "Strategist",
+                "voteScore": 7,
+                "score": 9
+            },
+            {
+                "name": "Rocket Raccoon",
+                "voteScore": 2,
+                "role": "Strategist",
+                "score": 9
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Magik"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 110,
+        "hps": 0,
+        "health": 250
+    },
+    "Iron Man": {
+        "name": "Iron Man",
+        "role": "Duelist",
+        "tier": "A",
+        "situationalCounters": [
+            {
+                "name": "Storm",
+                "role": "Duelist"
+            },
+            {
+                "name": "Loki",
+                "role": "Strategist"
+            }
+        ],
+        "counterPicks": [
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "score": 10,
+                "voteScore": 12
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist",
+                "voteScore": 15,
+                "score": 8.6
+            },
+            {
+                "name": "Rocket Raccoon",
+                "role": "Strategist",
+                "voteScore": 4,
+                "score": 9
+            },
+            {
+                "name": "Namor",
+                "voteScore": 13,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "voteScore": 13,
+                "score": 9.3
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 19,
+                "score": 10
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 9.5
+            },
+            {
+                "name": "Spider-Man",
+                "voteScore": 16,
+                "role": "Duelist",
+                "score": 9.2
+            },
+            {
+                "name": "Black Widow",
+                "role": "Duelist",
+                "score": 9.4,
+                "voteScore": 9
+            },
+            {
+                "name": "Hela",
+                "voteScore": 14,
+                "role": "Duelist",
+                "score": 9.98
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 12,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Adam Warlock",
+                "voteScore": 5,
+                "role": "Strategist",
+                "score": 9
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Luna Snow"
+            },
+            {
+                "name": "Venom"
+            },
+            {
+                "name": "The Thing",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Peni Parker"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 148,
+        "hps": 0,
+        "health": 250
+    },
+    "Invisible Woman": {
+        "name": "Invisible Woman",
+        "tier": "S",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "The Punisher",
+                "voteScore": 19,
+                "score": 9,
+                "role": "Duelist"
+            },
+            {
+                "name": "Moon Knight",
+                "voteScore": 6,
+                "score": 9.3,
+                "role": "Duelist"
+            },
+            {
+                "name": "Squirrel Girl",
+                "voteScore": 12,
+                "score": 9.1,
+                "role": "Duelist"
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Magik",
+                "role": "Duelist"
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Bruce Banner"
+            },
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Psylocke"
+            },
+            {
+                "name": "Iron Fist"
+            },
+            {
+                "name": "Wolverine"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 80,
+        "hps": 207,
+        "health": 275
+    },
+    "Mister Fantastic": {
+        "name": "Mister Fantastic",
+        "tier": "B",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Groot",
+                "voteScore": 21,
+                "role": "Vanguard",
+                "score": 10
+            },
+            {
+                "name": "Storm",
+                "voteScore": 14,
+                "role": "Duelist",
+                "score": 9.25
+            },
+            {
+                "name": "The Punisher",
+                "voteScore": 13,
+                "role": "Duelist",
+                "score": 9
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 8,
+                "score": 9.23
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 14,
+                "score": 9.15,
+                "role": "Duelist"
+            },
+            {
+                "name": "Hela",
+                "score": 9.12,
+                "voteScore": 13,
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Bruce Banner"
+            },
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Squirrel Girl"
+            },
+            {
+                "name": "Spider-Man"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 60,
+        "hps": 0,
+        "health": 375
+    },
+    "Venom": {
+        "name": "Venom",
+        "role": "Vanguard",
+        "tier": "S",
+        "counterPicks": [
+            {
+                "voteScore": 16,
+                "name": "The Punisher",
+                "role": "Duelist",
+                "score": 9
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist",
+                "voteScore": 6,
+                "score": 9.3
+            },
+            {
+                "name": "Wolverine",
+                "role": "Duelist",
+                "voteScore": 14,
+                "score": 9.3
+            },
+            {
+                "name": "Storm",
+                "score": 9.5,
+                "voteScore": 7,
+                "role": "Duelist"
+            },
+            {
+                "name": "Magneto",
+                "voteScore": 9,
+                "role": "Vanguard",
+                "score": 9.1
+            },
+            {
+                "name": "Iron Man",
+                "voteScore": 10,
+                "role": "Duelist",
+                "score": 9.59
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Luna Snow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 765
+    },
+    "Black Panther": {
+        "name": "Black Panther",
+        "tier": "B",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "The Thing",
+                "voteScore": 28,
+                "score": 9.2,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Invisible Woman",
+                "role": "Strategist",
+                "voteScore": 9,
+                "score": 9.3
+            },
+            {
+                "name": "Peni Parker",
+                "voteScore": 19,
+                "score": 9.5,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Human Torch",
+                "voteScore": 18,
+                "role": "Duelist",
+                "score": 9.01
+            },
+            {
+                "name": "Mister Fantastic",
+                "voteScore": 14,
+                "role": "Duelist",
+                "score": 9
+            },
+            {
+                "name": "Star-Lord",
+                "voteScore": 16,
+                "role": "Duelist",
+                "score": 9.35
+            },
+            {
+                "name": "Iron Man",
+                "voteScore": 22,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Storm",
+                "voteScore": 17,
+                "score": 10,
+                "role": "Duelist"
+            },
+            {
+                "name": "Namor",
+                "voteScore": 25,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Loki",
+                "voteScore": 3,
+                "role": "Strategist",
+                "score": 9.14
+            },
+            {
+                "name": "Cloak & Dagger",
+                "voteScore": 11,
+                "role": "Strategist",
+                "score": 9.12
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Magneto",
+                "role": "Vanguard"
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist"
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Doctor Strange"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Luna Snow"
+            },
+            {
+                "name": "Moon Knight"
+            },
+            {
+                "name": "Winter Soldier"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 90,
+        "hps": 0,
+        "health": 300
+    },
+    "Cloak & Dagger": {
+        "name": "Cloak & Dagger",
+        "tier": "S",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 23
+            },
+            {
+                "name": "Magik",
+                "role": "Duelist",
+                "voteScore": 9
+            },
+            {
+                "name": "Hela",
+                "voteScore": 12,
+                "role": "Duelist"
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 13,
+                "role": "Duelist"
+            },
+            {
+                "name": "Psylocke",
+                "voteScore": 5,
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "The Punisher"
+            },
+            {
+                "name": "Venom"
+            },
+            {
+                "name": "Bruce Banner"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 55,
+        "hps": 84,
+        "health": 250
+    },
+    "Groot": {
+        "name": "Groot",
+        "tier": "A",
+        "role": "Vanguard",
+        "counterPicks": [
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 29,
+                "score": 9.5
+            },
+            {
+                "name": "Venom",
+                "voteScore": 12,
+                "score": 9.5,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist",
+                "voteScore": 6,
+                "score": 8.7
+            },
+            {
+                "name": "Wolverine",
+                "role": "Duelist",
+                "voteScore": 25,
+                "score": 9.4
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 8.5
+            },
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist",
+                "voteScore": 16,
+                "score": 9.1
+            },
+            {
+                "name": "Hela",
+                "voteScore": 8,
+                "score": 8.9,
+                "role": "Duelist"
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "voteScore": 10,
+                "score": 9
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Mantis"
+            },
+            {
+                "name": "Luna Snow"
+            },
+            {
+                "name": "Hawkeye"
+            },
+            {
+                "name": "Black Widow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 92,
+        "hps": 0,
+        "health": 800
+    },
+    "Hela": {
+        "name": "Hela",
+        "role": "Duelist",
+        "tier": "A",
+        "counterPicks": [
+            {
+                "name": "Magik",
+                "role": "Duelist",
+                "voteScore": 10,
+                "score": 9.3
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist",
+                "voteScore": 8,
+                "score": 9.1
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 11,
+                "score": 9.5
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "voteScore": 13,
+                "score": 9.89
+            },
+            {
+                "name": "Luna Snow",
+                "voteScore": 3,
+                "role": "Strategist",
+                "score": 9
+            },
+            {
+                "name": "Loki",
+                "score": 9.5,
+                "voteScore": 12,
+                "role": "Strategist"
+            }
+        ],
+        "evenMatchups": [
+            {
+                "name": "Hawkeye"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Storm"
+            },
+            {
+                "name": "Star-Lord"
+            },
+            {
+                "name": "Black Widow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 161,
+        "hps": 0,
+        "health": 250
+    },
+    "Luna Snow": {
+        "name": "Luna Snow",
+        "role": "Strategist",
+        "tier": "S",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 18,
+                "score": 9.5
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 15,
+                "score": 9
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 4
+            },
+            {
+                "name": "Scarlet Witch",
+                "voteScore": 12,
+                "role": "Duelist"
+            },
+            {
+                "name": "Captain America",
+                "voteScore": 7,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Loki",
+                "voteScore": 4,
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Spider-Man"
+            },
+            {
+                "name": "Star-Lord"
+            },
+            {
+                "name": "Groot"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 132,
+        "hps": 152,
+        "health": 275
+    },
+    "Magik": {
+        "name": "Magik",
+        "tier": "B",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "voteScore": 12,
+                "score": 9.2,
+                "role": "Duelist"
+            },
+            {
+                "name": "The Thing",
+                "role": "Vanguard",
+                "voteScore": 11,
+                "score": 9.7
+            },
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 15,
+                "score": 9.8
+            },
+            {
+                "name": "Namor",
+                "voteScore": 20,
+                "score": 9.4,
+                "role": "Duelist"
+            },
+            {
+                "name": "Storm",
+                "voteScore": 15,
+                "score": 9.3,
+                "role": "Duelist"
+            },
+            {
+                "name": "Human Torch",
+                "voteScore": 11,
+                "score": 9.1,
+                "role": "Duelist"
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "score": 9.5,
+                "voteScore": 12
+            },
+            {
+                "name": "Ultron",
+                "role": "Strategist",
+                "voteScore": 15,
+                "score": 9.7
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Spider-Man"
+            },
+            {
+                "name": "The Punisher"
+            },
+            {
+                "name": "Loki"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 250
+    },
+    "Iron Fist": {
+        "name": "Iron Fist",
+        "tier": "C",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Wolverine",
+                "role": "Duelist",
+                "voteScore": 17,
+                "score": 9.7
+            },
+            {
+                "name": "Groot",
+                "voteScore": 12,
+                "score": 9.7,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "voteScore": 3,
+                "score": 8.9
+            },
+            {
+                "name": "Captain America",
+                "role": "Vanguard",
+                "voteScore": 6,
+                "score": 9
+            },
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 12,
+                "score": 9.2
+            },
+            {
+                "name": "Invisible Woman",
+                "role": "Strategist",
+                "voteScore": 10,
+                "score": 9.2
+            },
+            {
+                "name": "Loki",
+                "role": "Strategist",
+                "voteScore": 13,
+                "score": 9.2
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Moon Knight",
+                "role": "Duelist"
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist"
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist"
+            },
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            },
+            {
+                "name": "Bruce Banner",
+                "role": "Vanguard"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Storm"
+            },
+            {
+                "name": "Spider-Man"
+            },
+            {
+                "name": "Black Panther"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 80,
+        "hps": 0,
+        "health": 300
+    },
+    "Peni Parker": {
+        "name": "Peni Parker",
+        "tier": "B",
+        "role": "Vanguard",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "voteScore": 15,
+                "role": "Duelist",
+                "score": 10
+            },
+            {
+                "name": "Storm",
+                "voteScore": 12,
+                "score": 10,
+                "role": "Duelist"
+            },
+            {
+                "name": "The Punisher",
+                "voteScore": 21,
+                "role": "Duelist",
+                "score": 9.75
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "voteScore": 18,
+                "score": 9.9
+            },
+            {
+                "name": "Doctor Strange",
+                "voteScore": 8,
+                "score": 9.5,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Namor",
+                "voteScore": 14,
+                "role": "Duelist",
+                "score": 9.8
+            },
+            {
+                "name": "Groot",
+                "voteScore": 17,
+                "score": 9.7,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Loki",
+                "voteScore": 8,
+                "score": 9.3,
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Magik"
+            },
+            {
+                "name": "Wolverine"
+            },
+            {
+                "name": "Bruce Banner"
+            },
+            {
+                "name": "Iron Fist"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 750
+    },
+    "Bruce Banner": {
+        "name": "Bruce Banner",
+        "tier": "S",
+        "role": "Vanguard",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 9.3
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist",
+                "voteScore": 4,
+                "score": 9.2
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 24,
+                "score": 9.5
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "voteScore": 22,
+                "score": 9.5
+            },
+            {
+                "name": "Thor",
+                "voteScore": 9,
+                "score": 9.5,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 13,
+                "score": 9.7
+            },
+            {
+                "name": "Wolverine",
+                "role": "Duelist",
+                "voteScore": 9,
+                "score": 9
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Wolverine",
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Doctor Strange"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Cloak & Dagger"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 87,
+        "hps": 0,
+        "health": 700
+    },
+    "Hawkeye": {
+        "name": "Hawkeye",
+        "tier": "A",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "score": 9,
+                "voteScore": 6
+            },
+            {
+                "name": "Groot",
+                "role": "Vanguard",
+                "score": 9.3,
+                "voteScore": 9
+            },
+            {
+                "name": "Spider-Man",
+                "score": 8.7,
+                "voteScore": 8,
+                "role": "Duelist"
+            },
+            {
+                "name": "Venom",
+                "role": "Vanguard",
+                "score": 9.5,
+                "voteScore": 18
+            },
+            {
+                "name": "Bruce Banner",
+                "role": "Vanguard",
+                "score": 9.4,
+                "voteScore": 14
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist",
+                "score": 9.2,
+                "voteScore": 10
+            },
+            {
+                "name": "Magik",
+                "role": "Duelist",
+                "score": 9.2,
+                "voteScore": 10
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Jeff The Land Shark"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Black Widow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 140,
+        "hps": 0,
+        "health": 275
+    },
+    "Psylocke": {
+        "name": "Psylocke",
+        "tier": "S",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Star-Lord",
+                "role": "Duelist",
+                "voteScore": 17,
+                "score": 10
+            },
+            {
+                "name": "Scarlet Witch",
+                "role": "Duelist",
+                "voteScore": 15,
+                "score": 9.6
+            },
+            {
+                "name": "Venom",
+                "role": "Vanguard",
+                "voteScore": 22,
+                "score": 10
+            },
+            {
+                "name": "Invisible Woman",
+                "role": "Strategist",
+                "voteScore": 14,
+                "score": 9.8
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Namor",
+                "role": "Duelist"
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist"
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Storm"
+            },
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Jeff The Land Shark"
+            },
+            {
+                "name": "Rocket"
+            },
+            {
+                "name": "Black Widow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 120,
+        "hps": 0,
+        "health": 250
+    },
+    "Captain America": {
+        "name": "Captain America",
+        "tier": "B",
+        "role": "Vanguard",
+        "counterPicks": [
+            {
+                "name": "Groot",
+                "role": "Vanguard",
+                "score": 9.8,
+                "voteScore": 11
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "score": 9.9,
+                "voteScore": 17
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "score": 9.8,
+                "voteScore": 14
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist",
+                "score": 9.3,
+                "voteScore": 17
+            },
+            {
+                "name": "Scarlet Witch",
+                "role": "Duelist",
+                "score": 9.4,
+                "voteScore": 12
+            },
+            {
+                "name": "Peni Parker",
+                "score": 9.7,
+                "role": "Vanguard",
+                "voteScore": 15
+            },
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 9.5,
+                "voteScore": 22
+            },
+            {
+                "name": "Loki",
+                "role": "Strategist",
+                "score": 9.4,
+                "voteScore": 6
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist",
+                "score": 9.6,
+                "voteScore": 12
+            },
+            {
+                "name": "The Thing",
+                "role": "Vanguard",
+                "score": 9.5,
+                "voteScore": 13
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Rocket"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 84,
+        "hps": 0,
+        "health": 675
+    },
+    "Moon Knight": {
+        "name": "Moon Knight",
+        "tier": "S",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Storm",
+                "role": "Duelist",
+                "voteScore": 11,
+                "score": 9.3
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 8.9
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 6,
+                "score": 8.9
+            },
+            {
+                "name": "Spider-Man",
+                "voteScore": 19,
+                "score": 9.2,
+                "role": "Duelist"
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 12,
+                "score": 9.1
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 11,
+                "score": 9
+            },
+            {
+                "name": "Captain America",
+                "voteScore": 4,
+                "score": 8.5,
+                "role": "Vanguard"
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Magik",
+                "role": "Duelist"
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "The Punisher"
+            },
+            {
+                "name": "Namor"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Luna Snow"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 113,
+        "hps": 0,
+        "health": 275
+    },
+    "Loki": {
+        "name": "Loki",
+        "tier": "A",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Moon Knight",
+                "voteScore": 22,
+                "score": 9.8,
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist",
+                "voteScore": 12,
+                "score": 9.5
+            },
+            {
+                "name": "Rocket Raccoon",
+                "voteScore": 7,
+                "role": "Strategist",
+                "score": 9.2
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 5,
+                "score": 9.4
+            },
+            {
+                "name": "Human Torch",
+                "voteScore": 18,
+                "role": "Duelist",
+                "score": 9.01
+            },
+            {
+                "name": "Venom",
+                "role": "Vanguard",
+                "voteScore": 12,
+                "score": 9.7
+            },
+            {
+                "name": "Bruce Banner",
+                "role": "Vanguard",
+                "voteScore": 10,
+                "score": 9.7
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 9.6
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Psylocke"
+            },
+            {
+                "name": "Magik"
+            },
+            {
+                "name": "Luna Snow"
+            },
+            {
+                "name": "Cloak & Dagger"
+            },
+            {
+                "name": "Peni Parker"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 53,
+        "hps": 70,
+        "health": 250
+    },
+    "Mantis": {
+        "name": "Mantis",
+        "tier": "S",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist"
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist"
+            },
+            {
+                "name": "Captain America",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Magik"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Namor"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 125,
+        "hps": 80,
+        "health": 250
+    },
+    "Spider-Man": {
+        "name": "Spider-Man",
+        "tier": "B",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Namor",
+                "score": 10,
+                "voteScore": 24,
+                "role": "Duelist"
+            },
+            {
+                "name": "Iron Fist",
+                "role": "Duelist",
+                "score": 8.9,
+                "voteScore": 7
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Scarlet Witch",
+                "role": "Duelist",
+                "score": 8.5,
+                "voteScore": 15
+            },
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 9.8,
+                "voteScore": 8
+            },
+            {
+                "name": "Peni Parker",
+                "score": 9.7,
+                "voteScore": 11
+            },
+            {
+                "name": "Cloak & Dagger",
+                "role": "Strategist",
+                "voteScore": 8,
+                "score": 9.8
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "score": 8.5,
+                "voteScore": 5
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "score": 8.5,
+                "voteScore": 2
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist",
+                "score": 8.5,
+                "voteScore": 3
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Storm"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Moon Knight"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 58,
+        "hps": 0,
+        "health": 250
+    },
+    "Rocket Raccoon": {
+        "name": "Rocket Raccoon",
+        "tier": "A",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Star-Lord",
+                "role": "Duelist"
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist"
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            },
+            {
+                "name": "Venom",
+                "role": "Vanguard"
+            }
+        ],
+        "goodPairWith": [
+            {
+                "name": "The Punisher"
+            },
+            {
+                "name": "Winter Soldier"
+            },
+            {
+                "name": "Groot"
+            }
+        ],
+        "goodAgainst": [],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 193,
+        "hps": 53,
+        "health": 250
+    },
+    "Wolverine": {
+        "name": "Wolverine",
+        "tier": "A",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 18,
+                "score": 9.5
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist",
+                "voteScore": 22,
+                "score": 9.7
+            },
+            {
+                "name": "Namor",
+                "role": "Duelist",
+                "voteScore": 12,
+                "score": 9.7
+            },
+            {
+                "name": "Storm",
+                "voteScore": 18,
+                "score": 9.7,
+                "role": "Duelist"
+            },
+            {
+                "name": "Invisible Woman",
+                "voteScore": 12,
+                "score": 9.7,
+                "role": "Strategist"
+            },
+            {
+                "name": "Ultron",
+                "role": "Strategist",
+                "voteScore": 15,
+                "score": 9.7
+            },
+            {
+                "name": "The Thing",
+                "voteScore": 8,
+                "score": 9.4,
+                "role": "Vanguard"
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Captain America",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            },
+            {
+                "name": "Luna Snow",
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Doctor Strange"
+            },
+            {
+                "name": "Magneto"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 70,
+        "hps": 0,
+        "health": 350
+    },
+    "Thor": {
+        "name": "Thor",
+        "role": "Vanguard",
+        "tier": "B",
+        "counterPicks": [
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Iron Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist"
+            },
+            {
+                "name": "Wolverine",
+                "role": "Duelist"
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist"
+            },
+            {
+                "name": "Star-Lord",
+                "role": "Duelist"
+            },
+            {
+                "name": "Scarlet Witch",
+                "role": "Duelist"
+            },
+            {
+                "name": "Mantis",
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Bruce Banner"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Black Panther"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 75,
+        "hps": 0,
+        "health": 600
+    },
+    "Squirrel Girl": {
+        "name": "Squirrel Girl",
+        "tier": "A",
+        "role": "Duelist",
+        "situationalCounters": [
+            {
+                "name": "Black Panther",
+                "role": "Duelist"
+            }
+        ],
+        "counterPicks": [
+            {
+                "name": "Groot",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Captain America",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Spider-Man",
+                "voteScore": 21,
+                "role": "Duelist"
+            },
+            {
+                "name": "Star-Lord",
+                "voteScore": 17,
+                "role": "Duelist"
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "voteScore": 12
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 9
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Adam Warlock"
+            },
+            {
+                "name": "Peni Parker"
+            },
+            {
+                "name": "Thor"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 164,
+        "hps": 0,
+        "health": 275
+    },
+    "Namor": {
+        "name": "Namor",
+        "tier": "S",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Moon Knight",
+                "role": "Duelist",
+                "voteScore": 12
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 6
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "voteScore": 7
+            },
+            {
+                "name": "Black Widow",
+                "role": "Duelist",
+                "voteScore": 6,
+                "score": 9
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 9
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 9
+            },
+            {
+                "name": "Doctor Strange",
+                "voteScore": 7
+            },
+            {
+                "name": "Loki",
+                "voteScore": 8,
+                "role": "Strategist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Spider-Man"
+            },
+            {
+                "name": "Psylocke"
+            },
+            {
+                "name": "Iron Fist"
+            },
+            {
+                "name": "Magik"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 275
+    },
+    "The Punisher": {
+        "name": "The Punisher",
+        "tier": "A",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Captain America",
+                "role": "Vanguard",
+                "voteScore": 11
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 13
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 9,
+                "role": "Duelist"
+            },
+            {
+                "name": "Magik",
+                "role": "Duelist",
+                "voteScore": 17
+            },
+            {
+                "name": "Black Panther",
+                "voteScore": 15,
+                "role": "Duelist"
+            }
+        ],
+        "situationalCounters": [],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Doctor Strange"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Storm"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 205,
+        "hps": 0,
+        "health": 300
+    },
+    "Jeff The Land Shark": {
+        "name": "Jeff The Land Shark",
+        "tier": "C",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Iron Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist"
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [],
+        "goodPairWith": [
+            {
+                "name": "Groot"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 70,
+        "hps": 130,
+        "health": 250
+    },
+    "Scarlet Witch": {
+        "name": "Scarlet Witch",
+        "tier": "C",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 9.1,
+                "voteScore": 15
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist",
+                "voteScore": 7
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 11
+            },
+            {
+                "name": "Doctor Strange",
+                "voteScore": 3,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "voteScore": 4
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 6
+            },
+            {
+                "name": "Luna Snow",
+                "voteScore": 11
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Thor"
+            },
+            {
+                "name": "Luna Snow"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Iron Man"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 80,
+        "hps": 0,
+        "health": 250
+    },
+    "Black Widow": {
+        "name": "Black Widow",
+        "tier": "C",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            },
+            {
+                "name": "Magik",
+                "role": "Duelist"
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist"
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Storm"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 250
+    },
+    "Adam Warlock": {
+        "name": "Adam Warlock",
+        "tier": "B",
+        "role": "Strategist",
+        "counterPicks": [
+            {
+                "name": "Spider-Man",
+                "role": "Duelist"
+            },
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist"
+            },
+            {
+                "name": "Venom",
+                "role": "Vanguard"
+            }
+        ],
+        "goodAgainst": [],
+        "goodPairWith": [
+            {
+                "name": "Mantis"
+            },
+            {
+                "name": "Star-Lord"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Doctor Strange"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 110,
+        "hps": 100,
+        "health": 250
+    },
+    "Winter Soldier": {
+        "name": "Winter Soldier",
+        "tier": "A",
+        "role": "Duelist",
+        "counterPicks": [
+            {
+                "name": "Psylocke",
+                "role": "Duelist"
+            },
+            {
+                "name": "Hela",
+                "voteScore": 14,
+                "role": "Duelist"
+            },
+            {
+                "name": "Black Widow",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 9.4
+            },
+            {
+                "name": "Hawkeye",
+                "voteScore": 11,
+                "role": "Duelist"
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard",
+                "voteScore": 7
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 9
+            }
+        ],
+        "situationalCounters": [
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Magneto",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Storm",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Spider-Man"
+            },
+            {
+                "name": "Peni Parker"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 188,
+        "hps": 0,
+        "health": 275
+    },
+    "Magneto": {
+        "name": "Magneto",
+        "tier": "S",
+        "role": "Vanguard",
+        "counterPicks": [
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 8
+            },
+            {
+                "name": "Wolverine",
+                "voteScore": 21,
+                "role": "Duelist"
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 9.2,
+                "voteScore": 14
+            },
+            {
+                "name": "Thor",
+                "voteScore": 9,
+                "score": 9.5,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Venom",
+                "voteScore": 7,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Bruce Banner",
+                "role": "Vanguard",
+                "voteScore": 11
+            },
+            {
+                "name": "Black Panther",
+                "role": "Duelist",
+                "voteScore": 15
+            },
+            {
+                "name": "Magik",
+                "voteScore": 8,
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Cloak & Dagger"
+            },
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Hawkeye"
+            },
+            {
+                "name": "Hela"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 650
+    },
+    "Doctor Strange": {
+        "name": "Doctor Strange",
+        "role": "Vanguard",
+        "tier": "S",
+        "counterPicks": [
+            {
+                "name": "Wolverine",
+                "voteScore": 14,
+                "role": "Duelist"
+            },
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist"
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "voteScore": 11
+            },
+            {
+                "name": "Black Panther",
+                "voteScore": 12,
+                "role": "Duelist"
+            },
+            {
+                "name": "Spider-Man",
+                "role": "Duelist",
+                "score": 9.2,
+                "voteScore": 10
+            },
+            {
+                "name": "Venom",
+                "voteScore": 9,
+                "role": "Vanguard"
+            },
+            {
+                "name": "Magik",
+                "voteScore": 9,
+                "role": "Duelist"
+            },
+            {
+                "name": "Bruce Banner",
+                "voteScore": 17,
+                "role": "Vanguard"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Hawkeye"
+            },
+            {
+                "name": "Hela"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 700
+    },
+    "Star-Lord": {
+        "name": "Star-Lord",
+        "tier": "A",
+        "role": "Duelist",
+        "situationalCounters": [
+            {
+                "name": "Namor",
+                "role": "Duelist"
+            }
+        ],
+        "counterPicks": [
+            {
+                "name": "Magneto",
+                "role": "Vanguard",
+                "voteScore": 2
+            },
+            {
+                "name": "Luna",
+                "role": "Strategist"
+            },
+            {
+                "name": "Iron Fist",
+                "voteScore": 3
+            },
+            {
+                "name": "Loki",
+                "role": "Strategist",
+                "voteScore": 1
+            },
+            {
+                "name": "Doctor Strange",
+                "role": "Vanguard"
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "voteScore": 10
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 11
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist"
+            },
+            {
+                "name": "Scarlet Witch",
+                "role": "Duelist",
+                "voteScore": 7,
+                "score": 9.6
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist"
+            }
+        ],
+        "goodAgainst": [
+            {
+                "name": "Black Panther"
+            },
+            {
+                "name": "Iron Man"
+            },
+            {
+                "name": "Groot"
+            },
+            {
+                "name": "Moon Knight"
+            }
+        ],
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 260,
+        "hps": 0,
+        "health": 250
+    }
+}

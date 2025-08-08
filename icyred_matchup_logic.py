@@ -4,6 +4,7 @@ import json
 import random
 from collections import defaultdict
 from matchups4 import load_characters
+import config
 
 
 class Suggestion:
@@ -234,6 +235,8 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
 
     def calc_multiplier(blue_stat, red_stat):
         diff = red_stat - blue_stat
+        if blue_stat == 0:
+            blue_stat = red_stat
         div = red_stat / blue_stat
 
         return round(div, 2)
@@ -391,7 +394,7 @@ def score_teams(team1, team2, team_name, data, score_dict, record_team_totals=Fa
 def homemade_scoring(red, blue, flag):
     score_dict = {"Totals": {"BlueTeam": {}, "RedTeam": {}}, "Blue": {}, "Red": {}, "Suggestions": {}}
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+    matchup_path = os.path.join(script_dir, config.MATCHUP)
 
     character_pool = load_characters(matchup_path)
     with open(matchup_path, encoding="utf-8") as f:
@@ -500,14 +503,25 @@ def get_char_list(team_result, rd,result):
     listi = []
     for i in range(1, 7):  # assuming team has 6 members
         member = getattr(team_result, str(i), None)
-        name = member.character.name
-        listi.append(name)
+        if member:
+            name = member.character.name
+            print(f"Debug: {name}")
+            listi.append(name)
+        else:
+            print("Member Slot Empty. Skipping")
+            continue
+    print(f"List of Alt Blue : {listi}")
     dicti = homemade_scoring(rd, listi,False)
     for i in range(1, 7):  # assuming team has 6 members
         member = getattr(result, str(i), None)
-        name = member.character.name
-        new_score = dicti["Red"][name]["totalScore"]
-        member.suggestion.alt_score = new_score
+        if member:
+            name = member.character.name
+            new_score = dicti["Red"][name]["totalScore"]
+            member.suggestion.alt_score = new_score
+        else:
+            print("Alt Suggestion Slot Empty. Skipping")
+            continue
+            
        
     return result,dicti
  
@@ -519,9 +533,25 @@ def blue_alt_score(team, dicti, tots):
     tots["Blue"]["3"] = ent
     for i in range(1, 7):  # assuming team has 6 members
         member = getattr(team, str(i), None)
+        if (
+        member is None
+    or member.alt_suggestion is None
+    or member.alt_suggestion.replacement is None
+    or not member.suggestion
+):
+            continue
+        
         name = member.alt_suggestion.replacement
         new = dicti["Blue"][name]["totalScore"]
         member.alt_suggestion.new_score = new
+        if 6 == 4:
+            name = list(dicti.keys())[5]
+            new = dicti["Blue"][name]["totalScore"]
+            role = dicti["Blue"][name]["role"]
+            data = {"name":name,"role":role,"score":new}
+            char = Character(data)
+            
+            
     return team, tots
  
 
@@ -632,10 +662,8 @@ def run_counter_logic(blue, red, replacements=None):
     new_dict,new_red, new_blue = combine_dicts(score_dict,replacements)
     new_score_dict = homemade_scoring(new_red, new_blue, False)
     #print(new_score_dict)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(script_dir, "debug", "new_score_dict.json")
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(new_score_dict, f, indent=4, ensure_ascii=False)
+   
+    save_json("new_score_dict.json", new_score_dict)
     blue_result, red_result = create_class_objects_1(score_dict,new_score_dict,replacements)
     red_result = update_suggestion_scores(red_result, new_score_dict)
     print_team_result_details(red_result)
