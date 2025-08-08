@@ -9,6 +9,8 @@ import config
 if not config.mobile_mode:
     import pyautogui
 
+# pointless comment so I can write comments here in the pull request
+
 
 class HeroMatch:
     def __init__(self, name, full, score, image):

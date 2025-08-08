@@ -2,6 +2,8 @@ import json
 import os
 from copy import deepcopy
 
+# pointless comment so I can write comments here in the pull request
+
 
 class Suggestion:
     def __init__(self, original, replacement, orig_score, new_score, priority, alt_score=None):

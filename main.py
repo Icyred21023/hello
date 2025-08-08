@@ -23,7 +23,7 @@ import random
 import updater
 from collections import Counter
 
-
+# pointless comment so I can write comments here in the pull request
 
 def on_f8_pressed():
     
