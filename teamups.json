@@ -1,0 +1,142 @@
+{
+  "TeamUps": {
+    "Doctor Strange": {
+      "teamup": "Arcane Order",
+      "characters": {
+        "Scarlet Witch": 1.0
+      }
+    },
+    "Luna Snow": {
+      "teamup": "Chilling Assault",
+      "characters": {
+        "Hawkeye": 1.0,
+        "Iron Fist": 1.0
+      }
+    },
+    "Magik": {
+      "teamup": "Dimensional Shortcut",
+      "characters": {
+        "Black Panther": 1.0
+      }
+    },
+    "Adam Warlock": {
+      "teamup": "Duality Dance",
+      "characters": {
+        "Luna Snow": 1.0
+      }
+    },
+	"Human Torch": {
+      "teamup": "Ever-Burning Bond",
+      "characters": {
+        "Spider Man": 1.0
+      }
+    },
+    "Human Torch": {
+      "teamup": "First Steps",
+      "characters": {
+        "The Thing": 1.0
+      }
+    },
+    "Invisible Woman": {
+      "teamup": "Fantastic Four",
+      "characters": {
+        "Mister Fantastic": 1.0,
+        "The Thing": 1.0,
+        "Human Torch": 1.0
+      }
+    },
+    "Wolverine": {
+      "teamup": "Fastball Special",
+      "characters": {
+		"Bruce Banner": 1.0,
+        "The Thing": 1.0
+      }
+    },
+    "Bruce Banner": {
+      "teamup": "Gamma Monstro",
+      "characters": {
+        "Namor": 1.0
+      }
+    },
+    "Storm": {
+      "teamup": "Jeff-Nado",
+      "characters": {
+		  "Jeff The Land Shark": 1.0
+	  }
+    },
+    "Cloak & Dagger": {
+      "teamup": "Lunar Force",
+      "characters": {
+        "Moon Knight": 1.0,
+        "Blade": 1.0
+      }
+    },
+    "Emma Frost": {
+      "teamup": "Mental Projection",
+      "characters": {
+        "Magneto": 1.0,   
+        "Psylocke": 1.0
+      }
+    },
+    "The Punisher": {
+      "teamup": "Operation: Microchip",
+      "characters": {
+        "Black Widow": 1.0
+      }
+    },
+    "Groot": {
+      "teamup": "Planet X Pals",
+      "characters": {
+        "Rocket Raccoon": 1.0,
+		"Jeff The Land Shark": 1.0
+      }
+    },
+    "Phoenix": {
+      "teamup": "Primal Flame",
+      "characters": {
+        "Wolverine": 1.0
+      }
+    },
+    "Hela": {
+      "teamup": "Ragnarok Rebirth",
+      "characters": {
+        "Thor": 1.0
+      }
+    },
+    "Rocket Raccoon": {
+      "teamup": "Rocket Network",
+      "characters": {
+        "Peni Parker": 1.0,
+        "Star-Lord": 1.0
+      }
+    },
+    "Captain America": {
+      "teamup": "Stars Aligned",
+      "characters": {
+        "Winter Soldier": 1.0
+      }
+    },
+    "Iron Man": {
+      "teamup": "Timeline of Team-Up Changes",
+      "characters": {
+        "Ultron": 1.0,
+        "Squirrel Girl": 1.0
+      }
+    },
+    "Venom": {
+      "teamup": "Symbiote Shenanigans",
+      "characters": {
+		"Jeff The Land Shark": 1.0,
+        "Hela": 1.0
+      }
+    },
+    "Mantis": {
+      "teamup": "Vibrant Vitality",
+      "characters": {
+        "Loki": 1.0,
+        "Groot": 1.0
+      }
+    }
+   
+  }
+}

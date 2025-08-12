@@ -1,63 +1,5 @@
 {
-    "Blade": {
-        "name": "Blade",
-        "role": "Duelist",
-        "tier": "B",
-        "counterPicks": [
-            {
-                "name": "Winter Soldier",
-                "role": "Duelist",
-                "voteScore": 6,
-                "score": 8.1
-            },
-            {
-                "name": "The Punisher",
-                "role": "Duelist",
-                "upvotes": 9,
-                "downvotes": 2,
-                "voteScore": 11,
-                "score": 10
-            },
-            {
-                "name": "Hela",
-                "role": "Duelist",
-                "voteScore": 9,
-                "score": 9.98
-            },
-            {
-                "name": "Peni Parker",
-                "role": "Vanguard",
-                "voteScore": 14,
-                "score": 9.9
-            },
-            {
-                "name": "Emma Frost",
-                "role": "Vanguard",
-                "score": 6,
-                "voteScore": 12
-            },
-            {
-                "name": "The Thing",
-                "role": "Vanguard",
-                "voteScore": 7,
-                "score": 10
-            },
-            {
-                "name": "Groot",
-                "role": "Vanguard",
-                "voteScore": 4,
-                "score": 10
-            },
-            {
-                "name": "Hawkeye",
-                "role": "Duelist",
-                "voteScore": 10,
-                "score": 9.2
-            }
-        ],
-        "goodAgainst": [],
-        "weakness": "qrqwr"
-    },
+    
     "Phoenix": {
         "name": "Phoenix",
         "role": "Duelist",
@@ -105,7 +47,11 @@
             }
         ],
         "goodAgainst": [],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 126,
+        "hps": 0,
+        "health": 275
     },
     "Ultron": {
         "name": "Ultron",
@@ -200,7 +146,11 @@
             }
         ],
         "goodAgainst": [],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 93,
+        "hps": 40,
+        "health": 250
     },
     "Emma Frost": {
         "name": "Emma Frost",
@@ -238,7 +188,11 @@
                 "role": "Duelist",
                 "score": 9
             }
-        ]
+        ],
+        "category": "Brawl",
+        "dps": 105,
+        "hps": 0,
+        "health": 650
     },
     "The Thing": {
         "name": "The Thing",
@@ -300,7 +254,11 @@
                 "voteScore": 6,
                 "score": 8.5
             }
-        ]
+        ],
+        "category": "Dive / Brawl",
+        "dps": 80,
+        "hps": 0,
+        "health": 700
     },
     "Human Torch": {
         "name": "Human Torch",
@@ -366,7 +324,11 @@
                 "voteScore": 9
             }
         ],
-        "goodAgainst": []
+        "goodAgainst": [],
+        "category": "Poke",
+        "dps": 162,
+        "hps": 0,
+        "health": 250
     },
     "Storm": {
         "name": "Storm",
@@ -471,7 +433,11 @@
                 "name": "Magik"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 110,
+        "hps": 0,
+        "health": 250
     },
     "Iron Man": {
         "name": "Iron Man",
@@ -582,7 +548,11 @@
                 "name": "Peni Parker"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 148,
+        "hps": 0,
+        "health": 250
     },
     "Invisible Woman": {
         "name": "Invisible Woman",
@@ -635,7 +605,11 @@
                 "name": "Wolverine"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 80,
+        "hps": 207,
+        "health": 275
     },
     "Mister Fantastic": {
         "name": "Mister Fantastic",
@@ -696,7 +670,11 @@
                 "name": "Spider-Man"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 60,
+        "hps": 0,
+        "health": 375
     },
     "Venom": {
         "name": "Venom",
@@ -751,7 +729,11 @@
                 "name": "Luna Snow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 765
     },
     "Black Panther": {
         "name": "Black Panther",
@@ -860,7 +842,11 @@
                 "name": "Winter Soldier"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 90,
+        "hps": 0,
+        "health": 300
     },
     "Cloak & Dagger": {
         "name": "Cloak & Dagger",
@@ -907,7 +893,11 @@
                 "name": "Bruce Banner"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 55,
+        "hps": 84,
+        "health": 250
     },
     "Groot": {
         "name": "Groot",
@@ -977,7 +967,11 @@
                 "name": "Black Widow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 92,
+        "hps": 0,
+        "health": 800
     },
     "Hela": {
         "name": "Hela",
@@ -1040,7 +1034,11 @@
                 "name": "Black Widow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 161,
+        "hps": 0,
+        "health": 250
     },
     "Luna Snow": {
         "name": "Luna Snow",
@@ -1091,7 +1089,11 @@
                 "name": "Groot"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 132,
+        "hps": 152,
+        "health": 275
     },
     "Magik": {
         "name": "Magik",
@@ -1165,7 +1167,11 @@
                 "name": "Loki"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 250
     },
     "Iron Fist": {
         "name": "Iron Fist",
@@ -1255,7 +1261,11 @@
                 "name": "Black Panther"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 80,
+        "hps": 0,
+        "health": 300
     },
     "Peni Parker": {
         "name": "Peni Parker",
@@ -1328,7 +1338,11 @@
                 "name": "Iron Fist"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 750
     },
     "Bruce Banner": {
         "name": "Bruce Banner",
@@ -1413,7 +1427,11 @@
                 "name": "Cloak & Dagger"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 87,
+        "hps": 0,
+        "health": 700
     },
     "Hawkeye": {
         "name": "Hawkeye",
@@ -1480,7 +1498,11 @@
                 "name": "Black Widow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 140,
+        "hps": 0,
+        "health": 275
     },
     "Psylocke": {
         "name": "Psylocke",
@@ -1550,7 +1572,11 @@
                 "name": "Black Widow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 120,
+        "hps": 0,
+        "health": 250
     },
     "Captain America": {
         "name": "Captain America",
@@ -1632,7 +1658,11 @@
                 "name": "Rocket"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 84,
+        "hps": 0,
+        "health": 675
     },
     "Moon Knight": {
         "name": "Moon Knight",
@@ -1709,7 +1739,11 @@
                 "name": "Luna Snow"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 113,
+        "hps": 0,
+        "health": 275
     },
     "Loki": {
         "name": "Loki",
@@ -1785,7 +1819,11 @@
                 "name": "Peni Parker"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 53,
+        "hps": 70,
+        "health": 250
     },
     "Mantis": {
         "name": "Mantis",
@@ -1824,7 +1862,11 @@
                 "name": "Namor"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 125,
+        "hps": 80,
+        "health": 250
     },
     "Spider-Man": {
         "name": "Spider-Man",
@@ -1862,7 +1904,8 @@
             {
                 "name": "Peni Parker",
                 "score": 9.7,
-                "voteScore": 11
+                "voteScore": 11,
+                "role": "Vanguard"
             },
             {
                 "name": "Cloak & Dagger",
@@ -1903,7 +1946,11 @@
                 "name": "Moon Knight"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive",
+        "dps": 58,
+        "hps": 0,
+        "health": 250
     },
     "Rocket Raccoon": {
         "name": "Rocket Raccoon",
@@ -1943,7 +1990,11 @@
             }
         ],
         "goodAgainst": [],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 193,
+        "hps": 53,
+        "health": 250
     },
     "Wolverine": {
         "name": "Wolverine",
@@ -2022,7 +2073,11 @@
                 "name": "Magneto"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 70,
+        "hps": 0,
+        "health": 350
     },
     "Thor": {
         "name": "Thor",
@@ -2073,7 +2128,11 @@
                 "name": "Black Panther"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 75,
+        "hps": 0,
+        "health": 600
     },
     "Squirrel Girl": {
         "name": "Squirrel Girl",
@@ -2130,7 +2189,11 @@
                 "name": "Thor"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 164,
+        "hps": 0,
+        "health": 275
     },
     "Namor": {
         "name": "Namor",
@@ -2170,6 +2233,7 @@
             },
             {
                 "name": "Doctor Strange",
+                "role": "Vanguard",
                 "voteScore": 7
             },
             {
@@ -2195,7 +2259,11 @@
                 "name": "Magik"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 275
     },
     "The Punisher": {
         "name": "The Punisher",
@@ -2243,7 +2311,11 @@
                 "name": "Storm"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 205,
+        "hps": 0,
+        "health": 300
     },
     "Jeff The Land Shark": {
         "name": "Jeff The Land Shark",
@@ -2273,7 +2345,11 @@
                 "name": "Groot"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 70,
+        "hps": 130,
+        "health": 250
     },
     "Scarlet Witch": {
         "name": "Scarlet Witch",
@@ -2313,6 +2389,7 @@
             },
             {
                 "name": "Luna Snow",
+                "role": "Strategist",
                 "voteScore": 11
             }
         ],
@@ -2330,7 +2407,11 @@
                 "name": "Iron Man"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 80,
+        "hps": 0,
+        "health": 250
     },
     "Black Widow": {
         "name": "Black Widow",
@@ -2362,7 +2443,11 @@
                 "name": "Storm"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 250
     },
     "Adam Warlock": {
         "name": "Adam Warlock",
@@ -2401,7 +2486,11 @@
                 "name": "Doctor Strange"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 110,
+        "hps": 100,
+        "health": 250
     },
     "Winter Soldier": {
         "name": "Winter Soldier",
@@ -2464,7 +2553,11 @@
                 "name": "Peni Parker"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl / Poke",
+        "dps": 188,
+        "hps": 0,
+        "health": 275
     },
     "Magneto": {
         "name": "Magneto",
@@ -2528,7 +2621,11 @@
                 "name": "Hela"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Poke",
+        "dps": 100,
+        "hps": 0,
+        "health": 650
     },
     "Doctor Strange": {
         "name": "Doctor Strange",
@@ -2587,7 +2684,11 @@
                 "name": "Hela"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 700
     },
     "Star-Lord": {
         "name": "Star-Lord",
@@ -2611,7 +2712,8 @@
             },
             {
                 "name": "Iron Fist",
-                "voteScore": 3
+                "voteScore": 3,
+                "role": "Duelist"
             },
             {
                 "name": "Loki",
@@ -2661,6 +2763,10 @@
                 "name": "Moon Knight"
             }
         ],
-        "weakness": "qrqwr"
+        "weakness": "qrqwr",
+        "category": "Dive / Brawl",
+        "dps": 260,
+        "hps": 0,
+        "health": 250
     }
 }

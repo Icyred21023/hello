@@ -26,7 +26,8 @@
                 "dps": 0.73,
                 "hps": 1.96,
                 "health": 1.04
-            }
+            },
+            "totalScore": -1.6
         },
         "RedTeam": {
             "dps_total": 556,
@@ -51,10 +52,13 @@
                 "hps": 0.0
             },
             "multipliers": {
-                "dps": 1.37,
-                "hps": 0.51,
-                "health": 0.96
-            }
+                "dps": 1.46,
+                "hps": 0.95,
+                "health": 1.09
+            },
+            "totalScore": 1.6,
+            "totalScore_2": -11.7,
+            "totalScore_3": -10.7
         },
         "New_BlueTeam": {
             "dps_total": 669,
@@ -82,7 +86,8 @@
                 "dps": 0.69,
                 "hps": 1.05,
                 "health": 1.0
-            }
+            },
+            "totalScore": 12.3
         },
         "AltTeam": {
             "dps_total": 671,
@@ -110,7 +115,8 @@
                 "dps": 0.69,
                 "hps": 1.05,
                 "health": 0.92
-            }
+            },
+            "totalScore": 11.2
         }
     },
     "Blue": {
@@ -485,7 +491,7 @@
             "hps_score": 0.2,
             "health_score": 0.0,
             "dps_weighted": 0.0,
-            "hps_weighted": 0.1,
+            "hps_weighted": 0.2,
             "health_weighted": 0.0,
             "dps_role_avg": 54.0,
             "hps_role_avg": 77.0,
@@ -527,7 +533,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": -3.3,
+            "totalScore_2": -3.3,
+            "CounterCatScore_3": -2.3,
+            "totalScore_3": -2.3
         },
         "Squirrel Girl": {
             "totalScore": 1.4,
@@ -586,7 +596,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": -2.5,
+            "totalScore_2": -2.4,
+            "CounterCatScore_3": -2.5,
+            "totalScore_3": -2.4
         },
         "Namor": {
             "totalScore": -0.1,
@@ -645,7 +659,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": -5.3,
+            "totalScore_2": -5.4,
+            "CounterCatScore_3": -4.3,
+            "totalScore_3": -4.4
         },
         "Loki": {
             "totalScore": -1.0,
@@ -662,7 +680,7 @@
             "hps_score": -0.2,
             "health_score": 0.0,
             "dps_weighted": -0.0,
-            "hps_weighted": -0.1,
+            "hps_weighted": -0.2,
             "health_weighted": 0.0,
             "dps_role_avg": 54.0,
             "hps_role_avg": 77.0,
@@ -704,7 +722,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": -0.3,
+            "totalScore_2": -0.3,
+            "CounterCatScore_3": -0.3,
+            "totalScore_3": -0.3
         },
         "Magneto": {
             "totalScore": 1.3,
@@ -763,7 +785,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": 1.4,
+            "totalScore_2": 1.4,
+            "CounterCatScore_3": 1.4,
+            "totalScore_3": 1.4
         },
         "Captain America": {
             "totalScore": -2.0,
@@ -822,7 +848,11 @@
                     "enemy_role": "Vanguard",
                     "enemy_category": "Dive / Brawl"
                 }
-            }
+            },
+            "CounterCatScore_2": -1.7,
+            "totalScore_2": -1.7,
+            "CounterCatScore_3": -2.7,
+            "totalScore_3": -2.7
         }
     },
     "New_Blue": {

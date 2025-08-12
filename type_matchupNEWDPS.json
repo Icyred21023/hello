@@ -1,5 +1,4 @@
-{	
-	"Unknown": {
+{	"Unknown": {
 		"name": "Unknown",
 		"role": "Duelist",
 		"counterPicks": [],
@@ -8,6 +7,69 @@
 		"hps": 0,
 		"health": 250
 	},
+    "Blade": {
+        "name": "Blade",
+        "role": "Duelist",
+        "tier": "B",
+        "counterPicks": [
+            {
+                "name": "Winter Soldier",
+                "role": "Duelist",
+                "voteScore": 6,
+                "score": 8.1
+            },
+            {
+                "name": "The Punisher",
+                "role": "Duelist",
+                "upvotes": 9,
+                "downvotes": 2,
+                "voteScore": 11,
+                "score": 10
+            },
+            {
+                "name": "Hela",
+                "role": "Duelist",
+                "voteScore": 9,
+                "score": 9.98
+            },
+            {
+                "name": "Peni Parker",
+                "role": "Vanguard",
+                "voteScore": 14,
+                "score": 9.9
+            },
+            {
+                "name": "Emma Frost",
+                "role": "Vanguard",
+                "score": 6,
+                "voteScore": 12
+            },
+            {
+                "name": "The Thing",
+                "role": "Vanguard",
+                "voteScore": 7,
+                "score": 10
+            },
+            {
+                "name": "Groot",
+                "role": "Vanguard",
+                "voteScore": 4,
+                "score": 10
+            },
+            {
+                "name": "Hawkeye",
+                "role": "Duelist",
+                "voteScore": 10,
+                "score": 9.2
+            }
+        ],
+        "goodAgainst": [],
+        "weakness": "qrqwr",
+		"category": "Brawl / Poke",
+		"dps": 126,
+		"hps": 0,
+		"health": 275
+    },
     "Phoenix": {
         "name": "Phoenix",
         "role": "Duelist",
@@ -1912,7 +1974,8 @@
             {
                 "name": "Peni Parker",
                 "score": 9.7,
-                "voteScore": 11
+                "voteScore": 11,
+                "role": "Vanguard"								  
             },
             {
                 "name": "Cloak & Dagger",
@@ -2240,6 +2303,7 @@
             },
             {
                 "name": "Doctor Strange",
+				"role": "Vanguard",				   
                 "voteScore": 7
             },
             {
@@ -2395,6 +2459,7 @@
             },
             {
                 "name": "Luna Snow",
+				"role": "Strategist",					 
                 "voteScore": 11
             }
         ],
@@ -2717,7 +2782,8 @@
             },
             {
                 "name": "Iron Fist",
-                "voteScore": 3
+                "voteScore": 3,
+				"role": "Duelist"				 
             },
             {
                 "name": "Loki",

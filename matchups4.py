@@ -49,7 +49,11 @@ class Character:
 def load_characters(filename):
     with open(filename, "r") as f:
         raw_data = json.load(f)
-    return {name: Character(data) for name, data in raw_data.items()}
+    return {
+        name: Character(data)
+        for name, data in raw_data.items()
+        if name != "Unknown"
+    }
 
 def build_team(names, character_pool):
     missing = [name for name in names if name not in character_pool]

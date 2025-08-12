@@ -135,6 +135,7 @@ def toggle_clickthrough():
 def scale_font(scale, size):
     return int(size / scale)                            
 def change_color(value):
+    value = int(value)
     if value > 2:
         return "#3ecbff"
     elif value > 0:
@@ -147,8 +148,15 @@ def change_color(value):
         return "#FF3C3C"
     
     
-def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
+def show_suggestion_gui(results, image_map):
     global bhidden, indicator_label
+    blue_result, suggest_result, alt_result, red_result = results
+    origs_score = blue_result.total_score
+    new_scores  = suggest_result.total_score
+    alt_scores   = alt_result.total_score
+    red_scores1 = red_result.total_score
+    red_scores2 = red_result.total_score2
+    red_scores3 = red_result.total_score3
     return_data = {}
     bhidden = False
     root = tk.Tk()
@@ -165,16 +173,16 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
         for i in range(1, 7):
             b_member = getattr(blue_result, str(i))
             r_member = getattr(red_result, str(i))
-            s = b_member.suggestion
-            if not s:
-                s = b_member.character
-                name = s.name
-            else:
-                name = s.original if s else member.character.name
-            blue.append(HeroMatch(name, name, 10, False))
-            name = r_member.character.name
-            red.append(HeroMatch(name, name, 10, False))
-        return_data["teams"] = (blue, red)
+        #     s = b_member.suggestion
+        #     if not s:
+        #         s = b_member.character
+        #         name = s.name
+        #     else:
+        #         name = s.original if s else member.character.name
+        #     blue.append(HeroMatch(name, name, 10, False))
+        #     name = r_member.character.name
+        #     red.append(HeroMatch(name, name, 10, False))
+        # return_data["teams"] = (blue, red)
         root.destroy()
 
 
@@ -269,17 +277,25 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     tk.Label(alt_frame, text="Full Counter Team", font=("Arial", fonts[14], "bold"), fg="white", bg=alt_dark).pack()
     tk.Label(red_frame, text="Enemy Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_red).pack()
     score_totals_list = []
-    origs_score = 0
-    new_scores = 0
-    alt_score = 0
-    red_scores1 = 0
-    red_scores2 = 0
-    red_scores3 = 0
+
     for i in range(1, 7):
-        member = getattr(blue_result, str(i))
-        s = member.suggestion
-        orig_name = s.original if s else member.character.name
-        orig_score = s.orig_score if s else member.character.matchup_score
+        # Blue column (col 1)
+        b_member = getattr(blue_result, str(i))
+        s_member = getattr(suggest_result, str(i))
+        a_member = getattr(alt_result, str(i))
+        r_member = getattr(red_result, str(i))
+
+        orig_name = b_member.name
+        orig_score = b_member.matchup_score
+        new_name = s_member.name
+        new_score = s_member.matchup_score
+        alt_name = a_member.name
+        alt_score = a_member.matchup_score
+        red_name = r_member.name
+        red_score1 = r_member.matchup_score
+        red_score2 = r_member.matchup_score2
+        red_score3 = r_member.matchup_score3
+        
 
         # === Column 1: Original Blue ===
         row_orig = tk.Frame(original_frame, bg=dark_blue)
@@ -296,24 +312,24 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
         tk.Label(row_orig, text=f"{orig_score:+}", highlightthickness=2,
                  highlightbackground=bord_color, fg=scolor, bg=blue_score,
                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-        origs_score += round(orig_score,1)
-        if s and s.original != s.replacement:
+        
+        if s_member and new_name != orig_name:
             # Draw arrow
             tk.Label(row_orig, text="➡", fg="#08FCEF", bg=dark_blue,
-                     font=("Courier New", fonts[64], "bold")).pack(side="left", padx=(20, 0))
+                     font=("Courier New", fonts[24], "bold")).pack(side="left", padx=(20, 0))
 
                 # === Column 2: Primary Suggestion ===
-        s = member.suggestion
+        
         row_sugg = tk.Frame(suggestion_frame, bg=suggest_dark)
         row_sugg.pack(fill="x", padx=10, pady=6)
 
-        if s and s.original != s.replacement:
+        if s_member and orig_name != new_name:
             # Draw arrow
             #tk.Label(row_sugg, text="➡", fg="#08FCEF", bg=suggest_dark,
                      #font=("Courier New", fonts[26], "bold")).pack(side="left", padx=(0, 15))
 
             # Suggestion image
-            sugg_img = get_image(s.replacement)
+            sugg_img = get_image(new_name)
             if sugg_img:
                 img_label = tk.Label(row_sugg, width=124, height=124,image=sugg_img, bg=suggest_blue,
                                      highlightthickness=2, highlightbackground=bord_color)
@@ -322,30 +338,29 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
                 
                 img_label.pack_propagate(False)
             else:
-                tk.Label(row_sugg, text=s.replacement, fg="white", bg=suggest_blue).pack(side="left")
+                tk.Label(row_sugg, text=new_name, fg="white", bg=suggest_blue).pack(side="left")
 
             # Suggestion score
-            scolor = change_color(s.new_score)
-            tk.Label(row_sugg, text=f"{s.new_score:+}", highlightthickness=2,
+            scolor = change_color(new_score)
+            tk.Label(row_sugg, text=f"{new_score:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=suggest_score,
                      font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-            if s.new_score:
-                new_scores += round(s.new_score,1)
+            
 
         else:
             # No replacement or replacement == original — reserve space
             spacer = tk.Frame(row_sugg, width=124 + 60, height=124, bg=suggest_dark)
             spacer.pack_propagate(False)
             spacer.pack(side="left",pady=4)
-            new_scores += round(orig_score,1)
+            
             #tk.Label(spacer, text="No suggestion", fg="white", bg=dark_blue).pack(anchor="center")
 
         # === Column 3: Alternative Suggestion ===
-        alt = member.alt_suggestion
+        alt = a_member
         row_alt = tk.Frame(alt_frame, bg=alt_dark)
         row_alt.pack(fill="x", padx= 25,pady=6)
         if alt:
-            alt_img = get_image(alt.replacement)
+            alt_img = get_image(alt_name)
             if alt_img:
                 outer = tk.Label(row_alt, width=124, height=124,image=alt_img, bg=alt_light, highlightthickness=2,
                          highlightbackground=bord_color)
@@ -353,20 +368,20 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
                 outer.pack_propagate(False)
                 row_alt.image = alt_img
             scolor = "white"
-            scolor = change_color(alt.new_score)
-            alt_score += round(alt.new_score,1)
-            tk.Label(row_alt, text=f"{alt.new_score:+}", highlightthickness=2,
+            scolor = change_color(alt_score)
+            
+            tk.Label(row_alt, text=f"{alt_score:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=green_score,
                      font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
         else:
             tk.Label(row_alt, text="No alt", fg="white", bg=alt_dark).pack()
 
         # === Column 4: Red Team ===
-        red_member = getattr(red_result, str(i))
+        
         red_row = tk.Frame(red_frame, bg=dark_red)
         red_row.pack(fill="x", pady=6, padx=25)
 
-        red_img = get_image(red_member.character.name)
+        red_img = get_image(red_name)
         if red_img:
             outer = tk.Label(red_row,width=124, height=124, image=red_img, bg=light_red, highlightthickness=2,
                      highlightbackground=bord_color)
@@ -374,26 +389,26 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
             outer.pack_propagate(False)
             red_row.image = red_img
         scolor = "white"
-        scolor = change_color(red_member.suggestion.orig_score)
-        red_scores1 += red_member.suggestion.orig_score
-        tk.Label(red_row, text=f"{red_member.suggestion.orig_score:+}", highlightthickness=2,
+        scolor = change_color(red_score1)
+        
+        tk.Label(red_row, text=f"{red_score1:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=red_score,
                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
         scolor = "white"
-        scolor = change_color(red_member.suggestion.new_score)
-        red_scores2 += red_member.suggestion.new_score
-        tk.Label(red_row, text=f"{red_member.suggestion.new_score:+}", highlightthickness=2,
+        scolor = change_color(red_score2)
+        
+        tk.Label(red_row, text=f"{red_score2:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=red_score,
                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-        scolor = change_color(red_member.suggestion.alt_score)
-        tk.Label(red_row, text=f"{red_member.suggestion.alt_score:+}", highlightthickness=2,
+        scolor = change_color(red_score3)
+        tk.Label(red_row, text=f"{red_score3:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=red_score,
                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-        red_scores3 += red_member.suggestion.alt_score
+        
         red_scores1 = round(red_scores1,1)
         red_scores2= round(red_scores2,1)
         red_scores3= round(red_scores3,1)
-        alt_score= round(alt_score,1)
+        alt_scores= round(alt_scores,1)
         new_scores=round(new_scores,1)
         origs_score= round(origs_score,1)
         
@@ -444,7 +459,7 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     
     tk.Label(row_alt_tot, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
     scolor = change_color(alt_score)
-    tk.Label(row_alt_tot, text=f"{alt_score:+}", highlightthickness=2,
+    tk.Label(row_alt_tot, text=f"{alt_scores:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=green_score,
                      font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
     # Total - red 1
@@ -476,21 +491,18 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
         else:
             return "#3ecbff"  # blue
 
-            
-              
-
     
-    def build_color_thresholds():
-    # Collect values
+    def build_color_thresholds(results):
+        # results is an iterable of team objects
         stats = {"dps": [], "hps": [], "health": []}
     
-        for team_data in score_totals.values():
-            for member_stats in team_data.values():
-                for key in stats:
-                    stats[key].append(member_stats[key])
+        # Collect totals from each team
+        for team in results:
+            stats["dps"].append(team.dps)
+            stats["hps"].append(team.hps)
+            stats["health"].append(team.health)
     
         thresholds = {}
-    
         for key, values in stats.items():
             min_v = min(values)
             max_v = max(values)
@@ -507,6 +519,49 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     
         return thresholds
 
+    
+            
+              
+
+    
+    #def build_color_thresholds():
+#        import copy
+#    # # Collect values
+#        stats = {"dps": [], "hps": [], "health": []}
+#        score_totals = {}
+#        for i, item in results:
+#            dps = item.dps
+#            hps = item.hps
+#            health = item.health
+#            js = {"dps": dps,
+#            "hps":hps,
+#            "health":health}
+#            score_totals[i] = copy.deepcopy(js)
+#            
+#    
+#        for team_data in score_totals.values():
+#            for member_stats in team_data.values():
+#                 for key in stats:
+#                    stats[key].append(member_stats[key])
+#    
+#        thresholds = {}
+#    
+#        for key, values in stats.items():
+#             min_v = min(values)
+#             max_v = max(values)
+#             avg = sum(values) / len(values)
+#             half_range = (max_v - min_v) / 2
+#    
+#             thresholds[key] = {
+#                 "min": min_v,
+#                 "max": max_v,
+#                 "avg": avg,
+#                 "low_mid": avg - 0.5 * half_range,
+#                 "high_mid": avg + 0.5 * half_range
+#              }
+#    
+#        return thresholds
+
             
     
     def create_stat_frames(frame,color,num,back,bg2):
@@ -516,10 +571,13 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
         mid.pack(fill="both", side="top",pady=5)
         bot= tk.Frame(frame, bg=back, highlightthickness=0,highlightbackground=bord_color)
         bot.pack(fill="both", side="top",pady=5)
-        
-        dps = score_totals[color][num]["dps"]
-        hps = score_totals[color][num]["hps"]
-        health = score_totals[color][num]["health"]
+        index = int(num) - 1
+        if color == 'Red':
+            index = 3
+        teaam = results[index]    
+        dps = teaam.dps
+        hps = teaam.hps
+        health = teaam.health
         fg_dps = get_color(dps,"dps",thresholds)
         fg_hps = get_color(hps,"hps",thresholds)
         fg_health = get_color(health,"health",thresholds)
@@ -550,7 +608,7 @@ def show_suggestion_gui(blue_result, red_result, image_map,score_totals):
     tk.Label(red1, text=f"{red_scores3:+}", highlightthickness=2,
                      highlightbackground=bord_color, fg=scolor, bg=red_score,
                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-    thresholds = build_color_thresholds()
+    thresholds = build_color_thresholds(results)
     
     create_stat_frames(stat_orig,"Blue","1",origbg,blue_score)
     create_stat_frames(stat_new,"Blue","2",newbg,suggest_score)
@@ -725,6 +783,8 @@ def change_character(match, image_map, label_widget,bg_c):
     row = col = 0
 
     for hero_name in sorted(image_map.keys()):
+        if hero_name == "Unknown":
+            continue
         img_obj = image_map[hero_name]
         if not img_obj:
             continue
@@ -1191,10 +1251,10 @@ def show_launcher(on_trigger,on_match):
     global bhidden, bdebug_menu, indicator_label,main, var2, var1, trigger_func,trigger2_func,root,cb1,cb2,cb3
     global fonts
     
-    font_scale = 1
+    font_scale = 1/2
     print(config.mobile_mode)
     if config.mobile_mode:
-        font_scale = 3.5
+        font_scale = 1
         print(font_scale)
     font_sizes = list(range(6, 70))
     fonts = {size: scale_font(font_scale, size) for size in font_sizes}

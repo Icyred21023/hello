@@ -2,9 +2,9 @@ import json
 import os
 from collections import defaultdict, Counter
 from matchups4 import Character, TeamResult, TeamMember, Suggestion
-
+import config
 script_dir = os.path.dirname(os.path.abspath(__file__))
-matchup_path = os.path.join(script_dir, "type_matchupDPS.json")
+matchup_path = os.path.join(script_dir, config.MATCHUP)
 
 with open(matchup_path, "r", encoding="utf-8") as f:
     raw = json.load(f)
@@ -23,6 +23,7 @@ def gather_counters(enemy_team, role):
     counters = []
     if role != "Strategist":
         for enemy in enemy_team:
+            
             counters.extend([
                 cp["name"] for cp in enemy.get("counterPicks", [])
                 if cp["role"] == role
@@ -36,11 +37,11 @@ def gather_counters(enemy_team, role):
                 ])
     return counters
 
-def most_frequent(counters, num=2):
+def most_frequent(counters, num=4):
     count = Counter(counters)
-    return [name for name, _ in count.most_common(num)]
+    return [name for name, _ in count.most_common(len(count))]
 
-def run_simple_counter_logic(blue_names, red_names):
+def run_simple_counter_logic(blue_names, red_names,flag=False):
     # Build Character objects
     character_pool = {name: Character(data) for name, data in raw.items()}
 
@@ -54,15 +55,63 @@ def run_simple_counter_logic(blue_names, red_names):
     # Generate a new recommended counter team
     counter_team = []
     used_names = set()
+    track = {}
+    noneflag = False
     for role in ALL_ROLES:
         counter_names = gather_counters([raw[name] for name in red_names if name in raw], role)
-        top_counters = most_frequent(counter_names, num=2)
-        for name in top_counters:
+        top_counters = most_frequent(counter_names, num=4)
+        count = 0
+        track[role] = {}
+        track[role]['count'] = count
+        track[role]['top_counters'] = top_counters
+        for name in top_counters:    
+                
             if name not in used_names and name in character_pool:
+                count +=1
+                track[role]['count'] = count
                 used_names.add(name)
                 counter_team.append(character_pool[name])
+                if count == 2:
+                    track[role]['count'] = count
+                    break
     print(f"Counter Team Alts: \n{counter_team}")
-
+    total_count = 0
+    for roles in ALL_ROLES:
+        total_count += track[roles]['count']
+    for roles in ALL_ROLES:
+        print(f"Total Count: {total_count}")
+        count = track[roles]['count']
+        if total_count ==6:
+            break
+        if count <2:
+            
+            if roles == 'Duelist':
+                subrole = "Vanguard"
+            elif roles == 'Vanguard':
+                subrole = "Duelist"
+            elif roles == "Strategist":
+                subrole = "Duelist"
+            else:
+               subrole = "Duelist"
+            top = track[subrole]["top_counters"]
+            for character in top:
+                
+                if character in used_names:
+                    continue
+                else:
+                    
+                    print(f"Adding extra {subrole}: {character}")
+                    used_names.add(character)
+                    total_count += 1
+                    count += 1
+                    track[roles]['count'] = count
+                    print(f"Total Count After Add {total_count}")
+                    if total_count == 6:
+                        break
+               
+            
+    if flag:
+        return used_names
     # Re-evaluate new blue team against red team
     updated_score = sum(c.evaluate_vs_team(red_team) or c.matchup_score for c in counter_team)
 

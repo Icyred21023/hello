@@ -6,7 +6,9 @@ import time
 import json
 import os
 import subprocess
-import psutil
+import config
+if not config.mobile_mode:
+    import psutil
 
 def kill_selenium_chrome():
     killed = 0

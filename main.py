@@ -1,4 +1,5 @@
 import config
+config.mobile_mode = True
 if not config.mobile_mode:
     from admin_utils import elevate_if_needed
 
@@ -86,6 +87,8 @@ def generate_random_team(character_pool):
     team = []
     while total < 6:
         char = random.choice(list(character_pool.values()))
+        if char.name == "Unknown":
+            continue
         if count[char.name] >= 1:
             continue
         if count[char.role] > 1:
@@ -114,6 +117,10 @@ def on_matchup():
             character_pool = load_characters(matchup_path)
             blue = generate_random_team(character_pool) 
             red = generate_random_team(character_pool)
+            print(f"Blue: {blue}\n\nRed: {red}")
+            if USE_LIST_MATCHUPS:
+                blue = ["Iron Man","The Thing","Winter Soldier","Loki", "Cloak & Dagger", "Bruce Banner"]
+                red = ["Winter Soldier","Cloak & Dagger","Bruce Banner","Moon Knight", "Adam Warlock", "Emma Frost"]
             blueteam, redteam,blueclass,redclass,map = create_heromatches_from_lists(blue,red)
         else:
             blueteam, redteam,blueclass,redclass,map = main3()
@@ -135,16 +142,18 @@ def on_matchup():
             blueresult, redresult = counters(blue, red,matchup_path)
         else:
             print("Using Complex Matchup Logic")
-            blueresult, redresult, tots12 = run_counter_logic(blue, red)
-        alt_blueresult, _ = run_simple_counter_logic(blue, red)
-        redresult ,newscores= get_char_list(alt_blueresult, red, redresult)
+            results = run_counter_logic(blue, red)
+            #blueresult, redresult, tots12 = run_counter_logic(blue, red)
+        #alt_blueresult, _ = run_simple_counter_logic(blue, red)
+        #redresult ,newscores= get_char_list(alt_blueresult, red, redresult)
         
         
-        blueresult = add_alt_suggestions(blueresult, alt_blueresult, redresult)
-        blueresult, final_total_scores= blue_alt_score(blueresult,newscores,tots12)
-        save_json("total_score.json", final_total_scores)
+        #blueresult = add_alt_suggestions(blueresult, alt_blueresult, redresult)
+        #blueresult, final_total_scores= blue_alt_score(blueresult,newscores,tots12)
+        #save_json("total_score.json", final_total_scores)
         # Capture modified teams if go_back is hit
-        go_back_result = show_suggestion_gui(blueresult, redresult, image_map,final_total_scores)
+        go_back_result = show_suggestion_gui(results, image_map)
+        #go_back_result = show_suggestion_gui(blueresult, redresult, image_map,final_total_scores)
 
         if go_back_result:
             # unpack the modified teams and loop again
@@ -162,10 +171,13 @@ def on_matchup():
 
 if __name__ == "__main__":
     updater.check_for_update()
+    USE_LIST_MATCHUPS = False
+    config.USE_TEAMUP_SCORING = False
     config.debug_menu = True
-    config.debug_mode = False
+    config.debug_mode = True
     config.dex = False
-    config.mobile_mode = False
+    config.mobile_mode = True
+    config.randomize_matchup = True
     config.MATCHUP = "type_matchupNEWDPS.json"
     script_dir = os.path.dirname(os.path.abspath(__file__))
     debug_path = os.path.join(script_dir, "debug")
