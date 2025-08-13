@@ -66,6 +66,8 @@ def backup_current_dir(version):
         src = os.path.join(script_dir, item)
         dst = os.path.join(backup_path, item)
         if os.path.isdir(src):
+            if os.path.exists(dst):
+                shutil.rmtree(dst)
             shutil.copytree(src, dst, ignore=ignore_dirs)
         else:
             shutil.copy2(src, dst)
