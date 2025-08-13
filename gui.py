@@ -1251,7 +1251,7 @@ def show_launcher(on_trigger,on_match):
     global bhidden, bdebug_menu, indicator_label,main, var2, var1, trigger_func,trigger2_func,root,cb1,cb2,cb3
     global fonts
     
-    font_scale = 1/2
+    font_scale = 1
     print(config.mobile_mode)
     if config.mobile_mode:
         font_scale = 1
