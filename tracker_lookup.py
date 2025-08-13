@@ -46,7 +46,7 @@ uc.Chrome.__del__ = safe_del
 
 def open_multiple_tracker_profiles(player_names):
     kill_selenium_chrome()
-    season = "6"
+    season = "7"
     options = uc.ChromeOptions()
     # options.add_argument("--headless=new")  # Optional
     profile_path = os.path.join(os.environ["TEMP"], "selenium_admin_profile")

@@ -1,5 +1,5 @@
 import config
-config.mobile_mode = True
+config.mobile_mode = False
 if not config.mobile_mode:
     from admin_utils import elevate_if_needed
 
@@ -174,10 +174,10 @@ if __name__ == "__main__":
     USE_LIST_MATCHUPS = False
     config.USE_TEAMUP_SCORING = False
     config.debug_menu = True
-    config.debug_mode = True
+    config.debug_mode = False
     config.dex = False
-    config.mobile_mode = True
-    config.randomize_matchup = True
+    config.mobile_mode = False
+    config.randomize_matchup = False
     config.MATCHUP = "type_matchupNEWDPS.json"
     script_dir = os.path.dirname(os.path.abspath(__file__))
     debug_path = os.path.join(script_dir, "debug")
