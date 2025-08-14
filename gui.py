@@ -338,8 +338,8 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
         
         if s_member and new_name != orig_name:
             # Draw arrow
-            tk.Label(row_orig, text="➡", fg="#08FCEF", bg=dark_blue,
-                     font=("Courier New", fonts[24], "bold")).pack(side="left", padx=(20, 0))
+            tk.Label(row_orig, text="➡", fg="#08FCFC", relief="sunken", bg=dark_blue,
+                     font=("Courier New", fonts[60], "bold")).pack(side="left", padx=(20, 0))
 
                 # === Column 2: Primary Suggestion ===
         
