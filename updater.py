@@ -238,7 +238,7 @@ def check_for_update(auto_accept: bool = False):
     if latest is None:
         return
 
-    if latest != current:
+    if latest < current:
         print(f"New version available: {latest} (current: {current})")
 
         if auto_accept:
