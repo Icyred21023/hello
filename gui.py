@@ -148,7 +148,7 @@ def change_color(value):
         return "#FF3C3C"
     
     
-def show_suggestion_gui(results, image_map):
+def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
     global bhidden, indicator_label
     blue_result, suggest_result, alt_result, red_result = results
     origs_score = blue_result.total_score
@@ -278,12 +278,16 @@ def show_suggestion_gui(results, image_map):
     tk.Label(red_frame, text="Enemy Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_red).pack()
     score_totals_list = []
 
+
+
     for i in range(1, 7):
         # Blue column (col 1)
         b_member = getattr(blue_result, str(i))
         s_member = getattr(suggest_result, str(i))
         a_member = getattr(alt_result, str(i))
         r_member = getattr(red_result, str(i))
+
+
 
         orig_name = b_member.name
         orig_score = b_member.matchup_score
@@ -296,12 +300,31 @@ def show_suggestion_gui(results, image_map):
         red_score2 = r_member.matchup_score2
         red_score3 = r_member.matchup_score3
         
+        def get_alternate_char_name(dict, hero_name):
+            key = dict[i-1]
+            base_name = key["base_name"]
+            full_name = key["full_name"]
+            if base_name != full_name:
+                if base_name == hero_name:
+                    return full_name
+            return base_name
+
+
+
+        orig_name2 = get_alternate_char_name(blue_dict, orig_name)
+        red_name2 = get_alternate_char_name(red_dict, red_name)
+
+        
 
         # === Column 1: Original Blue ===
         row_orig = tk.Frame(original_frame, bg=dark_blue)
         row_orig.pack(fill="x", pady=6,padx = 1)
 
         orig_img = get_image(orig_name)
+        img_obj = get_image_from_map(map, orig_name, orig_name2)
+        resized = img_obj.copy()
+        resized.thumbnail((128, 128))
+        orig_img = ImageTk.PhotoImage(resized)
         if orig_img:
             outer = tk.Label(row_orig, width=124, height=124,image=orig_img, bg=light_blue, highlightthickness=2,
                      highlightbackground=bord_color)
@@ -382,6 +405,10 @@ def show_suggestion_gui(results, image_map):
         red_row.pack(fill="x", pady=6, padx=25)
 
         red_img = get_image(red_name)
+        ii = get_image_from_map(map, red_name, red_name2)
+        resized = ii.copy()
+        resized.thumbnail((128, 128))
+        red_img = ImageTk.PhotoImage(resized)
         if red_img:
             outer = tk.Label(red_row,width=124, height=124, image=red_img, bg=light_red, highlightthickness=2,
                      highlightbackground=bord_color)
@@ -862,6 +889,7 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     root.geometry(f"+{x}+0")
     root.withdraw()  # Hide root window
     result = {"blue": [], "red": []}
+    resultdict = {"blue": [], "red": []}
     win = tk.Toplevel(root)
     win.geometry(f"+{x}+0")
     
@@ -905,9 +933,10 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
         outer.pack(pady=3)
         cropped = None
         img2 = None
+        print(match.name)
 
-        # Adjust border color if score > 50
-        if match.score > 50:
+        # Adjust border color if score > 55
+        if match.score >= 55:
             outer.config(highlightbackground="yellow",highlightthickness= 4)
             cropped = match.image
             cropped.thumbnail((128, 128))
@@ -990,6 +1019,14 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     for match in team2_matches:
         add_match_widget(right_frame, match, "#A15444")
     def on_save():
+        resultdict["blue"] = [
+    {"base_name": m.name, "full_name": m.fullname}
+    for m in team1_matches
+]
+        resultdict["red"] = [
+    {"base_name": m.name, "full_name": m.fullname}
+    for m in team2_matches
+]
         result["blue"] = [m.name for m in team1_matches]
         result["red"] = [m.name for m in team2_matches]
         win.destroy()
@@ -1009,7 +1046,7 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     win.wait_window()  # Block until win is destroyed
     root.destroy()     # Fully close hidden root window
     
-    return result["blue"], result["red"], image_map
+    return result["blue"], result["red"], image_map, resultdict["blue"], resultdict["red"]
 
 
 

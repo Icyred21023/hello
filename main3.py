@@ -76,12 +76,15 @@ def match_hero_icon(captured_icon, image_map):
                 best_base = base_name
                 best_full = full_name
     # Optional: print top 4 matches if confidence is low
-    if best_score > 50 and match_scores:
+    if best_score >= 55 and match_scores:
         print(f"⚠️ Low confidence (best score = {best_score:.2f}). Closest matches:")
         top_matches = sorted(match_scores, key=lambda x: x[2])[:4]
         for base, full, score in top_matches:
             print(f"  - {full}: {score:.2f}")
-
+        if best_base == "Unknown":
+            best_base = top_matches[1][0]  # Fallback to second best if Unknown is the best match
+            best_full = top_matches[1][1]
+            best_score = top_matches[1][2]
     return best_base, best_full, best_score
 
 

@@ -129,7 +129,7 @@ def on_matchup():
     if not blueclass:
         show_launcher(on_f8_pressed,on_matchup)
     while True:
-        blue, red, image_map = show_team_comparison_gui(blueclass, redclass, map)
+        blue, red, image_map, blue_dict, red_dict = show_team_comparison_gui(blueclass, redclass, map)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         if config.dex:
             matchup_path = os.path.join(script_dir, config.MATCHUP)
@@ -142,7 +142,7 @@ def on_matchup():
             blueresult, redresult = counters(blue, red,matchup_path)
         else:
             print("Using Complex Matchup Logic")
-            results = run_counter_logic(blue, red)
+            results = run_counter_logic(blue, red) #add blue_dict and red_dict to this function if needed -----------------------------------
             #blueresult, redresult, tots12 = run_counter_logic(blue, red)
         #alt_blueresult, _ = run_simple_counter_logic(blue, red)
         #redresult ,newscores= get_char_list(alt_blueresult, red, redresult)
@@ -152,7 +152,7 @@ def on_matchup():
         #blueresult, final_total_scores= blue_alt_score(blueresult,newscores,tots12)
         #save_json("total_score.json", final_total_scores)
         # Capture modified teams if go_back is hit
-        go_back_result = show_suggestion_gui(results, image_map)
+        go_back_result = show_suggestion_gui(results, image_map,map,blue_dict,red_dict)
         #go_back_result = show_suggestion_gui(blueresult, redresult, image_map,final_total_scores)
 
         if go_back_result:
