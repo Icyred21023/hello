@@ -1,11 +1,16 @@
+
+import colorsys
 import tkinter as tk
-from PIL import ImageTk, Image, ImageGrab
+from tkinter import font, _default_root
+import tkinter.font as tkFont
+from PIL import ImageTk, Image, ImageGrab, ImageColor
 import os
 import sys
 import time
 from main3 import HeroMatch
 import numpy as np
 import config
+import hashlib, colorsys
 if not config.mobile_mode:
     
     import win32gui
@@ -15,6 +20,28 @@ if not config.mobile_mode:
     import win32com.client
     import ctypes
     import keyboard
+font_families = set()
+
+def create_teamup_image_map(icon_folder):
+    image_map = {}
+    for filename in os.listdir(icon_folder):
+        if filename.lower().endswith(".png"):
+            key = os.path.splitext(filename)[0]
+            path = os.path.join(icon_folder, filename)
+            image_map[key] = Image.open(path)  # Store PIL images instead
+    return image_map
+
+def load_font(family_name, font_file_name):
+    font_path = os.path.join(os.path.dirname(__file__), "fonts", font_file_name)
+
+    if not os.path.exists(font_path):
+        raise FileNotFoundError(f"Font file not found: {font_path}")
+
+    # Register the family name for later use
+    font_families.add(family_name)
+
+load_font("RivalsBold", "bold1.ttf")
+load_font("Rivals", "normal.ttf")
 lock = None
 bhidden = False
 bdebug_menu = False
@@ -151,12 +178,25 @@ def change_color(value):
 def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
     global bhidden, indicator_label
     blue_result, suggest_result, alt_result, red_result = results
-    origs_score = blue_result.total_score
-    new_scores  = suggest_result.total_score
-    alt_scores   = alt_result.total_score
-    red_scores1 = red_result.total_score
-    red_scores2 = red_result.total_score2
-    red_scores3 = red_result.total_score3
+    origs_score = round(blue_result.total_score,1)
+    origs_stat_score = round(blue_result.stats_score,1)
+    origs_teamup_score = round(blue_result.teamup_score,1)
+    new_scores  = round(suggest_result.total_score,1)
+    new_stat_scores = round(suggest_result.stats_score,1)
+    new_teamup_scores = round(suggest_result.teamup_score,1)
+    alt_scores   = round(alt_result.total_score,1)
+    alt_stat_scores = round(alt_result.stats_score,1)
+    alt_teamup_scores = round(alt_result.teamup_score,1)
+    
+    red_scores1 = round(red_result.total_score,1)
+    red_scores2 = round(red_result.total_score2,1)
+    red_scores3 = round(red_result.total_score3,1)
+    red_stat_scores = round(red_result.stats_score,1)
+    red_stat_scores2 = round(red_result.stats_score2,1)
+    red_stat_scores3 = round(red_result.stats_score3,1)
+    red_teamup_scores = round(red_result.teamup_score,1)
+    
+    teamup_image_map = create_teamup_image_map(os.path.join(os.path.dirname(__file__), "teamup_icons"))
     return_data = {}
     bhidden = False
     root = tk.Tk()
@@ -242,10 +282,154 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             return ImageTk.PhotoImage(resized)
         return None
 
+    def add_teamup_icons(parent_frame, teamups):
+        
+
+        if not teamups:
+            grid_host = tk.Frame(parent_frame, width=52,height=48, bg=parent_frame.cget("bg"))
+            grid_host.pack(side="left")
+            grid_host.pack_propagate(False)
+            bg = grid_host.cget("bg")
+            return
+        grid_host = tk.Frame(parent_frame, bg=parent_frame.cget("bg"))
+        grid_host.pack(side="left")
+        bg = grid_host.cget("bg")
+        # teamups: list of (tid, teamup_name) but we color by teamup_name
+        for i, (_tid, teamup_name) in enumerate(teamups):
+            row, col = i % 2, i // 2
+            tkimg = get_teamup_tkimage(
+                teamup_name, 
+                icon_name=teamup_name, 
+                image_map=teamup_image_map
+            )
+            lbl = tk.Label(grid_host, bg=bg, image=tkimg)
+            lbl.image = tkimg
+            lbl.grid(row=row, column=col, padx=2, pady=2, sticky="w")
+
+    # def add_teamup_icons(parent_frame, teamups):
+    #     grid_host = tk.Frame(parent_frame, bg=parent_frame.cget("bg"))
+    #     grid_host.pack(side="left")
+    #     bg = grid_host.cget("bg")
+
+    #     if not teamups:
+    #         # --- placeholder box (same size as one icon) ---
+    #         TEAMUP_COLORS["Blank"] = bg
+    #         tkimg = get_teamup_tkimage(
+    #             "Blank", 
+    #             icon_name="Blank", 
+    #             image_map=teamup_image_map
+    #         )
+    #         lbl = tk.Label(grid_host, bg=bg, image=tkimg)
+    #         lbl.image = tkimg
+    #         lbl.grid(row=row, column=col, padx=2, pady=2, sticky="w")
+    #         return
+
+    #     # teamups: list of (tid, teamup_name) but we color by teamup_name
+    #     for i, (_tid, teamup_name) in enumerate(teamups):
+    #         row, col = i % 2, i // 2
+    #         tkimg = get_teamup_tkimage(
+    #             teamup_name, 
+    #             icon_name=teamup_name, 
+    #             image_map=teamup_image_map
+    #         )
+    #         lbl = tk.Label(grid_host, bg=bg, image=tkimg)
+    #         lbl.image = tkimg
+    #         lbl.grid(row=row, column=col, padx=2, pady=2, sticky="w")
+        
+    def adjust_color(widget, color, factor=0.8):
+        """
+        Darken/lighten a Tk color relative to a widget's color parser.
+        factor < 1.0 -> darker
+        factor > 1.0 -> lighter
+        """
+        # convert to normalized RGB
+        r, g, b = [v/65535 for v in widget.winfo_rgb(color)]
+        h, l, s = colorsys.rgb_to_hls(r, g, b)
+        l = max(0, min(1, l * factor))
+        r, g, b = colorsys.hls_to_rgb(h, l, s)
+        return f"#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}"
+    
+        # 1) flat recolor that preserves original alpha
+    def recolor_icon_flat(pil_img, hex_color):
+        r, g, b = ImageColor.getrgb(hex_color)
+        pil_img = pil_img.convert("RGBA")
+        a = pil_img.split()[-1]
+        colored = Image.new("RGBA", pil_img.size, (r, g, b, 0))
+        colored.putalpha(a)
+        return colored
+
+    # 2) deterministic color per tid (palette or hash)
+    TEAMUP_COLORS = {
+    # optional fixed picks for important names:
+    "Arcane Order": "#53B5FF",
+    "Chilling Assault": "#47D1C2",
+    "Dimensional Shortcut": "#FF8A5B",
+    "Duality Dance": "#F2C94C",
+    "Ever-Burning Bond": "#F58A1F",   # orange flame
+    "Gamma Monstro": "#49A674",       # green
+    "Operation Microchip": "#4A90E2", # steel blue
+    "Rocket Network": "#F4762D",      # bright orange
+    "Stark Protocol": "#E64A5F",      # pink/red
+    
+    "Fantastic Four": "#3AB8E7",      # light blue
+    "Jeff-Nado": "#47A6DB",           # medium blue
+    "Planet X Pals": "#7ED321",       # lime green
+    "Symbiote Shenanigans": "#A0B4BF",# grayish blue
+    
+    "Fastball Special": "#F9D54C",    # yellow/gold
+    "Lunar Force": "#8A7DBE",         # violet
+    "Primal Flame": "#E84C3D",        # red/orange
+    "Vibrant Vitality": "#8CC152",    # bright green
+    
+    "First Steps": "#F27935",         # orange
+    "Mental Projection": "#4BC9F0",   # cyan/light teal
+    "Ragnarok Rebirth": "#3DC2A7",    # turquoise
+    "Stars Aligned": "#5A7DFF", 
+    "Blank": "#594940",    # indigo blue
+}
+
+
+    def color_for_teamup(teamup_name: str) -> str:
+        """Deterministic color for a teamup name."""
+        if teamup_name in TEAMUP_COLORS:
+            return TEAMUP_COLORS[teamup_name]
+        
+
+        # stable hash → hue
+        h = int(hashlib.md5(teamup_name.encode("utf-8")).hexdigest(), 16)
+        hue = (h % 360) / 360.0
+        s, v = 0.65, 0.95  # pleasant saturation/value
+        r, g, b = colorsys.hsv_to_rgb(hue, s, v)
+        return f"#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}"
+
+    def recolor_icon_flat(pil_img, hex_color):
+        pil_img = pil_img.convert("RGBA")
+        a = pil_img.split()[-1]
+        color = Image.new("RGBA", pil_img.size, ImageColor.getrgb(hex_color) + (0,))
+        color.putalpha(a)
+        return color
+
+    _tk_cache = {}
+
+    def get_teamup_tkimage(teamup_name: str, icon_name: str, image_map: dict, size=(48,48)):
+        """
+        teamup_name -> color, icon_name -> which PNG in image_map to tint.
+        image_map[icon_name] should be a PIL.Image original.
+        """
+        key = (teamup_name, icon_name, size)
+        if key not in _tk_cache:
+            base_pil = image_map[icon_name]
+            tint = recolor_icon_flat(base_pil, color_for_teamup(teamup_name))
+            if size:
+                tint = tint.resize(size, Image.LANCZOS)
+            _tk_cache[key] = ImageTk.PhotoImage(tint)
+        return _tk_cache[key]
+
     main_frame = tk.Frame(win, bg="#1C2026")
-    main_frame.pack(padx=0, pady=0)
-    light_blue = "#456093"
+    main_frame.pack(padx=0, pady=0,fill="both", expand=True)
+    light_blue = "#456093" 
     dark_blue = "#2C334B"
+    orig_icon = "#263557"
     suggest_dark = "#354569"
     suggest_blue = "#6D9EC2"
     alt_dark = "#2A4A32"
@@ -253,15 +437,58 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
     light_red = "#A15444"
     dark_red = "#6B382E"
     bord_color = "#1C2026"
-    blue_score = "#4E648A"
+    blue_score = "#456093"
     suggest_score = "#465C8C"
     green_score = "#41734D"
     red_score = "#854539"
 
-    original_frame = tk.Frame(main_frame, bg=dark_blue, padx=10, pady=10)
-    suggestion_frame = tk.Frame(main_frame, bg=suggest_dark, padx=10, pady=10)
-    alt_frame = tk.Frame(main_frame, bg=alt_dark, padx=10, pady=10)
-    red_frame = tk.Frame(main_frame, bg=dark_red, padx=10, pady=10)
+    orig_dark = "#252E47"
+    orig_med = "#2E4069"
+    orig_counter = "#2F3A59"
+    orig_tu_stat = "#31416E"
+
+    new_stats_color = "#6B8BA6"
+    new_bg_color = "#456587"
+    new_icon_color = "#2E4359"
+    new_score_color = "#3B5673"
+    new_stat_number_color = new_bg_color
+    new_tu_stat_score_color = new_score_color
+
+    alt_stats_color = "#6EA676"
+    alt_bg_color = "#41734D"
+    alt_icon_color = "#2A4A32"
+    alt_score_color = "#3A6745"
+    alt_stat_number_color = alt_bg_color
+    alt_tu_stat_score_color = alt_score_color
+
+    red_stats_color = "#DE8776"
+    red_bg_color = "#A35546"
+    red_icon_color = "#703B2F"
+    red_score_color = "#854539"
+    red_stat_number_color = red_bg_color
+    red_tu_stat_score_color = red_score_color
+
+    
+
+
+    original_frame = tk.Frame(main_frame, bg=orig_med, padx=0, pady=0)
+    original_title = tk.Frame(original_frame, bg=orig_dark, padx=0, pady=0, highlightthickness=2,
+                     highlightbackground=bord_color)
+    original_title.pack(side="top", fill="both",expand=True)
+    #original_title.pack_propagate(False)
+
+    suggestion_frame = tk.Frame(main_frame, bg=new_bg_color, padx=0, pady=0)
+    sug_title = tk.Frame(suggestion_frame, bg=new_icon_color, padx=0, pady=0, highlightthickness=2,
+                     highlightbackground=bord_color)
+    sug_title.pack(side="top", fill="both",expand=True)
+    alt_frame = tk.Frame(main_frame, bg=alt_bg_color, padx=0, pady=0)
+    alt_title = tk.Frame(alt_frame, bg=alt_icon_color, padx=0, pady=0, highlightthickness=2,
+                     highlightbackground=bord_color)
+    alt_title.pack(side="top", fill="both",expand=True)
+    red_frame = tk.Frame(main_frame, bg=red_bg_color, padx=0, pady=0)
+    red_title = tk.Frame(red_frame, bg=red_icon_color, padx=0, pady=0, highlightthickness=2,
+                     highlightbackground=bord_color)
+    red_title.pack(side="top", fill="both",expand=True)
 
     original_frame.grid(row=0, column=0, sticky="nw")
     suggestion_frame.grid(row=0, column=1, sticky="nw")
@@ -270,15 +497,13 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
     if config.dex:
         string = "Dexerto Counters"
     else:
-        string = "PeakRivals Counters"
+        string = "Best Replacements"
 
-    tk.Label(original_frame, text="Current Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_blue).pack()
-    tk.Label(suggestion_frame, text=string, font=("Arial", fonts[14], "bold"), fg="white", bg=suggest_dark).pack()
-    tk.Label(alt_frame, text="Full Counter Team", font=("Arial", fonts[14], "bold"), fg="white", bg=alt_dark).pack()
-    tk.Label(red_frame, text="Enemy Team", font=("Arial", fonts[14], "bold"), fg="white", bg=dark_red).pack()
+    tk.Label(original_title, text="Current Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=orig_dark).pack(fill="both",expand=True)
+    tk.Label(sug_title, text=string, font=("Rajdhani", fonts[22], "bold"), fg="white", bg=new_icon_color).pack(fill="both",expand=True)
+    tk.Label(alt_title, text="Alternate Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=alt_icon_color).pack(fill="both",expand=True)
+    tk.Label(red_title, text="Enemy Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=red_icon_color).pack(fill="both",expand=True)
     score_totals_list = []
-
-
 
     for i in range(1, 7):
         # Blue column (col 1)
@@ -287,10 +512,12 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
         a_member = getattr(alt_result, str(i))
         r_member = getattr(red_result, str(i))
 
-
-
         orig_name = b_member.name
         orig_score = b_member.matchup_score
+        orig_teamups = b_member.teamup_names
+        new_teamups = s_member.teamup_names
+        alt_teamups = a_member.teamup_names
+        red_teamups = r_member.teamup_names
         new_name = s_member.name
         new_score = s_member.matchup_score
         alt_name = a_member.name
@@ -300,51 +527,39 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
         red_score2 = r_member.matchup_score2
         red_score3 = r_member.matchup_score3
         
-        def get_alternate_char_name(dict, hero_name):
-            key = dict[i-1]
-            base_name = key["base_name"]
-            full_name = key["full_name"]
-            if base_name != full_name:
-                if base_name == hero_name:
-                    return full_name
-            return base_name
-
-
-
-        orig_name2 = get_alternate_char_name(blue_dict, orig_name)
-        red_name2 = get_alternate_char_name(red_dict, red_name)
-
-        
 
         # === Column 1: Original Blue ===
-        row_orig = tk.Frame(original_frame, bg=dark_blue)
-        row_orig.pack(fill="x", pady=6,padx = 1)
+        row_orig = tk.Frame(original_frame, bg=orig_med)
+        row_orig.pack(fill="x", pady=10,padx = 6)
 
         orig_img = get_image(orig_name)
-        img_obj = get_image_from_map(map, orig_name, orig_name2)
-        resized = img_obj.copy()
-        resized.thumbnail((128, 128))
-        orig_img = ImageTk.PhotoImage(resized)
         if orig_img:
-            outer = tk.Label(row_orig, width=124, height=124,image=orig_img, bg=light_blue, highlightthickness=2,
+            outer = tk.Label(row_orig, width=124, height=124,image=orig_img, bg=orig_icon, highlightthickness=2,
                      highlightbackground=bord_color)
-            outer.pack(side="left")
+            outer.pack(side="left",padx=(5,0))
             outer.pack_propagate(False)
             row_orig.image = orig_img
+
+        
+        add_teamup_icons(row_orig,orig_teamups)
+        
         scolor = change_color(orig_score)
         tk.Label(row_orig, text=f"{orig_score:+}", highlightthickness=2,
-                 highlightbackground=bord_color, fg=scolor, bg=blue_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                 highlightbackground=bord_color, fg=scolor, bg=orig_counter,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
+        
         
         if s_member and new_name != orig_name:
             # Draw arrow
-            tk.Label(row_orig, text="➡", fg="#08FCFC", relief="sunken", bg=dark_blue,
-                     font=("Courier New", fonts[60], "bold")).pack(side="left", padx=(20, 0))
+            tk.Label(row_orig, text="➡", fg="#08FCEF", bg=orig_med,
+                     font=("Courier New", fonts[52], "bold")).pack(side="right", padx=(10, 5),anchor="center")
+            
+        
 
                 # === Column 2: Primary Suggestion ===
         
-        row_sugg = tk.Frame(suggestion_frame, bg=suggest_dark)
-        row_sugg.pack(fill="x", padx=10, pady=6)
+        row_sugg = tk.Frame(suggestion_frame, bg=new_bg_color)
+        row_sugg.pack(fill="x", pady=10, padx=6)
 
         if s_member and orig_name != new_name:
             # Draw arrow
@@ -354,83 +569,97 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             # Suggestion image
             sugg_img = get_image(new_name)
             if sugg_img:
-                img_label = tk.Label(row_sugg, width=124, height=124,image=sugg_img, bg=suggest_blue,
+                img_label = tk.Label(row_sugg, width=124, height=124,image=sugg_img, bg=new_icon_color,
                                      highlightthickness=2, highlightbackground=bord_color)
                 img_label.image = sugg_img
-                img_label.pack(side="left")
+                img_label.pack(side="left",padx=(5,0))
                 
                 img_label.pack_propagate(False)
             else:
-                tk.Label(row_sugg, text=new_name, fg="white", bg=suggest_blue).pack(side="left")
-
+                tk.Label(row_sugg, text=new_name, fg="white", bg=new_bg_color).pack(side="left")
+            
+            add_teamup_icons(row_sugg,new_teamups)
             # Suggestion score
             scolor = change_color(new_score)
             tk.Label(row_sugg, text=f"{new_score:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=suggest_score,
-                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                     highlightbackground=bord_color, fg=scolor, bg=new_score_color,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
+            
             
 
         else:
             # No replacement or replacement == original — reserve space
-            spacer = tk.Frame(row_sugg, width=124 + 60, height=124, bg=suggest_dark)
+            spacer = tk.Frame(row_sugg, width=124 + 25, height=124, bg=new_bg_color)
             spacer.pack_propagate(False)
             spacer.pack(side="left",pady=4)
+
+            
+            add_teamup_icons(row_sugg,new_teamups)
+            # Suggestion score
+            scolor = change_color(new_score)
+            tk.Label(row_sugg, text=f"{new_score:+}", highlightthickness=2,
+                     highlightbackground=bord_color, fg=scolor, bg=new_score_color,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
+            
             
             #tk.Label(spacer, text="No suggestion", fg="white", bg=dark_blue).pack(anchor="center")
 
         # === Column 3: Alternative Suggestion ===
         alt = a_member
-        row_alt = tk.Frame(alt_frame, bg=alt_dark)
-        row_alt.pack(fill="x", padx= 25,pady=6)
+        row_alt = tk.Frame(alt_frame, bg=alt_bg_color)
+        row_alt.pack(fill="x", pady= 10,padx=6)
         if alt:
             alt_img = get_image(alt_name)
             if alt_img:
-                outer = tk.Label(row_alt, width=124, height=124,image=alt_img, bg=alt_light, highlightthickness=2,
+                outer = tk.Label(row_alt, width=124, height=124,image=alt_img, bg=alt_icon_color, highlightthickness=2,
                          highlightbackground=bord_color)
-                outer.pack(side="left")
+                outer.pack(side="left",padx=(5,0))
                 outer.pack_propagate(False)
                 row_alt.image = alt_img
+            
+            add_teamup_icons(row_alt,alt_teamups)
             scolor = "white"
             scolor = change_color(alt_score)
             
             tk.Label(row_alt, text=f"{alt_score:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=green_score,
-                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                     highlightbackground=bord_color, fg=scolor, bg=alt_score_color,
+                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
+            
         else:
-            tk.Label(row_alt, text="No alt", fg="white", bg=alt_dark).pack()
+            tk.Label(row_alt, text="No alt", fg="white", bg=alt_bg_color).pack()
 
         # === Column 4: Red Team ===
         
-        red_row = tk.Frame(red_frame, bg=dark_red)
-        red_row.pack(fill="x", pady=6, padx=25)
+        red_row = tk.Frame(red_frame, bg=red_bg_color)
+        red_row.pack(fill="x", pady=10, padx=6)
 
         red_img = get_image(red_name)
-        ii = get_image_from_map(map, red_name, red_name2)
-        resized = ii.copy()
-        resized.thumbnail((128, 128))
-        red_img = ImageTk.PhotoImage(resized)
         if red_img:
-            outer = tk.Label(red_row,width=124, height=124, image=red_img, bg=light_red, highlightthickness=2,
+            outer = tk.Label(red_row,width=124, height=124, image=red_img, bg=red_icon_color, highlightthickness=2,
                      highlightbackground=bord_color)
-            outer.pack(side="left")
+            outer.pack(side="left",padx=(5,0))
             outer.pack_propagate(False)
             red_row.image = red_img
+        
+            add_teamup_icons(red_row,red_teamups)
         scolor = "white"
         scolor = change_color(red_score1)
+
+        
         
         tk.Label(red_row, text=f"{red_score1:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                     highlightbackground=bord_color, fg=scolor, bg=red_score_color,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
         scolor = "white"
         scolor = change_color(red_score2)
         
         tk.Label(red_row, text=f"{red_score2:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                     highlightbackground=bord_color, fg=scolor, bg=red_score_color,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
         scolor = change_color(red_score3)
         tk.Label(red_row, text=f"{red_score3:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+                     highlightbackground=bord_color, fg=scolor, bg=red_score_color,
+                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=(0,10))
         
         red_scores1 = round(red_scores1,1)
         red_scores2= round(red_scores2,1)
@@ -438,66 +667,225 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
         alt_scores= round(alt_scores,1)
         new_scores=round(new_scores,1)
         origs_score= round(origs_score,1)
+
+        
         
 
-    origbg = "#5B6A9C"
+    origbg = "#283559"
+    origtot = "#3E5685"
+    origstats = "#456093"
     newbg = "#556FA8"
     altbg = "#4A8258"
     redbg = "#A15445"
+    yellow = "#FFC90E"
 
-    #Total Scores - Original Score
-    tot_orig = tk.Frame(original_frame, bg="#5B6A9C", highlightthickness=2,
-                     highlightbackground=bord_color)
-    tot_orig.pack(fill="x", pady=(6,0),padx = 0, ipady=10)
+    orig_team_stats = tk.Frame(original_frame, bg=orig_med, height=360)
+    orig_team_stats.pack(fill="x",padx = 0,expand=True)
+
     #Stats
-    stat_orig = tk.Frame(original_frame, bg="#5B6A9C", highlightthickness=2,
+    stat_orig = tk.Frame(orig_team_stats, bg=origstats, highlightthickness=2,
                      highlightbackground=bord_color)
-    stat_orig.pack(fill="x", pady=(6,0),padx = 0, ipady=10)
+    stat_orig.pack(fill="x", pady=(6,0),padx = 0, ipady=10,expand=True)
+
+    #Stat scores - Original
+    stsc_orig = tk.Frame(orig_team_stats, bg=orig_tu_stat)
+    stsc_orig.pack(fill="x",padx = 0, ipady=10,expand=True)
+
+    #teamups - Original Score
+    tu_orig = tk.Frame(orig_team_stats, bg=orig_tu_stat)
+    tu_orig.pack(fill="x",padx = 0, ipady=10,expand=True)
+
+
+    #total - Original Score
+    tot_orig = tk.Frame(orig_team_stats, bg=orig_dark, highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_orig.pack(fill="x", pady=(0,0),padx = 0, ipady=8,expand=True)
+
+
     
-    tk.Label(tot_orig, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#5B6A9C").pack(side="left")
+
+    tk.Label(stsc_orig, text="Stats Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=orig_med).pack(side="left",padx=(10,0))
+    scolor = change_color(origs_score)
+    tk.Label(stsc_orig, text=f"{origs_stat_score:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=blue_score,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tu_orig, text="Teamups Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=orig_med).pack(side="left",padx=(10,0))
+    scolor = change_color(origs_teamup_score)
+    tk.Label(tu_orig, text=f"{origs_teamup_score:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=blue_score,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tot_orig, text="Total Score: ", font=("Rajdhani", fonts[26], "normal"), fg=yellow, bg=orig_dark).pack(side="left",padx=(10,0))
     scolor = change_color(origs_score)
     tk.Label(tot_orig, text=f"{origs_score:+}", highlightthickness=2,
-                highlightbackground=bord_color, fg=scolor, bg=blue_score,
-                font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-    # Total - New Blue
-    tot_new = tk.Frame(suggestion_frame, bg="#556FA8", highlightthickness=2,
-                     highlightbackground=bord_color)
-    tot_new.pack(fill="x", pady=(6,0),padx = 2, ipady=10)
+                highlightbackground=bord_color, fg=scolor, bg=origtot,
+                font=("Verdana", fonts[20], "bold")).pack(side="right", padx=15)
     
+
+    # statscore - New Blue
+    new_team_stats = tk.Frame(suggestion_frame, bg=new_bg_color, height=360)
+    new_team_stats.pack(fill="x",padx = 0,expand=True)
+
     # Statsl - New Blue
-    stat_new = tk.Frame(suggestion_frame, bg="#556FA8", highlightthickness=2,
+    stat_new = tk.Frame(new_team_stats, bg=new_stats_color, highlightthickness=2,
                      highlightbackground=bord_color)
-    stat_new.pack(fill="x", pady=(6,0),padx = 2, ipady=10)
+    stat_new.pack(fill="x", pady=(6,0),padx = 0, ipady=10,expand=True)
+
+    stsc_new = tk.Frame(new_team_stats, bg=new_bg_color)
+    stsc_new.pack(fill="x",padx = 0, ipady=10,expand=True)
+    # teamup - New Blue
+
+    tu_new = tk.Frame(new_team_stats, bg=new_bg_color)
+    tu_new.pack(fill="x",padx = 0, ipady=10,expand=True)
+
+    # Total - New Blue
+    tot_new = tk.Frame(new_team_stats, bg=new_icon_color, highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_new.pack(fill="x",pady=(0,0),padx = 0, ipady=8,expand=True)
     
-    tk.Label(tot_new, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#556FA8").pack(side="left")
+    
+
+
+    
+
+    tk.Label(stsc_new, text="Stats Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=new_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(new_stat_scores)
+    tk.Label(stsc_new, text=f"{new_stat_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=new_tu_stat_score_color,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tu_new, text="Teamups Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=new_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(new_teamup_scores)
+    tk.Label(tu_new, text=f"{new_teamup_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=new_tu_stat_score_color,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tot_new, text="Total Score: ", font=("Rajdhani", fonts[26], "normal"), fg=yellow, bg=new_icon_color).pack(side="left",padx=(10,0))
     scolor = change_color(new_scores)
     tk.Label(tot_new, text=f"{new_scores:+}", highlightthickness=2,
-                highlightbackground=bord_color, fg=scolor, bg=suggest_score,
-                font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-    # Total - Alt Blue
-    row_alt_tot = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=new_bg_color,
+                font=("Verdana", fonts[20], "bold")).pack(side="right", padx=15)
+    
+
+        # statscore - New Blue
+    alt_team_stats = tk.Frame(alt_frame, bg=alt_bg_color, height=360)
+    alt_team_stats.pack(fill="x",padx = 0,expand=True)
+
+    # Statsl - New Blue
+    stat_alt = tk.Frame(alt_team_stats, bg=alt_stats_color, highlightthickness=2,
                      highlightbackground=bord_color)
-    row_alt_tot.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+    stat_alt.pack(fill="x", pady=(6,0),padx = 0, ipady=10,expand=True)
+
+    stsc_alt = tk.Frame(alt_team_stats, bg=alt_bg_color)
+    stsc_alt.pack(fill="x",padx = 0, ipady=10,expand=True)
+    # teamup - New Blue
+
+    tu_alt = tk.Frame(alt_team_stats, bg=alt_bg_color)
+    tu_alt.pack(fill="x",padx = 0, ipady=10,expand=True)
+
+    # Total - New Blue
+    tot_alt = tk.Frame(alt_team_stats, bg=alt_icon_color, highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_alt.pack(fill="x",pady=(0,0),padx = 0, ipady=8,expand=True)
+
+    tk.Label(stsc_alt, text="Stats Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=alt_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(alt_stat_scores)
+    tk.Label(stsc_alt, text=f"{alt_stat_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=alt_tu_stat_score_color,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tu_alt, text="Teamups Score: ", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=alt_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(alt_teamup_scores)
+    tk.Label(tu_alt, text=f"{alt_teamup_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=alt_tu_stat_score_color,
+                font=("Courier New", fonts[16], "bold")).pack(side="right", padx=20)
+    
+    tk.Label(tot_alt, text="Total Score: ", font=("Rajdhani", fonts[26], "normal"), fg=yellow, bg=alt_icon_color).pack(side="left",padx=(10,0))
+    scolor = change_color(alt_scores)
+    tk.Label(tot_alt, text=f"{alt_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=alt_bg_color,
+                font=("Verdana", fonts[20], "bold")).pack(side="right", padx=15)
+    
+
+    #row_alt_tu = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                    # highlightbackground=bord_color)
+    #row_alt_tu.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+    # statscore - Alt Blue
+    #row_alt_stsc = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                     #highlightbackground=bord_color)
+    #row_alt_stsc.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+    # Total - Alt Blue
+    #row_alt_tot = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                     #highlightbackground=bord_color)
+    #row_alt_tot.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
     
     # Statsl - Alt Blue
-    stat_alt = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
-                     highlightbackground=bord_color)
-    stat_alt.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+    #stat_alt = tk.Frame(alt_frame, bg="#4A8258", highlightthickness=2,
+                     #highlightbackground=bord_color)
+    #stat_alt.pack(fill="x", pady=(6,0),padx = 5, ipady=10)
+
+
+    # tk.Label(tu_alt, text="Teamups Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
+    # scolor = change_color(alt_teamup_scores)
+    # tk.Label(tu_alt, text=f"{alt_teamup_scores:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=green_score,
+    #                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
     
-    tk.Label(row_alt_tot, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
-    scolor = change_color(alt_score)
-    tk.Label(row_alt_tot, text=f"{alt_scores:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=green_score,
-                     font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
-    # Total - red 1
-    red1 = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
-                     highlightbackground=bord_color)
-    red1.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    # tk.Label(row_alt_stsc, text="Stats Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
+    # scolor = change_color(alt_stat_scores)
+    # tk.Label(row_alt_stsc, text=f"{alt_stat_scores:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=green_score,
+    #                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
     
-    # Stats - red 1
-    stat_red = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+    # tk.Label(row_alt_tot, text="Total Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#4A8258").pack(side="left")
+    # scolor = change_color(alt_score)
+    # tk.Label(row_alt_tot, text=f"{alt_scores:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=green_score,
+    #                  font=("Courier New", fonts[16], "bold")).pack(side="left", padx=12)
+
+    # statscore - New Blue
+    red_team_stats = tk.Frame(red_frame, bg=red_bg_color, height=360)
+    red_team_stats.pack(fill="x",padx = 0,expand=True)
+
+    # Statsl - New Blue
+    stat_red = tk.Frame(red_team_stats, bg=red_stats_color, highlightthickness=2,
                      highlightbackground=bord_color)
-    stat_red.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    stat_red.pack(fill="x", pady=(6,0),padx = 0, ipady=10,expand=True)
+
+    stsc_red = tk.Frame(red_team_stats, bg=red_bg_color)
+    stsc_red.pack(fill="x",padx = 0, ipady=10,expand=True)
+    # teamup - New Blue
+
+    tu_red = tk.Frame(red_team_stats, bg=red_bg_color)
+    tu_red.pack(fill="x",padx = 0, ipady=10,expand=True)
+
+    # Total - New Blue
+    tot_red = tk.Frame(red_team_stats, bg=red_icon_color, highlightthickness=2,
+                     highlightbackground=bord_color)
+    tot_red.pack(fill="x",pady=(0,0),padx = 0, ipady=8,expand=True)
+    
+
+
+
+    # # Teamup scores - Red 1
+    # tu_red1 = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+    #                  highlightbackground=bord_color)
+    # tu_red1.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    
+    # # Stat scores - Red 1
+    # stat_red1 = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+    #                  highlightbackground=bord_color)
+    # stat_red1.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    # # Total - red 1
+    # red1 = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+    #                  highlightbackground=bord_color)
+    # red1.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
+    
+    # # Stats - red 1
+    # stat_red = tk.Frame(red_frame, bg="#A15445", highlightthickness=2,
+    #                  highlightbackground=bord_color)
+    # stat_red.pack(fill="x", pady=(6,0),padx = 3, ipady=10)
     
     def get_color(value, stat_type, thresholds):
         t = thresholds[stat_type]
@@ -592,6 +980,8 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             
     
     def create_stat_frames(frame,color,num,back,bg2):
+        tit = tk.Frame(frame, bg=back, highlightthickness=0,highlightbackground=bord_color)
+        tit.pack(fill="both", side="top",pady=(5,5))
         up = tk.Frame(frame, bg=back, highlightthickness=0,highlightbackground=bord_color)
         up.pack(fill="both", side="top",pady=5)
         mid= tk.Frame(frame, bg=back, highlightthickness=0,highlightbackground=bord_color)
@@ -608,39 +998,100 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
         fg_dps = get_color(dps,"dps",thresholds)
         fg_hps = get_color(hps,"hps",thresholds)
         fg_health = get_color(health,"health",thresholds)
-        tk.Label(up, text="DPS Total: ", font=("Arial", fonts[14], "bold"), fg="white", bg=back).pack(side="left")
-        tk.Label(up, text=dps, font=("Courier New", fonts[16], "bold"), fg=fg_dps,highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="left",padx=10)
-        tk.Label(mid, text="HPS Total: ", font=("Arial", fonts[14], "bold"), fg="white", bg=back).pack(side="left")
-        tk.Label(mid, text=hps, font=("Courier New", fonts[16], "bold"), fg=fg_hps, highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="left",padx=10)
-        tk.Label(bot, text="Health Total: ", font=("Arial", fonts[14], "bold"), fg="white", bg=back).pack(side="left")
-        tk.Label(bot, text=health, font=("Courier New", fonts[16], "bold"), fg=fg_health,highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="left",padx=10)
-        
-        
+        tk.Label(tit, text="Team Stats: ", font=("Rajdhani Medium", fonts[19], "bold"), fg="white", bg=back).pack(side="top",padx=(5,0))
+        tk.Label(up, text="Dps: ", font=("Rajdhani Medium", fonts[18], "bold"), fg="white", bg=back).pack(side="left",padx=(10,0))
+        tk.Label(up, text=dps, font=("Courier New", fonts[14], "bold"), fg=fg_dps,highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="right",padx=40)
+        tk.Label(mid, text="Hps: ", font=("Rajdhani Medium", fonts[18], "bold"), fg="white", bg=back).pack(side="left",padx=(10,0))
+        tk.Label(mid, text=hps, font=("Courier New", fonts[14], "bold"), fg=fg_hps, highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="right",padx=40)
+        tk.Label(bot, text="Health: ", font=("Rajdhani Medium", fonts[18], "bold"), fg="white", bg=back).pack(side="left",padx=(10,0))
+        tk.Label(bot, text=health, font=("Courier New", fonts[14], "bold"), fg=fg_health,highlightthickness=2, highlightbackground=bord_color,bg=bg2).pack(side="right",padx=34)
     
+
+    tk.Label(stsc_red, text="Stats Scores:", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=red_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(red_stat_scores3)
+    tk.Label(stsc_red, text=f"{red_stat_scores3:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Courier New", fonts[15], "bold")).pack(side="right", padx=5)
+    scolor = change_color(red_stat_scores2)
+    tk.Label(stsc_red, text=f"{red_stat_scores2:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Courier New", fonts[15], "bold")).pack(side="right", padx=5)
+    scolor = change_color(red_stat_scores)
+    tk.Label(stsc_red, text=f"{red_stat_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Courier New", fonts[15], "bold")).pack(side="right", padx=5)
     
-    scolor = change_color(red_scores1)
-    tk.Label(red1, text="Total Scores: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
-    tk.Label(red1, text=f"{red_scores1:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-    # Total - red 2
+    tk.Label(tu_red, text="Teamups Score:", font=("Rajdhani Medium", fonts[19], "normal"), fg="white", bg=red_bg_color).pack(side="left",padx=(10,0))
+    scolor = change_color(red_teamup_scores)
+    tk.Label(tu_red, text=f"{red_teamup_scores:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Courier New", fonts[16], "bold")).pack(side="left", padx=5)
     
-    scolor = change_color(red_scores2)
-    tk.Label(red1, text=f"{red_scores2:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
-    # Total - red 3
-    
+    tk.Label(tot_red, text="Total Scores:", font=("Rajdhani", fonts[26], "normal"), fg=yellow, bg=red_icon_color).pack(side="left",padx=(10,0))
     scolor = change_color(red_scores3)
-    tk.Label(red1, text=f"{red_scores3:+}", highlightthickness=2,
-                     highlightbackground=bord_color, fg=scolor, bg=red_score,
-                 font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    tk.Label(tot_red, text=f"{red_scores3:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Verdana", fonts[16], "bold")).pack(side="right", padx=5)
+    scolor = change_color(red_scores2)
+    tk.Label(tot_red, text=f"{red_scores2:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Verdana", fonts[16], "bold")).pack(side="right", padx=5)
+    scolor = change_color(red_scores1)
+    tk.Label(tot_red, text=f"{red_scores1:+}", highlightthickness=2,
+                highlightbackground=bord_color, fg=scolor, bg=red_tu_stat_score_color,
+                font=("Verdana", fonts[16], "bold")).pack(side="right", padx=5)
+    
+
+
+    # #Red 1 - Teamup scores
+    # tk.Label(tu_red1, text="Teamups Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    # scolor = change_color(red_teamup_scores)
+    # tk.Label(tu_red1, text=f"{red_teamup_scores:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # # stats - red 1
+        
+    # tk.Label(stat_red1, text="Stats Score: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    # scolor = change_color(red_stat_scores)
+    # tk.Label(stat_red1, text=f"{red_stat_scores:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # # stats2 - red 1
+    # tk.Label(stat_red1, text="Stats Score 2: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    # scolor = change_color(red_stat_scores2)
+    # tk.Label(stat_red1, text=f"{red_stat_scores2:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # # stats3 - red 1
+    # tk.Label(stat_red1, text="Stats Score 3: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    # scolor = change_color(red_stat_scores3)
+    # tk.Label(stat_red1, text=f"{red_stat_scores3:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    
+    # scolor = change_color(red_scores1)
+    # tk.Label(red1, text="Total Scores: ", font=("Arial", fonts[16], "bold"), fg="white", bg="#A15445").pack(side="left")
+    # tk.Label(red1, text=f"{red_scores1:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # # Total - red 2
+    
+    # scolor = change_color(red_scores2)
+    # tk.Label(red1, text=f"{red_scores2:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
+    # # Total - red 3
+    
+    # scolor = change_color(red_scores3)
+    # tk.Label(red1, text=f"{red_scores3:+}", highlightthickness=2,
+    #                  highlightbackground=bord_color, fg=scolor, bg=red_score,
+    #              font=("Courier New", fonts[16], "bold")).pack(side="left", padx=6)
     thresholds = build_color_thresholds(results)
     
-    create_stat_frames(stat_orig,"Blue","1",origbg,blue_score)
-    create_stat_frames(stat_new,"Blue","2",newbg,suggest_score)
-    create_stat_frames(stat_alt,"Blue","3",altbg,green_score)
-    create_stat_frames(stat_red,"Red","1",redbg,red_score)
+    create_stat_frames(stat_orig,"Blue","1",origstats,suggest_score)
+    create_stat_frames(stat_new,"Blue","2",new_stats_color,new_stat_number_color)
+    create_stat_frames(stat_alt,"Blue","3",alt_stats_color,alt_stat_number_color)
+    create_stat_frames(stat_red,"Red","1",red_stats_color,red_bg_color)
     root.update_idletasks()
     global hwnd
     if not config.mobile_mode:
@@ -765,7 +1216,7 @@ def change_character(match, image_map, label_widget,bg_c):
     left.pack(fill="y", padx=15,side="left")
 
     right = tk.Frame(topb, bg=bg_dark)
-    if match.score > 50:
+    if match.score >= 55:
         right.pack(fill="y",padx=15, side="right")
 
     tk.Label(left, fg="white",bg=bg_dark,text=f"Current: {match.name}",font=("Arial",12,"bold")).pack(pady=(10, 2), anchor="center")
@@ -775,7 +1226,7 @@ def change_character(match, image_map, label_widget,bg_c):
     # Image preview area
     img_label = tk.Label(left,bg=bg_c,relief="raised")
     img_label.pack(pady=5, anchor="center")
-    if match.score > 50:
+    if match.score >= 55:
         tk.Label(right,fg="white",bg=bg_dark,text=f"Scanned:",font=("Arial",12,"bold"), anchor="s").pack(pady=(10, 2), anchor="s")
         img_label2 = tk.Label(right,bg=bg_c,relief="raised", anchor="s")
         img_label2.pack(pady=5, anchor="s")
@@ -791,7 +1242,7 @@ def change_character(match, image_map, label_widget,bg_c):
             img_label.image = photo
         else:
             img_label.configure(text="No image found", image="")
-        if match.score > 50:
+        if match.score >= 55:
             cropped = match.image
             cropped.thumbnail((128, 128))
             img2 = ImageTk.PhotoImage(cropped)
@@ -889,11 +1340,10 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     root.geometry(f"+{x}+0")
     root.withdraw()  # Hide root window
     result = {"blue": [], "red": []}
-    resultdict = {"blue": [], "red": []}
     win = tk.Toplevel(root)
     win.geometry(f"+{x}+0")
-    
-    
+    resultdict = {"blue": [], "red": []}
+    result = {"blue": [], "red": []}
     win.title("Team Matchup Comparison")
     win.configure(bg="#1C2026")
     win.attributes("-topmost", True)
@@ -933,9 +1383,8 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
         outer.pack(pady=3)
         cropped = None
         img2 = None
-        print(match.name)
 
-        # Adjust border color if score > 55
+        # Adjust border color if score > 50
         if match.score >= 55:
             outer.config(highlightbackground="yellow",highlightthickness= 4)
             cropped = match.image
@@ -1045,8 +1494,8 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     
     win.wait_window()  # Block until win is destroyed
     root.destroy()     # Fully close hidden root window
-    
     return result["blue"], result["red"], image_map, resultdict["blue"], resultdict["red"]
+    return result["blue"], result["red"], image_map
 
 
 
@@ -1056,7 +1505,8 @@ def create_player_frame(root, player, image_map):
     if player.hero2 not in image_map:
         player.hero2 = "Question"
     
-    outer = tk.Frame(root, width=300, height=400, borderwidth=2, relief="groove")
+    
+    outer = tk.Frame(root, width=330, height=400, borderwidth=2, relief="groove")
     outer.pack(side="left", fill="x",padx=0, pady=0)
     outer.pack_propagate(False)
 
@@ -1065,9 +1515,10 @@ def create_player_frame(root, player, image_map):
     top_bar.pack(fill="x")
     top_bar.pack_propagate(False)
     
-    name_label = tk.Label(top_bar, text=player.name,bg="#2b2e41", fg="white",font=("Calibri", fonts[17], "bold"), anchor="w")
-    name_label.pack(side="left", padx=5)
     
+    
+    name_label = tk.Label(top_bar, text=player.name,bg="#2b2e41", fg="#E4EAFF",font=("Rajdhani", fonts[20], "normal"),anchor="w")
+    name_label.place(x=8, y=14)
     rank_img_raw = image_map.get(player.rank) or image_map.get("Default")
     if rank_img_raw:
         resized = rank_img_raw.copy()
@@ -1075,8 +1526,18 @@ def create_player_frame(root, player, image_map):
         rank_img = ImageTk.PhotoImage(resized)
         rank_label = tk.Label(top_bar,bg="#2b2e41", image=rank_img)
         rank_label.image = rank_img  # Prevent garbage collection
-        rank_label.pack(side="right", padx=5)
-
+        rank_label.pack(side="right", padx=0,anchor='e')
+    
+    mvp_icon = False
+    if player.ace:
+        mvp_icon = image_map.get('MVP2') or image_map.get("Default")
+    if mvp_icon:
+        resized = mvp_icon.copy()
+        resized.thumbnail((72,52))
+        mvp_img = ImageTk.PhotoImage(resized)
+        mvp_label = tk.Label(top_bar,bg="#2b2e41",image=mvp_img)
+        mvp_label.image = mvp_img
+        mvp_label.pack(side='right', padx=0, anchor='e')
  
     #top_bar.image = rank_img
 
@@ -1116,7 +1577,7 @@ def create_player_frame(root, player, image_map):
     left_frame_bot.image = hero2_img
 
     # Right (text stacked)
-    right_frame = tk.Frame(content, bg="#151426",width=150)
+    right_frame = tk.Frame(content, bg="#151426",width=180)
     right_frame.pack(side="right", fill="y")
     right_frame.pack_propagate(False)
     
@@ -1124,9 +1585,25 @@ def create_player_frame(root, player, image_map):
     right_frame_top.pack(side="top", fill="x",pady=5)
     right_frame_top.pack_propagate(False)
     
+    right_frame_topleft = tk.Frame(right_frame_top, bg="#1c1b2d",width=90)
+    right_frame_topleft.pack(side="left", fill="y",pady=5)
+    right_frame_topleft.pack_propagate(False)
+    
+    right_frame_topr = tk.Frame(right_frame_top, bg="#1c1b2d",width=90)
+    right_frame_topr.pack(side="right", fill="y",pady=5)
+    right_frame_topr.pack_propagate(False)
+    
     right_frame_bot = tk.Frame(right_frame,bg="#1c1b2d", height=150)
     right_frame_bot.pack(side="bottom", fill="x",pady=5)
     right_frame_bot.pack_propagate(False)
+    
+    right_frame_botl = tk.Frame(right_frame_bot,bg="#1c1b2d", width=90)
+    right_frame_botl.pack(side="left", fill="y",pady=5)
+    right_frame_botl.pack_propagate(False)
+    
+    right_frame_botr = tk.Frame(right_frame_bot,bg="#1c1b2d", width=90)
+    right_frame_botr.pack(side="right", fill="y",pady=5)
+    right_frame_botr.pack_propagate(False)
     
     kd1 = "white"
     title = "#BEBFE5"
@@ -1162,24 +1639,34 @@ def create_player_frame(root, player, image_map):
         dpm2= "#bf868f"
 
 
-    latitle= tk.Label(right_frame_top, text=f"\nKD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
-    latitle.pack(pady=0)
-    la= tk.Label(right_frame_top, text=f"{player.kd1}\n",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
-    la.pack(pady=0)
-    la2title= tk.Label(right_frame_top, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
-    la2title.pack(pady=0)
-    la2= tk.Label(right_frame_top, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
-    la2.pack(pady=0)
+    latitle= tk.Label(right_frame_topleft, text=f"KD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
+    latitle.pack(pady=0,side='top')
+    la= tk.Label(right_frame_topleft, text=f"{player.kd1}",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la.pack(pady=0,side='top')
+    latitle0= tk.Label(right_frame_topr, text=f"MVP %",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
+    latitle0.pack(pady=0,side='top')
+    la0= tk.Label(right_frame_topr, text=f"{player.mvp1}",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la0.pack(pady=0,side='top')
+    la2= tk.Label(right_frame_topleft, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la2.pack(pady=0,side='bottom')
+    la2title= tk.Label(right_frame_topleft, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    la2title.pack(pady=0,side='bottom')
+    
    # tk.Label(right_frame, text="Placeholder 1", font=("Calibri", fonts[4])).pack(pady=5)
     #tk.Label(right_frame, text="Placeholder 2", font=("Calibri", fonts[4])).pack(pady=5)
-    lbtitle= tk.Label(right_frame_bot, text=f"\nKD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
-    lbtitle.pack(pady=0)
-    lb = tk.Label(right_frame_bot, text=f"{player.kd2}\n",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
-    lb.pack(pady=0)
-    lb2title= tk.Label(right_frame_bot, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
-    lb2title.pack(pady=0)
-    lb2= tk.Label(right_frame_bot, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=("Calibri", fonts[13],"bold"))
-    lb2.pack(pady=0)
+    lbtitle= tk.Label(right_frame_botl, text=f"KD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    lbtitle.pack(pady=0,side='top')
+    lb = tk.Label(right_frame_botl, text=f"{player.kd2}",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    lb.pack(pady=0,side='top')
+    lbtitle0= tk.Label(right_frame_botr, text=f"MVP %",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    lbtitle0.pack(pady=0,side='top')
+    lb0 = tk.Label(right_frame_botr, text=f"{player.mvp2}",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    lb0.pack(pady=0,side='top')
+    lb2= tk.Label(right_frame_botl, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    lb2.pack(pady=0,side='bottom')
+    lb2title= tk.Label(right_frame_botl, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    lb2title.pack(pady=0,side='bottom')
+    
     #tk.Label(right_frame, text="Placeholder 3", font=("Calibri", fonts[4])).pack(pady=5)
     #tk.Label(right_frame, text="Placeholder 4", font=("Calibri", fonts[4])).pack(pady=5)
     
@@ -1191,12 +1678,11 @@ def show_gui(players):
     global indicator_label
     root = tk.Tk()
     root.title("Match Overview")
-    width = len(players) * 300
+    width = len(players) * 330
     screen_width = root.winfo_screenwidth()
     x = (screen_width - width) // 2
     y = 0
     root.geometry(f"{width}x400+{x}+{y}")
-
     root.configure(bg="black")
     root.overrideredirect(True)
     root.attributes("-topmost", True)  # Always on top
@@ -1233,9 +1719,12 @@ def show_gui(players):
     hide_btn.bind("<Leave>", lambda e: hide_btn.config(bg="#141420"))
     lock.bind("<Enter>", lambda e: lock.config(bg="#31314D"))
     lock.bind("<Leave>", lambda e: lock.config(bg="#141420"))
-    
-    
+    top_player = max(players, key=lambda p: float(p.playermvp.strip('%')))
+
+# Set their .ace to True
+    top_player.ace = True
     for player in players:
+        
         create_player_frame(root, player, image_map)
 
     root.update_idletasks()
@@ -1291,7 +1780,7 @@ def show_launcher(on_trigger,on_match):
     font_scale = 1
     print(config.mobile_mode)
     if config.mobile_mode:
-        font_scale = 1
+        font_scale = 2
         print(font_scale)
     font_sizes = list(range(6, 70))
     fonts = {size: scale_font(font_scale, size) for size in font_sizes}

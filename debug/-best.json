@@ -1,0 +1,370 @@
+{
+    "Hela": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 3.1,
+        "total_counter_score": 3,
+        "total_category_score": 1,
+        "role": "Duelist",
+        "category": "Poke",
+        "dps": 161,
+        "hps": 0,
+        "health": 250,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": -1,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "name": "Hela"
+    },
+    "Doctor Strange": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 1.7,
+        "total_counter_score": 2,
+        "total_category_score": -2,
+        "role": "Vanguard",
+        "category": "Brawl",
+        "dps": 90,
+        "hps": 0,
+        "health": 700,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": 0,
+                "category_score": -1,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 0,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 1,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "name": "Doctor Strange"
+    },
+    "Hawkeye": {
+        "totalScore": null,
+        "teamupScore": 1.0,
+        "CounterCatScore": 3.1,
+        "total_counter_score": 3,
+        "total_category_score": 1,
+        "role": "Duelist",
+        "category": "Poke",
+        "dps": 140,
+        "hps": 0,
+        "health": 275,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "teamups": {
+            "Luna Snow": 1.0
+        },
+        "name": "Hawkeye"
+    },
+    "Psylocke": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 2.9,
+        "total_counter_score": 3,
+        "total_category_score": -1,
+        "role": "Duelist",
+        "category": "Dive / Brawl",
+        "dps": 120,
+        "hps": 0,
+        "health": 250,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 1,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "name": "Psylocke"
+    },
+    "Adam Warlock": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 1.1,
+        "total_counter_score": 1,
+        "total_category_score": 1,
+        "role": "Strategist",
+        "category": "Poke",
+        "dps": 110,
+        "hps": 100,
+        "health": 250,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "name": "Adam Warlock"
+    },
+    "Luna Snow": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 0.8,
+        "total_counter_score": 1,
+        "total_category_score": -1,
+        "role": "Strategist",
+        "category": "Brawl / Poke",
+        "dps": 132,
+        "hps": 152,
+        "health": 275,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magneto": {
+                "counter_score": 0,
+                "category_score": -1,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Poke"
+            },
+            "The Thing": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Vanguard",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Human Torch": {
+                "counter_score": 1,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            },
+            "Winter Soldier": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Squirrel Girl": {
+                "counter_score": 0,
+                "category_score": -1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Poke"
+            }
+        },
+        "teamups": {
+            "Hawkeye": 1.0,
+            "Iron Fist": 1.0,
+            "Adam Warlock": 1.0
+        },
+        "name": "Luna Snow"
+    }
+}

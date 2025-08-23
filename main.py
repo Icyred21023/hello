@@ -15,7 +15,7 @@ from main3 import main3,create_heromatches_from_lists,load_hero_assets
 from chatsitecopymodule import run_simple_counter_logic
 from matchups4 import counters, load_characters
 from merge_suggestions import add_alt_suggestions
-from icyred_matchup_logic import run_counter_logic, print_team_result_details, get_char_list,blue_alt_score
+from icyred_matchup_logic_NEW import run_counter_logic, print_team_result_details, get_char_list,blue_alt_score
 import json
 import os
 import tkinter as tk
@@ -34,13 +34,16 @@ def on_f8_pressed():
 
     if config.debug_mode:
         all_data = local_all_data
+        #names = ['ukenichi', 'TexasMiler','kalluto', 'Roundest Boi', 'ltzvenuss']
         if not config.randomize_ban:
             print("First 6")
-            names = list(local_all_data.keys())[:6]
+            
+            names = list(local_all_data.keys())[-6:]
+            all_data = open_multiple_tracker_profiles(names)
         else:
             print("Random 6")
             all_keys = list(local_all_data.keys())
-            names = random.sample(all_keys, min(6, len(all_keys)))
+            #names = random.sample(all_keys, min(6, len(all_keys)))
         
     else:
         names = capture_names()
@@ -52,9 +55,13 @@ def on_f8_pressed():
     print("\n🔎 Tracker.gg Profile URLs:")
     players = []
     if not config.debug_mode or config.dex:
+        
         all_data = open_multiple_tracker_profiles(names)
     for name in names:
         data = all_data[name]
+        if data is None:
+            print(f"Skipping {name}: No Data Found")
+            continue
         if "errors" in data:
             print(f"Skipping {name}: Private Account")
             continue

@@ -56,7 +56,8 @@ uc.Chrome.__del__ = safe_del
 
 def open_multiple_tracker_profiles(player_names):
     kill_selenium_chrome()
-    season = "7"
+    season = config.season
+    mode = "competitive"
 
     # --- NEW: pin UC to your installed Chrome major version ---
     chrome_major = get_chrome_major_version(default=138)
@@ -81,22 +82,84 @@ def open_multiple_tracker_profiles(player_names):
     driver.set_window_size(1, 1)
 
     results = {}
+    url = f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/ProfChloroform?"
+    import copy
     try:
+        driver.get(url)
+        pre = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, "pre"))
+        )
+        raw_json = pre.text
+        data = json.loads(raw_json)
+        seas = data["data"]["metadata"]["currentSeason"]
+        if seas > season:
+            season = seas
+            config.season = season
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            season_dir = os.path.join(script_dir, "season.txt")
+            with open(season_dir, 'w') as f:
+                f.write(config.season)
+            print(f"Updated season to {config.season} in config.")
+
+        
+    except Exception as e:
+        print(f"❌ Error loading  EARLY JSON for {player_name}: {e}")
+    copi = copy.deepcopy(data)
+    copi['data']['segments']  = []
+
+        
+
+    
+    try:
+        attempts = 0
         for player_name in player_names:
-            url = f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{player_name}?&season={season}"
-            try:
-                driver.get(url)
-                pre = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.TAG_NAME, "pre"))
-                )
-                raw_json = pre.text
-                data = json.loads(raw_json)
-                print(f"✅ Data loaded for {player_name}")
-                results[player_name] = data
-            except Exception as e:
-                print(f"❌ Error loading JSON for {player_name}: {e}")
-                results[player_name] = None
-            time.sleep(0.15)
+            attempts = 0
+            max_attempts = 3
+            season = config.season
+            success = False
+            while attempts < max_attempts and not success:
+                url = f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{player_name}/segments/career?mode={mode}&season={season}"
+                #url = f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{player_name}?&season={season}"
+
+                try:
+                    driver.get(url)
+                    pre = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.TAG_NAME, "pre"))
+                    )
+                    raw_json = pre.text
+
+
+                    data = json.loads(raw_json)
+
+
+                    if "data" in data and not data["data"]:
+                        if attempts <= 2:
+                            print(f"❌ No data found for {player_name}: Season {season}. Retrying with season {season - 1}...")
+
+                            season -= 1 if season > 1 else 1
+                            attempts += 1
+                            continue
+                        else:
+                            print(f"❌ No data found for {player_name} after multiple attempts.")
+                            results[player_name] = None
+                            break
+
+                    copi['data']['segments']  = data['data']
+                    data = copy.deepcopy(copi)
+                    # seaso = int(data['data']['metadata']['currentSeason'])
+                    # if seaso > season:
+                    #     season = seaso
+                    # seasons.append(seaso)
+                    print(f"✅ Data loaded for {player_name}")
+                    
+                    results[player_name] = data
+                    success = True
+                except Exception as e:
+                    print(f"❌ Error loading JSON for {player_name}: {e}")
+                    results[player_name] = None
+                    attempts += 1
+                    success = True
+                time.sleep(0.15)
     finally:
         try:
             driver.quit()
