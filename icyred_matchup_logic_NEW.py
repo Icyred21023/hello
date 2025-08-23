@@ -1508,8 +1508,7 @@ def find_best_team(score_dict, slots, red_team, red_total):
         compare_and_score_totals(totals, red_total, False)
         
         teamscore = total_team_score(totals)
-        string = f"Team: {character_names}, Score: {teamscore:.2f}"
-        text.append(string)
+        
         #print(f"Team: {character_names}, Score: {teamscore:.2f}")
 
         if teamscore > highest_score:
@@ -1517,9 +1516,9 @@ def find_best_team(score_dict, slots, red_team, red_total):
             highest_score = teamscore
             best_team = copy.deepcopy(team)
             best_totals = copy.deepcopy(totals)
-            save_json('-bestteam_interim.json', best_team)
-            save_json('-besttotal_interim.json', best_totals)
-    save_text('-allteams.txt', text)
+            #save_json('-bestteam_interim.json', best_team)
+            #save_json('-besttotal_interim.json', best_totals)
+    
     # 5. Output result
     print(f"Best team score: {highest_score:.2f}")
     print("Team members:")
