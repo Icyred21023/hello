@@ -1073,7 +1073,7 @@
                 }
             },
             "teamups": {
-                "Black Widow": 2.0
+                "Black Widow": 1.0
             },
             "name": "The Punisher"
         },
@@ -1207,68 +1207,6 @@
         }
     },
     "Alt": {
-        "Doctor Strange": {
-            "totalScore": null,
-            "teamupScore": 0,
-            "CounterCatScore": 2.1,
-            "total_counter_score": 2,
-            "total_category_score": 1,
-            "role": "Vanguard",
-            "category": "Brawl",
-            "dps": 90,
-            "hps": 0,
-            "health": 700,
-            "dps_score": null,
-            "hps_score": null,
-            "health_score": null,
-            "dps_weighted": null,
-            "hps_weighted": null,
-            "health_weighted": null,
-            "dps_role_avg": null,
-            "hps_role_avg": null,
-            "health_role_avg": null,
-            "red_matchup": {
-                "Groot": {
-                    "counter_score": 0,
-                    "category_score": 0,
-                    "enemy_role": "Vanguard",
-                    "enemy_category": "Brawl"
-                },
-                "Iron Man": {
-                    "counter_score": 1,
-                    "category_score": -1,
-                    "enemy_role": "Duelist",
-                    "enemy_category": "Poke"
-                },
-                "Psylocke": {
-                    "counter_score": 0,
-                    "category_score": 1,
-                    "enemy_role": "Duelist",
-                    "enemy_category": "Dive / Brawl"
-                },
-                "Rocket Raccoon": {
-                    "counter_score": 0,
-                    "category_score": 1,
-                    "enemy_role": "Strategist",
-                    "enemy_category": "Dive / Brawl"
-                },
-                "Cloak & Dagger": {
-                    "counter_score": 0,
-                    "category_score": -1,
-                    "enemy_role": "Strategist",
-                    "enemy_category": "Brawl / Poke"
-                },
-                "Star-Lord": {
-                    "counter_score": 1,
-                    "category_score": 1,
-                    "enemy_role": "Duelist",
-                    "enemy_category": "Dive / Brawl"
-                }
-            },
-            "teamups": {
-                "Scarlet Witch": 1.0
-            }
-        },
         "Venom": {
             "totalScore": null,
             "teamupScore": 1.0,
@@ -1332,17 +1270,17 @@
                 "Hela": 1.0
             }
         },
-        "Hawkeye": {
+        "Doctor Strange": {
             "totalScore": null,
             "teamupScore": 0,
-            "CounterCatScore": 1.3,
-            "total_counter_score": 1,
-            "total_category_score": 2,
-            "role": "Duelist",
-            "category": "Poke",
-            "dps": 140,
+            "CounterCatScore": 2.1,
+            "total_counter_score": 2,
+            "total_category_score": 1,
+            "role": "Vanguard",
+            "category": "Brawl",
+            "dps": 90,
             "hps": 0,
-            "health": 275,
+            "health": 700,
             "dps_score": null,
             "hps_score": null,
             "health_score": null,
@@ -1354,44 +1292,44 @@
             "health_role_avg": null,
             "red_matchup": {
                 "Groot": {
-                    "counter_score": -1,
-                    "category_score": 1,
+                    "counter_score": 0,
+                    "category_score": 0,
                     "enemy_role": "Vanguard",
                     "enemy_category": "Brawl"
                 },
                 "Iron Man": {
                     "counter_score": 1,
-                    "category_score": 0,
+                    "category_score": -1,
                     "enemy_role": "Duelist",
                     "enemy_category": "Poke"
                 },
                 "Psylocke": {
-                    "counter_score": -1,
-                    "category_score": 0,
+                    "counter_score": 0,
+                    "category_score": 1,
                     "enemy_role": "Duelist",
                     "enemy_category": "Dive / Brawl"
                 },
                 "Rocket Raccoon": {
                     "counter_score": 0,
-                    "category_score": 0,
+                    "category_score": 1,
                     "enemy_role": "Strategist",
                     "enemy_category": "Dive / Brawl"
                 },
                 "Cloak & Dagger": {
-                    "counter_score": 1,
-                    "category_score": 1,
+                    "counter_score": 0,
+                    "category_score": -1,
                     "enemy_role": "Strategist",
                     "enemy_category": "Brawl / Poke"
                 },
                 "Star-Lord": {
                     "counter_score": 1,
-                    "category_score": 0,
+                    "category_score": 1,
                     "enemy_role": "Duelist",
                     "enemy_category": "Dive / Brawl"
                 }
             },
             "teamups": {
-                "Luna Snow": 1.0
+                "Scarlet Witch": 1.0
             }
         },
         "Hela": {
@@ -1455,6 +1393,68 @@
             "teamups": {
                 "Thor": 1.0,
                 "Venom": 1.0
+            }
+        },
+        "Hawkeye": {
+            "totalScore": null,
+            "teamupScore": 0,
+            "CounterCatScore": 1.3,
+            "total_counter_score": 1,
+            "total_category_score": 2,
+            "role": "Duelist",
+            "category": "Poke",
+            "dps": 140,
+            "hps": 0,
+            "health": 275,
+            "dps_score": null,
+            "hps_score": null,
+            "health_score": null,
+            "dps_weighted": null,
+            "hps_weighted": null,
+            "health_weighted": null,
+            "dps_role_avg": null,
+            "hps_role_avg": null,
+            "health_role_avg": null,
+            "red_matchup": {
+                "Groot": {
+                    "counter_score": -1,
+                    "category_score": 1,
+                    "enemy_role": "Vanguard",
+                    "enemy_category": "Brawl"
+                },
+                "Iron Man": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Poke"
+                },
+                "Psylocke": {
+                    "counter_score": -1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Rocket Raccoon": {
+                    "counter_score": 0,
+                    "category_score": 0,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Dive / Brawl"
+                },
+                "Cloak & Dagger": {
+                    "counter_score": 1,
+                    "category_score": 1,
+                    "enemy_role": "Strategist",
+                    "enemy_category": "Brawl / Poke"
+                },
+                "Star-Lord": {
+                    "counter_score": 1,
+                    "category_score": 0,
+                    "enemy_role": "Duelist",
+                    "enemy_category": "Dive / Brawl"
+                }
+            },
+            "teamups": {
+                "Luna Snow": 1.0
             }
         },
         "Cloak & Dagger": {
@@ -1708,7 +1708,7 @@
                 }
             },
             "teamups": {
-                "Black Widow": 2.0
+                "Black Widow": 1.0
             }
         },
         "Star-Lord": {

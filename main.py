@@ -38,6 +38,7 @@ def on_f8_pressed():
         if not config.randomize_ban:
             print("First 6")
             
+            
             names = list(local_all_data.keys())[-6:]
             all_data = open_multiple_tracker_profiles(names)
         else:
@@ -125,9 +126,10 @@ def on_matchup():
             blue = generate_random_team(character_pool) 
             red = generate_random_team(character_pool)
             print(f"Blue: {blue}\n\nRed: {red}")
+            USE_LIST_MATCHUPS = True
             if USE_LIST_MATCHUPS:
-                blue = ["Iron Man","The Thing","Winter Soldier","Loki", "Cloak & Dagger", "Bruce Banner"]
-                red = ["Winter Soldier","Cloak & Dagger","Bruce Banner","Moon Knight", "Adam Warlock", "Emma Frost"]
+                blue = ['Magik', 'Cloak & Dagger', 'Scarlet Witch', 'Luna Snow', 'Emma Frost', 'Bruce Banner']
+                red = ['Iron Man', 'Psylocke', 'Jeff The Land Shark', 'Emma Frost', 'Groot', 'Ultron']
             blueteam, redteam,blueclass,redclass,map = create_heromatches_from_lists(blue,red)
         else:
             blueteam, redteam,blueclass,redclass,map = main3()

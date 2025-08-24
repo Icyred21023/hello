@@ -855,6 +855,7 @@ def check_teamup_new(data, team, team_up_dict):
             
 
 def build_new_classes(data,t):
+    colors = load_json('colors.json')
 
     def find_teamup_name(char1, char2):
         for anchor in t["TeamUps"]:
@@ -877,6 +878,7 @@ def build_new_classes(data,t):
         for name, char_data in team_data.items():
             hero = Hero(char_data, name, flag)
             hero.teamup_flags = []
+            hero.color = colors.get(name, "#FFFFFF")
             hero_objs[name] = hero
             hero_list.append(hero)  # <--- Append to list
         teamup_name_to_id = {}
@@ -1109,6 +1111,12 @@ def weigh_scores(teams,dict):
 
     
     #NEWWW____________________________________
+def load_json(file_name):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(script_dir, file_name)
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return data
 
 def load_matchup_json():
     script_dir = os.path.dirname(os.path.abspath(__file__))

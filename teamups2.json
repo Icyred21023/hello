@@ -85,8 +85,8 @@
             }
         },
         "The Punisher": {
-            "score": 2.0,
-            "teamup": "Operation: Microchip",
+            "score": 1.0,
+            "teamup": "Operation Microchip",
             "characters": {
                 "Black Widow": 1.0
             }
@@ -130,7 +130,7 @@
         },
         "Iron Man": {
             "score": 1.0,
-            "teamup": "Timeline of Team-Up Changes",
+            "teamup": "Stark Protocol",
             "characters": {
                 "Ultron": 1.0,
                 "Squirrel Girl": 1.0
