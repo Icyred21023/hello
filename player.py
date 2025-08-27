@@ -4,6 +4,8 @@ class Player:
     def __init__(self, name, json_data):
         sorted_heros = self.sort_by_time(json_data)
         self.hero1 = sorted_heros[0]["metadata"]["name"]
+        self.name = name
+        self.rank = self.strip_rank_tier(json_data["data"]["segments"][1]["stats"]["lifetimePeakRanked"]["metadata"]["tierName"])
         self.ace = False
         overview = json_data['data']['segments'][0]['stats']
         self.playermvp = self.getCharMvps(overview)
@@ -32,8 +34,8 @@ class Player:
             char = sorted_heros[1]['stats']
             self.mvp2 = self.getCharMvps(char)
             self.kd2 = round(sorted_heros[1]["stats"]["kdRatio"]["value"],2)
-            self.rank = self.strip_rank_tier(json_data["data"]["segments"][1]["stats"]["lifetimePeakRanked"]["metadata"]["tierName"])
-            self.name = name
+            
+            
         # Add other values
     def getPlayerMvps(self,ov):
         print("")

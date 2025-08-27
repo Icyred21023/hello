@@ -133,13 +133,13 @@ def open_multiple_tracker_profiles(player_names):
 
 
                     if "data" in data and not data["data"]:
-                        if attempts <= 2:
+                        if attempts < 2:
                             print(f"❌ No data found for {player_name}: Season {season}. Retrying with season {season - 1}...")
 
                             season -= 1 if season > 1 else 1
                             attempts += 1
                             continue
-                        else:
+                        elif attempts + 1 == 3:
                             print(f"❌ No data found for {player_name} after multiple attempts.")
                             results[player_name] = None
                             break

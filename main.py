@@ -40,11 +40,13 @@ def on_f8_pressed():
             
             
             names = list(local_all_data.keys())[-6:]
+            #names = ['sasurai_blue','Slime','streetsensei','braedenn']
             all_data = open_multiple_tracker_profiles(names)
+            
         else:
             print("Random 6")
             all_keys = list(local_all_data.keys())
-            #names = random.sample(all_keys, min(6, len(all_keys)))
+            names = random.sample(all_keys, min(6, len(all_keys)))
         
     else:
         names = capture_names()
@@ -126,7 +128,7 @@ def on_matchup():
             blue = generate_random_team(character_pool) 
             red = generate_random_team(character_pool)
             print(f"Blue: {blue}\n\nRed: {red}")
-            USE_LIST_MATCHUPS = True
+            USE_LIST_MATCHUPS = False
             if USE_LIST_MATCHUPS:
                 blue = ['Magik', 'Cloak & Dagger', 'Scarlet Witch', 'Luna Snow', 'Emma Frost', 'Bruce Banner']
                 red = ['Iron Man', 'Psylocke', 'Jeff The Land Shark', 'Emma Frost', 'Groot', 'Ultron']

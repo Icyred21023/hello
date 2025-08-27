@@ -1,11 +1,11 @@
 {
-    "dps_total": 746,
-    "hps_total": 307,
-    "health_total": 2490,
-    "teamCounterScore": 13.2,
+    "dps_total": 681,
+    "hps_total": 291,
+    "health_total": 2540,
+    "teamCounterScore": 10.7,
     "teamupScore": 2.0,
-    "dps_score": -0.3,
-    "hps_score": 1.7,
-    "health_score": 0.4,
-    "totalScore": 16.0
+    "dps_score": 0.3,
+    "hps_score": 0.5,
+    "health_score": -0.0,
+    "totalScore": 12.5
 }

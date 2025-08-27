@@ -2,7 +2,12 @@
 import pyautogui
 import easyocr
 import numpy as np
-
+from PIL import Image
+import config
+import os
+#import torch
+#print(torch.cuda.is_available())       # True = GPU available
+#print(torch.cuda.get_device_name(0))
 def scale_box(box, scale_x, scale_y):
     x1, y1, x2, y2 = box
     return (
@@ -98,13 +103,24 @@ def check_display_resolution():
 
 def capture_names():
     full_img = pyautogui.screenshot(region=FULL_CAPTURE_BOX)
+    #full_img = Image.open(r"C:\Users\Corey\Desktop\d.png").convert("RGB")
     full_np = np.array(full_img)
     names = []
+    cropped_imgs = [] 
 
     for box in NAME_BOXES:
         x1, y1, x2, y2 = box
         cropped = full_np[y1:y2, x1:x2]
-        result = reader.readtext(cropped)
+        cropped_imgs.append(cropped)
+        result = reader.readtext(
+                            cropped,
+                            detail=1,
+                            paragraph=False,
+                            min_size=5,            # smaller text gets detected
+                            text_threshold=0.4,    # lower threshold → keeps more characters
+                            low_text=0.3,          # allow "weaker" regions
+                            link_threshold=0.4
+                        )
         if result:
             name = result[0][1].strip()
             if "*" not in name:
@@ -113,5 +129,12 @@ def capture_names():
                 continue  # or skip with: continue
         else:
             continue
+
+    if cropped_imgs:
+        
+        save_path = os.path.join(config.script_dir, "debug", "OCR_Capture.png")
+        combined_img = np.concatenate(cropped_imgs, axis=0)
+        Image.fromarray(combined_img).save(save_path)
+        print(f"✅ Combined cropped image saved to {save_path}")
 
     return names
