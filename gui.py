@@ -472,7 +472,7 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
     lock = tk.Button(title_bar2, command=lambda: toggle_clickthrough(toggle_hide, None, main_frame, hide_btn2),text="Lock(F6)", relief="flat",fg="white", bg="#141420", font=fonttk(carbon_italic, 8, 'normal'), cursor="hand2")
     lock.pack(side="right", padx=10)
 
-    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#13151A", font=("Arial", fonts[12]))
+    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#13151A", font=fonttk("Arial", 12, ))
     indicator_label.pack(side="left",padx=0)
     close_btn2.bind("<Enter>", lambda e: close_btn2.config(bg="#d41c1c"))
     close_btn2.bind("<Leave>", lambda e: close_btn2.config(bg="#141420"))
@@ -799,7 +799,7 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             bg_med = stsc.cget("bg")
             bg_darker = adjust_color(stsc, bg_color, 0.75)
             darker = adjust_color(stsc, bg_color, 0.5)
-            tk.Label(stsc, text="Stats Score: ", font=("Saira Thin Medium", fonts[16], "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
+            tk.Label(stsc, text="Stats Score: ", font=fonttk("Saira Thin Medium", 16, "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
             scolor = change_color(stat_score)
             tk.Label(stsc, text=f"{stat_score:+}",  relief='sunken',bd=2,borderwidth=2,highlightthickness=1,
                  highlightbackground=bg_darker, highlightcolor=bg_darker, fg=scolor, bg=score_color,
@@ -807,7 +807,7 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             bg_med = tu.cget("bg")
             bg_darker = adjust_color(tu, bg_color, 0.75)
             darker = adjust_color(tu, bg_color, 0.5)
-            tk.Label(tu, text="Teamups Score: ", font=("Saira Thin Medium", fonts[16], "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
+            tk.Label(tu, text="Teamups Score: ", font=fonttk("Saira Thin Medium", 16, "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
             scolor = change_color(teamup_score)
             tk.Label(tu, text=f"{teamup_score:+}", relief='sunken',bd=2,borderwidth=2,highlightthickness=1,
                  highlightbackground=bg_darker, highlightcolor=bg_darker, fg=scolor, bg=score_color,
@@ -815,7 +815,7 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             bg_med = tot.cget("bg")
             bg_darker = adjust_color(tot, icon_color, 0.75)
             darker = adjust_color(tot, bg_color, 0.5)
-            tk.Label(tot, text="Total Score: ", font=("Rajdhani", fonts[24], "bold"), fg=yellow, bg=icon_color).pack(side="left",padx=(10,0))
+            tk.Label(tot, text="Total Score: ", font=fonttk("Rajdhani", 24, "bold"), fg=yellow, bg=icon_color).pack(side="left",padx=(10,0))
             scolor = change_color(score)
             #scolor = adjust_color(tot, scolor, 0.8)
             tk.Label(tot, text=f"{score:+}", relief='raised',bd=2,borderwidth=2,highlightthickness=2,
@@ -831,7 +831,7 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             bg_med = stsc.cget("bg")
             bg_darker = adjust_color(stsc, bg_color, 0.75)
 
-            tk.Label(stsc, text="Stats Scores:", font=("Saira Thin Medium", fonts[16], "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
+            tk.Label(stsc, text="Stats Scores:", font=fonttk("Saira Thin Medium", 16, "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
             scolor = change_color(stat_scores3)
             tk.Label(stsc, text=f"{stat_scores3:+}", relief='sunken',bd=2,borderwidth=2,highlightthickness=1,
                  highlightbackground=bg_darker, highlightcolor=bg_darker, fg=scolor, bg=score_color,
@@ -846,14 +846,14 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
                         font=("CarbonRegular", fonts[18], "normal")).pack(side="right", padx=5,expand=True)
             bg_med = tu.cget("bg")
             bg_darker = adjust_color(tu, bg_color, 0.75)
-            tk.Label(tu, text="Teamups Score:", font=("Saira Thin Medium", fonts[16], "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
+            tk.Label(tu, text="Teamups Score:", font=fonttk("Saira Thin Medium", 16, "normal"), fg="white", bg=bg_color).pack(side="left",padx=(10,0))
             scolor = change_color(teamup_scores)
             tk.Label(tu, text=f"{teamup_scores:+}", relief='sunken',bd=2,borderwidth=2,highlightthickness=1,
                  highlightbackground=bg_darker, highlightcolor=bg_darker, fg=scolor, bg=score_color,
                         font=("CarbonRegular", fonts[18], "normal")).pack(side="left", padx=5,expand=True)
             bg_med = tot.cget("bg")
             bg_darker = adjust_color(tot, icon_color, 0.75)
-            tk.Label(tot, text="Total Scores:", font=("Rajdhani", fonts[24], "bold"), fg=yellow, bg=icon_color).pack(side="left",padx=(10,0))
+            tk.Label(tot, text="Total Scores:", font=fonttk("Rajdhani", 24, "bold"), fg=yellow, bg=icon_color).pack(side="left",padx=(10,0))
             scolor = change_color(scores3)
             #scolor = adjust_color(tot, scolor, 0.8)
             tk.Label(tot, text=f"{scores3:+}", relief='raised',bd=2,borderwidth=2,highlightthickness=2,
@@ -968,10 +968,10 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
 
     
 
-    tk.Label(original_title, text="Current Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=orig_dark).pack(fill="both",expand=True)
-    tk.Label(sug_title, text=string, font=("Rajdhani", fonts[22], "bold"), fg="white", bg=new_icon_color).pack(fill="both",expand=True)
-    tk.Label(alt_title, text="Alternate Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=alt_icon_color).pack(fill="both",expand=True)
-    tk.Label(red_title, text="Enemy Team", font=("Rajdhani", fonts[22], "bold"), fg="white", bg=red_icon_color).pack(fill="both",expand=True)
+    tk.Label(original_title, text="Current Team", font=fonttk("Rajdhani", 22, "bold"), fg="white", bg=orig_dark).pack(fill="both",expand=True)
+    tk.Label(sug_title, text=string, font=fonttk("Rajdhani", 22, "bold"), fg="white", bg=new_icon_color).pack(fill="both",expand=True)
+    tk.Label(alt_title, text="Alternate Team", font=fonttk("Rajdhani", 22, "bold"), fg="white", bg=alt_icon_color).pack(fill="both",expand=True)
+    tk.Label(red_title, text="Enemy Team", font=fonttk("Rajdhani", 22, "bold"), fg="white", bg=red_icon_color).pack(fill="both",expand=True)
     score_totals_list = []
     
     
@@ -1213,11 +1213,11 @@ def show_suggestion_gui(results, image_map,map, blue_dict,red_dict):
             #bg2 = adjust_color(row, back, 0.75)
             cell.grid(row=0, column=col, padx=12, sticky="n")
             tk.Label(
-                cell, text=label_txt, font=("Saira Thin Medium", fonts[15], "normal"),
+                cell, text=label_txt, font=fonttk("Saira Thin Medium", 15, "normal"),
                 fg="white", bg=back
             ).pack()
             tk.Label(
-                cell, text=value, font=("CarbonRegular Italic", fonts[16], "normal"),
+                cell, text=value, font=fonttk("CarbonRegular Italic", 16, "normal"),
                 fg=fg, bg=bg_lighter, relief='sunken',bd=2,borderwidth=2,highlightthickness=1,
                  highlightbackground=bg_darker, highlightcolor=bg_darker,
                 padx=6, pady=1
@@ -1263,11 +1263,11 @@ def show_countdown():
     x = screen_width // 2
     root.geometry(f"200x100+{x}+0")
     root.attributes("-topmost", True)
-    indicator_label = tk.Label(root, text="", fg="white", bg="#2C334B", font=("Arial", fonts[8]))
+    indicator_label = tk.Label(root, text="", fg="white", bg="#2C334B", font=fonttk("Arial", 8, ))
     indicator_label.pack(anchor="w")
-    labela = tk.Label(root, text="Hold\nTAB",bg="#2C334B", fg="yellow",font=("Lucida Console", fonts[14],"bold"))
+    labela = tk.Label(root, text="Hold\nTAB",bg="#2C334B", fg="yellow", font=fonttk("Lucida Console", 14,"bold"))
     labela.pack(expand=True,anchor="center",pady=0)
-    label = tk.Label(root, text="",bg="#2C334B", fg="white",font=("Arial", fonts[20],"bold"))
+    label = tk.Label(root, text="",bg="#2C334B", fg="white", font=fonttk("Arial", 20,"bold"))
     label.pack(expand=True,pady=5)
 
     def update_countdown(i):
@@ -1365,7 +1365,7 @@ def change_character(match, image_map, label_widget,bg_c):
     if match.score >= 55:
         right.pack(fill="y",padx=15, side="right")
 
-    tk.Label(left, fg="white",bg=bg_dark,text=f"Current: {match.name}",font=("Arial",12,"bold")).pack(pady=(10, 2), anchor="center")
+    tk.Label(left, fg="white",bg=bg_dark,text=f"Current: {match.name}", font=fonttk("Arial",12,"bold")).pack(pady=(10, 2), anchor="center")
 
     selected_hero = tk.StringVar(value=match.name)
 
@@ -1516,11 +1516,11 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     center_frame.grid(row=0, column=1, sticky="n")
     right_frame = tk.Frame(main_frame, bg="#6B382E", padx=5, pady=5)
     right_frame.grid(row=0, column=2, sticky="n")
-    #indicator_label = tk.Label(center_frame, text="", fg="white", bg="#1C2026", font=("Arial", fonts[12]))
+    #indicator_label = tk.Label(center_frame, text="", fg="white", bg="#1C2026", font=fonttk("Arial", 12)
     #indicator_label.pack(side="top")
     # Team labels
-    tk.Label(left_frame, text="Team 1", font=("Arial", fonts[14], "bold"), fg="white", bg="#2C334B").pack(fill=tk.X)
-    tk.Label(right_frame, text="Team 2", font=("Arial", fonts[14], "bold"), fg="white", bg="#6B382E").pack(fill=tk.X)
+    tk.Label(left_frame, text="Team 1", font=fonttk("Arial", fonts[14], "bold"), fg="white", bg="#2C334B").pack(fill=tk.X)
+    tk.Label(right_frame, text="Team 2", font=fonttk("Arial", 14, "bold"), fg="white", bg="#6B382E").pack(fill=tk.X)
 
     # Add player frames for each match
     def add_match_widget(frame, match, bg_color):
@@ -1626,9 +1626,9 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
         result["red"] = [m.name for m in team2_matches]
         win.destroy()
     # Save button in center frame
-    save_btn = tk.Button(center_frame,fg="white", bg="#3B3B3B",text="Save", command=on_save,font=("Arial", fonts[12],"bold"), width=6,cursor="hand2")
+    save_btn = tk.Button(center_frame,fg="white", bg="#3B3B3B",text="Save", command=on_save, font=fonttk("Arial", 12,"bold"), width=6,cursor="hand2")
     save_btn.pack(pady=100)
-    a = tk.Label(center_frame,bg="#1C2026", text="Click Hero\nto change\nCharacter",fg="white",font=("Arial", fonts[12],"bold"), width=10)
+    a = tk.Label(center_frame,bg="#1C2026", text="Click Hero\nto change\nCharacter",fg="white", font=fonttk("Arial", 12,"bold"), width=10)
     a.pack(pady=10)
     
     win.update_idletasks()
@@ -1811,37 +1811,37 @@ def create_player_frame(root, player, image_map):
             dpm2= "#bf868f"
 
 
-    latitle= tk.Label(right_frame_topleft, text=f"KD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
+    latitle= tk.Label(right_frame_topleft, text=f"KD",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
     latitle.pack(pady=0,side='top')
-    la= tk.Label(right_frame_topleft, text=f"{player.kd1}",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la= tk.Label(right_frame_topleft, text=f"{player.kd1}",fg=kd1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
     la.pack(pady=0,side='top')
-    latitle0= tk.Label(right_frame_topr, text=f"MVP %",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11], "bold"))
+    latitle0= tk.Label(right_frame_topr, text=f"MVP %",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
     latitle0.pack(pady=0,side='top')
-    la0= tk.Label(right_frame_topr, text=f"{player.mvp1}",fg=kd1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la0= tk.Label(right_frame_topr, text=f"{player.mvp1}",fg=kd1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
     la0.pack(pady=0,side='top')
-    la2= tk.Label(right_frame_topleft, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+    la2= tk.Label(right_frame_topleft, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
     la2.pack(pady=0,side='bottom')
-    la2title= tk.Label(right_frame_topleft, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    la2title= tk.Label(right_frame_topleft, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
     la2title.pack(pady=0,side='bottom')
     
-   # tk.Label(right_frame, text="Placeholder 1", font=("Calibri", fonts[4])).pack(pady=5)
+   # tk.Label(right_frame, text="Placeholder 1", font=fonttk("Calibri", , 4).pack(pady=5)
     if pl2:
-    #tk.Label(right_frame, text="Placeholder 2", font=("Calibri", fonts[4])).pack(pady=5)
-        lbtitle= tk.Label(right_frame_botl, text=f"KD",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+    #tk.Label(right_frame, text="Placeholder 2", font=fonttk("Calibri", 4).pack(pady=5)
+        lbtitle= tk.Label(right_frame_botl, text=f"KD",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11,"bold"))
         lbtitle.pack(pady=0,side='top')
-        lb = tk.Label(right_frame_botl, text=f"{player.kd2}",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+        lb = tk.Label(right_frame_botl, text=f"{player.kd2}",fg=kd2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
         lb.pack(pady=0,side='top')
-        lbtitle0= tk.Label(right_frame_botr, text=f"MVP %",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+        lbtitle0= tk.Label(right_frame_botr, text=f"MVP %",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
         lbtitle0.pack(pady=0,side='top')
-        lb0 = tk.Label(right_frame_botr, text=f"{player.mvp2}",fg=kd2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+        lb0 = tk.Label(right_frame_botr, text=f"{player.mvp2}",fg=kd2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
         lb0.pack(pady=0,side='top')
-        lb2= tk.Label(right_frame_botl, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=("Calibri", fonts[12],"bold"))
+        lb2= tk.Label(right_frame_botl, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
         lb2.pack(pady=0,side='bottom')
-        lb2title= tk.Label(right_frame_botl, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=("Calibri", fonts[11],"bold"))
+        lb2title= tk.Label(right_frame_botl, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
         lb2title.pack(pady=0,side='bottom')
     
-    #tk.Label(right_frame, text="Placeholder 3", font=("Calibri", fonts[4])).pack(pady=5)
-    #tk.Label(right_frame, text="Placeholder 4", font=("Calibri", fonts[4])).pack(pady=5)
+    #tk.Label(right_frame, text="Placeholder 3", font=fonttk("Calibri", , 4).pack(pady=5)
+    #tk.Label(right_frame, text="Placeholder 4", font=fonttk("Calibri", 4).pack(pady=5)
     
     
 
@@ -1875,14 +1875,14 @@ def show_gui(players):
     title_bar.pack(fill="x", side="top")
     title_bar.pack_propagate(False)
     
-    close_btn = tk.Button(title_bar, command=lambda: close(root,script_dir),text="X", width=2,height=1,fg="white", relief="flat",bg="#141420", font=("Lucida Console", fonts[16]), cursor="hand2")
+    close_btn = tk.Button(title_bar, command=lambda: close(root,script_dir),text="X", width=2,height=1,fg="white", relief="flat",bg="#141420", font=fonttk("Lucida Console", 16, ), cursor="hand2")
     close_btn.pack(side="right", padx=0)
-    hide_btn = tk.Button(title_bar, command=lambda: toggle_transparency(root,hide_btn),text="Hide", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[14]), cursor="hand2")
+    hide_btn = tk.Button(title_bar, command=lambda: toggle_transparency(root,hide_btn),text="Hide", relief="flat",fg="white", bg="#141420", font=fonttk("Lucida Console", 14), cursor="hand2")
     hide_btn.pack(side="right", padx=10)
     global lock
-    lock = tk.Button(title_bar, command=toggle_clickthrough,text="Lock(F6)", relief="flat",fg="white", bg="#141420", font=("Lucida Console", fonts[8]), cursor="hand2")
+    lock = tk.Button(title_bar, command=toggle_clickthrough,text="Lock(F6)", relief="flat",fg="white", bg="#141420", font=fonttk("Lucida Console", 8), cursor="hand2")
     lock.pack(side="right", padx=10)
-    indicator_label = tk.Label(title_bar, text="", fg="white", bg="#141420", font=("Arial", fonts[12]))
+    indicator_label = tk.Label(title_bar, text="", fg="white", bg="#141420", font=fonttk("Arial", 12))
     indicator_label.pack(side="left",padx=0)
 
     close_btn.bind("<Enter>", lambda e: close_btn.config(bg="#d41c1c"))
@@ -2034,15 +2034,15 @@ def show_launcher(on_trigger,on_match):
     global_debugflag = False
     if config.debug_mode:
         frame = rig
-        cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Refrigerator Deluxe", fonts[10]),variable=var1)
-        cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
+        cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=fonttk("Refrigerator Deluxe", 10),variable=var1)
+        cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2, font=fonttk("Calibri", 10))
         cb1.pack(anchor="w",padx=0)
         cb2.pack(anchor="w",padx=0)
         global_debugflag = True
 
     
-    cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
-    cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug", variable=var4,font=("Calibri", fonts[10]))
+    cb3 = tk.Checkbutton(frame, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3, font=fonttk("Calibri", 10))
+    cb4 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Enable Debug", variable=var4, font=fonttk("Calibri", 10))
     #cb3 = tk.Checkbutton(deb, text="Option 3", variable=var3)
 
     # Pack them onto the frame
@@ -2132,13 +2132,13 @@ def show_launcher(on_trigger,on_match):
             if config.debug_mode:
                 if not global_debugflag:
 
-                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=fonttk("Calibri", 10),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2, font=fonttk("Calibri", 10))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
                     cb3.destroy()
-                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
+                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3, font=fonttk("Calibri", 10))
                     cb3.pack(anchor="w",padx=0)
                 global_random_ban = var1.get()
                 global_random_matchup = var2.get()
@@ -2148,7 +2148,7 @@ def show_launcher(on_trigger,on_match):
                 cb1.destroy()
                 cb2.destroy()
                 cb3.destroy()
-                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3, font=fonttk("Calibri", 10))
                 cb3.pack(anchor="w",padx=0)
                 global_debugflag = False
             print(f"Dexerto: {config.dex}")
@@ -2161,13 +2161,13 @@ def show_launcher(on_trigger,on_match):
             config.debug_mode = global_debugmode
             if config.debug_mode:
                 if not global_debugflag:
-                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=("Calibri", fonts[10]),variable=var1)
-                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2,font=("Calibri", fonts[10]))
+                    cb1 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Bans", font=fonttk("Calibri", 10),variable=var1)
+                    cb2 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Random Matchup", variable=var2, font=fonttk("Calibri", 10))
                     cb1.pack(anchor="w",padx=0)
                     cb2.pack(anchor="w",padx=0)
                     global_debugflag = True
                     cb3.destroy()
-                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
+                    cb3 = tk.Checkbutton(rig, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3, font=fonttk("Calibri", 10))
                     cb3.pack(anchor="w",padx=0)
                 global_random_ban = var1.get()
                 global_random_matchup = var2.get()
@@ -2177,7 +2177,7 @@ def show_launcher(on_trigger,on_match):
                 cb1.destroy()
                 cb2.destroy()
                 cb3.destroy()
-                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3,font=("Calibri", fonts[10]))
+                cb3 = tk.Checkbutton(lef, bg="#151426",fg="white",selectcolor="#151426",text="Use Classic Logic", variable=var3, font=fonttk("Calibri", 10))
                 cb3.pack(anchor="w",padx=0)
                 global_debugflag = False
             print(f"Dexerto: {config.dex}")
@@ -2198,7 +2198,7 @@ def show_launcher(on_trigger,on_match):
     global lock
     lock = tk.Button(title_bar2, command=lambda: toggle_clickthrough(toggle_hide, deb, main, hide_btn2),text="Lock(F6)", relief="flat",fg="white", bg="#141420", font=fonttk(carbon, 10, 'normal'), cursor="hand2")
     lock.pack(side="right", padx=3)
-    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#141420", font=("Arial", fonts[12]))
+    indicator_label = tk.Label(title_bar2, text="", fg="white", bg="#141420", font=fonttk("Arial", 12))
     indicator_label.pack(side="left",padx=0)
     close_btn2.bind("<Enter>", lambda e: close_btn2.config(bg="#d41c1c"))
     close_btn2.bind("<Leave>", lambda e: close_btn2.config(bg="#141420"))

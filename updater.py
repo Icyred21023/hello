@@ -55,6 +55,11 @@ def download_and_extract_zip(zip_url, extract_to):
 def backup_current_dir(version):
     print("Creating backup...")
     backup_path = os.path.join(script_dir, "update_backup", version)
+    number = 0
+    while os.path.exists(backup_path):
+        number += 1
+        new_version = version + '(' + str(number) + ')'
+        backup_path = os.path.join(script_dir, "update_backup", new_version)
     os.makedirs(backup_path, exist_ok=True)
 
     def ignore_dirs(dir, contents):
@@ -95,8 +100,12 @@ def check_for_update(auto_accept=False):
     latest = get_latest_version()
     if latest is None:
         return
+    one, two, three = current.split('.')
+    cu = one + two + three
+    one2, two2, three2 = latest.split('.')
+    la = one2 + two2 + three2
 
-    if latest != current:
+    if int(cu) < int(la):
         print(f"New version available: {latest} (current: {current})")
         proceed = False
 
