@@ -1,0 +1,198 @@
+{
+    "match_id": "5517322_1755793989_1318048_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.01
+                },
+                {
+                    "hero": "Venom",
+                    "role": "Vanguard",
+                    "time_fraction": 0.23
+                },
+                {
+                    "hero": "Thor",
+                    "role": "Vanguard",
+                    "time_fraction": 0.05
+                },
+                {
+                    "hero": "The Thing",
+                    "role": "Vanguard",
+                    "time_fraction": 0.71
+                }
+            ]
+        },
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Human Torch",
+                    "role": "Duelist",
+                    "time_fraction": 0.1
+                },
+                {
+                    "hero": "Iron Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.06
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.37
+                },
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 0.09
+                },
+                {
+                    "hero": "Psylocke",
+                    "role": "Duelist",
+                    "time_fraction": 0.38
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "Moon Knight",
+                    "role": "Duelist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Ultron",
+                    "role": "Strategist",
+                    "time_fraction": 0.52
+                },
+                {
+                    "hero": "Jeff The Land Shark",
+                    "role": "Strategist",
+                    "time_fraction": 0.06
+                },
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 0.43
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.0
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.37
+                },
+                {
+                    "hero": "Thor",
+                    "role": "Vanguard",
+                    "time_fraction": 0.63
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.43
+                },
+                {
+                    "hero": "Phoenix",
+                    "role": "Duelist",
+                    "time_fraction": 0.57
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Mantis",
+                    "role": "Strategist",
+                    "time_fraction": 0.64
+                },
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 0.36
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "The Punisher",
+                    "role": "Duelist",
+                    "time_fraction": 0.36
+                },
+                {
+                    "hero": "Scarlet Witch",
+                    "role": "Duelist",
+                    "time_fraction": 0.64
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Captain America",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        }
+    ],
+    "winner": "team_1"
+}

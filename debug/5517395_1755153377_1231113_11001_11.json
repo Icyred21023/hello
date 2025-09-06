@@ -1,0 +1,213 @@
+{
+    "match_id": "5517395_1755153377_1231113_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Rocket Raccoon",
+                    "role": "Strategist",
+                    "time_fraction": 0.62
+                },
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 0.38
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Hela",
+                    "role": "Duelist",
+                    "time_fraction": 0.15
+                },
+                {
+                    "hero": "Iron Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.17
+                },
+                {
+                    "hero": "Venom",
+                    "role": "Vanguard",
+                    "time_fraction": 0.19
+                },
+                {
+                    "hero": "Spider-Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.24
+                },
+                {
+                    "hero": "Star-Lord",
+                    "role": "Duelist",
+                    "time_fraction": 0.07
+                },
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 0.19
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Hela",
+                    "role": "Duelist",
+                    "time_fraction": 0.12
+                },
+                {
+                    "hero": "Magik",
+                    "role": "Duelist",
+                    "time_fraction": 0.15
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.56
+                },
+                {
+                    "hero": "Namor",
+                    "role": "Duelist",
+                    "time_fraction": 0.17
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Moon Knight",
+                    "role": "Duelist",
+                    "time_fraction": 0.78
+                },
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 0.22
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.29
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.71
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.77
+                },
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 0.23
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "The Thing",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Storm",
+                    "role": "Duelist",
+                    "time_fraction": 0.71
+                },
+                {
+                    "hero": "Black Panther",
+                    "role": "Duelist",
+                    "time_fraction": 0.29
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Black Widow",
+                    "role": "Duelist",
+                    "time_fraction": 0.29
+                },
+                {
+                    "hero": "Iron Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.21
+                },
+                {
+                    "hero": "Psylocke",
+                    "role": "Duelist",
+                    "time_fraction": 0.5
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Bruce Banner",
+                    "role": "Vanguard",
+                    "time_fraction": 0.63
+                },
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.08
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.29
+                }
+            ]
+        }
+    ],
+    "winner": "team_1"
+}

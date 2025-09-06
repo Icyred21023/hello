@@ -1,0 +1,163 @@
+{
+    "match_id": "5518072_1754864477_1288195_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Spider-Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.29
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.71
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Namor",
+                    "role": "Duelist",
+                    "time_fraction": 0.48
+                },
+                {
+                    "hero": "Psylocke",
+                    "role": "Duelist",
+                    "time_fraction": 0.52
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 1.0
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.32
+                },
+                {
+                    "hero": "The Thing",
+                    "role": "Vanguard",
+                    "time_fraction": 0.68
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.08
+                },
+                {
+                    "hero": "Hela",
+                    "role": "Duelist",
+                    "time_fraction": 0.62
+                },
+                {
+                    "hero": "The Thing",
+                    "role": "Vanguard",
+                    "time_fraction": 0.3
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Loki",
+                    "role": "Strategist",
+                    "time_fraction": 0.68
+                },
+                {
+                    "hero": "Adam Warlock",
+                    "role": "Strategist",
+                    "time_fraction": 0.01
+                },
+                {
+                    "hero": "Phoenix",
+                    "role": "Duelist",
+                    "time_fraction": 0.3
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Jeff The Land Shark",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Spider-Man",
+                    "role": "Duelist",
+                    "time_fraction": 1.0
+                }
+            ]
+        }
+    ],
+    "winner": "team_0"
+}

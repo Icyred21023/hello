@@ -1,0 +1,193 @@
+{
+    "match_id": "5517419_1755795176_1291095_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.51
+                },
+                {
+                    "hero": "Peni Parker",
+                    "role": "Vanguard",
+                    "time_fraction": 0.42
+                },
+                {
+                    "hero": "Jeff The Land Shark",
+                    "role": "Strategist",
+                    "time_fraction": 0.07
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "Iron Man",
+                    "role": "Duelist",
+                    "time_fraction": 0.93
+                },
+                {
+                    "hero": "Adam Warlock",
+                    "role": "Strategist",
+                    "time_fraction": 0.07
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.07
+                },
+                {
+                    "hero": "Moon Knight",
+                    "role": "Duelist",
+                    "time_fraction": 0.06
+                },
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.36
+                },
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 0.51
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.46
+                },
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 0.0
+                },
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.1
+                },
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 0.43
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "Hela",
+                    "role": "Duelist",
+                    "time_fraction": 0.45
+                },
+                {
+                    "hero": "Magik",
+                    "role": "Duelist",
+                    "time_fraction": 0.34
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.21
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 0.47
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.53
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.74
+                },
+                {
+                    "hero": "Namor",
+                    "role": "Duelist",
+                    "time_fraction": 0.26
+                }
+            ]
+        },
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Psylocke",
+                    "role": "Duelist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        }
+    ],
+    "winner": "team_1"
+}

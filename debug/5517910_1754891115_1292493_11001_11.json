@@ -1,0 +1,213 @@
+{
+    "match_id": "5517910_1754891115_1292493_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "Jeff The Land Shark",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Bruce Banner",
+                    "role": "Vanguard",
+                    "time_fraction": 0.38
+                },
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.19
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.44
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "The Punisher",
+                    "role": "Duelist",
+                    "time_fraction": 0.1
+                },
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.44
+                },
+                {
+                    "hero": "Scarlet Witch",
+                    "role": "Duelist",
+                    "time_fraction": 0.09
+                },
+                {
+                    "hero": "Namor",
+                    "role": "Duelist",
+                    "time_fraction": 0.37
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Hela",
+                    "role": "Duelist",
+                    "time_fraction": 0.21
+                },
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.44
+                },
+                {
+                    "hero": "Scarlet Witch",
+                    "role": "Duelist",
+                    "time_fraction": 0.1
+                },
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 0.25
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.44
+                },
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 0.56
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.56
+                },
+                {
+                    "hero": "Scarlet Witch",
+                    "role": "Duelist",
+                    "time_fraction": 0.44
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.13
+                },
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 0.87
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.48
+                },
+                {
+                    "hero": "Captain America",
+                    "role": "Vanguard",
+                    "time_fraction": 0.52
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Storm",
+                    "role": "Duelist",
+                    "time_fraction": 0.44
+                },
+                {
+                    "hero": "Star-Lord",
+                    "role": "Duelist",
+                    "time_fraction": 0.12
+                },
+                {
+                    "hero": "Blade",
+                    "role": "Duelist",
+                    "time_fraction": 0.44
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Squirrel Girl",
+                    "role": "Duelist",
+                    "time_fraction": 0.32
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.68
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Rocket Raccoon",
+                    "role": "Strategist",
+                    "time_fraction": 0.09
+                },
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 0.74
+                },
+                {
+                    "hero": "Invisible Woman",
+                    "role": "Strategist",
+                    "time_fraction": 0.17
+                }
+            ]
+        }
+    ],
+    "winner": "team_0"
+}

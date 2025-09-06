@@ -1,0 +1,188 @@
+{
+    "match_id": "5518348_1754892315_1290267_11001_11",
+    "team_0": [
+        {
+            "player_id": "player_0",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.07
+                },
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.49
+                },
+                {
+                    "hero": "The Thing",
+                    "role": "Vanguard",
+                    "time_fraction": 0.01
+                },
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 0.43
+                }
+            ]
+        },
+        {
+            "player_id": "player_1",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.01
+                },
+                {
+                    "hero": "Psylocke",
+                    "role": "Duelist",
+                    "time_fraction": 0.99
+                }
+            ]
+        },
+        {
+            "player_id": "player_5",
+            "heroes_played": [
+                {
+                    "hero": "Mantis",
+                    "role": "Strategist",
+                    "time_fraction": 0.49
+                },
+                {
+                    "hero": "Moon Knight",
+                    "role": "Duelist",
+                    "time_fraction": 0.18
+                },
+                {
+                    "hero": "Iron Fist",
+                    "role": "Duelist",
+                    "time_fraction": 0.33
+                }
+            ]
+        },
+        {
+            "player_id": "player_6",
+            "heroes_played": [
+                {
+                    "hero": "Magneto",
+                    "role": "Vanguard",
+                    "time_fraction": 0.45
+                },
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 0.55
+                }
+            ]
+        },
+        {
+            "player_id": "player_8",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_9",
+            "heroes_played": [
+                {
+                    "hero": "Loki",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        }
+    ],
+    "team_1": [
+        {
+            "player_id": "player_2",
+            "heroes_played": [
+                {
+                    "hero": "Star-Lord",
+                    "role": "Duelist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_3",
+            "heroes_played": [
+                {
+                    "hero": "Doctor Strange",
+                    "role": "Vanguard",
+                    "time_fraction": 0.34
+                },
+                {
+                    "hero": "Emma Frost",
+                    "role": "Vanguard",
+                    "time_fraction": 0.66
+                }
+            ]
+        },
+        {
+            "player_id": "player_4",
+            "heroes_played": [
+                {
+                    "hero": "Mantis",
+                    "role": "Strategist",
+                    "time_fraction": 0.19
+                },
+                {
+                    "hero": "Luna Snow",
+                    "role": "Strategist",
+                    "time_fraction": 0.81
+                }
+            ]
+        },
+        {
+            "player_id": "player_7",
+            "heroes_played": [
+                {
+                    "hero": "Groot",
+                    "role": "Vanguard",
+                    "time_fraction": 0.19
+                },
+                {
+                    "hero": "Moon Knight",
+                    "role": "Duelist",
+                    "time_fraction": 0.3
+                },
+                {
+                    "hero": "Winter Soldier",
+                    "role": "Duelist",
+                    "time_fraction": 0.51
+                }
+            ]
+        },
+        {
+            "player_id": "player_10",
+            "heroes_played": [
+                {
+                    "hero": "Cloak & Dagger",
+                    "role": "Strategist",
+                    "time_fraction": 1.0
+                }
+            ]
+        },
+        {
+            "player_id": "player_11",
+            "heroes_played": [
+                {
+                    "hero": "Loki",
+                    "role": "Strategist",
+                    "time_fraction": 0.79
+                },
+                {
+                    "hero": "Adam Warlock",
+                    "role": "Strategist",
+                    "time_fraction": 0.21
+                }
+            ]
+        }
+    ],
+    "winner": "team_0"
+}

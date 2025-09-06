@@ -1,15 +1,15 @@
 {
-    "Groot": {
+    "Emma Frost": {
         "totalScore": null,
         "teamupScore": 0,
-        "CounterCatScore": 1.9,
+        "CounterCatScore": 2.1,
         "total_counter_score": 2,
-        "total_category_score": -1,
+        "total_category_score": 1,
         "role": "Vanguard",
         "category": "Brawl",
-        "dps": 92,
+        "dps": 105,
         "hps": 0,
-        "health": 800,
+        "health": 650,
         "dps_score": null,
         "hps_score": null,
         "health_score": null,
@@ -20,23 +20,23 @@
         "hps_role_avg": null,
         "health_role_avg": null,
         "red_matchup": {
-            "Groot": {
+            "Magik": {
                 "counter_score": 0,
                 "category_score": 0,
-                "enemy_role": "Vanguard",
+                "enemy_role": "Duelist",
                 "enemy_category": "Brawl"
             },
-            "Peni Parker": {
+            "Scarlet Witch": {
                 "counter_score": 1,
-                "category_score": -1,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
             },
-            "Spider-Man": {
+            "Star-Lord": {
                 "counter_score": 0,
                 "category_score": 1,
                 "enemy_role": "Duelist",
-                "enemy_category": "Dive"
+                "enemy_category": "Dive / Brawl"
             },
             "Blade": {
                 "counter_score": 1,
@@ -50,7 +50,7 @@
                 "enemy_role": "Strategist",
                 "enemy_category": "Dive / Brawl"
             },
-            "Luna Snow": {
+            "Cloak & Dagger": {
                 "counter_score": 0,
                 "category_score": -1,
                 "enemy_role": "Strategist",
@@ -58,144 +58,16 @@
             }
         },
         "teamups": {
-            "Rocket Raccoon": 1.0,
-            "Jeff The Land Shark": 1.0,
-            "Mantis": 1.0
+            "Magneto": 1.0,
+            "Psylocke": 1.0
         },
-        "name": "Groot"
-    },
-    "Venom": {
-        "totalScore": null,
-        "teamupScore": 1.0,
-        "CounterCatScore": 1.6,
-        "total_counter_score": 2,
-        "total_category_score": -3,
-        "role": "Vanguard",
-        "category": "Dive / Brawl",
-        "dps": 90,
-        "hps": 0,
-        "health": 765,
-        "dps_score": null,
-        "hps_score": null,
-        "health_score": null,
-        "dps_weighted": null,
-        "hps_weighted": null,
-        "health_weighted": null,
-        "dps_role_avg": null,
-        "hps_role_avg": null,
-        "health_role_avg": null,
-        "red_matchup": {
-            "Groot": {
-                "counter_score": 1,
-                "category_score": -1,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl"
-            },
-            "Peni Parker": {
-                "counter_score": 0,
-                "category_score": -1,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Spider-Man": {
-                "counter_score": 0,
-                "category_score": 1,
-                "enemy_role": "Duelist",
-                "enemy_category": "Dive"
-            },
-            "Blade": {
-                "counter_score": 0,
-                "category_score": -1,
-                "enemy_role": "Duelist",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Rocket Raccoon": {
-                "counter_score": 1,
-                "category_score": 0,
-                "enemy_role": "Strategist",
-                "enemy_category": "Dive / Brawl"
-            },
-            "Luna Snow": {
-                "counter_score": 0,
-                "category_score": -1,
-                "enemy_role": "Strategist",
-                "enemy_category": "Brawl / Poke"
-            }
-        },
-        "teamups": {
-            "Jeff The Land Shark": 1.0,
-            "Hela": 1.0
-        },
-        "name": "Venom"
-    },
-    "The Punisher": {
-        "totalScore": null,
-        "teamupScore": 0,
-        "CounterCatScore": 4.3,
-        "total_counter_score": 4,
-        "total_category_score": 2,
-        "role": "Duelist",
-        "category": "Brawl / Poke",
-        "dps": 205,
-        "hps": 0,
-        "health": 300,
-        "dps_score": null,
-        "hps_score": null,
-        "health_score": null,
-        "dps_weighted": null,
-        "hps_weighted": null,
-        "health_weighted": null,
-        "dps_role_avg": null,
-        "hps_role_avg": null,
-        "health_role_avg": null,
-        "red_matchup": {
-            "Groot": {
-                "counter_score": 1,
-                "category_score": 1,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl"
-            },
-            "Peni Parker": {
-                "counter_score": 1,
-                "category_score": 0,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Spider-Man": {
-                "counter_score": 0,
-                "category_score": 0,
-                "enemy_role": "Duelist",
-                "enemy_category": "Dive"
-            },
-            "Blade": {
-                "counter_score": 1,
-                "category_score": 0,
-                "enemy_role": "Duelist",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Rocket Raccoon": {
-                "counter_score": 0,
-                "category_score": 1,
-                "enemy_role": "Strategist",
-                "enemy_category": "Dive / Brawl"
-            },
-            "Luna Snow": {
-                "counter_score": 1,
-                "category_score": 0,
-                "enemy_role": "Strategist",
-                "enemy_category": "Brawl / Poke"
-            }
-        },
-        "teamups": {
-            "Black Widow": 1.0
-        },
-        "name": "The Punisher"
+        "name": "Emma Frost"
     },
     "Hela": {
         "totalScore": null,
-        "teamupScore": 1.0,
-        "CounterCatScore": 2.5,
-        "total_counter_score": 2,
+        "teamupScore": 0,
+        "CounterCatScore": 3.5,
+        "total_counter_score": 3,
         "total_category_score": 3,
         "role": "Duelist",
         "category": "Poke",
@@ -212,23 +84,23 @@
         "hps_role_avg": null,
         "health_role_avg": null,
         "red_matchup": {
-            "Groot": {
-                "counter_score": 1,
+            "Magik": {
+                "counter_score": -1,
                 "category_score": 1,
-                "enemy_role": "Vanguard",
+                "enemy_role": "Duelist",
                 "enemy_category": "Brawl"
             },
-            "Peni Parker": {
-                "counter_score": 0,
-                "category_score": 1,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Spider-Man": {
+            "Scarlet Witch": {
                 "counter_score": 1,
-                "category_score": -1,
+                "category_score": 0,
                 "enemy_role": "Duelist",
-                "enemy_category": "Dive"
+                "enemy_category": "Dive / Brawl"
+            },
+            "Star-Lord": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
             },
             "Blade": {
                 "counter_score": 1,
@@ -242,8 +114,8 @@
                 "enemy_role": "Strategist",
                 "enemy_category": "Dive / Brawl"
             },
-            "Luna Snow": {
-                "counter_score": -1,
+            "Cloak & Dagger": {
+                "counter_score": 1,
                 "category_score": 1,
                 "enemy_role": "Strategist",
                 "enemy_category": "Brawl / Poke"
@@ -255,17 +127,17 @@
         },
         "name": "Hela"
     },
-    "Cloak & Dagger": {
+    "Hawkeye": {
         "totalScore": null,
-        "teamupScore": 0,
-        "CounterCatScore": 2.3,
-        "total_counter_score": 2,
-        "total_category_score": 2,
-        "role": "Strategist",
-        "category": "Brawl / Poke",
-        "dps": 55,
-        "hps": 84,
-        "health": 250,
+        "teamupScore": 1.0,
+        "CounterCatScore": 3.5,
+        "total_counter_score": 3,
+        "total_category_score": 3,
+        "role": "Duelist",
+        "category": "Poke",
+        "dps": 140,
+        "hps": 0,
+        "health": 275,
         "dps_score": null,
         "hps_score": null,
         "health_score": null,
@@ -276,26 +148,89 @@
         "hps_role_avg": null,
         "health_role_avg": null,
         "red_matchup": {
-            "Groot": {
-                "counter_score": 1,
+            "Magik": {
+                "counter_score": -1,
                 "category_score": 1,
-                "enemy_role": "Vanguard",
+                "enemy_role": "Duelist",
                 "enemy_category": "Brawl"
             },
-            "Peni Parker": {
-                "counter_score": 0,
-                "category_score": 0,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Spider-Man": {
+            "Scarlet Witch": {
                 "counter_score": 1,
                 "category_score": 0,
                 "enemy_role": "Duelist",
-                "enemy_category": "Dive"
+                "enemy_category": "Dive / Brawl"
+            },
+            "Star-Lord": {
+                "counter_score": 1,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
             },
             "Blade": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
                 "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Cloak & Dagger": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Strategist",
+                "enemy_category": "Brawl / Poke"
+            }
+        },
+        "teamups": {
+            "Luna Snow": 1.0
+        },
+        "name": "Hawkeye"
+    },
+    "The Punisher": {
+        "totalScore": null,
+        "teamupScore": 0,
+        "CounterCatScore": 2.6,
+        "total_counter_score": 2,
+        "total_category_score": 4,
+        "role": "Duelist",
+        "category": "Brawl / Poke",
+        "dps": 205,
+        "hps": 0,
+        "health": 300,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magik": {
+                "counter_score": -1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl"
+            },
+            "Scarlet Witch": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Star-Lord": {
+                "counter_score": 1,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Blade": {
+                "counter_score": 1,
                 "category_score": 0,
                 "enemy_role": "Duelist",
                 "enemy_category": "Brawl / Poke"
@@ -306,7 +241,7 @@
                 "enemy_role": "Strategist",
                 "enemy_category": "Dive / Brawl"
             },
-            "Luna Snow": {
+            "Cloak & Dagger": {
                 "counter_score": 0,
                 "category_score": 0,
                 "enemy_role": "Strategist",
@@ -314,17 +249,16 @@
             }
         },
         "teamups": {
-            "Moon Knight": 1.0,
-            "Blade": 1.0
+            "Black Widow": 1.0
         },
-        "name": "Cloak & Dagger"
+        "name": "The Punisher"
     },
     "Luna Snow": {
         "totalScore": null,
-        "teamupScore": 0,
-        "CounterCatScore": 1.3,
-        "total_counter_score": 1,
-        "total_category_score": 2,
+        "teamupScore": 1.0,
+        "CounterCatScore": 0.6,
+        "total_counter_score": 0,
+        "total_category_score": 4,
         "role": "Strategist",
         "category": "Brawl / Poke",
         "dps": 132,
@@ -340,23 +274,23 @@
         "hps_role_avg": null,
         "health_role_avg": null,
         "red_matchup": {
-            "Groot": {
+            "Magik": {
                 "counter_score": 0,
                 "category_score": 1,
-                "enemy_role": "Vanguard",
+                "enemy_role": "Duelist",
                 "enemy_category": "Brawl"
             },
-            "Peni Parker": {
+            "Scarlet Witch": {
                 "counter_score": 0,
-                "category_score": 0,
-                "enemy_role": "Vanguard",
-                "enemy_category": "Brawl / Poke"
-            },
-            "Spider-Man": {
-                "counter_score": 1,
-                "category_score": 0,
+                "category_score": 1,
                 "enemy_role": "Duelist",
-                "enemy_category": "Dive"
+                "enemy_category": "Dive / Brawl"
+            },
+            "Star-Lord": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
             },
             "Blade": {
                 "counter_score": 0,
@@ -370,7 +304,7 @@
                 "enemy_role": "Strategist",
                 "enemy_category": "Dive / Brawl"
             },
-            "Luna Snow": {
+            "Cloak & Dagger": {
                 "counter_score": 0,
                 "category_score": 0,
                 "enemy_role": "Strategist",
@@ -383,5 +317,68 @@
             "Adam Warlock": 1.0
         },
         "name": "Luna Snow"
+    },
+    "Adam Warlock": {
+        "totalScore": null,
+        "teamupScore": 1.0,
+        "CounterCatScore": 0.4,
+        "total_counter_score": 0,
+        "total_category_score": 3,
+        "role": "Strategist",
+        "category": "Poke",
+        "dps": 110,
+        "hps": 100,
+        "health": 250,
+        "dps_score": null,
+        "hps_score": null,
+        "health_score": null,
+        "dps_weighted": null,
+        "hps_weighted": null,
+        "health_weighted": null,
+        "dps_role_avg": null,
+        "hps_role_avg": null,
+        "health_role_avg": null,
+        "red_matchup": {
+            "Magik": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl"
+            },
+            "Scarlet Witch": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Star-Lord": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Duelist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Blade": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Duelist",
+                "enemy_category": "Brawl / Poke"
+            },
+            "Rocket Raccoon": {
+                "counter_score": 0,
+                "category_score": 0,
+                "enemy_role": "Strategist",
+                "enemy_category": "Dive / Brawl"
+            },
+            "Cloak & Dagger": {
+                "counter_score": 0,
+                "category_score": 1,
+                "enemy_role": "Strategist",
+                "enemy_category": "Brawl / Poke"
+            }
+        },
+        "teamups": {
+            "Luna Snow": 1.0
+        },
+        "name": "Adam Warlock"
     }
 }

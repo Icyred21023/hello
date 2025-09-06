@@ -61,7 +61,7 @@ def load_font(family_name, font_file_name):
     return f"@{font_path}"
     #font_families.add(family_name)
 
-fonts_list = ["Rajdhani.ttf","Rajdhani Medium.ttf","Rajdhani Bold.ttf","Saira Semi Condensed Medium.ttf","Saira Thin Medium.ttf","Refrigerator Deluxe Bold.ttf","Refrigerator Deluxe Heavy.ttf","Exo Demi Bold.ttf","Exo Light.ttf","CarbonRegular.ttf","CarbonBold Italic.ttf","CarbonRegular Italic.ttf"]
+fonts_list = ["Rajdhani.ttf","Rajdhani Medium.ttf","Rajdhani Bold.ttf","Saira Semi Condensed Medium.ttf","Saira Thin Medium.ttf","Refrigerator Deluxe Bold.ttf","Refrigerator Deluxe Heavy.ttf","Exo Demi Bold.ttf","Exo Light.ttf","CarbonRegular.ttf","CarbonBold Italic.ttf","CarbonRegular Italic.ttf","Cairo Black.ttf","Cairo Bold.ttf","Cairo.ttf"]
 font_names = [os.path.splitext(f)[0] for f in fonts_list]
 rajdhani = font_names[0] # Normal or Bold
 rajdhani_medium = font_names[1] # Normal or Bold
@@ -316,7 +316,7 @@ def change_color(value):
     elif value  > -3:
         return "#FFA800"
     else:
-        return "#FF1919"
+        return "#FF3737"
     
 def _grid_bounds(parent):
     """Return (max_row, max_col) considering row/col spans, or (-1,-1) if empty."""
@@ -1651,13 +1651,14 @@ def create_player_frame(root, player, image_map):
     if player.hero2 not in image_map:
         player.hero2 = "Question"
         
-    def createImage(frame, player_img, size, bg, param):
+    def createImage(frame, player_img, size, bg, arh, param):
         img_raw = image_map.get(player_img) or image_map.get("Default")
         if img_raw:
-            resized = img_raw.copy()
-            resized.thumbnail(size)  # Resize to 32x32
+            #resized = img_raw.copy()
+            resized = img_raw.resize(size, Image.LANCZOS)
+            #resized.thumbnail(size)  # Resize to 32x32
             img = ImageTk.PhotoImage(resized)
-            label = tk.Label(frame,bg=bg, image=img)
+            label = tk.Label(frame,bg=bg, image=img, **arh)
             label.image = img  # Prevent garbage collection
             label.pack(**param)
             return label
@@ -1665,70 +1666,72 @@ def create_player_frame(root, player, image_map):
             return False
     
     
-    outer = tk.Frame(root, width=330, height=400, borderwidth=1, relief="flat")
+    outer = tk.Frame(root, width=330, height=420, bg="#0B0B12",borderwidth=1, relief="flat")
     outer.pack(side="left", fill="x",padx=0, pady=0)
     #outer.pack_propagate(False)
 
     # Top bar: name + rank icon
-    top_bar = tk.Frame(outer, bg="#2b2e41",height=65,relief='raised', borderwidth=3, bd=3)
+    top_bar = tk.Frame(outer, bg="#2A2E40",height=65,relief='raised', borderwidth=3, bd=3)
     top_bar.pack(side='top',fill="both",expand=True)
     #top_bar.pack_propagate(False)
     
     
 
     
-    name_label = tk.Label(top_bar, text=player.name,bg="#2b2e41", fg="#E4EAFF",font=fonttk(rajdhani_medium,20,'normal'),anchor="w")
-    name_label.place(x=8, y=14)
+    name_label = tk.Label(top_bar, text=player.name,bg="#2A2E40", fg="#E4EAFF",font=fonttk(rajdhani_medium,20,'normal'),anchor="w")
+    name_label.place(x=8, y=17)
     pack = {"side":"right", "padx":0,"pady":0,"anchor":'e'}
   
-    rank_label = createImage(top_bar, player.rank,(72,72),"#2b2e41",pack)
-    #rank_img_raw = image_map.get(player.rank) or image_map.get("Default")
-    #if rank_img_raw:
-       # resized = rank_img_raw.copy()
-       # resized.thumbnail((72,72))  # Resize to 32x32
-      #  rank_img = ImageTk.PhotoImage(resized)
-       # rank_label = tk.Label(top_bar,bg="#2b2e41", image=rank_img)
-        #rank_label.image = rank_img  # Prevent garbage collection
-        #rank_label.pack(side="right", padx=0,anchor='e')
+    rank_label = createImage(top_bar, player.rank,(72,72),"#2A2E40",{"highlightcolor":"black"}, pack)
     
     mvp_icon = False
     if player.ace:
-        mvp_label = createImage(top_bar, 'MVP2',(72,52),'#2b2e41',pack)
-        #mvp_icon = image_map.get('MVP2') or image_map.get("Default")
-    #if mvp_icon:
-        #resized = mvp_icon.copy()
-        #resized.thumbnail((72,52))
-        #mvp_img = ImageTk.PhotoImage(resized)
-        #mvp_label = tk.Label(top_bar,bg="#2b2e41",image=mvp_img)
-        #mvp_label.image = mvp_img
-        #mvp_label.pack(side='right', padx=0, anchor='e')
- 
-    #top_bar.image = rank_img
-
+        mvp_label = createImage(top_bar, 'MVP2',(72,32),'#2A2E40',{"highlightcolor":"black"}, pack)
+        
     # Main content split horizontally
-    content = tk.Frame(outer)
+    content = tk.Frame(outer,bg="#101118")
     content.pack(fill="both", expand=True)
+    #colo = adjust_color(content, content.cget("bg"), 1.1)
+    top_frame = tk.Frame(content, bg="#181B26", width=325,height=145,
+                            #highlightbackground="#131320",
+                            #highlightcolor="#131320",
+                            #highlightthickness=1,
+                            borderwidth=2,
+                            bd=2,
+                            relief="raised",pady=3,padx=1
+                        )
+    top_frame.pack(side="top", fill="both",pady=(0,4), expand=True)
+    top_frame.pack_propagate(False)
+    bottom_frame = tk.Frame(content, bg="#181B26", width=325,height=145,
+                                #highlightbackground="#131320",
+                                #highlightcolor="#131320",
+                                #highlightthickness=1,
+                                borderwidth=2,
+                                bd=2,
+                                relief="raised",pady=3,padx=1
+                            )
+    bottom_frame.pack(side="bottom", fill="both",pady=(4,0), expand=True)
+    bottom_frame.pack_propagate(False)
 
     # Left (hero images stacked)
-    left_frame = tk.Frame(content, bg="#151426",width=150)
-    left_frame.pack(side="left", fill="y")
+    #left_frame = tk.Frame(top_frame, bg="#151426",width=150)
+    #left_frame.pack(side="left", fill="y")
     #left_frame.pack_propagate(False)
     
-    left_frame_top = tk.Frame(left_frame,bg="#1c1b2d", height=150)
-    left_frame_top.pack(side="top", fill="x",pady=(0,5))
+    left_frame_top = tk.Frame(top_frame,bg="#181B26", height=150)
+    left_frame_top.pack(side="left", fill="both",pady=(0,0), expand=True)
     #left_frame_top.pack_propagate(False)
+    pack = {#"highlightbackground":"#1D1D30",
+                            #"highlightcolor":"#1D1D30",
+                            #"highlightthickness":1,
+                            "borderwidth":2,
+                            "bd":2,
+                            "relief":"sunken"}
+    hero1_label = createImage(left_frame_top, player.hero1, (134,134),'#11131A',pack,{'pady':0})
+   
     
-    hero1_label = createImage(left_frame_top, player.hero1, (136,136),'#1c1b2d',{'pady':0})
-    #hero1_img = image_map.get(player.hero1, image_map.get("Default"))
-    #resized = hero1_img.copy()
-    #resized.thumbnail((136,136))
-    #hero1_img = ImageTk.PhotoImage(resized)
-    #hero1_label = tk.Label(left_frame_top, bg="#1c1b2d",image=hero1_img)
-    #hero1_label.pack(pady=0)
-   # left_frame_top.image1 = hero1_img
-    
-    left_frame_bot = tk.Frame(left_frame, bg="#1c1b2d",height=150)
-    left_frame_bot.pack(side="bottom", fill="x",pady=(5,0))
+    left_frame_bot = tk.Frame(bottom_frame, bg="#181B26",height=150)
+    left_frame_bot.pack(side="left", fill="both",pady=(0,0), expand=True)
     #left_frame_bot.pack_propagate(False)
     
     if player.hero2 == "None" or not player.hero2:
@@ -1736,43 +1739,37 @@ def create_player_frame(root, player, image_map):
         player.hero2 = "Question"
     else:
         pl2 = True
-        hero2_label = createImage(left_frame_bot, player.hero2, (136,136),'#1c1b2d',{'pady':0})
+        hero2_label = createImage(left_frame_bot, player.hero2, (134,134), "#11131A",pack,{'pady':0})
 
- #   hero2_img = image_map.get(player.hero2, image_map.get("Default"))
-#    resized = hero2_img.copy()
- #   resized.thumbnail((136,136))
- #   hero2_img = ImageTk.PhotoImage(resized)
-   # hero2_label = tk.Label(left_frame_bot,bg="#1c1b2d", image=hero2_img)
-  #  hero2_label.pack(pady=0)
-   # left_frame_bot.image = hero2_img
+ 
 
     # Right (text stacked)
-    right_frame = tk.Frame(content, bg="#151426",width=180)
-    right_frame.pack(side="right", fill="y")
+    #right_frame = tk.Frame(top_frame, bg="#151426",width=180)
+    #right_frame.pack(side="right", fill="y")
     #right_frame.pack_propagate(False)
     
-    right_frame_top = tk.Frame(right_frame, bg="#1c1b2d",height=150)
-    right_frame_top.pack(side="top", pady=(0,5),fill="both",expand=True)
+    right_frame_top = tk.Frame(top_frame, bg="#181B26",height=150)
+    right_frame_top.pack(side="right", pady=(0,0),fill="both",expand=True)
     #right_frame_top.pack_propagate(False)
     
-    right_frame_topleft = tk.Frame(right_frame_top, bg="#1c1b2d",width=90)
-    right_frame_topleft.pack(side="left",pady=5,padx=10,fill="both",expand=True)
+    right_frame_topleft = tk.Frame(right_frame_top, bg="#181B26",width=90)
+    right_frame_topleft.pack(side="left",pady=5,padx=5,fill="both",expand=True)
    # right_frame_topleft.pack_propagate(False)
     
-    right_frame_topr = tk.Frame(right_frame_top, bg="#1c1b2d",width=90)
-    right_frame_topr.pack(side="right", fill="both",padx=10,expand=True,pady=5)
+    right_frame_topr = tk.Frame(right_frame_top, bg="#181B26",width=90)
+    right_frame_topr.pack(side="right", fill="both",pady=5,padx=5,expand=True)
     #right_frame_topr.pack_propagate(False)
     
-    right_frame_bot = tk.Frame(right_frame,bg="#1c1b2d", height=150)
-    right_frame_bot.pack(side="bottom", fill="both",expand=True,pady=(5,0))
+    right_frame_bot = tk.Frame(bottom_frame,bg="#181B26", height=150)
+    right_frame_bot.pack(side="right", fill="both",expand=True,pady=(0,0))
    # right_frame_bot.pack_propagate(False)
     
-    right_frame_botl = tk.Frame(right_frame_bot,bg="#1c1b2d", width=90)
-    right_frame_botl.pack(side="left", fill="both",padx=10,expand=True,pady=5)
+    right_frame_botl = tk.Frame(right_frame_bot,bg="#181B26", width=90)
+    right_frame_botl.pack(side="left", fill="both",padx=5,pady=5,expand=True)
     #right_frame_botl.pack_propagate(False)
     
-    right_frame_botr = tk.Frame(right_frame_bot,bg="#1c1b2d", width=90)
-    right_frame_botr.pack(side="right", fill="both",padx=10,expand=True,pady=5)
+    right_frame_botr = tk.Frame(right_frame_bot,bg="#181B26", width=90)
+    right_frame_botr.pack(side="right", fill="both",padx=5,expand=True,pady=5)
    # right_frame_botr.pack_propagate(False)
     
     kd1 = "white"
@@ -1811,33 +1808,33 @@ def create_player_frame(root, player, image_map):
             dpm2= "#bf868f"
 
 
-    latitle= tk.Label(right_frame_topleft, text=f"KD",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
+    latitle= tk.Label(right_frame_topleft, text=f"KD",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 11, "bold"))
     latitle.pack(pady=0,side='top')
-    la= tk.Label(right_frame_topleft, text=f"{player.kd1}",fg=kd1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+    la= tk.Label(right_frame_topleft, text=f"{player.kd1}",fg=kd1,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
     la.pack(pady=0,side='top')
-    latitle0= tk.Label(right_frame_topr, text=f"MVP %",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
+    latitle0= tk.Label(right_frame_topr, text=f"MVP %",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 11, "bold"))
     latitle0.pack(pady=0,side='top')
-    la0= tk.Label(right_frame_topr, text=f"{player.mvp1}",fg=kd1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+    la0= tk.Label(right_frame_topr, text=f"{player.mvp1}",fg=kd1,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
     la0.pack(pady=0,side='top')
-    la2= tk.Label(right_frame_topleft, text=f"{player.dpm1}",fg=dpm1,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+    la2= tk.Label(right_frame_topleft, text=f"{player.dpm1}",fg=dpm1,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
     la2.pack(pady=0,side='bottom')
-    la2title= tk.Label(right_frame_topleft, text=f"{player.string1}",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
+    la2title= tk.Label(right_frame_topleft, text=f"{player.string1}",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 11, "bold"))
     la2title.pack(pady=0,side='bottom')
     
    # tk.Label(right_frame, text="Placeholder 1", font=fonttk("Calibri", , 4).pack(pady=5)
     if pl2:
     #tk.Label(right_frame, text="Placeholder 2", font=fonttk("Calibri", 4).pack(pady=5)
-        lbtitle= tk.Label(right_frame_botl, text=f"KD",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11,"bold"))
+        lbtitle= tk.Label(right_frame_botl, text=f"KD",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 11,"bold"))
         lbtitle.pack(pady=0,side='top')
-        lb = tk.Label(right_frame_botl, text=f"{player.kd2}",fg=kd2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+        lb = tk.Label(right_frame_botl, text=f"{player.kd2}",fg=kd2,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
         lb.pack(pady=0,side='top')
-        lbtitle0= tk.Label(right_frame_botr, text=f"MVP %",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
+        lbtitle0= tk.Label(right_frame_botr, text=f"MVP %",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 11, "bold"))
         lbtitle0.pack(pady=0,side='top')
-        lb0 = tk.Label(right_frame_botr, text=f"{player.mvp2}",fg=kd2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+        lb0 = tk.Label(right_frame_botr, text=f"{player.mvp2}",fg=kd2,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
         lb0.pack(pady=0,side='top')
-        lb2= tk.Label(right_frame_botl, text=f"{player.dpm2}",fg=dpm2,bg="#1c1b2d", font=fonttk("Calibri", 12, "bold"))
+        lb2= tk.Label(right_frame_botl, text=f"{player.dpm2}",fg=dpm2,bg="#181B26", font=fonttk("CarbonBold Italic", 13, "bold"))
         lb2.pack(pady=0,side='bottom')
-        lb2title= tk.Label(right_frame_botl, text=f"{player.string2}",fg=title,bg="#1c1b2d", font=fonttk("Calibri", 11, "bold"))
+        lb2title= tk.Label(right_frame_botl, text=f"{player.string2}",fg=title,bg="#181B26", font=fonttk("Exo Demi Bold", 13, "bold"))
         lb2title.pack(pady=0,side='bottom')
     
     #tk.Label(right_frame, text="Placeholder 3", font=fonttk("Calibri", , 4).pack(pady=5)
@@ -1856,7 +1853,7 @@ def show_gui(players):
     screen_width = root.winfo_screenwidth()
     x = (screen_width - width) // 2
     y = 0
-    root.geometry(f"{width}x400+{x}+{y}")
+    root.geometry(f"{width}x420+{x}+{y}")
     root.configure(bg="black")
     root.overrideredirect(True)
     root.attributes("-topmost", True)  # Always on top
@@ -2207,17 +2204,34 @@ def show_launcher(on_trigger,on_match):
     hide_btn2.bind("<Leave>", lambda e: hide_btn2.config(bg="#141420"))
     lock.bind("<Enter>", lambda e: lock.config(bg="#31314D"))
     lock.bind("<Leave>", lambda e: lock.config(bg="#141420"))
-    
+    si = "left"
+    arr = {'text':"Bans [F8]", 'height':1, 'relief':"flat", 'bg':"#FCD92E",'font':fonttk("Rajdhani Bold",'normal',13),'command':lambda: trigger1(var1.get()), 'cursor':"hand2"}
+    wi = 88
+    for i in range (2):
+        fra = tk.Frame(main, bg="#151426", relief="solid", height=33, width=wi)
+        fra.pack(side=si, expand=True)
+        fra.pack_propagate(False)
+        bu = tk.Button(fra, **arr)
+        bu.pack()
+        bu.bind("<Enter>", lambda e, b=bu: b.config(bg="#A18D25"))
+        bu.bind("<Leave>", lambda e, b=bu: b.config(bg="#FCD92E"))
+        si = "right"
+        arr = {'text':"Counters [F10]", 'height':1, 'relief':"flat", 'bg':"#FCD92E",'font':fonttk("Rajdhani Bold",'normal',13),'command':lambda: trigger22(var2.get()), 'cursor':"hand2"}
+        wi += 40
 
 
-    button = tk.Button(main,text="Bans [F8]", height=1, relief="flat", bg="#FCD92E",font=fonttk(rajdhani_medium,'normal',12),command=lambda: trigger1(var1.get()), cursor="hand2")
-    button.pack(side="left",padx=11)
-    button.bind("<Enter>", lambda e: button.config(bg="#A18D25"))
-    button.bind("<Leave>", lambda e: button.config(bg="#FCD92E"))
-    button1 = tk.Button(main,text="Counters [F10]",height=0, relief="flat", bg="#FCD92E",font=fonttk(rajdhani_medium,'normal',12),command=lambda: trigger22(var2.get()), cursor="hand2")
-    button1.pack(side="right",padx=11)
-    button1.bind("<Enter>", lambda e: button1.config(bg="#A18D25"))
-    button1.bind("<Leave>", lambda e: button1.config(bg="#FCD92E"))
+    #button = tk.Button(main,text="Bans [F8]", height=1, relief="flat", bg="#FCD92E",font=fonttk("Rajdhani Bold",'normal',12),command=lambda: trigger1(var1.get()), cursor="hand2")
+    #button.pack(side="left",expand=True,ipady=0)
+    # button.bind("<Enter>", lambda e: button.config(bg="#A18D25"))
+    # button.bind("<Leave>", lambda e: button.config(bg="#FCD92E"))
+    # button1 = tk.Button(main,text="Counters [F10]",height=1, relief="flat", bg="#FCD92E",font=fonttk("Rajdhani Bold",'normal',12),command=lambda: trigger22(var2.get()), cursor="hand2")
+    # button1.pack(side="right",expand=True,ipady=0)
+    # button.pack_propagate(False)
+    # button1.pack_propagate(False)
+    # #button.configure(font=fonttk("Cairo Black",'bold',12),height=1)
+    # #button1.configure(font=fonttk("Cairo Black",'bold',12),height=1)
+    # button1.bind("<Enter>", lambda e: button1.config(bg="#A18D25"))
+    # button1.bind("<Leave>", lambda e: button1.config(bg="#FCD92E"))
 
     after_id = None  # Store enforce loop
     

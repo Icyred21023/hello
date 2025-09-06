@@ -46,6 +46,8 @@ Bahnschrift SemiCondensed
 Bahnschrift SemiLight
 Bahnschrift SemiLight Condensed
 Bahnschrift SemiLight SemiConde
+Cairo
+Cairo Black
 Calibri
 Calibri Light
 Cambria
