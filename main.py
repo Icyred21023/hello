@@ -6,7 +6,7 @@ if not config.mobile_mode:
     elevate_if_needed()
 
     from ocr_capture import capture_names
-from tracker_lookup import open_multiple_tracker_profiles
+from tracker_lookup import open_multiple_tracker_profiles, fetch_marvelrivalapi
 from player import Player
 import gui
 from gui import show_gui, show_launcher, show_team_comparison_gui, show_countdown,show_suggestion_gui

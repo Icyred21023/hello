@@ -183,7 +183,7 @@ def capture_scoreboard_icons(region_box, dir,flag, name_boxes=NAME_BOXES):
 def load_hero_assets():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    assets_folder = os.path.join(script_dir, "asset_match")
+    assets_folder = os.path.join(script_dir, "assets_hd")
 
     image_map = load_image_map(assets_folder)
     #for filename in os.listdir(assets_folder):

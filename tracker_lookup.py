@@ -2,6 +2,7 @@ import undetected_chromedriver as uc
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import requests
 import time, json, os, subprocess, re
 import config
 if not config.mobile_mode:
@@ -53,6 +54,36 @@ def safe_del(self):
         pass
 
 uc.Chrome.__del__ = safe_del
+
+def fetch_marvelrivalapi(player_names):
+    results = {}
+    try: 
+        for name in player_names:
+           
+
+            url = f"https://marvelrivalsapi.com/api/v1/player/{name}?season="
+
+            payload={}
+            headers = {
+            'x-api-key': '3e521641597c73d8f7e2885f91071ed6fc73af5c9e23630f81ec8180d80cf735'
+            }
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+            response.raise_for_status()
+            player_data = response.json()
+            active = player_data['overall_stats']['ranked']['total_matches']
+            if active < 3:
+                print(f"Skipping {name}: Inactive Account")
+                continue
+            else:
+                print(f"✅ Data loaded for {name}")
+                results[name] = player_data
+                print(player_data)
+        return results
+
+    except Exception as e:
+        print(f"❌ Error loading JSON for {name}: {e}")
+
 
 def open_multiple_tracker_profiles(player_names):
     kill_selenium_chrome()

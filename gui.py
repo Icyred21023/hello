@@ -1496,7 +1496,7 @@ def show_team_comparison_gui(team1_matches, team2_matches,map):
     win.grab_set()
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    assets_folder = os.path.join(script_dir, "assets_characters")
+    assets_folder = os.path.join(script_dir, "assets_characters_hd")
 
     image_map = {}
     for filename in os.listdir(assets_folder):
@@ -1859,7 +1859,7 @@ def show_gui(players):
     root.attributes("-topmost", True)  # Always on top
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    assets_folder = os.path.join(script_dir, "assets")
+    assets_folder = os.path.join(script_dir, "assets_hd")
 
     image_map = {}
     for filename in os.listdir(assets_folder):
