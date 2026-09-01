@@ -1,0 +1,272 @@
+{
+  "Adam Warlock_Master.png": {
+    "x0": 129,
+    "y0": 137,
+    "side": 243
+  },
+  "Angela_Master.png": {
+    "x0": 129,
+    "y0": 137,
+    "side": 243
+  },
+  "Black Panther_Master.png": {
+    "x0": 129,
+    "y0": 137,
+    "side": 243
+  },
+  "Black Widow_Master.png": {
+    "x0": 163,
+    "y0": 121,
+    "side": 243
+  },
+  "Blade_Master.png": {
+    "x0": 198,
+    "y0": 118,
+    "side": 243
+  },
+  "Bruce Banner_Master.png": {
+    "x0": 154,
+    "y0": 112,
+    "side": 223
+  },
+  "Captain America_Master.png": {
+    "x0": 176,
+    "y0": 149,
+    "side": 230
+  },
+  "Cloak & Dagger_Master.png": {
+    "x0": 210,
+    "y0": 69,
+    "side": 269
+  },
+  "Daredevil_Master.png": {
+    "x0": 172,
+    "y0": 140,
+    "side": 184
+  },
+  "Deadpool (Duelist)_Master.png": {
+    "x0": 185,
+    "y0": 120,
+    "side": 243
+  },
+  "Deadpool (Strategist)_Master.png": {
+    "x0": 185,
+    "y0": 120,
+    "side": 243
+  },
+  "Deadpool (Vanguard)_Master.png": {
+    "x0": 185,
+    "y0": 120,
+    "side": 243
+  },
+  "Doctor Strange_Master.png": {
+    "x0": 171,
+    "y0": 145,
+    "side": 217
+  },
+  "Emma Frost_Master.png": {
+    "x0": 158,
+    "y0": 144,
+    "side": 233
+  },
+  "Gambit_Master.png": {
+    "x0": 171,
+    "y0": 51,
+    "side": 220
+  },
+  "Groot_Master.png": {
+    "x0": 158,
+    "y0": 80,
+    "side": 223
+  },
+  "Hawkeye_Master.png": {
+    "x0": 196,
+    "y0": 105,
+    "side": 218
+  },
+  "Hela_Master.png": {
+    "x0": 167,
+    "y0": 140,
+    "side": 220
+  },
+  "Human Torch_Master.png": {
+    "x0": 173,
+    "y0": 91,
+    "side": 240
+  },
+  "Invisible Woman_Master.png": {
+    "x0": 172,
+    "y0": 156,
+    "side": 235
+  },
+  "Iron Fist_Master.png": {
+    "x0": 179,
+    "y0": 96,
+    "side": 213
+  },
+  "Iron Man_Master.png": {
+    "x0": 157,
+    "y0": 167,
+    "side": 218
+  },
+  "Jeff The Land Shark_Master.png": {
+    "x0": 160,
+    "y0": 154,
+    "side": 236
+  },
+  "Loki_Master.png": {
+    "x0": 160,
+    "y0": 98,
+    "side": 230
+  },
+  "Luna Snow_Master.png": {
+    "x0": 143,
+    "y0": 84,
+    "side": 236
+  },
+  "Magik_Master.png": {
+    "x0": 166,
+    "y0": 124,
+    "side": 207
+  },
+  "Magneto_Master.png": {
+    "x0": 168,
+    "y0": 134,
+    "side": 202
+  },
+  "Mantis_Master.png": {
+    "x0": 90,
+    "y0": 90,
+    "side": 143
+  },
+  "Mister Fantastic_Master.png": {
+    "x0": 185,
+    "y0": 157,
+    "side": 208
+  },
+  "Moon Knight_Master.png": {
+    "x0": 193,
+    "y0": 101,
+    "side": 206
+  },
+  "Namor_Master.png": {
+    "x0": 166,
+    "y0": 100,
+    "side": 223
+  },
+  "Peni Parker_Master.png": {
+    "x0": 150,
+    "y0": 110,
+    "side": 213
+  },
+  "Phoenix_Master.png": {
+    "x0": 160,
+    "y0": 60,
+    "side": 157
+  },
+  "Psylocke_Master.png": {
+    "x0": 109,
+    "y0": 45,
+    "side": 228
+  },
+  "Rocket Raccoon_Master.png": {
+    "x0": 156,
+    "y0": 109,
+    "side": 232
+  },
+  "Rogue_Master.png": {
+    "x0": 128,
+    "y0": 107,
+    "side": 216
+  },
+  "Scarlet Witch_Master.png": {
+    "x0": 169,
+    "y0": 103,
+    "side": 226
+  },
+  "Spider-Man_Master.png": {
+    "x0": 169,
+    "y0": 154,
+    "side": 205
+  },
+  "Squirrel Girl_Master.png": {
+    "x0": 153,
+    "y0": 154,
+    "side": 209
+  },
+  "Star-Lord_Master.png": {
+    "x0": 177,
+    "y0": 63,
+    "side": 237
+  },
+  "Storm_Master.png": {
+    "x0": 165,
+    "y0": 150,
+    "side": 200
+  },
+  "The Punisher_Master.png": {
+    "x0": 171,
+    "y0": 132,
+    "side": 198
+  },
+  "The Thing_Master.png": {
+    "x0": 171,
+    "y0": 76,
+    "side": 239
+  },
+  "Thor_Master.png": {
+    "x0": 107,
+    "y0": 92,
+    "side": 162
+  },
+  "Ultron_Master.png": {
+    "x0": 173,
+    "y0": 105,
+    "side": 213
+  },
+  "Venom_Master.png": {
+    "x0": 130,
+    "y0": 137,
+    "side": 237
+  },
+  "Winter Soldier_Master.png": {
+    "x0": 148,
+    "y0": 54,
+    "side": 227
+  },
+  "Wolverine_Master.png": {
+    "x0": 105,
+    "y0": 100,
+    "side": 154
+  },
+  "Elsa Bloodstone_Master.png": {
+    "x0": 208,
+    "y0": 153,
+    "side": 216
+  },
+  "White Fox_Master.png": {
+    "x0": 185,
+    "y0": 74,
+    "side": 240
+  },
+  "Black Cat_Master.png": {
+    "x0": 186,
+    "y0": 133,
+    "side": 208
+  },
+  "Devil Dinosaur_Master.png": {
+    "x0": 189,
+    "y0": 113,
+    "side": 282
+  },
+  "Cyclops_Master.png": {
+    "x0": 70,
+    "y0": 40,
+    "side": 271
+  },
+  "Jubilee_Master.png": {
+    "x0": 141,
+    "y0": 114,
+    "side": 272
+  }
+}

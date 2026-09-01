@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 50275c2ce3103fe49a16db83ac6af451
+timeCreated: 1553312508
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Helvetica
+  fontNames:
+  - Helvetica
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142568
+  packageName: Sci-Fi Buttons and Panels Pack
+  packageVersion: 1.2
+  assetPath: Assets/Sci-fi Buttons and Panels/Sci-fi Components Resources/Fonts/Helvetica.ttf
+  uploadId: 385805

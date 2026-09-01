@@ -1,0 +1,710 @@
+[
+  {
+    "Type": "DataTable",
+    "Name": "MarvelM2206UIAttributeCategoryTable",
+    "Flags": "RF_Public | RF_Standalone | RF_Transactional | RF_WasLoaded | RF_LoadCompleted",
+    "Class": "UScriptClass'DataTable'",
+    "Package": "/Game/Marvel/Data/DataTable/GameMode/2206/MarvelM2206UIAttributeCategoryTable",
+    "Properties": {
+      "RowStruct": {
+        "ObjectName": "Class'M2206UIAttributeCategory'",
+        "ObjectPath": "/Script/Marvel"
+      }
+    },
+    "Rows": {
+      "Burst": {
+        "AttributeDescs": [
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::Damage",
+            "GainAttribute": "EPveAttribute::BaseDamage",
+            "SubAttribute": "EM2206UISubAttribute::Damage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#0_AttributeText",
+              "SourceString": "整体伤害加成",
+              "LocalizedString": "Total Damage Bonus"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#0_AttributeHint",
+              "SourceString": "提升造成的所有伤害",
+              "LocalizedString": "Increases all damage dealt."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::Damage",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::DamageAdditional",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#1_AttributeText",
+              "SourceString": "整体输出增幅",
+              "LocalizedString": "Total Output Boost"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#1_AttributeHint",
+              "SourceString": "额外增幅造成的所有伤害，会随着总增幅数值提高逐渐收敛，此处为收敛后的最终数值",
+              "LocalizedString": "Provides an extra amplification to all damage dealt, which gradually tapers off as the total amplification value increases. Value displayed is the final after diminishing returns are applied."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::CloseRangeDamage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#2_AttributeText",
+              "SourceString": "对近距敌人的伤害加成",
+              "LocalizedString": "Bonus Damage against Close-Range Enemies"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#2_AttributeHint",
+              "SourceString": "提升对自身5米范围内的敌人的伤害",
+              "LocalizedString": "Increases damage dealt to enemies within 5m of yourself."
+            },
+            "SourceEffectIDs": [
+              10000110,
+              10009015
+            ],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::BossDamage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#3_AttributeText",
+              "SourceString": "对Boss的伤害加成",
+              "LocalizedString": "Bonus Damage against Bosses"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#3_AttributeHint",
+              "SourceString": "提升对Boss的伤害",
+              "LocalizedString": "Increases damage dealt to Bosses."
+            },
+            "SourceEffectIDs": [
+              10009016,
+              10000112
+            ],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::HealthyEnemyDamage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#4_AttributeText",
+              "SourceString": "对健康敌人的伤害加成",
+              "LocalizedString": "Damage Bonus against healthy enemies"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#4_AttributeHint",
+              "SourceString": "提升对当前生命值比例高于80%的敌人的伤害",
+              "LocalizedString": "Increases damage dealt to enemies whose current Health is above 80%."
+            },
+            "SourceEffectIDs": [
+              10009017,
+              10000111
+            ],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::MaxSkillEnergy3",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::PrimaryWeaponDamage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#5_AttributeText",
+              "SourceString": "主武器额外增伤",
+              "LocalizedString": "Primary Weapon extra Damage Bonus"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "CultureInvariantString": "主武器额外增伤"
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [
+              {
+                "Key": "1014",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+                  "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#5_HeroTips_*1014",
+                  "SourceString": "提高角色主武器的攻击伤害\n惩罚者    【审判者】步枪、【终结者】霰弹枪",
+                  "LocalizedString": "Increase Primary Weapon Attack Damage\nThe Punisher - Adjudication and Deliverance"
+                }
+              },
+              {
+                "Key": "1032",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponDamage_Desc_Tips_1032",
+                  "SourceString": "额外提升角色主武器造成的伤害\n松鼠女    【爆裂橡果】、松鼠伙伴",
+                  "LocalizedString": "Increase Primary Weapon Damage\nSquirrel Girl - Burst Acorn and Squirrel Friends"
+                }
+              },
+              {
+                "Key": "1044",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponDamage_Desc_Tips_1044",
+                  "SourceString": "额外提升角色主武器造成的伤害\n刀锋战士    【遗脉之剑】、【猎人之枪】",
+                  "LocalizedString": "Increase Primary Weapon Damage\nBlade - Ancestral Sword and Hunter's Shotgun"
+                }
+              },
+              {
+                "Key": "1030",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponDamage_Desc_Tips_1030",
+                  "SourceString": "额外提升角色主武器造成的伤害\n月光骑士    【新月飞镖】、【月蚀之拳】",
+                  "LocalizedString": "Increase Primary Weapon Damage\nMoon Knight - Crescent Dart and Fist of Eclipse"
+                }
+              },
+              {
+                "Key": "1047",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponDamage_Desc_Tips_1047",
+                  "SourceString": "额外提升角色主武器造成的伤害\n杰夫    【涓涓生机】",
+                  "LocalizedString": "Increase Primary Weapon Damage\nJeff - Joyful Splash"
+                }
+              },
+              {
+                "Key": "1039",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponDamage_Desc_Tips_1039",
+                  "SourceString": "额外提升角色主武器造成的伤害\n雷神    【战锤重击】、觉醒期间发射的电弧波",
+                  "LocalizedString": "Increase Primary Weapon Damage\nThor - Mjolnir Bash and Plasma Pulse During Awakening"
+                }
+              }
+            ],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::MaxSkillEnergy3",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::AbilityDamage",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#6_AttributeText",
+              "SourceString": "技能额外增伤",
+              "LocalizedString": "Ability extra Damage Boost"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#6_AttributeHint",
+              "SourceString": "额外提升角色主武器以外的其他技能造成的伤害",
+              "LocalizedString": "Provides an extra damage boost to abilities other than your Primary Weapon."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::CriticalRate",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#7_AttributeText",
+              "SourceString": "暴击率",
+              "LocalizedString": "CRITICAL HIT RATE"
+            },
+            "FormatType": "3f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#7_AttributeHint",
+              "SourceString": "造成伤害时产生暴击的几率",
+              "LocalizedString": "Chance of landing a Critical Hit when dealing damage."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::CriticalCoef",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#8_AttributeText",
+              "SourceString": "暴击伤害",
+              "LocalizedString": "CRITICAL DAMAGE"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#8_AttributeHint",
+              "SourceString": "暴击伤害的伤害系数",
+              "LocalizedString": "Damage multiplier for Critical Damage."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::HeartCriticalRate",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#9_AttributeText",
+              "SourceString": "会心率",
+              "LocalizedString": "PRECISION RATE"
+            },
+            "FormatType": "3f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#9_AttributeHint",
+              "SourceString": "造成伤害时产生会心的几率",
+              "LocalizedString": "Chance of landing a Precision Hit when dealing damage."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::HeartCriticalCoef",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#10_AttributeText",
+              "SourceString": "会心伤害",
+              "LocalizedString": "PRECISION DAMAGE"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#10_AttributeHint",
+              "SourceString": "会心伤害的伤害系数",
+              "LocalizedString": "Damage multiplier for Precision Damage."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::MaxSkillEnergy3",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::PrimaryWeaponTLSpeed",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#11_AttributeText",
+              "SourceString": "主武器攻速加成",
+              "LocalizedString": "Primary Weapon Attack Speed"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "CultureInvariantString": "主武器攻速加成"
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [
+              {
+                "Key": "1014",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1014",
+                  "SourceString": "提高角色主武器的攻击速度\n惩罚者    【审判者】步枪、【终结者】霰弹枪",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nThe Punisher - Adjudication and Deliverance"
+                }
+              },
+              {
+                "Key": "1032",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1032",
+                  "SourceString": "提高角色主武器的攻击速度\n松鼠女    【爆裂橡果】、松鼠伙伴",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nSquirrel Girl - Burst Acorn and Squirrel Friends"
+                }
+              },
+              {
+                "Key": "1044",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1044",
+                  "SourceString": "提高角色主武器的攻击速度\n刀锋战士    【遗脉之剑】、【猎人之枪】",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nBlade - Ancestral Sword and Hunter's Shotgun"
+                }
+              },
+              {
+                "Key": "1030",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1030",
+                  "SourceString": "提高角色主武器的攻击速度\n月光骑士    【新月飞镖】、【月蚀之拳】",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nMoon Knight - Crescent Dart and Fist of Eclipse"
+                }
+              },
+              {
+                "Key": "1047",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1047",
+                  "SourceString": "提高角色主武器的攻击速度\n杰夫    【涓涓生机】",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nJeff the Land Shark - Joyful Splash"
+                }
+              },
+              {
+                "Key": "1039",
+                "Value": {
+                  "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+                  "Key": "TXT_PrimaryWeaponTLSpeed_Desc_Tips_1039",
+                  "SourceString": "提高角色主武器的攻击速度\n雷神    【战锤重击】、觉醒期间发射的电弧波",
+                  "LocalizedString": "Increase Primary Weapon Attack Speed\nThor - Mjolnir Bash and Plasma Pulse During Awakening"
+                }
+              }
+            ],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::MaxSkillEnergy3",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::AbilityCoolDown",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#12_AttributeText",
+              "SourceString": "技能冷却缩减",
+              "LocalizedString": "Ability Cooldown Reduction"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#12_AttributeHint",
+              "SourceString": "减少角色主武器之外的其他技能的冷却时间（终极技能除外）",
+              "LocalizedString": "Reduces the cooldown of abilities other than your Primary Weapon (excluding Ultimate Abilities)."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::UltimateAbilityChargeSpeed",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#13_AttributeText",
+              "SourceString": "终极技能充能速度加成",
+              "LocalizedString": "Boost Ultimate Ability Charge Speed"
+            },
+            "FormatType": "2f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Burst_AttributeDescs_#13_AttributeHint",
+              "SourceString": "加快终极技能的充能速度",
+              "LocalizedString": "Increases Ultimate Ability charge rate."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": [
+              {
+                "EffectID": 10000030,
+                "PropertyChain": "Specs[0]->Params->SpecialParams->Items[0]->Modifier->Value"
+              },
+              {
+                "EffectID": 10000113,
+                "PropertyChain": "Specs[0]->Params->SpecialParams->Items[0]->Modifier->Value"
+              }
+            ]
+          }
+        ],
+        "Delivery": true
+      },
+      "Effective": {
+        "AttributeDescs": [
+          {
+            "AttributeType": "EM2206UIAttributeType::Base",
+            "BaseAttribute": "EMarvelAttributeType::MaxHealth",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Activity_ST/169/133_MatchActivity_169_ST.133_MatchActivity_169_ST",
+              "Key": "UI_TEXT_Attribute_MaxHealth",
+              "SourceString": "生命值",
+              "LocalizedString": "HEALTH"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#0_AttributeHint",
+              "SourceString": "角色生命值",
+              "LocalizedString": "Hero Health."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::MaxArmor",
+            "GainAttribute": "EPveAttribute::Armor",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#1_AttributeText",
+              "SourceString": "护甲值",
+              "LocalizedString": "Armor Value"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#1_AttributeHint",
+              "SourceString": "角色护甲值，会影响护甲减伤系数",
+              "LocalizedString": "Hero Armor Value, affects Armor Damage Reduction Multiplier."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::MaxSkillEnergy3",
+            "GainAttribute": "EPveAttribute::Armor",
+            "SubAttribute": "EM2206UISubAttribute::ArmorK",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#2_AttributeText",
+              "SourceString": "护甲减伤系数",
+              "LocalizedString": "Armor Damage Reduction Multiplier"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#2_AttributeHint",
+              "SourceString": "护甲提供的减伤系数，只受护甲值影响",
+              "LocalizedString": "Damage Reduction Multiplier provided by Armor. Affected only by Armor Value."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::DodgeRate",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#3_AttributeText",
+              "SourceString": "闪避率",
+              "LocalizedString": "DODGE RATE"
+            },
+            "FormatType": "3f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#3_AttributeHint",
+              "SourceString": "受到伤害时触发闪避的几率，触发闪避时免疫本次伤害",
+              "LocalizedString": "Chance of triggering a Dodge when taking damage. Triggering a Dodge grants immunity to that instance of damage."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::MitigationRate",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#4_AttributeText",
+              "SourceString": "格挡率",
+              "LocalizedString": "BLOCK RATE"
+            },
+            "FormatType": "3f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#4_AttributeHint",
+              "SourceString": "受到伤害时触发格挡的几率，触发格挡时会降低受到的伤害",
+              "LocalizedString": "Chance of triggering Block when taking damage. Triggering Block reduces the damage taken."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Gain",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::MitigationCoef",
+            "SubAttribute": "EM2206UISubAttribute::NONE",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#5_AttributeText",
+              "SourceString": "格挡减伤值",
+              "LocalizedString": "Block Damage Reduction"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#5_AttributeHint",
+              "SourceString": "触发格挡时降低的伤害来源的基础伤害值",
+              "LocalizedString": "The base damage value reduced from the damage source when a Block is triggered."
+            },
+            "SourceEffectIDs": [],
+            "HideInBattle": false,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::BreathHealPerSec",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#6_AttributeText",
+              "SourceString": "呼吸回血状态每秒恢复生命值",
+              "LocalizedString": "Health restored per/s during Restorative Respire"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#6_AttributeHint",
+              "SourceString": "3秒内不受任何伤害后，持续恢复生命值",
+              "LocalizedString": "Continuously restores Health after taking no damage for 3s."
+            },
+            "SourceEffectIDs": [
+              10009014
+            ],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::KillHeal",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#7_AttributeText",
+              "SourceString": "击败敌人恢复生命值",
+              "LocalizedString": "Health restored upon defeating an enemy"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#7_AttributeHint",
+              "SourceString": "对敌人造成最后一击时恢复一定生命值",
+              "LocalizedString": "Restores a certain amount of Health when dealing the final blow to an enemy."
+            },
+            "SourceEffectIDs": [
+              10009018
+            ],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::PotionChargeCount",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#8_AttributeText",
+              "SourceString": "疗愈符文充能槽位",
+              "LocalizedString": "Healing Rune Charge Slots"
+            },
+            "FormatType": "d",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#8_AttributeHint",
+              "SourceString": "使用疗愈符文时一次性恢复30%最大生命值，并在2秒内持续恢复30%最大生命值",
+              "LocalizedString": "Using a Healing Rune instantly restores 30% Max Health and continuously restores 30% Max Health over 2s."
+            },
+            "SourceEffectIDs": [
+              10000030,
+              10009019
+            ],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          },
+          {
+            "AttributeType": "EM2206UIAttributeType::Sub",
+            "BaseAttribute": "EMarvelAttributeType::NONE",
+            "GainAttribute": "EPveAttribute::NONE",
+            "SubAttribute": "EM2206UISubAttribute::PotionCoolDown",
+            "AttributeText": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#9_AttributeText",
+              "SourceString": "疗愈符文冷却缩减",
+              "LocalizedString": "Healing Rune Cooldown Reduction"
+            },
+            "FormatType": "f",
+            "AttributeHint": {
+              "TableId": "/Game/Marvel/Data/StringTable/Mode_ST/2206/503_GameMode_2206_ST.503_GameMode_2206_ST",
+              "Key": "MarvelM2206UIAttributeCategoryTable_Effective_AttributeDescs_#9_AttributeHint",
+              "SourceString": "加快疗愈符文的充能速度",
+              "LocalizedString": "Accelerates the charge speed of Healing Runes."
+            },
+            "SourceEffectIDs": [
+              10009013
+            ],
+            "HideInBattle": true,
+            "HeroTips": [],
+            "EffectPropertyConfigs": []
+          }
+        ],
+        "Delivery": true
+      }
+    }
+  }
+]

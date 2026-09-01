@@ -1,0 +1,40 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+deepLearn.py
+my_ml_model.py
+___MODEL.PY
+
+# Ignore backups and debug files
+cropped - Copy/
+croppeda/
+croppedc1/
+_update_logs/
+assets/
+debug/
+debug/user_account.json
+assets(bigger)/
+assets(smaller)/
+assets_characters/
+update_backup/
+*.log
+debug/_all_*
+debug/-all*
+Unused/
+_MODEL_DATA/
+config/api_key.txt
+config/
+hello-main/
+Developer/
+
+# Ignore OS or editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+
+# Ignore virtual environments (if any)
+venv/
+env/

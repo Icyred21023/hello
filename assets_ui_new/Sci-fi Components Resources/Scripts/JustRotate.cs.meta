@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1873938090c9ace459b386b90ce786b7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142568
+  packageName: Sci-Fi Buttons and Panels Pack
+  packageVersion: 1.2
+  assetPath: Assets/Sci-fi Buttons and Panels/Sci-fi Components Resources/Scripts/JustRotate.cs
+  uploadId: 385805

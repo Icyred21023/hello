@@ -1,0 +1,227 @@
+{
+  "1062": {
+    "name": "Devil Dinosaur",
+    "roles": ["Vanguard"]
+  },
+  "1061": {
+    "name": "Black Cat",
+    "roles": ["Duelist"]
+  },
+  "1060": {
+    "name": "White Fox",
+    "roles": ["Strategist"]
+  },
+  "1059": {
+    "name": "Elsa Bloodstone",
+    "roles": ["Duelist"]
+  },
+  "1057": {
+    "name": "Deadpool",
+    "roles": ["Vanguard", "Duelist", "Strategist"]
+  },
+  "10571": {
+    "name": "Deadpool (Vanguard)",
+    "roles": ["Vanguard"]
+  },
+  "10572": {
+    "name": "Deadpool (Duelist)",
+    "roles": ["Duelist"]
+  },
+  "10573": {
+    "name": "Deadpool (Strategist)",
+    "roles": ["Strategist"]
+  },
+  "1065": {
+    "name": "Rogue",
+    "roles": ["Vanguard"]
+  },
+  "1058": {
+    "name": "Gambit",
+    "roles": ["Strategist"]
+  },
+  "1055": {
+    "name": "Daredevil",
+    "roles": ["Duelist"]
+  },
+  "1056": {
+    "name": "Angela",
+    "roles": ["Vanguard"]
+  },
+  "1044": {
+    "name": "Blade",
+    "roles": ["Duelist"]
+  },
+  "1054": {
+    "name": "Phoenix",
+    "roles": ["Duelist"]
+  },
+  "1028": {
+    "name": "Ultron",
+    "roles": ["Strategist"]
+  },
+  "1053": {
+    "name": "Emma Frost",
+    "roles": ["Vanguard"]
+  },
+  "1051": {
+    "name": "The Thing",
+    "roles": ["Vanguard"]
+  },
+  "1017": {
+    "name": "Human Torch",
+    "roles": ["Duelist"]
+  },
+  "1050": {
+    "name": "Invisible Woman",
+    "roles": ["Strategist"]
+  },
+  "1040": {
+    "name": "Mister Fantastic",
+    "roles": ["Duelist"]
+  },
+  "1021": {
+    "name": "Hawkeye",
+    "roles": ["Duelist"]
+  },
+  "1048": {
+    "name": "Psylocke",
+    "roles": ["Duelist"]
+  },
+  "1052": {
+    "name": "Iron Fist",
+    "roles": ["Duelist"]
+  },
+  "1049": {
+    "name": "Wolverine",
+    "roles": ["Duelist"]
+  },
+  "1030": {
+    "name": "Moon Knight",
+    "roles": ["Duelist"]
+  },
+  "1033": {
+    "name": "Black Widow",
+    "roles": ["Duelist"]
+  },
+  "1032": {
+    "name": "Squirrel Girl",
+    "roles": ["Duelist"]
+  },
+  "1041": {
+    "name": "Winter Soldier",
+    "roles": ["Duelist"]
+  },
+  "1025": {
+    "name": "Cloak & Dagger",
+    "roles": ["Strategist"]
+  },
+  "1022": {
+    "name": "Captain America",
+    "roles": ["Vanguard"]
+  },
+  "1039": {
+    "name": "Thor",
+    "roles": ["Vanguard"]
+  },
+  "1047": {
+    "name": "Jeff the Land Shark",
+    "roles": ["Strategist"]
+  },
+  "1035": {
+    "name": "Venom",
+    "roles": ["Vanguard"]
+  },
+  "1046": {
+    "name": "Adam Warlock",
+    "roles": ["Strategist"]
+  },
+  "1024": {
+    "name": "Hela",
+    "roles": ["Duelist"]
+  },
+  "1011": {
+    "name": "Hulk",
+    "roles": ["Vanguard"],
+    "slug": "bruce-banner"
+  },
+  "1016": {
+    "name": "Loki",
+    "roles": ["Strategist"]
+  },
+  "1029": {
+    "name": "Magik",
+    "roles": ["Duelist"]
+  },
+  "1045": {
+    "name": "Namor",
+    "roles": ["Duelist"]
+  },
+  "1015": {
+    "name": "Storm",
+    "roles": ["Duelist"]
+  },
+  "1027": {
+    "name": "Groot",
+    "roles": ["Vanguard"]
+  },
+  "1020": {
+    "name": "Mantis",
+    "roles": ["Strategist"]
+  },
+  "1034": {
+    "name": "Iron Man",
+    "roles": ["Duelist"]
+  },
+  "1037": {
+    "name": "Magneto",
+    "roles": ["Vanguard"]
+  },
+  "1043": {
+    "name": "Star-Lord",
+    "roles": ["Duelist"]
+  },
+  "1031": {
+    "name": "Luna Snow",
+    "roles": ["Strategist"]
+  },
+  "1036": {
+    "name": "Spider-Man",
+    "roles": ["Duelist"]
+  },
+  "1042": {
+    "name": "Peni Parker",
+    "roles": ["Vanguard"]
+  },
+  "1014": {
+    "name": "The Punisher",
+    "roles": ["Duelist"]
+  },
+  "1026": {
+    "name": "Black Panther",
+    "roles": ["Duelist"]
+  },
+  "1038": {
+    "name": "Scarlet Witch",
+    "roles": ["Duelist"]
+  },
+  "1018": {
+    "name": "Doctor Strange",
+    "roles": ["Vanguard"]
+  },
+  "1023": {
+    "name": "Rocket Raccoon",
+    "roles": ["Strategist"]
+  },
+  "1063": {
+    "name": "Cyclops",
+    "roles": ["Duelist"]
+  },
+  "1064": {
+    "name": "Jubilee",
+    "roles": ["Strategist"]
+  },
+  "1066": {
+    "name": "The Hood",
+    "roles": ["Duelist"]
+  }
+}

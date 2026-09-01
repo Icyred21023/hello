@@ -1,0 +1,810 @@
+[
+  {
+    "Type": "DataTable",
+    "Name": "MarvelWarmScoreTable",
+    "Class": "UScriptClass'DataTable'",
+    "Flags": "RF_Public | RF_Standalone | RF_Transactional | RF_WasLoaded | RF_LoadCompleted",
+    "Properties": {
+      "RowStruct": {
+        "ObjectName": "Class'MarvelRankSpecialMatchAsset'",
+        "ObjectPath": "/Script/Marvel"
+      }
+    },
+    "Rows": {
+      "0": {
+        "ModeID": 0,
+        "AimAIDegree": 100.0,
+        "ScoreList": [
+          {
+            "Key": "0",
+            "Value": {
+              "Damage": 1.32,
+              "DamageTaken": 0.155,
+              "Heal": 0.742
+            }
+          },
+          {
+            "Key": "1011",
+            "Value": {
+              "Damage": 1.522,
+              "DamageTaken": 0.179,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1014",
+            "Value": {
+              "Damage": 1.142,
+              "DamageTaken": 0.134,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1015",
+            "Value": {
+              "Damage": 1.247,
+              "DamageTaken": 0.147,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1016",
+            "Value": {
+              "Damage": 1.246,
+              "DamageTaken": 0.147,
+              "Heal": 0.733
+            }
+          },
+          {
+            "Key": "1018",
+            "Value": {
+              "Damage": 1.338,
+              "DamageTaken": 0.157,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1020",
+            "Value": {
+              "Damage": 1.228,
+              "DamageTaken": 0.144,
+              "Heal": 0.722
+            }
+          },
+          {
+            "Key": "1021",
+            "Value": {
+              "Damage": 1.343,
+              "DamageTaken": 0.158,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1022",
+            "Value": {
+              "Damage": 1.553,
+              "DamageTaken": 0.183,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1023",
+            "Value": {
+              "Damage": 1.348,
+              "DamageTaken": 0.159,
+              "Heal": 0.793
+            }
+          },
+          {
+            "Key": "1024",
+            "Value": {
+              "Damage": 1.187,
+              "DamageTaken": 0.14,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1025",
+            "Value": {
+              "Damage": 1.16,
+              "DamageTaken": 0.136,
+              "Heal": 0.682
+            }
+          },
+          {
+            "Key": "1026",
+            "Value": {
+              "Damage": 1.495,
+              "DamageTaken": 0.176,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1027",
+            "Value": {
+              "Damage": 1.076,
+              "DamageTaken": 0.127,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1029",
+            "Value": {
+              "Damage": 1.379,
+              "DamageTaken": 0.162,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1030",
+            "Value": {
+              "Damage": 1.158,
+              "DamageTaken": 0.136,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1031",
+            "Value": {
+              "Damage": 1.179,
+              "DamageTaken": 0.139,
+              "Heal": 0.693
+            }
+          },
+          {
+            "Key": "1032",
+            "Value": {
+              "Damage": 1.061,
+              "DamageTaken": 0.125,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1033",
+            "Value": {
+              "Damage": 1.676,
+              "DamageTaken": 0.197,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1034",
+            "Value": {
+              "Damage": 1.386,
+              "DamageTaken": 0.163,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1035",
+            "Value": {
+              "Damage": 1.272,
+              "DamageTaken": 0.15,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1036",
+            "Value": {
+              "Damage": 1.836,
+              "DamageTaken": 0.216,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1037",
+            "Value": {
+              "Damage": 1.228,
+              "DamageTaken": 0.145,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1038",
+            "Value": {
+              "Damage": 1.361,
+              "DamageTaken": 0.16,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1039",
+            "Value": {
+              "Damage": 1.191,
+              "DamageTaken": 0.14,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1041",
+            "Value": {
+              "Damage": 1.139,
+              "DamageTaken": 0.134,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1042",
+            "Value": {
+              "Damage": 1.089,
+              "DamageTaken": 0.128,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1043",
+            "Value": {
+              "Damage": 1.438,
+              "DamageTaken": 0.169,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1045",
+            "Value": {
+              "Damage": 1.174,
+              "DamageTaken": 0.138,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1046",
+            "Value": {
+              "Damage": 1.158,
+              "DamageTaken": 0.136,
+              "Heal": 0.681
+            }
+          },
+          {
+            "Key": "1047",
+            "Value": {
+              "Damage": 1.628,
+              "DamageTaken": 0.191,
+              "Heal": 0.956
+            }
+          },
+          {
+            "Key": "1048",
+            "Value": {
+              "Damage": 1.381,
+              "DamageTaken": 0.163,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1049",
+            "Value": {
+              "Damage": 1.39,
+              "DamageTaken": 0.164,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1052",
+            "Value": {
+              "Damage": 1.67,
+              "DamageTaken": 0.196,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1017",
+            "Value": {
+              "Damage": 1.441,
+              "DamageTaken": 0.17,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1040",
+            "Value": {
+              "Damage": 1.244,
+              "DamageTaken": 0.146,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1050",
+            "Value": {
+              "Damage": 1.154,
+              "DamageTaken": 0.136,
+              "Heal": 0.679
+            }
+          },
+          {
+            "Key": "1051",
+            "Value": {
+              "Damage": 1.328,
+              "DamageTaken": 0.156,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1028",
+            "Value": {
+              "Damage": 1.348,
+              "DamageTaken": 0.159,
+              "Heal": 0.793
+            }
+          },
+          {
+            "Key": "1053",
+            "Value": {
+              "Damage": 1.089,
+              "DamageTaken": 0.128,
+              "Heal": 0.0
+            }
+          }
+        ],
+        "RankScoreBag": [
+          {
+            "Weight": 100,
+            "LogTag": "DefaultMain",
+            "Score2BaseRate": [
+              {
+                "Start": 0.0,
+                "End": 0.6,
+                "BaseScore": 11.0
+              },
+              {
+                "Start": 0.6,
+                "End": 0.7,
+                "BaseScore": 9.0
+              },
+              {
+                "Start": 0.7,
+                "End": 0.85,
+                "BaseScore": 7.0
+              },
+              {
+                "Start": 0.85,
+                "End": 1.0,
+                "BaseScore": 5.0
+              },
+              {
+                "Start": 1.0,
+                "End": 999.0,
+                "BaseScore": 0.0
+              }
+            ],
+            "RankScoreMulti": [
+              {
+                "Quality": 0,
+                "Multi": 1.0,
+                "Aff": 1.0
+              },
+              {
+                "Quality": 1,
+                "Multi": 0.7,
+                "Aff": 1.0
+              },
+              {
+                "Quality": 2,
+                "Multi": 0.0,
+                "Aff": 0.3
+              }
+            ],
+            "RankWarmTable": [
+              {
+                "Start": 0.0,
+                "End": 3000.0,
+                "BaseScore": 6.0,
+                "Delivery": true
+              },
+              {
+                "Start": 3000.0,
+                "End": 3300.0,
+                "BaseScore": 10.0,
+                "Delivery": true
+              },
+              {
+                "Start": 3300.0,
+                "End": 3600.0,
+                "BaseScore": 12.5,
+                "Delivery": true
+              },
+              {
+                "Start": 3600.0,
+                "End": 99999.0,
+                "BaseScore": 9999999.0,
+                "Delivery": true
+              }
+            ]
+          }
+        ],
+        "Delivery": true
+      },
+      "200": {
+        "ModeID": 200,
+        "AimAIDegree": 3.0,
+        "ScoreList": [
+          {
+            "Key": "0",
+            "Value": {
+              "Damage": 1.32,
+              "DamageTaken": 0.155,
+              "Heal": 0.742
+            }
+          },
+          {
+            "Key": "1011",
+            "Value": {
+              "Damage": 1.522,
+              "DamageTaken": 0.179,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1014",
+            "Value": {
+              "Damage": 1.142,
+              "DamageTaken": 0.134,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1015",
+            "Value": {
+              "Damage": 1.247,
+              "DamageTaken": 0.147,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1016",
+            "Value": {
+              "Damage": 1.246,
+              "DamageTaken": 0.147,
+              "Heal": 0.733
+            }
+          },
+          {
+            "Key": "1018",
+            "Value": {
+              "Damage": 1.338,
+              "DamageTaken": 0.157,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1020",
+            "Value": {
+              "Damage": 1.228,
+              "DamageTaken": 0.144,
+              "Heal": 0.722
+            }
+          },
+          {
+            "Key": "1021",
+            "Value": {
+              "Damage": 1.343,
+              "DamageTaken": 0.158,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1022",
+            "Value": {
+              "Damage": 1.553,
+              "DamageTaken": 0.183,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1023",
+            "Value": {
+              "Damage": 1.348,
+              "DamageTaken": 0.159,
+              "Heal": 0.793
+            }
+          },
+          {
+            "Key": "1024",
+            "Value": {
+              "Damage": 1.187,
+              "DamageTaken": 0.14,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1025",
+            "Value": {
+              "Damage": 1.16,
+              "DamageTaken": 0.136,
+              "Heal": 0.682
+            }
+          },
+          {
+            "Key": "1026",
+            "Value": {
+              "Damage": 1.495,
+              "DamageTaken": 0.176,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1027",
+            "Value": {
+              "Damage": 1.076,
+              "DamageTaken": 0.127,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1029",
+            "Value": {
+              "Damage": 1.379,
+              "DamageTaken": 0.162,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1030",
+            "Value": {
+              "Damage": 1.158,
+              "DamageTaken": 0.136,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1031",
+            "Value": {
+              "Damage": 1.179,
+              "DamageTaken": 0.139,
+              "Heal": 0.693
+            }
+          },
+          {
+            "Key": "1032",
+            "Value": {
+              "Damage": 1.061,
+              "DamageTaken": 0.125,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1033",
+            "Value": {
+              "Damage": 1.676,
+              "DamageTaken": 0.197,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1034",
+            "Value": {
+              "Damage": 1.386,
+              "DamageTaken": 0.163,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1035",
+            "Value": {
+              "Damage": 1.272,
+              "DamageTaken": 0.15,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1036",
+            "Value": {
+              "Damage": 1.836,
+              "DamageTaken": 0.216,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1037",
+            "Value": {
+              "Damage": 1.228,
+              "DamageTaken": 0.145,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1038",
+            "Value": {
+              "Damage": 1.361,
+              "DamageTaken": 0.16,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1039",
+            "Value": {
+              "Damage": 1.191,
+              "DamageTaken": 0.14,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1041",
+            "Value": {
+              "Damage": 1.139,
+              "DamageTaken": 0.134,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1042",
+            "Value": {
+              "Damage": 1.089,
+              "DamageTaken": 0.128,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1043",
+            "Value": {
+              "Damage": 1.438,
+              "DamageTaken": 0.169,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1045",
+            "Value": {
+              "Damage": 1.174,
+              "DamageTaken": 0.138,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1046",
+            "Value": {
+              "Damage": 1.158,
+              "DamageTaken": 0.136,
+              "Heal": 0.681
+            }
+          },
+          {
+            "Key": "1047",
+            "Value": {
+              "Damage": 1.628,
+              "DamageTaken": 0.191,
+              "Heal": 0.956
+            }
+          },
+          {
+            "Key": "1048",
+            "Value": {
+              "Damage": 1.381,
+              "DamageTaken": 0.163,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1049",
+            "Value": {
+              "Damage": 1.39,
+              "DamageTaken": 0.164,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1052",
+            "Value": {
+              "Damage": 1.67,
+              "DamageTaken": 0.196,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1017",
+            "Value": {
+              "Damage": 1.441,
+              "DamageTaken": 0.17,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1040",
+            "Value": {
+              "Damage": 1.244,
+              "DamageTaken": 0.146,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1050",
+            "Value": {
+              "Damage": 1.154,
+              "DamageTaken": 0.136,
+              "Heal": 0.679
+            }
+          },
+          {
+            "Key": "1051",
+            "Value": {
+              "Damage": 1.328,
+              "DamageTaken": 0.156,
+              "Heal": 0.0
+            }
+          },
+          {
+            "Key": "1028",
+            "Value": {
+              "Damage": 1.348,
+              "DamageTaken": 0.159,
+              "Heal": 0.793
+            }
+          },
+          {
+            "Key": "1053",
+            "Value": {
+              "Damage": 1.089,
+              "DamageTaken": 0.128,
+              "Heal": 0.0
+            }
+          }
+        ],
+        "RankScoreBag": [
+          {
+            "Weight": 100,
+            "LogTag": "RankMain",
+            "Score2BaseRate": [
+              {
+                "Start": 0.0,
+                "End": 0.6,
+                "BaseScore": 11.0
+              },
+              {
+                "Start": 0.6,
+                "End": 0.7,
+                "BaseScore": 9.0
+              },
+              {
+                "Start": 0.7,
+                "End": 0.85,
+                "BaseScore": 7.0
+              },
+              {
+                "Start": 0.85,
+                "End": 1.0,
+                "BaseScore": 6.0
+              },
+              {
+                "Start": 1.0,
+                "End": 999.0,
+                "BaseScore": 0.0
+              }
+            ],
+            "RankScoreMulti": [
+              {
+                "Quality": 0,
+                "Multi": 1.0,
+                "Aff": 1.0
+              },
+              {
+                "Quality": 1,
+                "Multi": 0.7,
+                "Aff": 1.0
+              },
+              {
+                "Quality": 2,
+                "Multi": 0.0,
+                "Aff": 0.3
+              }
+            ],
+            "RankWarmTable": [
+              {
+                "Start": 0.0,
+                "End": 3300.0,
+                "BaseScore": 12.0,
+                "Delivery": true
+              },
+              {
+                "Start": 3300.0,
+                "End": 99999.0,
+                "BaseScore": 9999999.0,
+                "Delivery": true
+              }
+            ]
+          }
+        ],
+        "Delivery": true
+      }
+    }
+  }
+]

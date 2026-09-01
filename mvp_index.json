@@ -1,0 +1,957 @@
+[
+  {
+    "Type": "DataTable",
+    "Name": "MarvelPerformScoreTable",
+    "Class": "UScriptClass'DataTable'",
+    "Flags": "RF_Public | RF_Standalone | RF_Transactional | RF_WasLoaded | RF_LoadCompleted",
+    "Properties": {
+      "RowStruct": {
+        "ObjectName": "Class'MvpScore'",
+        "ObjectPath": "/Script/Marvel"
+      }
+    },
+    "Rows": {
+      "Default": {
+        "Index": "default",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": 0.5,
+        "NormN": 1.8,
+        "NormC": 0.5,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 677.0,
+        "StandardScore": [],
+        "Delivery": true
+      },
+      "mvp_index": {
+        "Index": "mvp_index",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": -99999.0,
+        "NormN": 1.8,
+        "NormC": 0.5,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 616.6986,
+        "StandardScore": [
+          {
+            "Key": "1011",
+            "Value": 720.0
+          },
+          {
+            "Key": "1014",
+            "Value": 760.0
+          },
+          {
+            "Key": "1015",
+            "Value": 904.0
+          },
+          {
+            "Key": "1016",
+            "Value": 705.0
+          },
+          {
+            "Key": "1017",
+            "Value": 611.0
+          },
+          {
+            "Key": "1018",
+            "Value": 792.0
+          },
+          {
+            "Key": "1020",
+            "Value": 824.0
+          },
+          {
+            "Key": "1021",
+            "Value": 694.0
+          },
+          {
+            "Key": "1022",
+            "Value": 633.0
+          },
+          {
+            "Key": "1023",
+            "Value": 647.0
+          },
+          {
+            "Key": "1024",
+            "Value": 762.0
+          },
+          {
+            "Key": "1025",
+            "Value": 908.0
+          },
+          {
+            "Key": "1026",
+            "Value": 619.0
+          },
+          {
+            "Key": "1027",
+            "Value": 865.0
+          },
+          {
+            "Key": "1028",
+            "Value": 923.0
+          },
+          {
+            "Key": "1029",
+            "Value": 756.0
+          },
+          {
+            "Key": "1030",
+            "Value": 782.0
+          },
+          {
+            "Key": "1031",
+            "Value": 788.0
+          },
+          {
+            "Key": "1032",
+            "Value": 739.0
+          },
+          {
+            "Key": "1033",
+            "Value": 528.0
+          },
+          {
+            "Key": "1034",
+            "Value": 752.0
+          },
+          {
+            "Key": "1035",
+            "Value": 738.0
+          },
+          {
+            "Key": "1036",
+            "Value": 543.0
+          },
+          {
+            "Key": "1037",
+            "Value": 725.0
+          },
+          {
+            "Key": "1038",
+            "Value": 747.0
+          },
+          {
+            "Key": "1039",
+            "Value": 818.0
+          },
+          {
+            "Key": "1040",
+            "Value": 829.0
+          },
+          {
+            "Key": "1041",
+            "Value": 828.0
+          },
+          {
+            "Key": "1042",
+            "Value": 815.0
+          },
+          {
+            "Key": "1043",
+            "Value": 670.0
+          },
+          {
+            "Key": "1045",
+            "Value": 748.0
+          },
+          {
+            "Key": "1046",
+            "Value": 724.0
+          },
+          {
+            "Key": "1047",
+            "Value": 930.0
+          },
+          {
+            "Key": "1048",
+            "Value": 649.0
+          },
+          {
+            "Key": "1049",
+            "Value": 639.0
+          },
+          {
+            "Key": "1050",
+            "Value": 835.0
+          },
+          {
+            "Key": "1051",
+            "Value": 789.0
+          },
+          {
+            "Key": "1052",
+            "Value": 625.0
+          },
+          {
+            "Key": "1053",
+            "Value": 778.0
+          },
+          {
+            "Key": "1054",
+            "Value": 681.0
+          },
+          {
+            "Key": "1056",
+            "Value": 620.0
+          },
+          {
+            "Key": "1044",
+            "Value": 691.0
+          }
+        ],
+        "Delivery": true
+      },
+      "Newbie_MMR": {
+        "Index": "Newbie_MMR",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": 0.5,
+        "NormN": 1.8,
+        "NormC": 0.8,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 617.0,
+        "StandardScore": [
+          {
+            "Key": "1011",
+            "Value": 720.0
+          },
+          {
+            "Key": "1014",
+            "Value": 760.0
+          },
+          {
+            "Key": "1015",
+            "Value": 904.0
+          },
+          {
+            "Key": "1016",
+            "Value": 705.0
+          },
+          {
+            "Key": "1017",
+            "Value": 611.0
+          },
+          {
+            "Key": "1018",
+            "Value": 792.0
+          },
+          {
+            "Key": "1020",
+            "Value": 824.0
+          },
+          {
+            "Key": "1021",
+            "Value": 694.0
+          },
+          {
+            "Key": "1022",
+            "Value": 633.0
+          },
+          {
+            "Key": "1023",
+            "Value": 647.0
+          },
+          {
+            "Key": "1024",
+            "Value": 762.0
+          },
+          {
+            "Key": "1025",
+            "Value": 908.0
+          },
+          {
+            "Key": "1026",
+            "Value": 619.0
+          },
+          {
+            "Key": "1027",
+            "Value": 865.0
+          },
+          {
+            "Key": "1028",
+            "Value": 923.0
+          },
+          {
+            "Key": "1029",
+            "Value": 756.0
+          },
+          {
+            "Key": "1030",
+            "Value": 782.0
+          },
+          {
+            "Key": "1031",
+            "Value": 788.0
+          },
+          {
+            "Key": "1032",
+            "Value": 739.0
+          },
+          {
+            "Key": "1033",
+            "Value": 528.0
+          },
+          {
+            "Key": "1034",
+            "Value": 752.0
+          },
+          {
+            "Key": "1035",
+            "Value": 738.0
+          },
+          {
+            "Key": "1036",
+            "Value": 543.0
+          },
+          {
+            "Key": "1037",
+            "Value": 725.0
+          },
+          {
+            "Key": "1038",
+            "Value": 747.0
+          },
+          {
+            "Key": "1039",
+            "Value": 818.0
+          },
+          {
+            "Key": "1040",
+            "Value": 829.0
+          },
+          {
+            "Key": "1041",
+            "Value": 828.0
+          },
+          {
+            "Key": "1042",
+            "Value": 815.0
+          },
+          {
+            "Key": "1043",
+            "Value": 670.0
+          },
+          {
+            "Key": "1045",
+            "Value": 748.0
+          },
+          {
+            "Key": "1046",
+            "Value": 724.0
+          },
+          {
+            "Key": "1047",
+            "Value": 930.0
+          },
+          {
+            "Key": "1048",
+            "Value": 649.0
+          },
+          {
+            "Key": "1049",
+            "Value": 639.0
+          },
+          {
+            "Key": "1050",
+            "Value": 835.0
+          },
+          {
+            "Key": "1051",
+            "Value": 789.0
+          },
+          {
+            "Key": "1052",
+            "Value": 625.0
+          },
+          {
+            "Key": "1053",
+            "Value": 778.0
+          },
+          {
+            "Key": "1054",
+            "Value": 681.0
+          },
+          {
+            "Key": "1044",
+            "Value": 691.0
+          },
+          {
+            "Key": "1056",
+            "Value": 620.0
+          }
+        ],
+        "Delivery": true
+      },
+      "Medium_MMR": {
+        "Index": "Medium_MMR",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": 0.5,
+        "NormN": 1.8,
+        "NormC": 0.65,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 677.54,
+        "StandardScore": [
+          {
+            "Key": "1011",
+            "Value": 788.0
+          },
+          {
+            "Key": "1014",
+            "Value": 811.0
+          },
+          {
+            "Key": "1015",
+            "Value": 977.0
+          },
+          {
+            "Key": "1016",
+            "Value": 776.0
+          },
+          {
+            "Key": "1017",
+            "Value": 718.0
+          },
+          {
+            "Key": "1018",
+            "Value": 863.0
+          },
+          {
+            "Key": "1020",
+            "Value": 867.0
+          },
+          {
+            "Key": "1021",
+            "Value": 767.0
+          },
+          {
+            "Key": "1022",
+            "Value": 678.0
+          },
+          {
+            "Key": "1023",
+            "Value": 662.0
+          },
+          {
+            "Key": "1024",
+            "Value": 808.0
+          },
+          {
+            "Key": "1025",
+            "Value": 952.0
+          },
+          {
+            "Key": "1026",
+            "Value": 612.0
+          },
+          {
+            "Key": "1027",
+            "Value": 924.0
+          },
+          {
+            "Key": "1028",
+            "Value": 967.0
+          },
+          {
+            "Key": "1029",
+            "Value": 809.0
+          },
+          {
+            "Key": "1030",
+            "Value": 848.0
+          },
+          {
+            "Key": "1031",
+            "Value": 835.0
+          },
+          {
+            "Key": "1032",
+            "Value": 782.0
+          },
+          {
+            "Key": "1033",
+            "Value": 552.0
+          },
+          {
+            "Key": "1034",
+            "Value": 804.0
+          },
+          {
+            "Key": "1035",
+            "Value": 811.0
+          },
+          {
+            "Key": "1036",
+            "Value": 561.0
+          },
+          {
+            "Key": "1037",
+            "Value": 781.0
+          },
+          {
+            "Key": "1038",
+            "Value": 794.0
+          },
+          {
+            "Key": "1039",
+            "Value": 876.0
+          },
+          {
+            "Key": "1040",
+            "Value": 863.0
+          },
+          {
+            "Key": "1041",
+            "Value": 886.0
+          },
+          {
+            "Key": "1042",
+            "Value": 833.0
+          },
+          {
+            "Key": "1043",
+            "Value": 738.0
+          },
+          {
+            "Key": "1045",
+            "Value": 788.0
+          },
+          {
+            "Key": "1046",
+            "Value": 741.0
+          },
+          {
+            "Key": "1047",
+            "Value": 1019.0
+          },
+          {
+            "Key": "1048",
+            "Value": 703.0
+          },
+          {
+            "Key": "1049",
+            "Value": 702.0
+          },
+          {
+            "Key": "1050",
+            "Value": 900.0
+          },
+          {
+            "Key": "1051",
+            "Value": 861.0
+          },
+          {
+            "Key": "1052",
+            "Value": 689.0
+          },
+          {
+            "Key": "1053",
+            "Value": 780.0
+          },
+          {
+            "Key": "1054",
+            "Value": 759.0
+          },
+          {
+            "Key": "1044",
+            "Value": 762.0
+          },
+          {
+            "Key": "1056",
+            "Value": 654.0
+          }
+        ],
+        "Delivery": true
+      },
+      "High_MMR": {
+        "Index": "High_MMR",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": 0.5,
+        "NormN": 1.8,
+        "NormC": 0.5,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 726.0,
+        "StandardScore": [
+          {
+            "Key": "1011",
+            "Value": 828.0
+          },
+          {
+            "Key": "1014",
+            "Value": 872.0
+          },
+          {
+            "Key": "1015",
+            "Value": 1012.0
+          },
+          {
+            "Key": "1016",
+            "Value": 822.0
+          },
+          {
+            "Key": "1017",
+            "Value": 786.0
+          },
+          {
+            "Key": "1018",
+            "Value": 901.0
+          },
+          {
+            "Key": "1020",
+            "Value": 907.0
+          },
+          {
+            "Key": "1021",
+            "Value": 794.0
+          },
+          {
+            "Key": "1022",
+            "Value": 715.0
+          },
+          {
+            "Key": "1023",
+            "Value": 657.0
+          },
+          {
+            "Key": "1024",
+            "Value": 834.0
+          },
+          {
+            "Key": "1025",
+            "Value": 953.0
+          },
+          {
+            "Key": "1026",
+            "Value": 585.0
+          },
+          {
+            "Key": "1027",
+            "Value": 985.0
+          },
+          {
+            "Key": "1028",
+            "Value": 1004.0
+          },
+          {
+            "Key": "1029",
+            "Value": 835.0
+          },
+          {
+            "Key": "1030",
+            "Value": 890.0
+          },
+          {
+            "Key": "1031",
+            "Value": 874.0
+          },
+          {
+            "Key": "1032",
+            "Value": 787.0
+          },
+          {
+            "Key": "1033",
+            "Value": 628.0
+          },
+          {
+            "Key": "1034",
+            "Value": 827.0
+          },
+          {
+            "Key": "1035",
+            "Value": 848.0
+          },
+          {
+            "Key": "1036",
+            "Value": 578.0
+          },
+          {
+            "Key": "1037",
+            "Value": 831.0
+          },
+          {
+            "Key": "1038",
+            "Value": 804.0
+          },
+          {
+            "Key": "1039",
+            "Value": 904.0
+          },
+          {
+            "Key": "1040",
+            "Value": 868.0
+          },
+          {
+            "Key": "1041",
+            "Value": 920.0
+          },
+          {
+            "Key": "1042",
+            "Value": 826.0
+          },
+          {
+            "Key": "1043",
+            "Value": 785.0
+          },
+          {
+            "Key": "1045",
+            "Value": 839.0
+          },
+          {
+            "Key": "1046",
+            "Value": 757.0
+          },
+          {
+            "Key": "1047",
+            "Value": 1062.0
+          },
+          {
+            "Key": "1048",
+            "Value": 768.0
+          },
+          {
+            "Key": "1049",
+            "Value": 733.0
+          },
+          {
+            "Key": "1050",
+            "Value": 942.0
+          },
+          {
+            "Key": "1051",
+            "Value": 885.0
+          },
+          {
+            "Key": "1052",
+            "Value": 736.0
+          },
+          {
+            "Key": "1053",
+            "Value": 810.0
+          },
+          {
+            "Key": "1054",
+            "Value": 842.0
+          },
+          {
+            "Key": "1044",
+            "Value": 804.0
+          },
+          {
+            "Key": "1056",
+            "Value": 674.0
+          }
+        ],
+        "Delivery": true
+      },
+      "QuickMatch_MMR": {
+        "Index": "QuickMatch_MMR",
+        "Kill": 1.2,
+        "LastKill": 2.4,
+        "Assist": 0.6,
+        "Death": 0.4,
+        "HeroDamage": 1.0,
+        "HeroHeal": 1.2,
+        "SummonerDamageTaken": 0.6,
+        "NormM": 0.5,
+        "NormN": 1.8,
+        "NormC": 0.5,
+        "NormD": 0.5,
+        "NormK": 1.5,
+        "DefaultStandardScore": 617.0,
+        "StandardScore": [
+          {
+            "Key": "1011",
+            "Value": 618.0
+          },
+          {
+            "Key": "1014",
+            "Value": 777.0
+          },
+          {
+            "Key": "1015",
+            "Value": 826.0
+          },
+          {
+            "Key": "1016",
+            "Value": 691.0
+          },
+          {
+            "Key": "1017",
+            "Value": 503.0
+          },
+          {
+            "Key": "1018",
+            "Value": 717.0
+          },
+          {
+            "Key": "1020",
+            "Value": 755.0
+          },
+          {
+            "Key": "1021",
+            "Value": 651.0
+          },
+          {
+            "Key": "1022",
+            "Value": 591.0
+          },
+          {
+            "Key": "1023",
+            "Value": 615.0
+          },
+          {
+            "Key": "1024",
+            "Value": 745.0
+          },
+          {
+            "Key": "1025",
+            "Value": 820.0
+          },
+          {
+            "Key": "1026",
+            "Value": 574.0
+          },
+          {
+            "Key": "1027",
+            "Value": 786.0
+          },
+          {
+            "Key": "1028",
+            "Value": 819.0
+          },
+          {
+            "Key": "1029",
+            "Value": 634.0
+          },
+          {
+            "Key": "1030",
+            "Value": 661.0
+          },
+          {
+            "Key": "1031",
+            "Value": 702.0
+          },
+          {
+            "Key": "1032",
+            "Value": 723.0
+          },
+          {
+            "Key": "1033",
+            "Value": 519.0
+          },
+          {
+            "Key": "1034",
+            "Value": 726.0
+          },
+          {
+            "Key": "1035",
+            "Value": 658.0
+          },
+          {
+            "Key": "1036",
+            "Value": 539.0
+          },
+          {
+            "Key": "1037",
+            "Value": 670.0
+          },
+          {
+            "Key": "1038",
+            "Value": 670.0
+          },
+          {
+            "Key": "1039",
+            "Value": 709.0
+          },
+          {
+            "Key": "1040",
+            "Value": 778.0
+          },
+          {
+            "Key": "1041",
+            "Value": 784.0
+          },
+          {
+            "Key": "1042",
+            "Value": 751.0
+          },
+          {
+            "Key": "1043",
+            "Value": 615.0
+          },
+          {
+            "Key": "1045",
+            "Value": 664.0
+          },
+          {
+            "Key": "1046",
+            "Value": 690.0
+          },
+          {
+            "Key": "1047",
+            "Value": 770.0
+          },
+          {
+            "Key": "1048",
+            "Value": 640.0
+          },
+          {
+            "Key": "1049",
+            "Value": 606.0
+          },
+          {
+            "Key": "1050",
+            "Value": 723.0
+          },
+          {
+            "Key": "1051",
+            "Value": 679.0
+          },
+          {
+            "Key": "1052",
+            "Value": 542.0
+          },
+          {
+            "Key": "1053",
+            "Value": 735.0
+          }
+        ],
+        "Delivery": true
+      }
+    }
+  }
+]

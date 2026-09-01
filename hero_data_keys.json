@@ -1,0 +1,446 @@
+{
+    "data": {
+        "items": [
+            {
+                "type": "hero",
+                "key": "1046",
+                "locale": "en-US",
+                "name": "Adam Warlock",
+                "description": "The genetically-engineered Adam Warlock wields powerful Quantum Magic, enabling him to connect and heal souls with a gentle touch. When the time comes for his allies to unite, Warlock stands as the unwavering epicenter of cosmic justice!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1046.png?v=1734906798",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1056",
+                "locale": "en-US",
+                "name": "Angela",
+                "description": "As the Hand of Heven, the warrior called Angela embodies unwavering courage and determination. Able to manipulate Ichors into various weapons and unfurl her wings to soar across the battlefield, she is ready to deliver divine judgment upon her foes!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1056.png?v=1757672158",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1026",
+                "locale": "en-US",
+                "name": "Black Panther",
+                "description": "T'Challa, King of Wakanda, wields the perfect blend of the cutting-edge Vibranium technology and ancestral power drawn from the Panther God, Bast. The Black Panther bides his time until elegantly infiltrating enemy lines and commencing his hunt.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1026.png?v=1734906793",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1033",
+                "locale": "en-US",
+                "name": "Black Widow",
+                "description": "Natasha Romanova is the world's most elite spy in any era. Her mastery of the sniper rifle eliminates targets from afar, while her shock batons neutralize close-range threats. Black Widow is locked, loaded, and ready to deliver a fatal bite!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1033.png?v=1734906794",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1044",
+                "locale": "en-US",
+                "name": "Blade",
+                "description": "Half-human and half-vampire, Eric Brooks walks between worlds, craving the very life force of his enemies. As night falls, Blade's hunt begins as he wields the Sword of Dracula to become the nightmare of any foe who dares to bare their fangs.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1044.png?v=1754648918",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1011",
+                "locale": "en-US",
+                "name": "Bruce Banner",
+                "description": "Brilliant scientist Dr. Bruce Banner has finally found a way to coexist with his monstrous alter ego, the Hulk. By accumulating gamma energy over transformations, he can become a wise and strong Hero Hulk or a fierce and destructive Monster Hulk – a true force of fury on the battlefield!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1011.png?v=1734906790",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1022",
+                "locale": "en-US",
+                "name": "Captain America",
+                "description": "Enhanced by the Super-Soldier Serum, Steven \"Steve\" Rogers uses his Vibranium shield and extensive combat training to confront any threat to justice. When Captain America rallies his troops, a wave of courage sweeps across the battlefield!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1022.png?v=1734906792",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1025",
+                "locale": "en-US",
+                "name": "Cloak & Dagger",
+                "description": "Tyrone Johnson and Tandy Bowen are nearly inseparable, like two sides of the same coin. Intertwined by forces of shadow and light, Cloak & Dagger fight as a united front, dealing havoc and healing allies across the arena.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1025.png?v=1734906792",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1055",
+                "locale": "en-US",
+                "name": "Daredevil",
+                "description": "A tragic accident transformed Matt Murdock, blinding him, but awakening his incredible Radar Sense. When darkness falls, Daredevil wields his billy clubs in place of a gavel, doling out justice and purging the world of evil!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1055.png?v=1760095253",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1018",
+                "locale": "en-US",
+                "name": "Doctor Strange",
+                "description": "As the Sorcerer Supreme, Dr. Stephen Strange gracefully wields ancient spells to turn the tide of even the most impossible battle. However, magic always comes at a cost, and each use of his arcane abilities gradually awakens the darkness within him.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1018.png?v=1734906791",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1053",
+                "locale": "en-US",
+                "name": "Emma Frost",
+                "description": "For Emma Frost, war is the purest form of art. With her formidable telepathic abilities, she intricately weaves a deadly mental web that ensnares her foes, while her indestructible diamond form lets her lead her teammates fearlessly into the fray. Forever elegant and composed, Emma reigns as the one true queen of the battlefield!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1053.png?v=1734906799",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1027",
+                "locale": "en-US",
+                "name": "Groot",
+                "description": "A flora colossus from Planet X, the alien known as Groot exhibits enhanced vitality and the ability to manipulate all forms of vegetation. As sturdy as a towering tree, Groot forges his own way, serving as the team's silent but reliable pathfinder.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1027.png?v=1734906793",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1021",
+                "locale": "en-US",
+                "name": "Hawkeye",
+                "description": "Despite his lack of superpowers, Hawkeye's unparalleled skills as a marksman have earned him a spot alongside earth's mightiest heroes. With a cool head and steady hand, Clint Barton never misses a target… so enemies best stay out of his sights! ",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1021.png?v=1734906791",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1024",
+                "locale": "en-US",
+                "name": "Hela",
+                "description": "As the Goddess of Death, Hela wields supreme control over the fallen souls residing in Hel. With a haunting whisper and a murder of crows, the queen of the underworld gracefully reaps the souls of her enemies without an ounce of mercy.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1024.png?v=1734906792",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1017",
+                "locale": "en-US",
+                "name": "Human Torch",
+                "description": "The Fantastic Four's resident heartthrob, Johnny Storm, adds an intense flare to every battle he fights. Shrouded in roaring flames, the Human Torch always manages to look cool while turning up the heat!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1017.png?v=1740144840",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1050",
+                "locale": "en-US",
+                "name": "Invisible Woman",
+                "description": "The Invisible Woman is able to slip in and out of sight without a trace. No matter how intense the battle may be, Susan Storm always keeps her cool, conjuring up impenetrable force fields to protect herself and her team.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1050.png?v=1736499639",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1052",
+                "locale": "en-US",
+                "name": "Iron Fist",
+                "description": "Lin Lie is a master of Chinese martial arts who once wielded the shattered Sword of Fu Xi. After fusing its pieces with the mighty Chi of Shou-Lao, he is poised to strike his foes with the grace and force of a soaring dragon as the latest immortal Iron Fist.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1052.png?v=1734906799",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1034",
+                "locale": "en-US",
+                "name": "Iron Man",
+                "description": "Armed with superior intellect and a nanotech battlesuit of his own design, Tony Stark stands alongside gods as the Invincible Iron Man. His state of the art armor turns any battlefield into his personal playground, allowing him to steal the spotlight he so desperately desires.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1034.png?v=1734906794",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1047",
+                "locale": "en-US",
+                "name": "Jeff The Land Shark",
+                "description": "Most land sharks are vicious creatures of the deep... but not Jeff! This adorable and mischievous little guy brings joy and healing to every battle. But if the tide turns, Jeff can morph into a voracious beast, capable of swallowing an army of foes in a single gulp!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1047.png?v=1734906799",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1016",
+                "locale": "en-US",
+                "name": "Loki",
+                "description": "What greater thrill is there for a God of Mischief than to outsmart his foes? The cunning trickster Loki uses his illusions and shapeshifting abilities to weave in and out of combat, toying with enemies at every turn.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1016.png?v=1734906791",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1031",
+                "locale": "en-US",
+                "name": "Luna Snow",
+                "description": "Equal parts pop star and Super Hero, Luna Snow puts on a dazzling show with both her light and dark ice powers. The arena is her stage, where Seol Hee and her team orchestrate spectacular displays that earn her an ever-increasing number of fans and wins.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1031.png?v=1734906794",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1029",
+                "locale": "en-US",
+                "name": "Magik",
+                "description": "Trained in dark arts and wielding her mighty Soulsword, Magik leaps through portals to navigate the arena with ease. Once Illyana transforms into the demonic Darkchild, all those who dare stand against her will fall before her merciless blade.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1029.png?v=1734906793",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1037",
+                "locale": "en-US",
+                "name": "Magneto",
+                "description": "The Master of Magnetism bends even the strongest metal to his whims, shielding his allies and striking at his foes. Whether he calls himself Max Eisenhardt, Erik Lehnsherr, or simply Magneto, the hardships this warrior has endured have made him as unbreakable as the steel he brandishes. ",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1037.png?v=1734906796",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1020",
+                "locale": "en-US",
+                "name": "Mantis",
+                "description": "Mantis uses her impressive mental abilities and her penchant for plant control to anchor any team she fights alongside. Her powers tap into a limitless flow of life energy, gently nourishing everything she touches.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1020.png?v=1734906791",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1040",
+                "locale": "en-US",
+                "name": "Mister Fantastic",
+                "description": "Reed Richards believes that true strength comes from remaining flexible, both mentally and physically. Mister Fantastic's elastic body, which can twist and stretch into any form with ease, is almost as impressive as his brilliant mind.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1040.png?v=1736499638",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1030",
+                "locale": "en-US",
+                "name": "Moon Knight",
+                "description": "As the avatar of the Egyptian God of Vengeance, Marc Spector's body has been enhanced by Khonshu himself. Bathed in a luminous aura that pierces the darkness, Moon Knight glides through the night, ready to sear his enemies with his master's sacred Ankhs.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1030.png?v=1734906793",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1045",
+                "locale": "en-US",
+                "name": "Namor",
+                "description": "The unrivaled King of the Seas, Namor surfs into battle on a mighty wave with an army of fierce aquatic creatures in his wake. When ancient horns of war blare, devastation soon follows as deadly waters engulf the arena.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1045.png?v=1734906798",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1042",
+                "locale": "en-US",
+                "name": "Peni Parker",
+                "description": "Peni Parker may be young, but she bravely stands on the frontlines to protect the Web of Life and Destiny. Together, this teen prodigy and her state-of-the-art mech, the sensational SP//dr, make for the most thrilling duo on the battlefield!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1042.png?v=1734906798",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1054",
+                "locale": "en-US",
+                "name": "Phoenix",
+                "description": "Original X-Man Jean Grey boasted immense psychic power even before becoming host the unbridled Phoenix Force, embodiment of life and psionic energy across the universe. Now aligned with this ancient cosmic power, Jean and the Phoenix traverse space together, burning bright as both a spark of creation and inferno of destruction!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1054.png?v=1752225594",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1048",
+                "locale": "en-US",
+                "name": "Psylocke",
+                "description": "The psychic warrior known as Sai has the Mutant ability to conjure a variety of weapons with the power of her mind. Gracefully gliding across the battlefield, this trained ninja can shatter the enemy's defenses with a single thought.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1048.png?v=1734906799",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1023",
+                "locale": "en-US",
+                "name": "Rocket Raccoon",
+                "description": "Rocket may not look like a tech genius or an expert tactician, but anyone who's ever made his hit list has quickly regretted underestimating him. This savvy space soldier is equally eager to boost his teammates and to collect bounties on his foes.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1023.png?v=1734906792",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "1038",
+                "locale": "en-US",
+                "name": "Scarlet Witch",
+                "description": "Wanda Maximoff is adept at harnessing formidable chaos magic, casting hexes with the power to twist and reshape reality itself. Energy, space, and matter are mere playthings in the hands of Scarlet Witch!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1038.png?v=1734906797",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1036",
+                "locale": "en-US",
+                "name": "Spider-Man",
+                "description": "Swinging around the arena on his signature weblines, your friendly neighborhood Spider-Man, AKA Peter Parker, catches his rivals by surprise with sneaky, sticky bursts of webbing and unexpected attacks from above. Look out... here comes the Spider-Man!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1036.png?v=1734906795",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1032",
+                "locale": "en-US",
+                "name": "Squirrel Girl",
+                "description": "Possessing only the powers of a common squirrel, somehow Doreen Green manages to defeat seemingly invincible enemies in the most unexpected ways. Any foe who counts her out is bound to fall at the hands of the Unbeatable Squirrel Girl!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1032.png?v=1734906794",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1043",
+                "locale": "en-US",
+                "name": "Star-Lord",
+                "description": "Peter Quill lives to dazzle his foes on the battlefield with his signature swagger. As his element guns paint arcs of devastation, his acrobatic moves sail through the sky with unrivaled style. With performances this spectacular, it's no wonder that Star-Lord is so legendary!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1043.png?v=1734906798",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1015",
+                "locale": "en-US",
+                "name": "Storm",
+                "description": "An Omega-level Mutant ability to manipulate weather makes Ororo Munroe a force to be reckoned with. Rain or shine, thunder or lightning, nature itself bends to the command of the Goddess of the Storm!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1015.png?v=1734906791",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1014",
+                "locale": "en-US",
+                "name": "The Punisher",
+                "description": "Expertly wielding a full arsenal of futuristic weapons, Frank Castle is a formidable one-man army. With a steadfast resolve to deliver justice to his enemies, The Punisher won't cease in his mission until every last round is fired!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1014.png?v=1734906790",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1051",
+                "locale": "en-US",
+                "name": "The Thing",
+                "description": "Benjamin J. Grimm is unquestionably the rock star of any team he's on. Always at the forefront of the fight, the Thing shields his allies with his unbreakable form, selflessly fending off any harm that comes their way.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1051.png?v=1740144840",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1039",
+                "locale": "en-US",
+                "name": "Thor",
+                "description": "The son of Odin taps into his divine power to call forth thunder and lightning, raining down relentless fury upon his enemies. With his mighty hammer Mjölnir in hand, Thor effortlessly asserts his dominance on the field of combat.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1039.png?v=1734906797",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1028",
+                "locale": "en-US",
+                "name": "Ultron",
+                "description": "The pinnacle of artificial lifeforms, Ultron is programmed to learn and adapt in ways far beyond human capability. He can summon an army of automated drones that obey his every command, raising his chances of victory exponentially.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1028.png?v=1748606611",
+                "roleKey": "strategist",
+                "roleName": "Strategist"
+            },
+            {
+                "type": "hero",
+                "key": "4019",
+                "locale": "en-US",
+                "name": "Ultron Drone",
+                "description": "",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/4019.png?v=1749277826",
+                "roleKey": "unknown",
+                "roleName": "Unknown"
+            },
+            {
+                "type": "hero",
+                "key": "1035",
+                "locale": "en-US",
+                "name": "Venom",
+                "description": "Using his symbiote-enhanced body as the perfect living weapon, Eddie Brock and his alien ally stand ever-ready to unleash vicious attacks upon anyone he deems an enemy. Those ensnared by Venom's tentacles have no choice but to surrender to this insatiable predator.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1035.png?v=1734906794",
+                "roleKey": "vanguard",
+                "roleName": "Vanguard"
+            },
+            {
+                "type": "hero",
+                "key": "1041",
+                "locale": "en-US",
+                "name": "Winter Soldier",
+                "description": "Terrifying experiments turned him into a brainwashed assassin, but now James \"Bucky\" Barnes is in control of his own fate once again. With his enhanced mechanical arm, the Winter Soldier is primed to deliver earth-shattering blows to any foe in his path!",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1041.png?v=1734906798",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            },
+            {
+                "type": "hero",
+                "key": "1049",
+                "locale": "en-US",
+                "name": "Wolverine",
+                "description": "Thanks to his regenerative healing factor and berserker rage, the centuries-old Logan can fight through the worst pain to go claw-to-claw with any foe. The Wolverine stands ready to shred through all obstacles in his way with his Adamantium claws.",
+                "imageUrl": "https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/1049.png?v=1734906799",
+                "roleKey": "duelist",
+                "roleName": "Duelist"
+            }
+        ]
+    }
+}
