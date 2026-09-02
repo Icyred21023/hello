@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import os
-import random
+
 import tkinter as tk
 
-from typing import Literal, Union
+from typing import ClassVar, Literal, Union
 
 from PIL import (
     Image,
@@ -17,7 +17,12 @@ from PIL import (
 import config
 
 # Replace these module names with the files where each helper is defined.
-from fGui_ImgHelpers_beta import image_loader
+from fGui_ImgHelpers_beta import (
+    ASSET_CACHE,
+    cached_photoimage,
+    clear_cached_photoimages,
+    image_loader,
+)
 import os
 import random
 import tkinter as tk
@@ -35,332 +40,341 @@ def s(v):
     if isinstance(v, (tuple, list)):
         return tuple(int(x * 1) for x in v)
     return int(v * 1)
-class SpriteSheetAnimator:
+class HeroImager:
+    """Splice a cached sprite sheet and animate it on an existing canvas.
+
+    ``master`` may be either a ``tk.Canvas`` or a ``SuperFrame``. Coordinates
+    are canvas coordinates for a Canvas and local coordinates for a SuperFrame.
+
+    Sheets are read left-to-right, then top-to-bottom. The fixed 966x1840,
+    6x10 layout produces 60 frames of 161x184 pixels each.
+    """
+
+    SHEET_WIDTH: ClassVar[int] = 966
+    SHEET_HEIGHT: ClassVar[int] = 1840
+    COLUMNS: ClassVar[int] = 6
+    ROWS: ClassVar[int] = 10
+    FRAME_WIDTH: ClassVar[int] = SHEET_WIDTH // COLUMNS
+    FRAME_HEIGHT: ClassVar[int] = SHEET_HEIGHT // ROWS
+    FRAME_COUNT: ClassVar[int] = COLUMNS * ROWS
+
+    # image_loader already caches the full raw sheet. This second cache avoids
+    # repeating the crop/resize work when the same animation is placed twice.
+    _pil_frame_cache: ClassVar[
+        dict[tuple[str, tuple[int, int], int], tuple[Image.Image, ...]]
+    ] = {}
+
+    @staticmethod
+    def _normalize_image_key(image_key: str) -> str:
+        """Match ImageCache.normalize_key from fGui_ImgHelpers_beta."""
+        return ASSET_CACHE.normalize_key(image_key)
+
     def __init__(
         self,
-        master,
-        hero,
-        animated=True,              # NEW
-        sheet_path=None,            # for animated
-        rows=10,##
-        cols=6,
-        fps=24,
-        badge=False,
-        frame=False,
-        scale=1,
-        bg="#77789E",
-        relief="sunken",
-        borderwidth=1,
-        size=None,
-        bSubCrop=False,
-        frame_height = 90,
-        static_icon=None,           # NEW: for non-animated
-        bSpecialBG=False,           # keep if you use it
-    ):
-        """
-        animated:
-          True  -> uses sprite sheet animation
-          False -> renders a single static icon into the same canvas
+        master: Union[tk.Canvas, "SuperFrame"],
+        image_key: str,
+        *,
+        x: float = 0,
+        y: float = 0,
+        anchor: str = "nw",
+        bAnimated: bool = False,
+        size: tuple[int, int] | None = None,
+        scale: float = 1.0,
+        fps: float = 34.0,
+        loop: bool = True,
+        autoplay: bool = True,
+        start_frame: int = 0,
+        tags: str | tuple[str, ...] | list[str] | None = None,
+        canvas_args: dict | None = None,
+    ) -> None:
+        if not isinstance(image_key, str) or not image_key.strip():
+            raise ValueError("image_key must be a non-empty string.")
 
-        static_icon:
-          Whatever key/path your createOnlyImage/_create_only_image uses.
-        """
-        SHEETS_DIR = os.path.join(config.script_dir, "assets_match_hd")
-        
+        if isinstance(master, tk.Canvas):
+            self.canvas = master
+            self.super_frame = None
+            self._origin_x = 0.0
+            self._origin_y = 0.0
+        elif hasattr(master, "Canvas") and hasattr(master, "bbox"):
+            self.canvas = master.Canvas
+            self.super_frame = master
+            self._origin_x = float(master.bbox[0])
+            self._origin_y = float(master.bbox[1])
+        else:
+            raise TypeError("master must be a tk.Canvas or SuperFrame.")
+
+        if fps <= 0:
+            raise ValueError("fps must be greater than zero.")
+        if scale <= 0:
+            raise ValueError("scale must be greater than zero.")
+
         self.master = master
-        self.hero = hero
-        self.animated = animated
-        self.badge = badge
-        self.frame = frame
-        self.fps = fps
-        self.delay_ms = int(1000 / fps) if fps else 0
-        self.scale = scale
-        self.rows = rows
-        self.cols = cols
-        self.size = size
-        self.bSubCrop = bSubCrop
+        self.image_key = image_key
+        self.x = float(x)
+        self.y = float(y)
+        self.anchor = anchor
+        self.loop = bool(loop)
+        self.fps = float(fps)
+        self.delay_ms = max(1, round(1000 / self.fps))
         self.running = False
-        frame_height = frame_height if frame_height else 90
-        # --- your existing vars ---
-        self.colors = ['blue', 'green', 'pink', 'purple', 'white']
-        self.herobg = "heromasterybg_"
-        self.scaling_frame = int(frame_height / 90)
-        self.image_sizeX = frame_height - 2
-        self.image_sizeY = frame_height - 2
-        # If you have crop_cache logic, keep it (only matters for animated sheets)
-        sheet_key = self.hero + "_Master.png"
-        # if self.animated and sheet_key in crop_cache:
-        #     prev = crop_cache[sheet_key]
-        #     self.subcrop_x = int(prev["x0"])
-        #     self.subcrop_y = int(prev["y0"])
-        #     self.subcrop_w = int(prev["side"])
-        #     self.subcrop_h = int(prev["side"])
-        #     self.bSubCrop = True
-        #     self.size = (s(frame_height), s(frame_height))
+        self._after_id: str | None = None
+        self._destroyed = False
+        self.bStatic = not bAnimated
 
-        # --- wrapper + canvas (same for both) ---
-        icon_wrap = tk.Frame(master, width=s(frame_height), height=s(frame_height), bg=bg,padx=0, pady=0)
-        icon_wrap.pack(side="bottom",anchor="sw",pady=(0,0),padx=(0,0))
-        icon_wrap.pack_propagate(False)
+        if not bAnimated:
+            self.super_frame.createSuperFrameImage(
+                img_key=image_key,x=x, y=y, anc="nw")
+            return
 
-        self.canvas = tk.Canvas(
-            icon_wrap,
-            width=s(frame_height-3),
-            height=s((frame_height-3)),
-            bg=bg,
-            highlightthickness=0,
-            bd=borderwidth,
-            relief=relief
+        output_size = self._get_output_size(size, scale)
+        self._pil_frames = self._get_pil_frames(image_key, output_size)
+        resampling = getattr(Image, "Resampling", Image)
+        frame_variant_base = (
+            "hero-animation-frame",
+            output_size,
+            int(resampling.LANCZOS),
+            self.COLUMNS,
+            self.ROWS,
         )
-        self.canvas.pack(fill="both",side ="bottom",anchor="sw", expand=False,padx=0, pady=0)
-        self.canvas.pack_propagate(False)
-
-        # center + offsets
-        dx, dy = (0,0)
-        cx, cy = s(frame_height // 2), s(frame_height // 2)
-        self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite")  # keep reference!
-        self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-
-        # optional special BG
-        self.hero_bg_colored = None
-        self.hero_bg_id = None
-        if bSpecialBG:
-            import random
-            random_color = random.choice(self.colors)
-            bg_name = self.herobg + random_color
-            #self.hero_bg_colored = self.createOnlyImage(bg_name, size=(233, 104))
-
-            self.hero_bg_id = self.canvas.create_image(s(frame_height // 2), s(frame_height // 2), image=self.hero_bg_colored, anchor="c")
-
-        # ============================
-        # STATIC MODE
-        # ============================
-        if not self.animated:
-            # Load your normal hero icon and draw it onto canvas
-            # Use your existing image loader (choose one that exists in this class)
-            # If your loader returns a PIL.Image, convert to PhotoImage.
-            # If it already returns PhotoImage, just use it.
-            try:
-                # OPTION A: if you have the same helper as outside:
-                # pil = self._create_only_image(static_icon, (104, 104))  # but you likely don't in this class
-
-                # OPTION B: if createOnlyImage returns ImageTk.PhotoImage directly:
-                # img = self.createOnlyImage(static_icon, size=(s(104), s(104)))
-
-                # safest: load PIL image first then convert (depends on your helpers)
-                
-                self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite", size=(frame_height-1, frame_height-1))  # keep reference!
-                self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-                self.static_img = self.createOnlyImage(static_icon, size=(self.image_sizeX, self.image_sizeY))
-                if self.frame:
-                    frame_ne = f"_prof_frame_{self.frame}4"
-                    self.frame_ne_img = self.createOnlyImage(frame_ne, size=(s(190*self.scaling_frame), s(82*self.scaling_frame)))
-                    self.frame_ne_id = self.canvas.create_image(s(frame_height), s(-1), tags=["frame"],image=self.frame_ne_img, anchor="ne")
-                
-                self.image_id = self.canvas.create_image(
-                    cx + s(dx), cy + s(dy),
-                    image=self.static_img,
-                    anchor="center",
-                    tags=["icon"]
-                )
-
-                if self.frame:
-                    frame_sw = f"_prof_frame_{self.frame}12"
-                    self.frame_sw_img = self.createOnlyImage(frame_sw, size=(s(190*self.scaling_frame), s(85*self.scaling_frame)))
-                    self.frame_sw_id = self.canvas.create_image(s(0), s(frame_height-1), image=self.frame_sw_img, tags=["frame"],anchor="sw")
-
-                if self.badge:
-                    pass
-                    
-                    add = -2 if self.badge == 3 else 0
-                    add = -4 if self.badge == 4 else add
-                    
-                    badge_name = f"_prof_badge{self.badge}"
-                    self.badge_img = self.createOnlyImage(badge_name, bNearest=False, size=(s(37+add), s(37+add)))
-                    self.badge_id = self.canvas.create_image(s(14), s(frame_height -13), image=self.badge_img, anchor="center")
-                    #self.badge_id = self.canvas.create_image(s(14), s(13), image=self.badge_img, anchor="center")
-                    
-                self.canvas.tag_raise("frame", "icon")  # ensure frame is on top if it exists
-                
-
-                
-
-                # img_pil = self.createOnlyImagePIL(static_icon)  # <-- implement or swap to your real loader
-                # if self.size:
-                #     # if size is already scaled, don't s() twice. assume size is pixels.
-                #     w, h = self.size
-                #     #img_pil = img_pil.resize((int(w), int(h)), Image.BICUBIC)
-                # elif scale != 1:
-                #     img_pil = img_pil.resize(
-                #         (int(img_pil.size[0] * scale), int(img_pil.size[1] * scale)),
-                #         Image.NEAREST
-                #     )
-
-                # self.static_img = ImageTk.PhotoImage(img_pil)
-            except Exception:
-                # fallback: try your other loader that already returns a PhotoImage
-                self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite", size=(frame_height-1, frame_height-1))  # keep reference!
-                self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-                self.static_img = self.createOnlyImage(static_icon, size=(frame_height-2, frame_height-2))
-            
-            
-
-            #self.frame_overlay = self.createOnlyImage("gold_frame2", size=(s(128), s(128)))
-
-            # self.frame_id = self.canvas.create_image(
-            #     s(52), s(52),
-            #     image=self.frame_overlay,
-            #     anchor="center"
-            # )
-
-            self.frames = []
-            self.index = 0
-            return
-
-        # ============================
-        # ANIMATED MODE (your current logic)
-        # ============================
-        sheet, (sheet_w, sheet_h) = self.createOnlyImage1(sheet_path)
-
-        xs = split_edges(sheet_w, cols)
-        ys = split_edges(sheet_h, rows)
-
-        frames = []
-        for r in range(rows):
-            for c in range(cols):
-                x0, x1 = xs[c], xs[c + 1]
-                y0, y1 = ys[r], ys[r + 1]
-
-                if self.bSubCrop:
-                    gx0 = x0 + self.subcrop_x
-                    gy0 = y0 + self.subcrop_y
-                    gx1 = gx0 + self.subcrop_w
-                    gy1 = gy0 + self.subcrop_h
-                    gx1 = min(gx1, x1)
-                    gy1 = min(gy1, y1)
-                    frame = sheet.crop((gx0, gy0, gx1, gy1))
-                else:
-                    frame = sheet.crop((x0, y0, x1, y1))
-
-                if self.size:
-                    # IMPORTANT: if self.size is already scaled by s(), don't s() again
-                    w, h = self.size
-                    frame = frame.resize((int(w), int(h)), Image.BICUBIC)
-                elif scale != 1:
-                    frame = frame.resize(
-                        (int(frame.size[0] * scale), int(frame.size[1] * scale)),
-                        Image.NEAREST
-                    )
-
-                frames.append(ImageTk.PhotoImage(frame))
-
-        import random
-        self.frames = frames
-        self.index = random.randrange(len(self.frames)) if self.frames else 0
-
-        if self.frame:
-            frame_ne = f"_prof_frame_{self.frame}4"
-            self.frame_ne_img = self.createOnlyImage(frame_ne, size=(s(190), s(82)))
-            self.frame_ne_id = self.canvas.create_image(s(frame_height), s(-1), tags=["frame"], image=self.frame_ne_img, anchor="ne")
-        
-
-        if self.frames:
-            self.image_id = self.canvas.create_image(
-                cx + s(dx), cy + s(dy),
-                image=self.frames[self.index],
-                tags=["icon"],
-                anchor="center"
+        self.frames = [
+            cached_photoimage(
+                image_key,
+                frame_variant_base + (frame_index,),
+                frame,
+                self.canvas,
             )
-        if self.frame:
-            frame_sw = f"_prof_frame_{self.frame}5"
-            self.frame_sw_img = self.createOnlyImage(frame_sw, size=(s(190), s(85)))
-            self.frame_sw_id = self.canvas.create_image(s(0), s(frame_height-1), tags=["frame"], image=self.frame_sw_img, anchor="sw")
+            for frame_index, frame in enumerate(self._pil_frames)
+        ]
 
-        if self.badge:
-            pass
-            add = 0
-            badge_name = f"_prof_badge{self.badge}"
-            self.badge_img = self.createOnlyImage(badge_name, bNearest=False, size=(s(34+add), s(34+add)))
-            self.badge_id = self.canvas.create_image(s(14), s(frame_height -14), image=self.badge_img, anchor="center")
-        
-        self.canvas.tag_raise("frame", "icon")  # ensure frame is on top if it exists
-        
+        self.index = int(start_frame) % len(self.frames)
+        create_args = {} if canvas_args is None else dict(canvas_args)
+        create_args.pop("image", None)
+        create_args.pop("anchor", None)
+        create_args.pop("tags", None)
 
-    def play(self):
-        if not self.animated:
+        self.image_id = self.canvas.create_image(
+            self._origin_x + self.x - 4,
+            self._origin_y + self.y,
+            image=self.frames[self.index],
+            anchor=self.anchor,
+            tags=tags or (),
+            **create_args,
+        )
+        self._store_canvas_references()
+
+        if autoplay:
+            self.play()
+
+    @classmethod
+    def clear_frame_cache(cls, image_key: str | None = None) -> None:
+        """Clear cropped PIL frames without touching the main image cache."""
+        if image_key is None:
+            cls._pil_frame_cache.clear()
+        else:
+            normalized = cls._normalize_image_key(image_key)
+            for key in tuple(cls._pil_frame_cache):
+                if key[0] == normalized:
+                    del cls._pil_frame_cache[key]
+
+        clear_cached_photoimages(
+            img_key=image_key,
+            variant_namespace="hero-animation-frame",
+        )
+
+    @classmethod
+    def _get_output_size(
+        cls,
+        size: tuple[int, int] | None,
+        scale: float,
+    ) -> tuple[int, int]:
+        if size is not None:
+            if len(size) != 2:
+                raise ValueError("size must contain exactly two values.")
+            return max(1, int(size[0])), max(1, int(size[1]))
+
+        return (
+            max(1, round(cls.FRAME_WIDTH * scale)),
+            max(1, round(cls.FRAME_HEIGHT * scale)),
+        )
+
+    @classmethod
+    def _get_pil_frames(
+        cls,
+        image_key: str,
+        output_size: tuple[int, int],
+    ) -> tuple[Image.Image, ...]:
+        resampling = getattr(Image, "Resampling", Image)
+        resample = resampling.LANCZOS
+        cache_key = (cls._normalize_image_key(image_key), output_size, int(resample))
+
+        cached = cls._pil_frame_cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+        # Placeholder requested by the caller: image_key is passed directly to
+        # the project's cached loader. Change only this line if sheet lookup
+        # later needs a prefix, suffix, or asset category.
+        sheet = image_loader(image_key)
+
+        if not isinstance(sheet, Image.Image):
+            raise FileNotFoundError(
+                f"image_loader could not load sprite sheet {image_key!r}."
+            )
+
+        expected = (cls.SHEET_WIDTH, cls.SHEET_HEIGHT)
+        if sheet.size != expected:
+            raise ValueError(
+                f"Sprite sheet {image_key!r} is {sheet.size[0]}x{sheet.size[1]}; "
+                f"expected {expected[0]}x{expected[1]}."
+            )
+
+        frames: list[Image.Image] = []
+        for row in range(cls.ROWS):
+            top = row * cls.FRAME_HEIGHT
+            for column in range(cls.COLUMNS):
+                left = column * cls.FRAME_WIDTH
+                frame = sheet.crop(
+                    (
+                        left,
+                        top,
+                        left + cls.FRAME_WIDTH,
+                        top + cls.FRAME_HEIGHT,
+                    )
+                )
+                if frame.size != output_size:
+                    frame = frame.resize(output_size, resample)
+                frames.append(frame)
+
+        result = tuple(frames)
+        cls._pil_frame_cache[cache_key] = result
+        return result
+
+    def _store_canvas_references(self) -> None:
+        """Follow SuperFrame's canvas reference convention for Tk/PIL images."""
+        if not hasattr(self.canvas, "_images"):
+            self.canvas._images = {}
+        if not hasattr(self.canvas, "_pil_images"):
+            self.canvas._pil_images = {}
+
+        self.canvas._images[self.image_id] = self.frames[self.index]
+        self.canvas._pil_images[self.image_id] = self._pil_frames[self.index]
+
+    @property
+    def frame_count(self) -> int:
+        return len(self.frames)
+
+    @property
+    def current_frame(self) -> int:
+        return self.index
+
+    def show_frame(self, index: int) -> None:
+        if self._destroyed:
             return
-        if not self.frames:
+
+        if not 0 <= int(index) < self.frame_count:
+            raise IndexError(
+                f"frame index must be between 0 and {self.frame_count - 1}."
+            )
+
+        self.index = int(index)
+        self.canvas.itemconfigure(
+            self.image_id,
+            image=self.frames[self.index],
+        )
+        self._store_canvas_references()
+
+    def play(self) -> None:
+        if self._destroyed or self.running:
             return
-        if self.running:
-            return
+
         self.running = True
-        self._tick()
+        self._schedule_next_frame()
 
-    def stop(self):
+    def pause(self) -> None:
         self.running = False
+        self._cancel_scheduled_frame()
 
-    def _tick(self):
-        if not self.running:
+    def stop(self) -> None:
+        self.pause()
+        if not self._destroyed:
+            self.show_frame(0)
+
+    def set_fps(self, fps: float) -> None:
+        if fps <= 0:
+            raise ValueError("fps must be greater than zero.")
+
+        self.fps = float(fps)
+        self.delay_ms = max(1, round(1000 / self.fps))
+        if self.running:
+            self._cancel_scheduled_frame()
+            self._schedule_next_frame()
+
+    def move_to(self, x: float, y: float) -> None:
+        """Move using coordinates local to the original master."""
+        self.x = float(x)
+        self.y = float(y)
+        if not self._destroyed:
+            self.canvas.coords(
+                self.image_id,
+                self._origin_x + self.x,
+                self._origin_y + self.y,
+            )
+
+    def _schedule_next_frame(self) -> None:
+        if self.running and self._after_id is None:
+            self._after_id = self.canvas.after(self.delay_ms, self._tick)
+
+    def _cancel_scheduled_frame(self) -> None:
+        if self._after_id is None:
             return
-        self.index = (self.index + 1) % len(self.frames)
-        self.canvas.itemconfig(self.image_id, image=self.frames[self.index])
-        self.canvas.after(self.delay_ms, self._tick)
 
-            
-            
-    
-    def _tick(self):
-        if not self.running or not self.frames:
+        try:
+            self.canvas.after_cancel(self._after_id)
+        except tk.TclError:
+            pass
+        finally:
+            self._after_id = None
+
+    def _tick(self) -> None:
+        self._after_id = None
+        if not self.running or self._destroyed:
             return
-        
-        
-        
-        self.canvas.itemconfigure(self.image_id, image=self.frames[self.index])
-        self.index = (self.index + 1) % len(self.frames)
-        self.master.after(self.delay_ms, self._tick)
 
-    def play(self):
-        if not self.running:
-            self.running = True
-            self._tick()
+        next_index = self.index + 1
+        if next_index >= self.frame_count:
+            if not self.loop:
+                self.running = False
+                return
+            next_index = 0
 
-    def pause(self):
-        self.running = False
+        try:
+            self.show_frame(next_index)
+        except tk.TclError:
+            self.running = False
+            self._destroyed = True
+            return
 
-    def createOnlyImage1(self,player_img, size=None):
-        img_raw = image_loader(player_img)
-        if not img_raw:
-            return False
-        sheet = img_raw.copy()
-        return sheet, sheet.size
-        # Always start with a copy
-        resized = img_raw.copy()
+        self._schedule_next_frame()
 
-        # Only resize if size is provided (not False / None)
-        if size:
-            resized = resized.resize(s(size), Image.BICUBIC)
+    def destroy(self) -> None:
+        """Stop callbacks, delete the canvas item, and release Tk references."""
+        if self._destroyed:
+            return
 
-            img_raw = ImageTk.PhotoImage(resized)
-        si = img_raw.size 
-        return img_raw, si
-    def createOnlyImage(self,player_img, bNearest = False, size=None):
-        img_raw = image_loader(player_img)
-        if not img_raw:
-            return False
+        self.pause()
+        try:
+            self.canvas.delete(self.image_id)
+        except tk.TclError:
+            pass
 
-        # Always start with a copy
-        resized = img_raw.copy()
+        if hasattr(self.canvas, "_images"):
+            self.canvas._images.pop(self.image_id, None)
+        if hasattr(self.canvas, "_pil_images"):
+            self.canvas._pil_images.pop(self.image_id, None)
 
-        # Only resize if size is provided (not False / None)
-        if size:
-            if bNearest:
-                resized = resized.resize(s(size), Image.NEAREST)
-            else:
-                resized = resized.resize(s(size), Image.BICUBIC)
-
-        img = ImageTk.PhotoImage(resized)
-        return img
-
+        self.frames.clear()
+        self._pil_frames = ()
+        self._destroyed = True
 
 class SuperFrame:
     def __init__(
@@ -732,6 +746,39 @@ class SuperFrame:
 
         if arh is None:
             arh = {}
+
+        scaled_size = None
+        if size:
+            scaled = self._s2(size)
+            scaled_size = (int(scaled[0]), int(scaled[1]))
+
+        if isinstance(mask_glow, tuple):
+            glow_cache_key = (
+                str(mask_glow[0]),
+                bool(mask_glow[1]),
+            )
+        else:
+            glow_cache_key = (bool(mask_glow), False)
+
+        clip_cache_key = None
+        if clip:
+            clip_cache_key = (
+                tuple(float(value) for value in self.bbox),
+                float(x),
+                float(y),
+                str(anc),
+            )
+
+        photo_variant_key = (
+            "superframe-image",
+            scaled_size,
+            str(recolor) if recolor else False,
+            bool(tint_alpha),
+            round(float(factor), 5),
+            str(mask) if mask else False,
+            glow_cache_key,
+            clip_cache_key,
+        )
         
 
         img_raw = image_loader(img_key)
@@ -750,8 +797,8 @@ class SuperFrame:
             img_raw = img_raw.convert("RGBA")
             #img_raw = make_circle(img_raw)
 
-        if size:
-            img_raw = img_raw.resize(self._s2(size), Image.BICUBIC)
+        if scaled_size:
+            img_raw = img_raw.resize(scaled_size, Image.BICUBIC)
         if mask_glow:
             if isinstance(mask_glow, tuple):
                 bMask, bFlip = mask_glow
@@ -762,7 +809,12 @@ class SuperFrame:
 
         if clip:
             img_raw = clip_to_region(img_raw, x,y,anc)
-        img = ImageTk.PhotoImage(img_raw)
+        img = cached_photoimage(
+            img_key,
+            photo_variant_key,
+            img_raw,
+            canvas,
+        )
 
 
 
@@ -860,4 +912,3 @@ class SuperFrame:
         return txt
     
     
-

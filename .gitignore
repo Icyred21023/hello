@@ -1,3 +1,8 @@
+# Python environments
+.venv/
+venv/
+env/
+
 # Ignore Python cache
 __pycache__/
 *.pyc
@@ -5,7 +10,12 @@ __pycache__/
 deepLearn.py
 my_ml_model.py
 ___MODEL.PY
-
+# IDE/editor files
+.vscode/
+.idea/
+.history/
+*.swp
+*.swo
 # Ignore backups and debug files
 cropped - Copy/
 croppeda/
@@ -25,16 +35,14 @@ Unused/
 _MODEL_DATA/
 config/api_key.txt
 config/
+_Mastery_Sheet_Editor/
 hello-main/
 Developer/
 
 # Ignore OS or editor files
 .DS_Store
 Thumbs.db
-.vscode/
-*.swp
 
 
-# Ignore virtual environments (if any)
-venv/
-env/
+
+

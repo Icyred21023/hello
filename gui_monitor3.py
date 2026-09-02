@@ -8,7 +8,7 @@ import os
 import random
 from typing import Any, Literal
 import sys
-from fGui_Ui import SuperFrame
+from fGui_Ui import SuperFrame, HeroImager
 USED_HERO_BGS = []
 DB = None
 icon_idx =0
@@ -162,331 +162,7 @@ def split_edges(total: int, parts: int) -> list[int]:
             edges.append(acc)
         return edges
 
-class SpriteSheetAnimator:
-    def __init__(
-        self,
-        master,
-        hero,
-        animated=True,              # NEW
-        sheet_path=None,            # for animated
-        rows=10,##
-        cols=6,
-        fps=24,
-        badge=False,
-        frame=False,
-        scale=1,
-        bg="#77789E",
-        relief="sunken",
-        borderwidth=1,
-        size=None,
-        bSubCrop=False,
-        frame_height = 90,
-        static_icon=None,           # NEW: for non-animated
-        bSpecialBG=False,           # keep if you use it
-    ):
-        """
-        animated:
-          True  -> uses sprite sheet animation
-          False -> renders a single static icon into the same canvas
 
-        static_icon:
-          Whatever key/path your createOnlyImage/_create_only_image uses.
-        """
-        SHEETS_DIR = os.path.join(config.script_dir, "assets_match_hd")
-        
-        self.master = master
-        self.hero = hero
-        self.animated = animated
-        self.badge = badge
-        self.frame = frame
-        self.fps = fps
-        self.delay_ms = int(1000 / fps) if fps else 0
-        self.scale = scale
-        self.rows = rows
-        self.cols = cols
-        self.size = size
-        self.bSubCrop = bSubCrop
-        self.running = False
-        frame_height = frame_height if frame_height else 90
-        # --- your existing vars ---
-        self.colors = ['blue', 'green', 'pink', 'purple', 'white']
-        self.herobg = "heromasterybg_"
-        self.scaling_frame = int(frame_height / 90)
-        self.image_sizeX = frame_height - 2
-        self.image_sizeY = frame_height - 2
-        # If you have crop_cache logic, keep it (only matters for animated sheets)
-        sheet_key = self.hero + "_Master.png"
-        if self.animated and sheet_key in crop_cache:
-            prev = crop_cache[sheet_key]
-            self.subcrop_x = int(prev["x0"])
-            self.subcrop_y = int(prev["y0"])
-            self.subcrop_w = int(prev["side"])
-            self.subcrop_h = int(prev["side"])
-            self.bSubCrop = True
-            self.size = (s(frame_height), s(frame_height))
-
-        # --- wrapper + canvas (same for both) ---
-        icon_wrap = tk.Frame(master, width=s(frame_height), height=s(frame_height), bg=bg,padx=0, pady=0)
-        icon_wrap.pack(side="bottom",anchor="sw",pady=(0,0),padx=(0,0))
-        icon_wrap.pack_propagate(False)
-
-        self.canvas = tk.Canvas(
-            icon_wrap,
-            width=s(frame_height-3),
-            height=s((frame_height-3)),
-            bg=bg,
-            highlightthickness=0,
-            bd=borderwidth,
-            relief=relief
-        )
-        self.canvas.pack(fill="both",side ="bottom",anchor="sw", expand=False,padx=0, pady=0)
-        self.canvas.pack_propagate(False)
-
-        # center + offsets
-        dx, dy = HERO_MASTERY_OFFSETS.get(self.hero, (0, 0))
-        cx, cy = s(frame_height // 2), s(frame_height // 2)
-        self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite")  # keep reference!
-        self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-
-        # optional special BG
-        self.hero_bg_colored = None
-        self.hero_bg_id = None
-        if bSpecialBG:
-            import random
-            random_color = random.choice(self.colors)
-            bg_name = self.herobg + random_color
-            #self.hero_bg_colored = self.createOnlyImage(bg_name, size=(233, 104))
-
-            self.hero_bg_id = self.canvas.create_image(s(frame_height // 2), s(frame_height // 2), image=self.hero_bg_colored, anchor="c")
-
-        # ============================
-        # STATIC MODE
-        # ============================
-        if not self.animated:
-            # Load your normal hero icon and draw it onto canvas
-            # Use your existing image loader (choose one that exists in this class)
-            # If your loader returns a PIL.Image, convert to PhotoImage.
-            # If it already returns PhotoImage, just use it.
-            try:
-                # OPTION A: if you have the same helper as outside:
-                # pil = self._create_only_image(static_icon, (104, 104))  # but you likely don't in this class
-
-                # OPTION B: if createOnlyImage returns ImageTk.PhotoImage directly:
-                # img = self.createOnlyImage(static_icon, size=(s(104), s(104)))
-
-                # safest: load PIL image first then convert (depends on your helpers)
-                
-                self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite", size=(frame_height-1, frame_height-1))  # keep reference!
-                self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-                self.static_img = self.createOnlyImage(static_icon, size=(self.image_sizeX, self.image_sizeY))
-                if self.frame:
-                    frame_ne = f"_prof_frame_{self.frame}4"
-                    self.frame_ne_img = self.createOnlyImage(frame_ne, size=(s(190*self.scaling_frame), s(82*self.scaling_frame)))
-                    self.frame_ne_id = self.canvas.create_image(s(frame_height), s(-1), tags=["frame"],image=self.frame_ne_img, anchor="ne")
-                
-                self.image_id = self.canvas.create_image(
-                    cx + s(dx), cy + s(dy),
-                    image=self.static_img,
-                    anchor="center",
-                    tags=["icon"]
-                )
-
-                if self.frame:
-                    frame_sw = f"_prof_frame_{self.frame}12"
-                    self.frame_sw_img = self.createOnlyImage(frame_sw, size=(s(190*self.scaling_frame), s(85*self.scaling_frame)))
-                    self.frame_sw_id = self.canvas.create_image(s(0), s(frame_height-1), image=self.frame_sw_img, tags=["frame"],anchor="sw")
-
-                if self.badge:
-                    pass
-                    
-                    add = -2 if self.badge == 3 else 0
-                    add = -4 if self.badge == 4 else add
-                    
-                    badge_name = f"_prof_badge{self.badge}"
-                    self.badge_img = self.createOnlyImage(badge_name, bNearest=False, size=(s(37+add), s(37+add)))
-                    self.badge_id = self.canvas.create_image(s(14), s(frame_height -13), image=self.badge_img, anchor="center")
-                    #self.badge_id = self.canvas.create_image(s(14), s(13), image=self.badge_img, anchor="center")
-                    
-                self.canvas.tag_raise("frame", "icon")  # ensure frame is on top if it exists
-                
-
-                
-
-                # img_pil = self.createOnlyImagePIL(static_icon)  # <-- implement or swap to your real loader
-                # if self.size:
-                #     # if size is already scaled, don't s() twice. assume size is pixels.
-                #     w, h = self.size
-                #     #img_pil = img_pil.resize((int(w), int(h)), Image.BICUBIC)
-                # elif scale != 1:
-                #     img_pil = img_pil.resize(
-                #         (int(img_pil.size[0] * scale), int(img_pil.size[1] * scale)),
-                #         Image.NEAREST
-                #     )
-
-                # self.static_img = ImageTk.PhotoImage(img_pil)
-            except Exception:
-                # fallback: try your other loader that already returns a PhotoImage
-                self.icon_bg_img = self.createOnlyImage("_icon_bg_newwhite", size=(frame_height-1, frame_height-1))  # keep reference!
-                self.bg_id = self.canvas.create_image(s((frame_height-1)), s(0), image=self.icon_bg_img, anchor="ne")
-                self.static_img = self.createOnlyImage(static_icon, size=(frame_height-2, frame_height-2))
-            
-            
-
-            #self.frame_overlay = self.createOnlyImage("gold_frame2", size=(s(128), s(128)))
-
-            # self.frame_id = self.canvas.create_image(
-            #     s(52), s(52),
-            #     image=self.frame_overlay,
-            #     anchor="center"
-            # )
-
-            self.frames = []
-            self.index = 0
-            return
-
-        # ============================
-        # ANIMATED MODE (your current logic)
-        # ============================
-        sheet, (sheet_w, sheet_h) = self.createOnlyImage1(sheet_path)
-
-        xs = split_edges(sheet_w, cols)
-        ys = split_edges(sheet_h, rows)
-
-        frames = []
-        for r in range(rows):
-            for c in range(cols):
-                x0, x1 = xs[c], xs[c + 1]
-                y0, y1 = ys[r], ys[r + 1]
-
-                if self.bSubCrop:
-                    gx0 = x0 + self.subcrop_x
-                    gy0 = y0 + self.subcrop_y
-                    gx1 = gx0 + self.subcrop_w
-                    gy1 = gy0 + self.subcrop_h
-                    gx1 = min(gx1, x1)
-                    gy1 = min(gy1, y1)
-                    frame = sheet.crop((gx0, gy0, gx1, gy1))
-                else:
-                    frame = sheet.crop((x0, y0, x1, y1))
-
-                if self.size:
-                    # IMPORTANT: if self.size is already scaled by s(), don't s() again
-                    w, h = self.size
-                    frame = frame.resize((int(w), int(h)), Image.BICUBIC)
-                elif scale != 1:
-                    frame = frame.resize(
-                        (int(frame.size[0] * scale), int(frame.size[1] * scale)),
-                        Image.NEAREST
-                    )
-
-                frames.append(ImageTk.PhotoImage(frame))
-
-        import random
-        self.frames = frames
-        self.index = random.randrange(len(self.frames)) if self.frames else 0
-
-        if self.frame:
-            frame_ne = f"_prof_frame_{self.frame}4"
-            self.frame_ne_img = self.createOnlyImage(frame_ne, size=(s(190), s(82)))
-            self.frame_ne_id = self.canvas.create_image(s(frame_height), s(-1), tags=["frame"], image=self.frame_ne_img, anchor="ne")
-        
-
-        if self.frames:
-            self.image_id = self.canvas.create_image(
-                cx + s(dx), cy + s(dy),
-                image=self.frames[self.index],
-                tags=["icon"],
-                anchor="center"
-            )
-        if self.frame:
-            frame_sw = f"_prof_frame_{self.frame}5"
-            self.frame_sw_img = self.createOnlyImage(frame_sw, size=(s(190), s(85)))
-            self.frame_sw_id = self.canvas.create_image(s(0), s(frame_height-1), tags=["frame"], image=self.frame_sw_img, anchor="sw")
-
-        if self.badge:
-            pass
-            add = 0
-            badge_name = f"_prof_badge{self.badge}"
-            self.badge_img = self.createOnlyImage(badge_name, bNearest=False, size=(s(34+add), s(34+add)))
-            self.badge_id = self.canvas.create_image(s(14), s(frame_height -14), image=self.badge_img, anchor="center")
-        
-        self.canvas.tag_raise("frame", "icon")  # ensure frame is on top if it exists
-        
-
-    def play(self):
-        if not self.animated:
-            return
-        if not self.frames:
-            return
-        if self.running:
-            return
-        self.running = True
-        self._tick()
-
-    def stop(self):
-        self.running = False
-
-    def _tick(self):
-        if not self.running:
-            return
-        self.index = (self.index + 1) % len(self.frames)
-        self.canvas.itemconfig(self.image_id, image=self.frames[self.index])
-        self.canvas.after(self.delay_ms, self._tick)
-
-            
-            
-    
-    def _tick(self):
-        if not self.running or not self.frames:
-            return
-        
-        
-        
-        self.canvas.itemconfigure(self.image_id, image=self.frames[self.index])
-        self.index = (self.index + 1) % len(self.frames)
-        self.master.after(self.delay_ms, self._tick)
-
-    def play(self):
-        if not self.running:
-            self.running = True
-            self._tick()
-
-    def pause(self):
-        self.running = False
-
-    def createOnlyImage1(self,player_img, size=None):
-        img_raw = image_loader(player_img)
-        if not img_raw:
-            return False
-        sheet = img_raw.copy()
-        return sheet, sheet.size
-        # Always start with a copy
-        resized = img_raw.copy()
-
-        # Only resize if size is provided (not False / None)
-        if size:
-            resized = resized.resize(s(size), Image.BICUBIC)
-
-            img_raw = ImageTk.PhotoImage(resized)
-        si = img_raw.size 
-        return img_raw, si
-    def createOnlyImage(self,player_img, bNearest = False, size=None):
-        img_raw = image_loader(player_img)
-        if not img_raw:
-            return False
-
-        # Always start with a copy
-        resized = img_raw.copy()
-
-        # Only resize if size is provided (not False / None)
-        if size:
-            if bNearest:
-                resized = resized.resize(s(size), Image.NEAREST)
-            else:
-                resized = resized.resize(s(size), Image.BICUBIC)
-
-        img = ImageTk.PhotoImage(resized)
-        return img
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 assets_nameplates = os.path.join(script_dir, "assets_nameplates")
@@ -1871,7 +1547,18 @@ class PlayerFrame:
                 continue
             proficiency = hero.ProficiencyLevel if hero else 0
             bAnimated, frame, badge, heroname, rank = self.proficiency_handler(hero.Name, int(proficiency))
-            self.superframe.createSuperFrameImage(img_key=heroname, x=x, y=y, anc="nw")
+            self.hero_animation = HeroImager(
+                                        self.superframe,
+                                        image_key=heroname,  # Passed directly to image_loader()
+                                        x=x,
+                                        y=y,
+                                        anchor="nw",
+                                        bAnimated=bAnimated,
+                                        fps=24,
+                                        loop=True,
+                                        autoplay=True,
+                                    )
+            #hero_animate = self.superframe.createSuperFrameImage(img_key=heroname, x=x, y=y, anc="nw")
             if badge:
                 x += badge_offset[0]
                 y += badge_offset[1]
@@ -1891,16 +1578,20 @@ class PlayerFrame:
             self.superframe.createSuperFrameText(text="WIN%", x=x, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
             
             self.superframe.createSuperFrameText(text="KD", x=x+65, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+
+            self.superframe.createSuperFrameImage(img_key="kd", x=x+65, y=y+32, anc="c")
             
             self.superframe.createSuperFrameText(text="MVP%", x=x+133, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
             
             self.superframe.createSuperFrameText(text="GAMES", x=x+198, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+
+            self.superframe.createSuperFrameImage(img_key="games", x=x+198, y=y+30, anc="c")
             
             # Stat Values
-            set = 56
+            set = 62
             self.superframe.createSuperFrameText(text=hero.Stats.win_pct, x=x, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
             
-            self.superframe.createSuperFrameText(text=str(round(hero.Stats.kd_ratio,2)), x=x+65, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
+            self.superframe.createSuperFrameText(text=str(round(hero.Stats.kd_ratio,2)), x=x+64, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
             
             self.superframe.createSuperFrameText(text=hero.Stats.mvp_pct, x=x+133, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
             
@@ -1923,9 +1614,9 @@ class PlayerFrame:
             # lv5 = 2.5/2
 
             if lv > 55: #200:
-                return True, "gold", 4, hero, "Champion"
+                return True, "gold", 4, hero + "0", "Champion"
             elif lv > 50: #140:
-                return True, "gold", 3, hero, "Champion" 
+                return True, "gold", 3, hero + "0", "Champion" 
             elif lv > 45: #100:    
                 return False, "gold", 3, hero + "_l", "Guardian"
             elif lv > 40: #100:    

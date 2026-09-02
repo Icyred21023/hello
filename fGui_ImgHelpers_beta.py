@@ -46,12 +46,100 @@ class ImageCache:
 
     def __init__(self) -> None:
         self.Cache: dict[str, dict[Hashable, SuperImage]] = {}
+        # PhotoImages belong to one Tcl interpreter. Canvases/Toplevels under
+        # the same Tk() share entries; a different Tk() receives its own copy.
+        self.TkCache: dict[
+            tuple[int, str, Hashable],
+            ImageTk.PhotoImage,
+        ] = {}
 
     @staticmethod
     def normalize_key(img_key: str) -> str:
-        filename = os.path.basename(str(img_key))
-        stem, _extension = os.path.splitext(filename)
+        normalized = os.path.normpath(str(img_key).strip()).replace("\\", "/")
+        stem, _extension = os.path.splitext(normalized)
         return stem.casefold()
+
+    @staticmethod
+    def _interpreter_key(master: Any) -> int:
+        interpreter = getattr(master, "tk", None)
+        if interpreter is None:
+            raise AttributeError(
+                "PhotoImage master must be a Tk widget with a .tk interpreter."
+            )
+        return id(interpreter)
+
+    def get_tk_image(
+        self,
+        img_key: str,
+        variant_key: Hashable,
+        master: Any,
+    ) -> ImageTk.PhotoImage | None:
+        key = (
+            self._interpreter_key(master),
+            self.normalize_key(img_key),
+            variant_key,
+        )
+        return self.TkCache.get(key)
+
+    def get_or_create_tk_image(
+        self,
+        img_key: str,
+        variant_key: Hashable,
+        img_raw: Image.Image,
+        master: Any,
+    ) -> ImageTk.PhotoImage:
+        """Return one shared PhotoImage per asset variant and Tk interpreter."""
+        key = (
+            self._interpreter_key(master),
+            self.normalize_key(img_key),
+            variant_key,
+        )
+
+        cached = self.TkCache.get(key)
+        if cached is not None:
+            return cached
+
+        created = ImageTk.PhotoImage(img_raw, master=master)
+        self.TkCache[key] = created
+        return created
+
+    def clear_tk_images(
+        self,
+        img_key: str | None = None,
+        master: Any | None = None,
+        variant_namespace: str | None = None,
+    ) -> int:
+        """Remove matching PhotoImages and return the number of entries removed."""
+        normalized_key = (
+            None if img_key is None else self.normalize_key(img_key)
+        )
+        interpreter_key = (
+            None if master is None else self._interpreter_key(master)
+        )
+
+        removed = 0
+        for cache_key in tuple(self.TkCache):
+            cached_interpreter, cached_image_key, cached_variant = cache_key
+
+            if (
+                interpreter_key is not None
+                and cached_interpreter != interpreter_key
+            ):
+                continue
+            if normalized_key is not None and cached_image_key != normalized_key:
+                continue
+            if variant_namespace is not None:
+                if not (
+                    isinstance(cached_variant, tuple)
+                    and cached_variant
+                    and cached_variant[0] == variant_namespace
+                ):
+                    continue
+
+            del self.TkCache[cache_key]
+            removed += 1
+
+        return removed
 
     def get(
         self,
@@ -109,10 +197,13 @@ class ImageCache:
         img_key: str,
         idx: str | None = None,
     ) -> tuple[str, str] | None:
-        filename = os.path.basename(str(img_key))
+        filename = os.path.normpath(str(img_key).strip())
 
         if not os.path.splitext(filename)[1]:
             filename = f"{filename}.png"
+
+        if os.path.isabs(filename) and os.path.isfile(filename):
+            return filename, "external"
 
         for category, directory in self.get_search_directories(idx):
             path = os.path.join(directory, filename)
@@ -127,10 +218,13 @@ class ImageCache:
         img_key: str,
     ) -> bool:
         key = self.normalize_key(img_key)
-        return self.Cache.pop(key, None) is not None
+        removed_pil = self.Cache.pop(key, None) is not None
+        removed_tk = self.clear_tk_images(img_key=img_key) > 0
+        return removed_pil or removed_tk
 
     def clear(self) -> None:
         self.Cache.clear()
+        self.TkCache.clear()
 
     def describe(self) -> dict[str, list[Hashable]]:
         return {
@@ -382,14 +476,15 @@ class SuperImage:
         if self.variant_key == "raw":
             self.img_raw = raw_source.img_raw
             self.img_source = raw_source
-
-            if raw_source.img_tk is None:
-                raw_source.img_tk = ImageTk.PhotoImage(
-                    raw_source.img_raw,
-                    master=self.canvas,
-                )
-
-            self.img_tk = raw_source.img_tk
+            self.img_tk = ASSET_CACHE.get_or_create_tk_image(
+                self.img_key,
+                "raw",
+                raw_source.img_raw,
+                self.canvas,
+            )
+            # Retained for compatibility with callers using image_loader(...,
+            # img_type="tk") without supplying a master.
+            raw_source.img_tk = self.img_tk
             self.final_size = raw_source.img_raw.size
 
             canonical = ASSET_CACHE.store(self, "raw")
@@ -516,7 +611,16 @@ class SuperImage:
         self.img_source = cached
 
         self.img_raw = cached.img_raw
-        self.img_tk = cached.img_tk
+
+        if self.img_raw is not None and self.canvas is not None:
+            self.img_tk = ASSET_CACHE.get_or_create_tk_image(
+                self.img_key,
+                self.variant_key,
+                self.img_raw,
+                self.canvas,
+            )
+        else:
+            self.img_tk = cached.img_tk
 
         self.source_path = cached.source_path
         self.category = cached.category
@@ -912,10 +1016,18 @@ class SuperImage:
         if self.img_raw is None:
             return False
 
-        self.img_tk = ImageTk.PhotoImage(
-            self.img_raw,
-            master=self.canvas,
-        )
+        if self.cache_result:
+            self.img_tk = ASSET_CACHE.get_or_create_tk_image(
+                self.img_key,
+                self.variant_key,
+                self.img_raw,
+                self.canvas,
+            )
+        else:
+            self.img_tk = ImageTk.PhotoImage(
+                self.img_raw,
+                master=self.canvas,
+            )
 
         return True
 
@@ -1061,17 +1173,46 @@ class SuperImage:
 # OPTIONAL LEGACY LOADER
 # =============================================================================
 
+def cached_photoimage(
+    img_key: str,
+    variant_key: Hashable,
+    img_raw: Image.Image,
+    master: Any,
+) -> ImageTk.PhotoImage:
+    """Share a PhotoImage for an exact PIL variant within one Tk interpreter."""
+    return ASSET_CACHE.get_or_create_tk_image(
+        img_key,
+        variant_key,
+        img_raw,
+        master,
+    )
+
+
+def clear_cached_photoimages(
+    img_key: str | None = None,
+    master: Any | None = None,
+    variant_namespace: str | None = None,
+) -> int:
+    """Clear matching shared PhotoImages and return how many were removed."""
+    return ASSET_CACHE.clear_tk_images(
+        img_key=img_key,
+        master=master,
+        variant_namespace=variant_namespace,
+    )
+
 def image_loader(
     img_key: str,
     img_type: str | None = None,
     idx: str | None = None,
+    master: Any | None = None,
 ):
     """
     Compatibility helper for older code.
 
     img_type:
         "raw"   -> Pillow image
-        "tk"    -> Tk PhotoImage if already created
+        "tk"    -> Tk PhotoImage. Pass master to create/reuse it safely for
+                   that master's Tcl interpreter.
         "object" -> cached SuperImage
     """
     img_type = "raw" if img_type is None else img_type.casefold()
@@ -1158,6 +1299,13 @@ def image_loader(
         return source.img_raw
 
     if img_type == "tk":
+        if master is not None and source.img_raw is not None:
+            source.img_tk = ASSET_CACHE.get_or_create_tk_image(
+                img_key,
+                "raw",
+                source.img_raw,
+                master,
+            )
         return source.img_tk
 
     if img_type in ("object", "superimage"):
