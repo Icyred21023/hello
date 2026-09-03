@@ -31,6 +31,7 @@ class Overview:
         self.matches_won = 0
         self.win_pct = '0%'
         self.time_played = 0
+        self.bPrivate = False
 
     def addOverviewData(self, overview_data):
         overview_stats = overview_data['stats']

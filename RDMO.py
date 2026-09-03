@@ -601,6 +601,257 @@ class Stats:
 
         return self.avg_match_duration_minutes
         
+class Overview:
+    def __init__(self):
+        
+        
+        self.kills = 0
+        self.assists = 0
+        self.deaths = 0
+        self.kd_ratio = 0
+        self.kda_ratio = 0
+        self.total_damage = 0
+        self.total_healing = 0
+        self.mvps = 0
+        self.mvp_pct = '0%'
+        self.damage_per_minute = 0
+        self.svps = 0
+        self.svp_pct = '0%'
+        self.healing_per_minute = 0
+        self.total_damage_taken = 0
+        self.total_damage_taken_per_minute = 0
+        self.last_kills = 0
+        self.head_kills = 0
+        self.solo_kills = 0
+        self.matches_played = 0
+        self.matches_won = 0
+        self.win_pct = '0%'
+        self.time_played = 0
+        self.bPrivate = False
+
+    def addOverviewData(self, overview_data):
+        overview_stats = overview_data['stats']
+        self.kills += overview_stats['kills']['value']
+        self.assists += overview_stats['assists']['value']
+        self.deaths += overview_stats['deaths']['value']
+        #self.kd_ratio = overview_stats['kdRatio']['value']
+        #self.kda_ratio = overview_stats['kdaRatio']['value']
+        self.total_damage += overview_stats['totalHeroDamage']['value']
+        self.total_healing += overview_stats['totalHeroHeal']['value']
+        self.mvps += overview_stats['totalMvp']['value']
+        #self.mvp_pct = str(int(round(overview_stats['totalMvpPct']['value']))) + '%'
+        #self.damage_per_minute = int(round(overview_stats['totalHeroDamagePerMinute']['value']))
+        self.svps += overview_stats['totalSvp']['value']
+        #self.svp_pct = str(int(round(overview_stats['totalSvpPct']['value']))) + '%'
+        #self.healing_per_minute = int(round(overview_stats['totalHeroHealPerMinute']['value']))
+        self.total_damage_taken += overview_stats['totalDamageTaken']['value']
+        #self.total_damage_taken_per_minute = int(round(overview_stats['totalDamageTakenPerMinute']['value']))
+        self.last_kills += overview_stats['lastKills']['value']
+        self.head_kills += overview_stats['headKills']['value']
+        self.solo_kills += overview_stats['soloKills']['value']
+        self.matches_played += overview_stats['matchesPlayed']['value']
+        self.matches_won += overview_stats['matchesWon']['value']
+        #self.win_pct = str(int(round(overview_stats['matchesWinPct']['value']))) + '%'
+        self.time_played += overview_stats['timePlayed']['value']
+        self.calculateValues()
+
+    def calculateValues(self):
+
+        # KD
+        self.kd_ratio = (
+            round(self.kills / self.deaths, 2)
+            if self.deaths > 0
+            else float(self.kills)
+        )
+
+        # KDA
+        self.kda_ratio = (
+            round((self.kills + self.assists) / self.deaths, 2)
+            if self.deaths > 0
+            else float(self.kills + self.assists)
+        )
+
+        # MVP %
+        self.mvp_pct = (
+            str(int(round((self.mvps / self.matches_played) * 100))) + '%'
+            if self.matches_played > 0
+            else '0%'
+        )
+
+        # SVP %
+        self.svp_pct = (
+            str(int(round((self.svps / self.matches_played) * 100))) + '%'
+            if self.matches_played > 0
+            else '0%'
+        )
+
+        # Win %
+        self.win_pct = (
+            str(int(round((self.matches_won / self.matches_played) * 100))) + '%'
+            if self.matches_played > 0
+            else '0%'
+        )
+
+        # Convert time played from seconds -> minutes
+        minutes_played = self.time_played / 60
+
+        # Damage per minute
+        self.damage_per_minute = (
+            int(round(self.total_damage / minutes_played))
+            if minutes_played > 0
+            else 0
+        )
+
+        # Healing per minute
+        self.healing_per_minute = (
+            int(round(self.total_healing / minutes_played))
+            if minutes_played > 0
+            else 0
+        )
+
+        # Damage taken per minute
+        self.total_damage_taken_per_minute = (
+            int(round(self.total_damage_taken / minutes_played))
+            if minutes_played > 0
+            else 0
+        )
+    def getOverviewMatchesPlayed(self):
+        return self.matches_played
+    def getOverviewMatchesWon(self):
+        return self.matches_won
+    def getOverviewKills(self):
+        return self.kills
+    def getOverviewAssists(self):
+        return self.assists
+    def getOverviewDeaths(self):
+        return self.deaths
+    def getOverviewKDRatio(self):
+        return self.kd_ratio
+    def getOverviewKDARatio(self):
+        return self.kda_ratio
+    def getOverviewTotalDamage(self):
+        return self.total_damage
+    def getOverviewTotalHealing(self):
+        return self.total_healing
+    def getOverviewDamagePerMinute(self):
+        return self.damage_per_minute
+    def getOverviewHealingPerMinute(self):
+        return self.healing_per_minute
+    def getOverviewTotalDamageTaken(self):
+        return self.total_damage_taken
+    def getOverviewTotalDamageTakenPerMinute(self):
+        return self.total_damage_taken_per_minute
+    def getOverviewLastKills(self):
+        return self.last_kills
+    def getOverviewHeadKills(self):
+        return self.head_kills
+    def getOverviewSoloKills(self):
+        return self.solo_kills
+    def getOverviewTotalMVP(self):
+        return self.mvps
+    def getOverviewMvpPct(self):
+        return self.mvp_pct
+    def getOverviewTotalSVP(self):
+        return self.svps
+    def getOverviewSvpPct(self):
+        return self.svp_pct
+    def getOverviewTimePlayed(self):
+        return self.time_played
+    def getOverviewWinPct(self):
+        return self.win_pct
+    def getOverviewStatRate(self, stat_value: int | float = 0, minutes: int = 10):
+        if isinstance(stat_value, (int, float)):
+            time = self.getOverviewTimePlayed()
+            minutes = time / 60
+            ten_minute_segments = minutes / minutes
+            return round(stat_value / ten_minute_segments,1) if ten_minute_segments > 0 else 0
+        return 0
+    
+    def getOverviewAvgLifespan(self, stat_value: int | float = None):
+        if stat_value is None:
+            stat_value = self.deaths
+        if isinstance(stat_value, (int, float)) and stat_value > 0:
+            seconds = self.getOverviewTimePlayed()
+            minutes = seconds / 60
+            lifespan = minutes / stat_value
+            if lifespan < 1:
+                return round(lifespan,2)
+            return round(lifespan,1)
+
+        return 0
+
+
+class Role:
+    def __init__(self, role_data=None, full_ov: Overview = None):
+        try:
+
+            stats = role_data.get('stats', {})
+            meta = role_data.get('metadata', {})
+            self.usage = None
+            self.parent_full_ov = None
+            self.role_name = meta.get("name", "Unknown")
+
+            self.kills = stats.get('kills', {}).get('value', 0)
+            self.assists = stats.get('assists', {}).get('value', 0)
+            self.deaths = stats.get('deaths', {}).get('value', 0)
+            self.kd_ratio = stats.get('kdRatio', {}).get('value', 0)
+            self.kda_ratio = stats.get('kdaRatio', {}).get('value', 0)
+            self.total_damage = stats.get('totalHeroDamage', {}).get('value', 0)
+            self.total_healing = stats.get('totalHeroHeal', {}).get('value', 0)
+
+            self.damage_per_minute = int(round(stats.get('totalHeroDamagePerMinute', {}).get('value', 0)))
+            self.healing_per_minute = int(round(stats.get('totalHeroHealPerMinute', {}).get('value', 0)))
+
+            self.total_damage_taken = stats.get('totalDamageTaken', {}).get('value', 0)
+            self.total_damage_taken_per_minute = int(round(stats.get('totalDamageTakenPerMinute', {}).get('value', 0)))
+
+            self.last_kills = stats.get('lastKills', {}).get('value', 0)
+            self.head_kills = stats.get('headKills', {}).get('value', 0)
+
+            self.total_mvp = stats.get('totalMvp', {}).get('value', 0)
+            self.total_svp = stats.get('totalSvp', {}).get('value', 0)
+
+            self.matches_played = stats.get('matchesPlayed', {}).get('value', 0)
+            self.matches_won = stats.get('matchesWon', {}).get('value', 0)
+
+            self.time_played = stats.get('timePlayed', {}).get('value', 0)
+            self.time_played_won = stats.get('timePlayedWon', {}).get('value', 0)
+
+            self.time_played_hours = self.convertSecondstoHours(self.time_played)
+            self.time_played_won_hours = self.convertSecondstoHours(self.time_played_won)
+            if full_ov:
+                self.parent_full_ov = full_ov
+                self.calculateUsage(role_time=self.time_played, total_time=full_ov.time_played)
+                
+
+
+
+            self.win_pct = str(int(round(stats.get('matchesWinPct', {}).get('value', 0)))) + '%'
+            self.mvp_pct =self.calculatePct(self.total_mvp, self.matches_won)
+            self.svp_pct = self.calculatePct(self.total_svp, self.matches_played - self.matches_won)
+            self.ace_pct = self.calculatePct(self.total_mvp + self.total_svp, self.matches_played)
+            #self.matches_played = stats.get('matchesPlayed', {}).get('value', 0)
+        except Exception as e:
+            print(f"Error initializing Role: {e}")
+    def calculateUsage(self, role_time, total_time):
+        if total_time > 0:
+            self.usage = str(int(round((role_time / total_time) * 100))) + '%'
+        else:
+            self.usage = '0%'
+        print(f"{self.parent_full_ov.player.name}: {self.role_name} usage: {self.usage}")
+    def calculatePct(self, value, total):
+        if total > 0:
+            return str(int(round((value / total) * 100))) + '%'
+        return '0%'
+
+    def convertSecondstoHours(self, seconds):
+        if not seconds:
+            return 0
+        if seconds <= 30:
+            return 0
+        if isinstance(seconds, (int, float)):
+            hours = seconds / 3600
+            return round(hours, 1)
         
 class MatchHistory:
     def __init__(self, match_data):
@@ -628,7 +879,7 @@ class MatchHistory:
         self.total_damage_taken_per_minute = int(round(match_stats['totalDamageTakenPerMinute']['value']))
         self.last_kills = match_stats['lastKills']['value']
         self.rank, self.rank_tier = strip_rank_tier2(match_stats['ranked']['metadata']['tierName'])
-        self.rank_delta = match_stats['rankedDelta']['displayValue']
+        self.rank_delta = match_stats.get('rankedDelta', {}).get('displayValue', "??")
     def getSegmentFromType(self, data, seg_type):
         segments = data["data"]["segments"]
         hero_segment = next((segment for segment in segments if segment.get("type") == seg_type),
@@ -671,7 +922,7 @@ class Player:
         self.bPrivate = True if "***" in self.Name else False
         self.seasonal_overview = None
         self.full_overview = None
-
+        self.matches: List[MatchHistory] = []
 
         
         for hero_data in data.get("proficiency") or []:
@@ -709,7 +960,7 @@ class Player:
             self.matches: List[MatchHistory] = [MatchHistory(match) for match in matchhistory]
 
     def add_profile(self, profile_data):
-        from playerNEW import Overview,FullOverview, Role
+        
         if profile_data:
             overview_data = getSegmentFromType(profile_data, "overview")
             rank_data = getSegmentFromType(profile_data, "ranked-peaks")

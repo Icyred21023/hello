@@ -20,6 +20,9 @@ if not config.mobile_mode:
 #import numpy as np
 import config
 bLiveDebug = False
+bLiveDebug = False
+bTrackerDebug = True
+bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
 #if bUseRivalsDataNames:
 #    import curlRivals
@@ -1359,6 +1362,7 @@ class PlayerFrame:
         self._build_name_bar()
         self._build_overview_new()
         self._build_heroes_new()
+        self._build_match_history()
         #self._build_history()
         #self._finishing_touches()
         return self.outer
@@ -1576,12 +1580,15 @@ class PlayerFrame:
             y = stats_y + self.y
             
             self.superframe.createSuperFrameText(text="WIN%", x=x, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameImage(img_key="winrate", x=x, y=y+30, anc="c")
             
             self.superframe.createSuperFrameText(text="KD", x=x+65, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
             self.superframe.createSuperFrameImage(img_key="kd", x=x+65, y=y+32, anc="c")
             
             self.superframe.createSuperFrameText(text="MVP%", x=x+133, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+
+            self.superframe.createSuperFrameImage(img_key="mvp", x=x+131, y=y+30, anc="c")
             
             self.superframe.createSuperFrameText(text="GAMES", x=x+198, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
@@ -1597,7 +1604,22 @@ class PlayerFrame:
             
             self.superframe.createSuperFrameText(text=str(round(hero.Stats.matches_played,1)), x=x+198, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
             
-            
+    def _build_match_history(self):
+        offx = 8
+        offy = 1026
+        x = self.x + offx
+        y = self.y + offy
+        complete = 0
+        
+        for match in self.player.matches:
+            row_img = "match_winF" if match.result == "win" else "match_lossF"
+    
+            self.superframe.createSuperFrameImage(img_key=row_img, x=x, y=y , anc="nw")
+
+            y += 66
+            complete += 1
+            if complete >= 5:
+                break      
             
     def proficiency_handler(self,hero, lv):
             # lv60 = 195/2 #AnimatedLord, Badge4, Gold
@@ -2954,7 +2976,22 @@ class App:
                 #open_multiple_tracker_profiles(MatchObject)
                 
             
+            elif bTrackerDebug:
+                import tracker_trim
+                from tracker_trim_debug_helper import make_debug_live_match
+                live_match_data = make_debug_live_match(bTrackerNames)
+                from RDMO import Match
+                matches = Match(live_match_data)
+                tracker_trim.getTrackerGG(matches)
+                MATCH_PLAYERS = []
+                names = None
+                for p in matches.players:
+                    if "*" in p.Name:
+                        #print(f"Skipping {p.Name}: Private Account")
+                        continue
+                    MATCH_PLAYERS.append(p)
                 
+
             else:
                 from RDMO import Match
                 import tracker_trim

@@ -452,7 +452,9 @@ def build_tracker_url(ign=None, kind="matches",season = config.season):
     elif "profile" in kind.lower():
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{ign}/segments/career?mode=competitive&season={season}"
         
-    elif "bangcock" in kind.lower():
+    elif "summary" in kind.lower():
+        return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{ign}/summary"
+    else:
         return None
         
         
@@ -540,7 +542,128 @@ def getLive():
         print(e)
     
     return data
-    
+
+def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int | None = None):
+    """Fetch Tracker.gg data and always return: (data, status, message).
+
+    status is one of: "Success", "Private", "Error".
+    """
+    if browser is None:
+        return None, "Error", "Browser is not initialized"
+
+    season = config.season if season is None else season
+    url = build_tracker_url(ign=ign, kind=kind, season=season)
+
+    if not url:
+        return None, "Error", f"Could not build Tracker.gg URL for kind '{kind}'"
+
+    try:
+        data = browser.fetch_get(url)
+    except Exception as e:
+        return None, "Error", f"{type(e).__name__}: {e}"
+
+    status, message = check_gg_response(data=data, kind=kind)
+
+    if status == "Success":
+        return data, status, message
+
+    return None, status, message
+
+
+def fetch_and_add_tracker(player: Player, browser: Browser, ign: str, kind: str,
+                          season: int | None = None, label: str | None = None):
+    """Fetch one Tracker.gg endpoint and add it to player only on success."""
+    data, status, message = fetch_tracker_api(
+        browser=browser,
+        ign=ign,
+        kind=kind,
+        season=season,
+    )
+
+    label = label or kind.replace("_", " ").title()
+
+    if status == "Success":
+        add_method = getattr(player, f"add_{kind}", None)
+        if not callable(add_method):
+            print(f"\t❌ \033[1m{label}\033[0m has no player.add_{kind}() method.")
+            return "Error"
+
+        add_method(data)
+        print(f"\t✅ \033[1m{label}\033[0m fetched successfully.")
+        return "Success"
+
+    if status == "Private":
+        print(f"\t❌ \033[1m{label}\033[0m is private or not available.")
+        return "Private"
+
+    print(f"\t❌ \033[1m{label}\033[0m fetch error: {message}")
+    return "Error"
+
+
+def check_gg_response(data: dict | None, kind: str):
+    """Validate Tracker.gg response and return (status, message)."""
+    if not isinstance(data, dict):
+        return "Error", f"Response is not a dict for kind '{kind}'"
+
+    errors = data.get("errors")
+    if errors:
+        error = errors[0] if isinstance(errors, list) and errors else errors
+
+        if isinstance(error, dict):
+            code = str(error.get("code", "Error"))
+            message = str(error.get("message", "Unknown API error"))
+        else:
+            code = "Error"
+            message = str(error)
+
+        if "private" in code.lower() or "private" in message.lower():
+            return "Private", f"{code}: {message}"
+
+        return "Error", f"{code}: {message}"
+
+    payload = data.get("data")
+    if payload is None:
+        return "Error", f"Response has no 'data' for kind '{kind}'"
+
+    if kind == "matches":
+        if not isinstance(payload, dict):
+            return "Error", "Matches response 'data' is not a dict"
+
+        matches = payload.get("matches")
+        if not isinstance(matches, list):
+            return "Error", "Matches response has no valid 'matches' list"
+        if not matches:
+            return "Error", "Matches list is empty"
+
+        return "Success", f"{len(matches)} matches"
+
+    if kind == "summary":
+        if not isinstance(payload, dict):
+            return "Error", "Summary response 'data' is not a dict"
+
+        current_season = (payload.get("metadata") or {}).get("currentSeason")
+        if current_season is None:
+            return "Error", "Summary response has no currentSeason"
+
+        return "Success", f"Current season = {current_season}"
+
+    if kind in ("profile", "overview"):
+        if isinstance(payload, dict):
+            segments = payload.get("segments")
+            if not isinstance(segments, list):
+                return "Error", f"{kind.title()} response has no valid 'segments' list"
+        elif isinstance(payload, list):
+            segments = payload
+        else:
+            return "Error", f"Unexpected {kind} data type: {type(payload).__name__}"
+
+        if not segments:
+            return "Error", f"{kind.title()} segments list is empty"
+
+        return "Success", f"{len(segments)} segments"
+
+    return "Success", "Valid response"
+
 def check_isPrivate(d):
     e = d.get("errors", None)
     if e:
@@ -577,7 +700,7 @@ def doDebug(player: Player, ign: str):
             player.add_matches(data)
 
         
-def getTrackerGG(match: Match, bDebug: bool = False):
+def getTrackerGG(match: Match | list, bDebug: bool = False):
     # ----------------------------
     # Browser setup
     # ----------------------------
@@ -603,7 +726,7 @@ def getTrackerGG(match: Match, bDebug: bool = False):
     # Added only because the requested source excerpt ends here.
 
     global BROWSER
-    players = match.players
+    
     if not bDebug:
         if BROWSER is None:
             BROWSER = Browser()
@@ -641,44 +764,97 @@ def getTrackerGG(match: Match, bDebug: bool = False):
         if bDebug:
             doDebug(player, ign)
             continue
-        url = build_tracker_url(ign=ign, kind="matches")
-        try:
-            data = b.fetch_get(url)
-            bSuccess = check_isPrivate(data)
-            print(f"\t✅ \033[1m Match History\033[0m fetched successfully.") if bSuccess else print(f"\t❌ \033[1m Match History\033[0m is private or not available.")
-            if bSuccess:
-                if bDebug:
-                    helpers.save_json(path=os.path.join(config.script_dir, "debug", "_LiveDebug", f"{ign}_matches.json"), data=data)
-                player.add_matches(data)
-        
-            url = build_tracker_url(ign=ign, kind="profile")
-        
-            data = b.fetch_get(url)
-            bSuccess = check_isPrivate(data)
-            print(f"\t✅ \033[1m Profile\033[0m fetched successfully.\n") if bSuccess else print(f"\t❌ \033[1m Profile\033[0m is private or not available.\n")
-            player.bPrivate = not bSuccess
-            if bSuccess:
-                if bDebug:
-                    helpers.save_json(path=os.path.join(config.script_dir, "debug", "_LiveDebug", f"{ign}_profile.json"), data=data)
-                player.add_profile(data)
 
-            if player.seasonal_overview.matches_played and player.seasonal_overview.matches_played < 40:
-                url = build_tracker_url(ign=ign, kind="profile", season=config.season-1)
-                data = b.fetch_get(url)
-                bSuccess = check_isPrivate(data)
-            
-                if bSuccess:
-                    player.add_profile(data)
-                    print(f"\t✅ \033[1m Previous Season Profile\033[0m fetched successfully.\n")
-            player.Heroes = dict(
-                sorted(
-                    player.Heroes.items(),
-                    key=lambda item: item[1].Stats.matches_played,
-                    reverse=True
+        fetch_and_add_tracker(player, b, ign, "summary")
+
+        profile_status = fetch_and_add_tracker(player, b, ign, "profile")
+
+        if profile_status == "Success":
+            matches_played = player.seasonal_overview.matches_played
+            if matches_played and matches_played < 50:
+                fetch_and_add_tracker(
+                    player,
+                    b,
+                    ign,
+                    "profile",
+                    season=config.season - 1,
+                    label="Previous Season Profile",
                 )
+        elif profile_status == "Error":
+            # If the current-season profile fails, try the previous season once.
+            fetch_and_add_tracker(
+                player,
+                b,
+                ign,
+                "profile",
+                season=config.season - 1,
+                label="Previous Season Profile",
             )
-        except Exception as e:
-            print(e)
+
+        fetch_and_add_tracker(
+            player,
+            b,
+            ign,
+            "matches",
+            label="Match History",
+        )
+
+        if (
+                isinstance(player.Heroes, dict)
+                and all(
+                    hasattr(hero, "Stats")
+                    and hasattr(hero.Stats, "matches_played")
+                    and hero.Stats.matches_played is not None
+                    for hero in player.Heroes.values()
+                )
+            ):
+                player.Heroes = dict(
+                    sorted(
+                        player.Heroes.items(),
+                        key=lambda item: item[1].Stats.matches_played,
+                        reverse=True
+                    )
+                )
+
+
+        # url = build_tracker_url(ign=ign, kind="matches")
+        # try:
+        #     data = b.fetch_get(url)
+        #     bSuccess = check_isPrivate(data)
+        #     print(f"\t✅ \033[1m Match History\033[0m fetched successfully.") if bSuccess else print(f"\t❌ \033[1m Match History\033[0m is private or not available.")
+        #     if bSuccess:
+        #         if bDebug:
+        #             helpers.save_json(path=os.path.join(config.script_dir, "debug", "_LiveDebug", f"{ign}_matches.json"), data=data)
+        #         player.add_matches(data)
+        
+        #     url = build_tracker_url(ign=ign, kind="profile")
+        
+        #     data = b.fetch_get(url)
+        #     bSuccess = check_isPrivate(data)
+        #     print(f"\t✅ \033[1m Profile\033[0m fetched successfully.\n") if bSuccess else print(f"\t❌ \033[1m Profile\033[0m is private or not available.\n")
+        #     player.bPrivate = not bSuccess
+        #     if bSuccess:
+        #         if bDebug:
+        #             helpers.save_json(path=os.path.join(config.script_dir, "debug", "_LiveDebug", f"{ign}_profile.json"), data=data)
+        #         player.add_profile(data)
+
+        #     if player.seasonal_overview.matches_played and player.seasonal_overview.matches_played < 40:
+        #         url = build_tracker_url(ign=ign, kind="profile", season=config.season-1)
+        #         data = b.fetch_get(url)
+        #         bSuccess = check_isPrivate(data)
+            
+        #         if bSuccess:
+        #             player.add_profile(data)
+        #             print(f"\t✅ \033[1m Previous Season Profile\033[0m fetched successfully.\n")
+        #     player.Heroes = dict(
+        #         sorted(
+        #             player.Heroes.items(),
+        #             key=lambda item: item[1].Stats.matches_played,
+        #             reverse=True
+        #         )
+        #     )
+        # except Exception as e:
+        #     print(e)
     if not bDebug:
         b.kill_all()
 def main():
