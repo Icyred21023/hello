@@ -21,7 +21,7 @@ if not config.mobile_mode:
 import config
 bLiveDebug = False
 bLiveDebug = False
-bTrackerDebug = True
+bTrackerDebug = False
 bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
 #if bUseRivalsDataNames:
