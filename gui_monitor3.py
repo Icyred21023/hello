@@ -20,7 +20,7 @@ if not config.mobile_mode:
 #import numpy as np
 import config
 bLiveDebug = False
-bLiveDebug = True
+bLiveDebug = False
 bTrackerDebug = False
 bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
