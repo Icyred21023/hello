@@ -20,8 +20,8 @@ if not config.mobile_mode:
 #import numpy as np
 import config
 bLiveDebug = False
-bLiveDebug = False
-bTrackerDebug = True
+bLiveDebug = True
+bTrackerDebug = False
 bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
 #if bUseRivalsDataNames:
@@ -511,7 +511,7 @@ def load_font(family_name, font_file_name):
     return f"@{font_path}"
     #font_families.add(family_name)
 
-fonts_list = ["Rajdhani.ttf", "Rajdhani Medium.ttf", 'Rajdhani SemiBold.ttf',"Rajdhani Bold.ttf",
+fonts_list = ["apotek-comp-bold.ttf","apotek-bold.ttf","Rajdhani.ttf", "Rajdhani Medium.ttf", 'Rajdhani SemiBold.ttf',"Rajdhani Bold.ttf",
               "Saira Semi Condensed Medium.ttf",
               'SairaCondensed-Medium.ttf','SairaCondensed-Bold.ttf','SairaCondensed-Regular.ttf','SairaCondensed-SemiBold.ttf','SairaCondensed-Thin.ttf','SairaCondensed-ExtraBold.ttf',
               "Saira Thin Medium.ttf",'SairaExtraCondensed-Medium.ttf','SairaExtraCondensed-Bold.ttf','SairaExtraCondensed-Regular.ttf','SairaExtraCondensed-SemiBold.ttf','SairaExtraCondensed-Thin.ttf',
@@ -1530,6 +1530,9 @@ class PlayerFrame:
             self.superframe.createSuperFrameImage(img_key=rank, x=self.x + 312, y=self.y + 13, anc="nw")
 
     def _build_heroes_new(self):
+
+        prestige = (-29,167)
+
         print()
         hli = list(self.player.Heroes.values())
 
@@ -1541,6 +1544,24 @@ class PlayerFrame:
         badge_offset = (27, 155)
         stats_xy = [(184, 540), (184, 695), (184, 850)]
         idx = 0
+        offset = 3
+
+        prestige_name = hero1.Name + "_p" if hero1 else "Unknown_p"
+        ft = "Apotek Comp Bold"
+        ft0 = "Refrigerator Deluxe"
+        ft = "Refrigerator Deluxe ExtraBold"
+        name1 = hero1.Name.split(" ")[0] if len(hero1.Name.split(" ")) > 0 else ""
+        name2 = hero1.Name.split(" ")[1] if len(hero1.Name.split(" ")) > 1 else ""
+
+        self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset, y=self.y + 275, anc="c",size=(18,18))
+        self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset, y=self.y + 277, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
+        
+        self.superframe.createSuperFrameText(text=name1.upper(), x=self.x + 12+offset, y=self.y + 293+2, anchor="w", font=fonttk(ft, 19, "bold", italic=True), fill="#C1C6E2")
+        self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset, y=self.y + 316+2, anchor="w", font=fonttk(ft, 19, "bold", italic=True), fill="#C1C6E2")
+        self.superframe.createSuperFrameImage(img_key=prestige_name, x=self.x + prestige[0], y=self.y + prestige[1], anc="nw")
+        
+        
+
         for hero in heroes:
             icon_x, icon_y = icon_position[idx]
             stats_x, stats_y = stats_xy[idx]
@@ -1613,9 +1634,19 @@ class PlayerFrame:
         
         for match in self.player.matches:
             row_img = "match_winF" if match.result == "win" else "match_lossF"
-    
+            fg = "#d66e86" if match.result == "loss" else "#8ceca4"
+            
             self.superframe.createSuperFrameImage(img_key=row_img, x=x, y=y , anc="nw")
 
+            stats1 = (168,1050)
+            stats2 = (206,1050)
+            stats3 = (244,1050)
+            self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
+            self.superframe.createSuperFrameText(text=match.kills, x=x+160, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#9991ca")
+            self.superframe.createSuperFrameText(text=match.deaths, x=x+206, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+            self.superframe.createSuperFrameText(text=match.assists, x=x+252, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+
+            print(f"{match.kills}/{match.deaths}/{match.assists}")
             y += 66
             complete += 1
             if complete >= 5:

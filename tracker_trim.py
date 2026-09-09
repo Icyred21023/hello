@@ -751,7 +751,9 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
         if season_api > config.season:
             print(f"Tracker.gg has a newer season ({season_api}) than the configured season ({config.season}). Updating config.season to {season_api}.")
             config.save_season(season_api)
-
+    else:
+        b = None
+        players = match.players
 
     for player in players:
         if "*" in player.Name:

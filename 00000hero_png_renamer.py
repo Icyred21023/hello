@@ -5,7 +5,9 @@ from PIL import Image, ImageTk
 import config
 
 
-PNG_DIR = r"C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Heroes\Photoshopped"
+PNG_DIR = r"C:\Users\Chloroform\Documents\_fGuiDesign\Cropped Prestige 3"
+CACHE_FILE = os.path.join(config.script_dir,"debug", "hero_png_renamer_cache.json") 
+
 
 PREVIEW_MAX_W = 650
 PREVIEW_MAX_H = 650
@@ -57,6 +59,8 @@ def build_hero_name_list():
 
 class HeroPngRenamer:
     def __init__(self, root):
+        self.idx = 0
+        self.cache_names = {}
         self.root = root
         self.root.title("Hero PNG Renamer")
         self.root.configure(bg="#202020")
@@ -341,6 +345,8 @@ class HeroPngRenamer:
         path = self.current_path()
 
         if path is None:
+            from helpers import save_json
+            save_json(CACHE_FILE, self.cache_names)
             self.show_finished("All PNGs have been processed.")
             return
 
@@ -392,7 +398,7 @@ class HeroPngRenamer:
 
     def rename_current(self):
         old_path = self.current_path()
-
+        
         if old_path is None:
             return
 
@@ -429,7 +435,7 @@ class HeroPngRenamer:
 
         # Lord checkbox intentionally persists between PNGs.
         if self.lord_var.get():
-            new_base += "_l"
+            new_base += "_p"
 
         new_filename = new_base + ".png"
 
@@ -441,6 +447,7 @@ class HeroPngRenamer:
 
         if os.path.normcase(old_path) == os.path.normcase(new_path):
             print(f"[UNCHANGED] {old_path}")
+            
             self.advance()
             return
 
@@ -463,6 +470,10 @@ class HeroPngRenamer:
                 old_path,
                 new_path
             )
+
+            old_file_name  = os.path.basename(old_path)
+            self.cache_names[self.index] = (new_filename, old_file_name)
+            #self.idx += 1
 
         except Exception as e:
             messagebox.showerror(
@@ -491,6 +502,7 @@ class HeroPngRenamer:
         print(
             f"[SKIP] {path}"
         )
+       # self.idx += 1
 
         self.advance()
 
