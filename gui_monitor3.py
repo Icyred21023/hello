@@ -1645,7 +1645,7 @@ class PlayerFrame:
     def _build_match_history(self):
         offx = 8
         offy = 1026
-        statsx = 15
+        statsx = 45
         x = self.x + offx
         y = self.y + offy
         complete = 0
@@ -1659,18 +1659,35 @@ class PlayerFrame:
             stats1 = (168,1050)
             stats2 = (206,1050)
             stats3 = (244,1050)
+            rank=(376,32)
+            mvp=(94,30)
             try:
                 h = match.heroes_used[0]
             except IndexError:
                 h = "Unknown"
-            
-            
+            rank_str = None
+            mvp_str = None
+            try:
+                rank_str = str(match.rank) + "_M"
+                self.superframe.createSuperFrameImage(img_key=rank_str, x=x+rank[0], y=y+rank[1] , anc="c")
+            except AttributeError:
+                rank_str = None
+            try:
+                mvp_str = "mvp_M" if match.isMvp else None
+                if mvp_str is None:
+                    mvp_str = "svp_M" if match.isSvp else None
+                if mvp_str is not None:
+                    self.superframe.createSuperFrameImage(img_key=mvp_str, x=x+mvp[0], y=y+mvp[1] , anc="c")
+            except AttributeError:
+                rank_str = None
                 
-            self.superframe.createSuperFrameImage(img_key=h, x=x+68, y=y-2 , anc="nw",size=(51,61))
+            self.superframe.createSuperFrameImage(img_key=h, x=x+136, y=y-3 , anc="nw",size=(51,61))
             self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32 if match.result != "win" else x+30, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
             self.superframe.createSuperFrameText(text=match.kills, x=x+160+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#9991ca")
             self.superframe.createSuperFrameText(text=match.deaths, x=x+206+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
             self.superframe.createSuperFrameText(text=match.assists, x=x+252+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+
+            
 
             #print(f"{match.kills}/{match.deaths}/{match.assists}")
             y += 67
