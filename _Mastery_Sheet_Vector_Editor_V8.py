@@ -1430,6 +1430,9 @@ def main() -> None:
     global_sheet_idx = 0
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
+        print(folder_name)
+        if folder_name != "1067":
+            continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "
             f"-> {hero_name} ({len(png_paths)} PNGs)"

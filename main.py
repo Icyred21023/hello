@@ -59,8 +59,6 @@ if config.auto_update == 69:
 
 updater.check_for_update(config.auto_update)
 
-import tkinter as tk
-
     
 def create_desktop_launcher():
     try:

@@ -761,12 +761,12 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
             continue
 
         
-        print(f"🔍 \033[1m - {player.Name}\033[0m")
+        
         ign = safe_ign(player.Name)
         if bDebug:
             doDebug(player, ign)
             continue
-
+        print(f"🔍 \033[1m - {player.Name}\033[0m")
         fetch_and_add_tracker(player, b, ign, "summary")
 
         profile_status = fetch_and_add_tracker(player, b, ign, "profile")

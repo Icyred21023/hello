@@ -359,3 +359,6 @@ MATCHUP = "type_matchupNEWDPS.json"
 
 p = os.path.join(script_dir, "debug","LiveDebug.json")
 livedebug= helpers.load_json(path=p)
+
+print(f"Default Username Info: {USER_NAME} - {isinstance(USER_NAME, str)}")
+print(f"Default UserID Info: {USER_UID} - {isinstance(USER_UID, int)}")

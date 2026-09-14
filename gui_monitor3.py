@@ -3,10 +3,10 @@
 import tkinter as tk
 import config
 import tkinter.font as tkFont
-from PIL import ImageTk, Image, ImageGrab,  ImageDraw, ImageChops,ImageOps
+from PIL import Image, ImageGrab,  ImageDraw, ImageChops
 import os
 import random
-from typing import Any, Literal
+
 import sys
 from fGui_Ui import SuperFrame, HeroImager
 USED_HERO_BGS = []
@@ -20,7 +20,8 @@ if not config.mobile_mode:
 #import numpy as np
 import config
 bLiveDebug = False
-bLiveDebug = True
+bLiveDebug = config.debug_mode
+print(f"⚠️ Debug Mode Enabled") if bLiveDebug else print("🛜 Live Lookup Mode")
 bTrackerDebug = False
 bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
@@ -412,15 +413,15 @@ if config.mobile_mode:
     if w2 < h2:
         screen_w = h2
         screen_h = w2
-print(f'screen w: {screen_w}')
-print(f'screen h: {screen_h}')
+#print(f'screen w: {screen_w}')
+#print(f'screen h: {screen_h}')
 BASE_W, BASE_H = 2440, 1440  # whatever resolution you originally designed for
 scale_x = screen_w / BASE_W
 scale_y = screen_h / BASE_H
 SCALE = min(scale_x, scale_y)  # preserve aspect ratio
 root.destroy()
 TARGET_DPI_SCALE = (SCALE * 96) / 72 
-print(SCALE)
+#print(SCALE)
 if config.mobile_mode:
    
     SCALE =TARGET_DPI_SCALE
@@ -1378,9 +1379,9 @@ class PlayerFrame:
     # Color rules (same logic)
     # ---------------------------
     
-    def _get_foreground_color(self, label, value, flag=None):
+    def _get_foreground_color(self, label: str, value: str | int | float, flag=None):
         variable_colors_background = {
-            "Matches": {"9999": "#2B2B2B"},
+            "Matches": {"9999": "#1F1F1F"},
             "Win %": {"30": "#b34454", "45": "#cf9f00", "60": "#23ad58", "200": "#10b0eb"},
             "Kda": {"1": "#b34454", "3": "#cf9f00", "5": "#23ad58", "2222": "#10b0eb"},
             "Kd": {"1": "#b34454", "2": "#cf9f00", "4": "#23ad58", "200": "#10b0eb"},
@@ -1400,7 +1401,7 @@ class PlayerFrame:
             "LastKill": {"3": "#b34454", "6": "#cf9f00", "12": "#23ad58", "9899": "#10b0eb"},
             "Blocked": {"100": "#b34454", "900": "#cf9f00", "1800": "#23ad58", "99899": "#10b0eb"},
             "db": {"30": "#b34454", "60": "#cf9f00", "85": "#23ad58", "9899": "#10b0eb"},
-            "Time": {"9999": "#2B2B2B"},
+            "Time": {"9999": "#1F1F1F"},
             "db_img": {"25": "db_red", "40": "db_yellow", "60": "db_neutral", "85": "db_green", "9899": "db_blue"},
 
         }
@@ -1420,10 +1421,10 @@ class PlayerFrame:
                     if value_num <= float(k):
                         return thr[k] if not flag else thr[k]
 
-            return "#D5D9E4" if not flag else "#292929"
+            return "#1F1F1F" if not flag else "#292929"
         except Exception as e:
             print("getForegroundColor error:", e, "label:", repr(label), "value:", repr(value))
-            return "#D5D9E4" if not flag else "#171B20"
+            return "#1F1F1F" if not flag else "#171B20"
 
     # ---------------------------
     # Pull data once (same intent)
@@ -1497,14 +1498,14 @@ class PlayerFrame:
         # OV Stat Values
         
         
-        
-        self.superframe.createSuperFrameText(text=p.win_pct, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe", 20, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text=str(round(p.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe", 20, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text=p.mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe", 20, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text=str(round(p.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe", 20, "bold", italic=False), fill="#121225")
+        fg = self._get_foreground_color(label = "Win %", value=p.win_pct)
+        self.superframe.createSuperFrameText(text=p.win_pct, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+        fg = self._get_foreground_color(label = "Kd", value=p.kd_ratio)
+        self.superframe.createSuperFrameText(text=str(round(p.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+        fg = self._get_foreground_color(label = "Mvp %", value=p.mvp_pct)
+        self.superframe.createSuperFrameText(text=p.mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+        fg = self._get_foreground_color(label = "Kda", value=p.kda_ratio)
+        self.superframe.createSuperFrameText(text=str(round(p.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
         
         # Ov Stat Labels
         
@@ -1540,7 +1541,7 @@ class PlayerFrame:
         hero2: Hero | None = hli[1] if len(hli) > 1 else None
         hero3: Hero | None = hli[2] if len(hli) > 2 else None
         heroes = [hero1, hero2, hero3]
-        icon_position = [(5,456), (5, 610), (5, 766)]
+        icon_position = [(5,456), (4, 611), (4, 766)]
         badge_offset = (27, 155)
         stats_xy = [(184, 540), (184, 695), (184, 850)]
         idx = 0
@@ -1572,6 +1573,8 @@ class PlayerFrame:
                 continue
             proficiency = hero.ProficiencyLevel if hero else 0
             bAnimated, frame, badge, heroname, rank = self.proficiency_handler(hero.Name, int(proficiency))
+            heroname = "Gorr The God Butcher0" if idx == 1 else heroname
+            bAnimated = True if idx == 1 else bAnimated
             self.hero_animation = HeroImager(
                                         self.superframe,
                                         image_key=heroname,  # Passed directly to image_loader()
@@ -1600,40 +1603,44 @@ class PlayerFrame:
             x = stats_x + self.x
             y = stats_y + self.y
             
-            self.superframe.createSuperFrameText(text="WIN%", x=x, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
-            self.superframe.createSuperFrameImage(img_key="winrate", x=x, y=y+30, anc="c")
+            self.superframe.createSuperFrameText(text="WIN%", x=x, y=y-3, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameImage(img_key="winrate2", x=x, y=y+23, anc="c")
             
-            self.superframe.createSuperFrameText(text="KD", x=x+65, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="KD", x=x+65, y=y-3, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
-            self.superframe.createSuperFrameImage(img_key="kd", x=x+65, y=y+32, anc="c")
+            self.superframe.createSuperFrameImage(img_key="kd2", x=x+65, y=y+25, anc="c")
             
-            self.superframe.createSuperFrameText(text="MVP%", x=x+133, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="MVP%", x=x+133, y=y-3, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
-            self.superframe.createSuperFrameImage(img_key="mvp", x=x+131, y=y+30, anc="c")
+            self.superframe.createSuperFrameImage(img_key="mvp2", x=x+131, y=y+23, anc="c")
             
-            self.superframe.createSuperFrameText(text="GAMES", x=x+198, y=y+4, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="MATCHES", x=x+198, y=y-3, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
-            self.superframe.createSuperFrameImage(img_key="games", x=x+198, y=y+30, anc="c")
+            self.superframe.createSuperFrameImage(img_key="matches", x=x+198, y=y+23, anc="c")
             
             # Stat Values
-            set = 62
-            self.superframe.createSuperFrameText(text=hero.Stats.win_pct, x=x, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
+            set = 60
+            fg = self._get_foreground_color(label = "Win %", value=hero.Stats.win_pct)
+            self.superframe.createSuperFrameText(text=hero.Stats.win_pct, x=x, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kd", value=hero.Stats.kd_ratio)
+            self.superframe.createSuperFrameText(text=str(round(hero.Stats.kd_ratio,2)), x=x+64, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
             
-            self.superframe.createSuperFrameText(text=str(round(hero.Stats.kd_ratio,2)), x=x+64, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
+            fg = self._get_foreground_color(label = "Mvp %", value=hero.Stats.mvp_pct)
+            self.superframe.createSuperFrameText(text=hero.Stats.mvp_pct, x=x+133, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
             
-            self.superframe.createSuperFrameText(text=hero.Stats.mvp_pct, x=x+133, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
-            
-            self.superframe.createSuperFrameText(text=str(round(hero.Stats.matches_played,1)), x=x+198, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 18, "bold", italic=False), fill="#5B5D6E")
+            fg = self._get_foreground_color(label = "Matches", value=hero.Stats.matches_played)
+            self.superframe.createSuperFrameText(text=str(round(hero.Stats.matches_played,1)), x=x+198, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
             
     def _build_match_history(self):
         offx = 8
         offy = 1026
+        statsx = 15
         x = self.x + offx
         y = self.y + offy
         complete = 0
         
         for match in self.player.matches:
-            row_img = "match_winF" if match.result == "win" else "match_lossF"
+            row_img = "match_winFs" if match.result == "win" else "match_lossFs"
             fg = "#d66e86" if match.result == "loss" else "#8ceca4"
             
             self.superframe.createSuperFrameImage(img_key=row_img, x=x, y=y , anc="nw")
@@ -1641,13 +1648,21 @@ class PlayerFrame:
             stats1 = (168,1050)
             stats2 = (206,1050)
             stats3 = (244,1050)
-            self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
-            self.superframe.createSuperFrameText(text=match.kills, x=x+160, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#9991ca")
-            self.superframe.createSuperFrameText(text=match.deaths, x=x+206, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
-            self.superframe.createSuperFrameText(text=match.assists, x=x+252, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+            try:
+                h = match.heroes_used[0]
+            except IndexError:
+                h = "Unknown"
+            
+            
+                
+            self.superframe.createSuperFrameImage(img_key=h, x=x+68, y=y-2 , anc="nw",size=(51,61))
+            self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32 if match.result != "win" else x+30, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
+            self.superframe.createSuperFrameText(text=match.kills, x=x+160+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#9991ca")
+            self.superframe.createSuperFrameText(text=match.deaths, x=x+206+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+            self.superframe.createSuperFrameText(text=match.assists, x=x+252+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
 
-            print(f"{match.kills}/{match.deaths}/{match.assists}")
-            y += 66
+            #print(f"{match.kills}/{match.deaths}/{match.assists}")
+            y += 67
             complete += 1
             if complete >= 5:
                 break      
@@ -1800,7 +1815,7 @@ class App:
         # Monitor state. The saved display is used for both launcher and match UI.
         self.monitors = get_monitors() if not config.mobile_mode else []
         self.selected_monitor_index = load_monitor_selection(self.monitors)
-
+        #self.selected_monitor_index = 1
         # show first page
         self.show_launcher_page()
     def force_geometry(self, w, h, x, y):
@@ -2771,7 +2786,7 @@ class App:
             30,
             lambda: self.force_geometry(w, h, self.x_m, self.y_m)
         )
-        self.root.after(0, lambda: print("actual", self.root.winfo_x(), self.root.winfo_y()))
+        #self.root.after(0, lambda: print("actual", self.root.winfo_x(), self.root.winfo_y()))
         self.root.configure(bg="black")
 
         title_bar = tk.Frame(parent, bg="#141420", relief="groove", height=s(30), width=s(width))
@@ -2915,7 +2930,7 @@ class App:
             idx += 1
             PlayerFrame(self.super_frame, player, x, y).build()
             #create_player_frame(player_slot, player)
-        print(f"Created player frames in {time.perf_counter() - t:.2f} seconds.")
+        #print(f"Created player frames in {time.perf_counter() - t:.2f} seconds.")
         
         #self.super_frame.createSuperFrameImage(img_key="bg_clouds", anc="nw", x=0, y=0)
         
@@ -2950,6 +2965,8 @@ class App:
 
     def on_f8_pressed(self, tvar_value):
         MATCH_PLAYERS = []
+        global bLiveDebug
+        bLiveDebug = config.debug_mode
         print(f">> Script running. Press F8 to OCR names and check tracker.gg...")
         search_by_name = True if tvar_value and tvar_value != 'Name(s): "EyeingFlux, BicZilla"' else False
         initialize_hide_pass(None, None, None,None)
@@ -2990,6 +3007,8 @@ class App:
             
         if bUseRivalsDataNames:
             if bLiveDebug:
+
+                print("\n⚠️ Debug Mode Started:")
                 p = os.path.join(config.script_dir, "debug","LiveDebug.json")
                 li = helpers.load_json(path=p)
                 from RDMO import Match
@@ -3031,7 +3050,11 @@ class App:
                     tracker_data = None
                     names = None
                 else:
-                    print(">> Fetching names via Live Match API..")
+                    print("\n📶 Fetching names via Live Match API for:\n")
+                    t = type(config.USER_UID).__name__
+                    sym = "✅" if t == 'int' else "❌"
+                    print(f"🦸 {config.USER_NAME} ({type(config.USER_NAME).__name__})")
+                    print(f"🆔 {config.USER_UID} ({type(config.USER_UID).__name__} {sym})")
                     live_match_data = tracker_trim.getLive()
                     match = Match(live_match_data)
                     tracker_trim.getTrackerGG(match)

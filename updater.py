@@ -223,7 +223,7 @@ def check_for_update(auto_accept=False):
             proceed = result
 
         if proceed:
-            backup_current_dir(current)
+            #backup_current_dir(current)
             download_and_extract_zip(REMOTE_ZIP_URL, os.path.join(script_dir, "update_temp"))
             result, string_ = apply_update(os.path.join(script_dir, "update_temp"))
             shutil.rmtree(os.path.join(script_dir, "update_temp"))
@@ -261,7 +261,7 @@ def check_for_update2(auto_accept=False):
     if latest != current:
         print(f"New version available: {latest} (current: {current})")
         if auto_accept or input("Update now? (y/n): ").lower().strip() == "y":
-            backup_current_dir(current)
+            #backup_current_dir(current)
             download_and_extract_zip(REMOTE_ZIP_URL, "update_temp")
             apply_update("update_temp")
             shutil.rmtree(os.path.join(script_dir, "update_temp"))

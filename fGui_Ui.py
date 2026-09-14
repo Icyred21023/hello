@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os
+
 
 import tkinter as tk
 
@@ -11,10 +11,10 @@ from PIL import (
     ImageChops,
     ImageDraw,
     ImageOps,
-    ImageTk,
+    
 )
 
-import config
+
 
 # Replace these module names with the files where each helper is defined.
 from fGui_ImgHelpers_beta import (
@@ -23,8 +23,7 @@ from fGui_ImgHelpers_beta import (
     clear_cached_photoimages,
     image_loader,
 )
-import os
-import random
+
 import tkinter as tk
 from typing import Literal, Union
 def split_edges(total: int, parts: int) -> "list[int]":
@@ -391,7 +390,7 @@ class SuperFrame:
         self.bOuter = False
         self.YList = []
         if isinstance(master, tk.Canvas):
-            print("master is a tk.Canvas")
+            #print("master is a tk.Canvas")
             self.Canvas: tk.Canvas = master
             self.Master = master
             self.Outer = self
@@ -402,7 +401,7 @@ class SuperFrame:
             
 
         elif isinstance(master, SuperFrame):
-            print("master is a SuperFrame")
+            #print("master is a SuperFrame")
             self.Canvas: tk.Canvas = master.Canvas
             self.Master: Union[tk.Canvas, "SuperFrame"] = master
             self.MasterWidth = master.winfo_reqwidth()
