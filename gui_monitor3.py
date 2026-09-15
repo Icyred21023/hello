@@ -1,6 +1,7 @@
 
 
 import tkinter as tk
+from tkinter import ttk
 import config
 import tkinter.font as tkFont
 from PIL import Image, ImageGrab,  ImageDraw, ImageChops
@@ -21,7 +22,7 @@ if not config.mobile_mode:
 import config
 bLiveDebug = False
 bLiveDebug = config.debug_mode
-print(f"⚠️ Debug Mode Enabled") if bLiveDebug else print("🛜 Live Lookup Mode")
+print(f"\n⚠️ Debug Mode Enabled") if bLiveDebug else print("\n🛜  Live Lookup Mode")
 bTrackerDebug = False
 bTrackerNames = ["EyeingFlux", "AtlasCarried", "BicZilla", "Kaes", "ProfChloroform"]
 bUseRivalsDataNames = True
@@ -123,10 +124,10 @@ def save_monitor_selection(index, monitors):
         print(f"Could not save monitor selection: {e}")
 
 
-SHEETS_DIR = os.path.join(config.script_dir, "assets_match_hd")
-CROP_CACHE_PATH = os.path.join(SHEETS_DIR, "_mastery_crop_cache.json")
-import _Mastery_Sheet_Editor 
-crop_cache = _Mastery_Sheet_Editor.load_crop_cache(CROP_CACHE_PATH) if os.path.exists(CROP_CACHE_PATH) else {}
+#SHEETS_DIR = os.path.join(config.script_dir, "assets_match_hd")
+#CROP_CACHE_PATH = os.path.join(SHEETS_DIR, "_mastery_crop_cache.json")
+#import _Mastery_Sheet_Editor 
+#crop_cache = _Mastery_Sheet_Editor.load_crop_cache(CROP_CACHE_PATH) if os.path.exists(CROP_CACHE_PATH) else {}
 bTest = True
 bSpecialBG = False
 from PIL import Image, ImageDraw, ImageFont, ImageTk, ImageChops
@@ -218,189 +219,9 @@ BASE_DPI = 96
 NAMEPLATES = []
 BASE_DPI_SCALE = 96 / 72  # 96 DPI = 1.333 scaling internally
 
-RANK_FG = {
-    "eternity": "#FAC4FF",
-    "celestial": "#FAA141",
-    "grandmaster": "#D3A7FB",
-    "diamond": "#8FBAFF",
-    "platinum": "#3ABCD5",
-    "gold": "#FCDA30",
-    "silver": "#BBD5E1",
-    "bronze": "#D98B6D",
 
-}
 
-RANK_FG2 = {
-    "eternity": "#fa8df4",
-    "celestial": "#FAA141",
-    "grandmaster": "#be8eff",
-    "diamond": "#8FBAFF",
-    "platinum": "#3ABCD5",
-    "gold": "#FCDA30",
-    "silver": "#BBD5E1",
-    "bronze": "#D98B6D",
 
-}
-HERO_MASTERY_OFFSETS = {
-            # ( x, y )
-            # x: + RIGHT, - left
-            # y: + DOWN, - UP
-                  "Adam Warlock":(0,0),
-                  "Angela":(0,0),
-                  "Black Panther":(0,-32),
-                  "Black Widow":(-2,-16),
-                  "Blade":(0,0),
-                  "Bruce Banner":(0,0),
-                  "Captain America":(0,0),
-                  "Cloak & Dagger":(-25,0),
-                    "Daredevil":(5,-22),
-                    "Deadpool":(-5,-14),
-                    "Deadpool (Vanguard)":(-5,-14),
-                    "Deadpool (Duelist)":(-5,-14),
-                    "Deadpool (Strategist)":(-5,-14),
-                    "Doctor Strange":(4,-32),
-                    "Emma Frost":(0,-32),
-                    "Gambit":(3,10),
-                    "Groot":(0,0),
-                    "Hawkeye":(0,0),
-                    "Hela":(0,-25),
-                    "Human Torch":(0,0),
-                  "Invisible Woman":(0,-32),
-                  "Iron Fist":(0,0),
-                  "Iron Man":(0,0),
-                  "Jeff The Land Shark":(0,-32),
-                  "Loki":(7,-10),
-                  "Luna Snow":(11,0),
-                    "Magik":(0,0),
-                    "Magneto":(0,-22),
-                    "Mantis":(0,0),
-                    "Mister Fantastic":(0,-20),
-                    "Moon Knight":(-7,-7),
-                    "Namor":(7,-7),
-                    "Peni Parker":(0,0),
-                    "Phoenix":(-10,-20),
-                    "Psylocke":(0,0),
-                  "Rocket Raccoon":(11,-5),
-                  "Rogue": (10,-15),
-                  "Scarlet Witch":(4,-10),
-                  "Spider-Man":(0,-25),
-                  "Squirrel Girl":(5,-32),
-                    "Star-Lord":(0,0),
-                    "Storm":(0,0),
-                    "The Punisher":(0,0),
-                    "The Thing":(0,0),
-                    "Thor":(0,0),
-                    "Ultron":(0,0),
-                    "Venom":(10,-25),
-                    "Winter Soldier":(0,0),
-                    "Wolverine":(0,-5)
-                    }
-
-HERO_MASTERY_OFFSETS = {
-            # ( x, y )
-            # x: + RIGHT, - left
-            # y: + DOWN, - UP
-                  "Adam Warlock":(0,0),
-                  "Angela":(0,0),
-                  "Black Panther":(0,0),
-                  "Black Widow":(0,0),
-                  "Blade":(0,0),
-                  "Bruce Banner":(0,0),
-                  "Captain America":(0,0),
-                  "Cloak & Dagger":(0,0),
-                    "Daredevil":(0,0),
-                    "Deadpool":(0,0),
-                    "Deadpool (Vanguard)":(0,0),
-                    "Deadpool (Duelist)":(0,0),
-                    "Deadpool (Strategist)":(0,0),
-                    "Doctor Strange":(0,0),
-                    "Emma Frost":(0,0),
-                    "Gambit":(0,0),
-                    "Groot":(0,0),
-                    "Hawkeye":(0,0),
-                    "Hela":(0,0),
-                    "Human Torch":(0,0),
-                  "Invisible Woman":(0,0),
-                  "Iron Fist":(0,0),
-                  "Iron Man":(0,0),
-                  "Jeff The Land Shark":(0,0),
-                  "Loki":(0,0),
-                  "Luna Snow":(0,0),
-                    "Magik":(0,0),
-                    "Magneto":(0,0),
-                    "Mantis":(0,0),
-                    "Mister Fantastic":(0,0),
-                    "Moon Knight":(0,0),
-                    "Namor":(0,0),
-                    "Peni Parker":(0,0),
-                    "Phoenix":(0,0),
-                    "Psylocke":(0,0),
-                  "Rocket Raccoon":(0,0),
-                  "Rogue": (0,0),
-                  "Scarlet Witch":(0,0),
-                  "Spider-Man":(0,0),
-                  "Squirrel Girl":(0,0),
-                    "Star-Lord":(0,0),
-                    "Storm":(0,0),
-                    "The Punisher":(0,0),
-                    "The Thing":(0,0),
-                    "Thor":(0,0),
-                    "Ultron":(0,0),
-                    "Venom":(0,0),
-                    "Winter Soldier":(0,0),
-                    "Wolverine":(0,0)
-                    }
-
-HERO_SHORT_NAMES = {"Adam Warlock":"Warlock",
-                  "Angela":"Angela",
-                  "Black Panther":"Panther",
-                  "Black Widow":"Widow",
-                  "Blade":"Blade",
-                  "Bruce Banner":"Hulk",
-                  "Captain America":"Captain",
-                  "Cloak & Dagger":"Cloak",
-                    "Daredevil":"Daredevil",
-                    "Deadpool (Vanguard)":"Deadpool",
-                    "Deadpool (Duelist)":"Deadpool",
-                    "Deadpool (Strategist)":"Deadpool",
-                    "Devil Dinosaur":"Dinosaur",
-                    "Doctor Strange":"Strange",
-                    "Elsa Bloodstone":"Elsa",
-                    "Emma Frost":"Emma",
-                    "Gambit":"Gambit",
-                    "Groot":"Groot",
-                    "Hawkeye":"Hawkeye",
-                    "Hela":"Hela",
-                    "Human Torch":"Torch",
-                  "Invisible Woman":"Invisible",
-                  "Iron Fist":"Iron Fist",
-                  "Iron Man":"Iron Man",
-                  "Jeff The Land Shark":"Jeff",
-                  "Loki":"Loki",
-                  "Luna Snow":"Luna Snow",
-                    "Magik":"Magik",
-                    "Magneto":"Magneto",
-                    "Mantis":"Mantis",
-                    "Mister Fantastic":"Fantastic",
-                    "Moon Knight":"MoonKnight",
-                    "Namor":"Namor",
-                    "Peni Parker":"Peni",
-                    "Phoenix":"Phoenix",
-                    "Psylocke":"Psylocke",
-                  "Rocket Raccoon":"Rocket",
-                  "Rogue": "Rogue",
-                  "Scarlet Witch":"Scarlet",
-                  "Spider-Man":"Spidey",
-                  "Squirrel Girl":"Squirrel",
-                    "Star-Lord":"Star-Lord",
-                    "Storm":"Storm",
-                    "The Punisher":"Punisher",
-                    "The Thing":"Thing",
-                    "Thor":"Thor",
-                    "Ultron":"Ultron",
-                    "Venom":"Venom",
-                    "Winter Soldier":"Winter",
-                    "Wolverine":"Wolverine"}
 
 SPECIAL_IMAGE_MAP = None
 root = tk.Tk()
@@ -512,26 +333,28 @@ def load_font(family_name, font_file_name):
     return f"@{font_path}"
     #font_families.add(family_name)
 
-fonts_list = ["apotek-comp-bold.ttf","apotek-bold.ttf","Rajdhani.ttf", "Rajdhani Medium.ttf", 'Rajdhani SemiBold.ttf',"Rajdhani Bold.ttf",
-              "Saira Semi Condensed Medium.ttf",
-              'SairaCondensed-Medium.ttf','SairaCondensed-Bold.ttf','SairaCondensed-Regular.ttf','SairaCondensed-SemiBold.ttf','SairaCondensed-Thin.ttf','SairaCondensed-ExtraBold.ttf',
-              "Saira Thin Medium.ttf",'SairaExtraCondensed-Medium.ttf','SairaExtraCondensed-Bold.ttf','SairaExtraCondensed-Regular.ttf','SairaExtraCondensed-SemiBold.ttf','SairaExtraCondensed-Thin.ttf',
-              'Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Black.ttf', 'Saira_SemiCondensed-Bold.ttf','Saira_SemiCondensed-ExtraBold.ttf','Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Regular.ttf', 'Saira_SemiCondensed-SemiBold.ttf','Saira_SemiCondensed-Thin.ttf',
-              'Saira-Black.ttf','Saira-Bold.ttf','Saira-ExtraBold.ttf','Saira-Light.ttf','Saira-Medium.ttf','Saira-Regular.ttf','Saira-SemiBold.ttf','Saira-Thin.ttf',
-              "Refrigerator-Deluxe-Bold.ttf","Refrigerator-Deluxe-Heavy.ttf", 'Refrigerator-Deluxe-Extrabold.ttf', 'Refrigerator-Deluxe.ttf','Refrigerator-Deluxe-Light.ttf',
-              'KelsonSans.ttf','KelsonSansBold.ttf',
-              "Exo Demi Bold.ttf","Exo Light.ttf",
-              "Roboto_SemiCondensed-Bold.ttf","Roboto_SemiCondensed-Medium.ttf","Roboto_SemiCondensed-Regular.ttf","Roboto_SemiCondensed-SemiBold.ttf",
-              "Roboto-Regular.ttf","Roboto-Bold.ttf","Roboto-Medium.ttf","Roboto-SemiBold.ttf",
-              "CarbonRegular.ttf","CarbonBold Italic.ttf","CarbonRegular Italic.ttf",
-              "Cairo Black.ttf","Cairo Bold.ttf",
-              'TT_Supermolot_Neue_Bold.ttf','TT_Supermolot_Neue_Bold_Italic.ttf', 
-              'TT_Supermolot_Neue_DemiBold_Italic.ttf','TT_Supermolot_Neue_DemiBold.ttf',
-              'TT_Supermolot_Neue_Medium.ttf','TT_Supermolot_Neue_Medium_Italic.ttf',
-              'TT_Supermolot_Neue_Condensed_ExtraBold.ttf',
-              'Neue_Condensed_Bold.ttf', 'S.ttf','TTSCMD.ttf','Neue_Condensed_Medium.ttf', 'Neue_Condensed_DemiBold.ttf','Neue_Condensed_DemiBold_Italic.ttf', 'Neue_Condensed_Bold_Italic.ttf',
-              'TT_Supermolot_Neue_Italic.ttf', 'TT_Supermolot_Neue_Regular.ttf','TTSupermolotCondensed-ThinItalic.ttf','TTSupermolotCondensed-Thin.ttf','TTSupermolotCondensed-LightItalic.ttf','TTSupermolotCondensed-Light.ttf','TTSupermolotCondensed-Italic.ttf',
-              'TT-Supermolot-Neue-Trial-Condensed-Thin-BF65fcfb4d4e8d0.ttf','TT-Supermolot-Neue-Trial-Condensed-Thin-Italic-BF65fcfb4d47398.ttf','TT-Supermolot-Neue-Trial-Condensed-Medium-Italic-BF65fcfb4d300d5.ttf','TT-Supermolot-Neue-Trial-Condensed-Light-BF65fcfb4d352d8.ttf','TT-Supermolot-Neue-Trial-Condensed-Italic-BF65fcfb4d44da1.ttf','TT-Supermolot-Neue-Trial-Condensed-Light-Italic-BF65fcfb4d453ff.ttf',]
+# fonts_list = ["apotek-comp-bold.ttf","apotek-bold.ttf","Rajdhani.ttf", "Rajdhani Medium.ttf", 'Rajdhani SemiBold.ttf',"Rajdhani Bold.ttf",
+#               "Saira Semi Condensed Medium.ttf",
+#               'SairaCondensed-Medium.ttf','SairaCondensed-Bold.ttf','SairaCondensed-Regular.ttf','SairaCondensed-SemiBold.ttf','SairaCondensed-Thin.ttf','SairaCondensed-ExtraBold.ttf',
+#               "Saira Thin Medium.ttf",'SairaExtraCondensed-Medium.ttf','SairaExtraCondensed-Bold.ttf','SairaExtraCondensed-Regular.ttf','SairaExtraCondensed-SemiBold.ttf','SairaExtraCondensed-Thin.ttf',
+#               'Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Black.ttf', 'Saira_SemiCondensed-Bold.ttf','Saira_SemiCondensed-ExtraBold.ttf','Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Regular.ttf', 'Saira_SemiCondensed-SemiBold.ttf','Saira_SemiCondensed-Thin.ttf',
+#               'Saira-Black.ttf','Saira-Bold.ttf','Saira-ExtraBold.ttf','Saira-Light.ttf','Saira-Medium.ttf','Saira-Regular.ttf','Saira-SemiBold.ttf','Saira-Thin.ttf',
+#               "Refrigerator-Deluxe-Bold.ttf","Refrigerator-Deluxe-Heavy.ttf", 'Refrigerator-Deluxe-Extrabold.ttf', 'Refrigerator-Deluxe.ttf','Refrigerator-Deluxe-Light.ttf',
+#               'KelsonSans.ttf','KelsonSansBold.ttf',
+#               "Exo Demi Bold.ttf","Exo Light.ttf",
+#               "Roboto_SemiCondensed-Bold.ttf","Roboto_SemiCondensed-Medium.ttf","Roboto_SemiCondensed-Regular.ttf","Roboto_SemiCondensed-SemiBold.ttf",
+#               "Roboto-Regular.ttf","Roboto-Bold.ttf","Roboto-Medium.ttf","Roboto-SemiBold.ttf",
+#               "CarbonRegular.ttf","CarbonBold Italic.ttf","CarbonRegular Italic.ttf",
+#               "Cairo Black.ttf","Cairo Bold.ttf",
+#               'TT_Supermolot_Neue_Bold.ttf','TT_Supermolot_Neue_Bold_Italic.ttf', 
+#               'TT_Supermolot_Neue_DemiBold_Italic.ttf','TT_Supermolot_Neue_DemiBold.ttf',
+#               'TT_Supermolot_Neue_Medium.ttf','TT_Supermolot_Neue_Medium_Italic.ttf',
+#               'TT_Supermolot_Neue_Condensed_ExtraBold.ttf',
+#               'Neue_Condensed_Bold.ttf', 'S.ttf','TTSCMD.ttf','Neue_Condensed_Medium.ttf', 'Neue_Condensed_DemiBold.ttf','Neue_Condensed_DemiBold_Italic.ttf', 'Neue_Condensed_Bold_Italic.ttf',
+#               'TT_Supermolot_Neue_Italic.ttf', 'TT_Supermolot_Neue_Regular.ttf','TTSupermolotCondensed-ThinItalic.ttf','TTSupermolotCondensed-Thin.ttf','TTSupermolotCondensed-LightItalic.ttf','TTSupermolotCondensed-Light.ttf','TTSupermolotCondensed-Italic.ttf',
+#               'TT-Supermolot-Neue-Trial-Condensed-Thin-BF65fcfb4d4e8d0.ttf','TT-Supermolot-Neue-Trial-Condensed-Thin-Italic-BF65fcfb4d47398.ttf','TT-Supermolot-Neue-Trial-Condensed-Medium-Italic-BF65fcfb4d300d5.ttf','TT-Supermolot-Neue-Trial-Condensed-Light-BF65fcfb4d352d8.ttf','TT-Supermolot-Neue-Trial-Condensed-Italic-BF65fcfb4d44da1.ttf','TT-Supermolot-Neue-Trial-Condensed-Light-Italic-BF65fcfb4d453ff.ttf',]
+
+fonts_list = ["apotek-comp-bold.ttf","apotek-bold.ttf","Rajdhani.ttf", "Rajdhani Medium.ttf","CarbonRegular.ttf","CarbonBold Italic.ttf","CarbonRegular Italic.ttf", 'Rajdhani SemiBold.ttf',"Rajdhani Bold.ttf","Refrigerator-Deluxe-Bold.ttf","Refrigerator-Deluxe-Heavy.ttf", 'Refrigerator-Deluxe-Extrabold.ttf', 'Refrigerator-Deluxe.ttf','Refrigerator-Deluxe-Light.ttf','SairaCondensed-Medium.ttf','SairaCondensed-Bold.ttf','SairaCondensed-Regular.ttf','SairaCondensed-SemiBold.ttf','SairaCondensed-Thin.ttf','SairaCondensed-ExtraBold.ttf','Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Black.ttf', 'Saira_SemiCondensed-Bold.ttf','Saira_SemiCondensed-ExtraBold.ttf','Saira_SemiCondensed-Medium.ttf','Saira_SemiCondensed-Regular.ttf', 'Saira_SemiCondensed-SemiBold.ttf']
 font_names = [os.path.splitext(f)[0] for f in fonts_list]
 rajdhani = font_names[0] # Normal or Bold
 rajdhani_medium = font_names[1] # Normal or Bold
@@ -1543,6 +1366,7 @@ class PlayerFrame:
         heroes = [hero1, hero2, hero3]
         icon_position = [(5,456), (4, 611), (4, 766)]
         badge_offset = (27, 155)
+        frame_offset = [(5, 520), (5, 673), (4, 829)]
         stats_xy = [(184, 540), (184, 695), (184, 850)]
         idx = 0
         offset = 3
@@ -1580,6 +1404,7 @@ class PlayerFrame:
                                         image_key=heroname,  # Passed directly to image_loader()
                                         x=x,
                                         y=y,
+                                        
                                         anchor="nw",
                                         bAnimated=bAnimated,
                                         fps=24,
@@ -1587,11 +1412,19 @@ class PlayerFrame:
                                         autoplay=True,
                                     )
             #hero_animate = self.superframe.createSuperFrameImage(img_key=heroname, x=x, y=y, anc="nw")
+            if frame:
+                a, b = frame_offset[idx]
+                q = a + self.x
+                w = b + self.y
+                #print(f"Creating superframe image for {heroname} with frame {frame} at ({q}, {w})")
+                self.superframe.createSuperFrameImage(img_key=frame, x=q, y=w, anc="nw")
+
             if badge:
-                x += badge_offset[0]
-                y += badge_offset[1]
-                self.superframe.createSuperFrameImage(img_key=f"badge_{str(badge)}", x=x, y=y, anc="c")
+                x += badge_offset[0]+96
+                y += badge_offset[1]+5
+                self.superframe.createSuperFrameImage(img_key=f"badge_{str(badge)}", x=x, y=y, size=(46, 46), anc="c")
             idx += 1
+
             
             # Hero Stats
             
@@ -1659,6 +1492,9 @@ class PlayerFrame:
             stats1 = (168,1050)
             stats2 = (206,1050)
             stats3 = (244,1050)
+            k = 221
+            d= 263
+            a= 307
             rank=(376,32)
             mvp=(94,30)
             try:
@@ -1673,9 +1509,9 @@ class PlayerFrame:
             except AttributeError:
                 rank_str = None
             try:
-                mvp_str = "mvp_M" if match.isMvp else None
+                mvp_str = "mvp_M2" if match.isMvp else None
                 if mvp_str is None:
-                    mvp_str = "svp_M" if match.isSvp else None
+                    mvp_str = "svp_M2" if match.isSvp else None
                 if mvp_str is not None:
                     self.superframe.createSuperFrameImage(img_key=mvp_str, x=x+mvp[0], y=y+mvp[1] , anc="c")
             except AttributeError:
@@ -1683,9 +1519,12 @@ class PlayerFrame:
                 
             self.superframe.createSuperFrameImage(img_key=h, x=x+136, y=y-3 , anc="nw",size=(51,61))
             self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32 if match.result != "win" else x+30, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
-            self.superframe.createSuperFrameText(text=match.kills, x=x+160+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#9991ca")
-            self.superframe.createSuperFrameText(text=match.deaths, x=x+206+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
-            self.superframe.createSuperFrameText(text=match.assists, x=x+252+statsx, y=y+24, anchor="c", font=fonttk("Refrigerator Deluxe", 14, "normal", italic=False), fill="#817ab2")
+            self.superframe.createSuperFrameImage(img_key="kills_m", x=x+k, y=y+18 , anc="c")
+            self.superframe.createSuperFrameImage(img_key="deaths_m", x=x+d, y=y+18 , anc="c")
+            self.superframe.createSuperFrameImage(img_key="assists_m", x=x+a, y=y+18 , anc="c")
+            self.superframe.createSuperFrameText(text=match.kills, x=x+k-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#88ff78")
+            self.superframe.createSuperFrameText(text=match.deaths, x=x+d-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#d96262")
+            self.superframe.createSuperFrameText(text=match.assists, x=x+a-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#7ca5f1")
 
             
 
@@ -1710,17 +1549,17 @@ class PlayerFrame:
             # lv5 = 2.5/2
 
             if lv > 55: #200:
-                return True, "gold", 4, hero + "0", "Champion"
+                return True, "gold_frame_shad", 4, hero + "0", "Champion"
             elif lv > 50: #140:
-                return True, "gold", 3, hero + "0", "Champion" 
+                return True, "gold_frame_shad", 3, hero + "0", "Champion" 
             elif lv > 45: #100:    
-                return False, "gold", 3, hero + "_l", "Guardian"
+                return False, "gold_frame_shad", 3, hero + "_l", "Guardian"
             elif lv > 40: #100:    
-                return False, "gold", 2, hero + "_l", "Elite"
+                return False, "gold_frame_shad", 2, hero + "_l", "Elite"
             elif lv > 35: #80:
-                return False, "purp", 2, hero + "_l", "Warrior"
+                return False, "purple_frame_shad", 2, hero + "_l", "Warrior"
             elif lv > 30: #55:
-                return False, 'purp', 1, hero + "_l", "Colonel"
+                return False, 'purple_frame_shad', 1, hero + "_l", "Colonel"
             elif lv > 25: #35:
                 return False, False, 1, hero + "_l", "Count"
             elif lv > 20: #25:
@@ -1802,8 +1641,12 @@ class App:
         # ---- ONE root for the life of the app ----
         self.root = create_root(self.base_dpi_scale)
         self.root.title("Capture Names")
+        #t = time.perf_counter()
         if not config.mobile_mode:
+
             loaded_paths, families = call_register_fonts(self.root)
+        #t = time.perf_counter() - t
+        #print(f"Font registration took {t:.4f} seconds")
         #list_fonts()
         self.root.configure(bg="#151426")
         self.root.overrideredirect(True)
@@ -2293,21 +2136,23 @@ class App:
             #loaded_paths, families = call_register_fonts(self.root)
 
         # ----- build UI into parent (NOT root directly) -----
-        title_bar2 = tk.Frame(parent, bg="#141420", relief="solid", width=s(230), height=s(17))
+        launcher_width = s(230)
+        launcher_content_width = launcher_width - s(20)
+        title_bar2 = tk.Frame(parent, bg="#141420", relief="solid", width=s(launcher_width), height=s(17))
         title_bar2.pack(fill="x", side="top", ipady=3)
         title_bar2.pack_propagate(False)
 
-        main = tk.Frame(parent, bg="#151426", relief="solid", height=s(70), width=s(230))
+        main = tk.Frame(parent, bg="#151426", relief="solid", height=s(70), width=s(launcher_width))
         main.pack(fill="x", padx=s(10), pady=s(5), side="bottom")
 
-        deb = tk.Frame(parent, bg="#151426", relief="solid", height=s(30), width=s(230))
+        deb = tk.Frame(parent, bg="#151426", relief="solid", height=s(30), width=s(launcher_width))
 
-        lef = tk.Frame(deb, bg="#151426", relief="solid", height=s(30), width=s(230))
+        lef = tk.Frame(deb, bg="#151426", relief="solid", height=s(30), width=s(launcher_width))
         #rig = tk.Frame(deb, bg="#151426", relief="solid", height=30, width=125)
         lef.pack(fill="x", side="top",expand=True)
         lef.pack_propagate(False)
         #rig.pack(fill="x", side="top")
-        self.ui_config = tk.Frame(deb, bg="#151426", relief="solid", height=s(315), width=s(230))
+        self.ui_config = tk.Frame(deb, bg="#151426", relief="solid", height=s(315), width=s(launcher_width))
         #ui_config.pack(fill="both", padx=0, pady=0, side="bottom")
         #ui_config.pack_forget()
 
@@ -2319,7 +2164,7 @@ class App:
 
                 self.ui_config.destroy()
             else:
-                self.ui_config = tk.Frame(deb, bg="#151426", relief="solid", height=s(315), width=s(230))
+                self.ui_config = tk.Frame(deb, bg="#151426", relief="solid", height=s(315), width=s(launcher_width))
                 stat_labels = ["Stat 1", "Stat 2", "Stat 3", "Stat A", "Stat B", "Stat C", "Stat D"]
                 stat_list = config.load_ui_stats_config()
 
@@ -2665,11 +2510,10 @@ class App:
             self.hotkey_f8_id = keyboard.add_hotkey('f8', lambda: self.root.after(0, lambda: trigger1(self.var1.get(),self.tvar.get())))
 
         # main button (your bans trigger)
-        fra = tk.Frame(main, bg="#151426", relief="solid", height=s(33), width=s(210))
+        fra = tk.Frame(main, bg="#151426", relief="solid", height=s(33), width=s(launcher_content_width))
         fra.pack(side="top", expand=True)
         fra.pack_propagate(False)
-        self.search = tk.Frame(main, bg="#151426", relief="solid", height=s(33), width=s(210))
-
+        self.search = tk.Frame(main, bg="#151426", relief="solid", height=s(33), width=s(launcher_content_width))
 
         def search_by_name_toggle():
             print("Manual mode toggled:", self.var5.get())
@@ -2691,11 +2535,89 @@ class App:
             command=lambda: trigger1(self.var1.get(), self.tvar.get()),
             cursor="hand2"
         )
+        # -------------------------
+        # Account selection
+        # -------------------------
+        account_data = self.load_account_config()
+        accounts = account_data.get("accounts", {})
+        account_names = self.get_account_list(accounts)
+        setname = account_data.get("set", "")
+
+        self.account_var = tk.StringVar(master=self.root, value=setname)
+
+        # tk.Label(
+        #     fra,
+        #     text="Account",
+        #     bg="#151426",
+        #     fg="white",
+        #     font=fonttk("Rajdhani", "bold", 10),
+        # ).pack(side="left", padx=(0, s(4)))
+        from tkinter import ttk
+
+        st = ttk.Style()
+        st.theme_use("clam")
+        bd = "#7c75a3"
+        bg = "#343047"
+        y ="#343047"
+        st.configure(
+            "Custom.TCombobox",
+            fieldbackground=bg,
+            background=bg,
+            foreground="#FFFFFF",
+
+            bordercolor=bd,
+            lightcolor=bd,
+            darkcolor=bd,
+
+            arrowcolor="#E9D6FF",
+            borderwidth=1,
+            relief="raised"
+        )
+        st.map(
+            "Custom.TCombobox",
+            fieldbackground=[("readonly", bg)],
+            foreground=[("readonly", "#FFFFFF")],
+            selectbackground=[("readonly", bg)],
+            selectforeground=[("readonly", "#FFFFFF")],
+            lightcolor=[
+                ("focus", y),
+                ("readonly", y),
+            ],
+            darkcolor=[
+                ("focus", y),
+                ("readonly", y),
+            ],
+        )
+        self.account_combo = ttk.Combobox(
+            fra,
+            textvariable=self.account_var,
+            style="Custom.TCombobox",
+            font=fonttk("Saira SemiCondensed", 12, "normal"),
+            values=account_names,
+            state="readonly",
+            width=12,
+            height=5,
+        )
+        self.account_combo.pack(side="right", padx=(s(4), s(0)))
+
+        if setname in account_names:
+            self.account_combo.current(account_names.index(setname))
+
+        self.account_combo.bind("<<ComboboxSelected>>", self.account_selected)
+
+        # account_butt = tk.Button(
+        #     fra,
+        #     text="Add",
+        #     command=self.open_account_editor,
+        #     relief="flat",
+        #     cursor="hand2",
+        # )
+        # account_butt.pack(side="left", padx=(0, s(10)))
         self.var5 = tk.BooleanVar()
-        man = tk.Checkbutton(
-            fra, bg="#151426", fg="white", selectcolor="#151426",
-            text="By Name", font=fonttk(rajdhani, 10,"normal"), variable=self.var5, command=search_by_name_toggle)
-        man.pack(side="right", padx=(0, 0))
+        # man = tk.Checkbutton(
+        #     fra, bg="#151426", fg="white", selectcolor="#151426",
+        #     text="By Name", font=fonttk("Rajdhani", 10,"normal"), variable=self.var5, command=search_by_name_toggle)
+        # man.pack(side="right", padx=(0, 0))
         # button2 = tk.Button(
         #     fra,
         #     text="Search", state="normal",

@@ -78,6 +78,7 @@ class HeroImager:
         anchor: str = "nw",
         bAnimated: bool = False,
         size: tuple[int, int] | None = None,
+        
         scale: float = 1.0,
         fps: float = 34.0,
         loop: bool = True,
@@ -106,7 +107,10 @@ class HeroImager:
             raise ValueError("fps must be greater than zero.")
         if scale <= 0:
             raise ValueError("scale must be greater than zero.")
+        
+            
 
+            
         self.master = master
         self.image_key = image_key
         self.x = float(x)
@@ -119,7 +123,7 @@ class HeroImager:
         self._after_id: str | None = None
         self._destroyed = False
         self.bStatic = not bAnimated
-
+        
         if not bAnimated:
             self.super_frame.createSuperFrameImage(
                 img_key=image_key,x=x, y=y, anc="nw")
