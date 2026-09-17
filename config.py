@@ -358,7 +358,12 @@ bPrivateLookup = False
 MATCHUP = "type_matchupNEWDPS.json"
 
 p = os.path.join(script_dir, "debug","LiveDebug.json")
+
 livedebug= helpers.load_json(path=p)
+FullDebug_dir = os.path.join(script_dir, "debug","_FullDebug")
+if not os.path.exists(FullDebug_dir):
+    os.makedirs(FullDebug_dir)
+
 
 print(f"Default Username Info: {USER_NAME} - {isinstance(USER_NAME, str)}")
 print(f"Default UserID Info: {USER_UID} - {isinstance(USER_UID, int)}")

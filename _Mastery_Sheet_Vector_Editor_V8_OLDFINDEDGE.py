@@ -356,25 +356,25 @@ def walk_sheet_folders(root: str) -> Iterator[Tuple[str, str, str, List[str]]]:
 # ============================================================
 
 def split_edges(total: int, parts: int) -> List[int]:
+    """
+    Return equally-spaced integer edges using one floor-divided cell size.
+
+    Any remainder is deliberately excluded from the final edge. For example:
+
+        split_edges(1935, 6) -> [0, 322, 644, 966, 1288, 1610, 1932]
+
+    The remaining three pixels at the right edge are not included in a frame.
+    """
     if parts <= 0:
         raise ValueError("parts must be greater than zero.")
 
-    if total < parts:
+    cell_size = total // parts
+    if cell_size <= 0:
         raise ValueError(
             f"Cannot split {total} pixels into {parts} non-empty cells."
         )
 
-    base = total // parts
-    rem = total % parts
-
-    edges = [0]
-    acc = 0
-
-    for i in range(parts):
-        acc += base + (1 if i < rem else 0)
-        edges.append(acc)
-
-    return edges
+    return [index * cell_size for index in range(parts + 1)]
 
 
 def slice_frames(
@@ -1431,7 +1431,7 @@ def main() -> None:
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
         print(folder_name)
-        if folder_name not in ["1039","1049", "1054","1020"]:
+        if folder_name != "1067":
             continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "

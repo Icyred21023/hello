@@ -5,6 +5,39 @@ import re
 SEASON = 9
 UID = config.USER_UID if not config.mobile_mode else "1324925930"
 
+RANK_DATA = {
+    23: ("One Above All", "OAA", "S", "#FF4F4D"),
+    22: ("Eternity", "E", "S", "#EB46FF"),
+
+    21: ("Celestial", "C1", "S", "#FE5A1D"),
+    20: ("Celestial", "C2", "S", "#FE5A1D"),
+    19: ("Celestial", "C3", "S", "#FE5A1D"),
+
+    18: ("Grandmaster", "GM1", "S", "#9E4BFF"),
+    17: ("Grandmaster", "GM2", "S", "#9E4BFF"),
+    16: ("Grandmaster", "GM3", "S", "#9E4BFF"),
+
+    15: ("Diamond", "D1", "S", "#1680FF"),
+    14: ("Diamond", "D2", "S", "#1680FF"),
+    13: ("Diamond", "D3", "S", "#1680FF"),
+
+    12: ("Platinum", "P1", "S", "#58E1E8"),
+    11: ("Platinum", "P2", "S", "#58E1E8"),
+    10: ("Platinum", "P3", "S", "#58E1E8"),
+
+    9: ("Gold", "G1", "S", "#FFDA57"),
+    8: ("Gold", "G2", "S", "#FFDA57"),
+    7: ("Gold", "G3", "S", "#FFDA57"),
+
+    6: ("Silver", "S1", "S", "#7B9196"),
+    5: ("Silver", "S2", "S", "#7B9196"),
+    4: ("Silver", "S3", "S", "#7B9196"),
+
+    3: ("Bronze", "B1", "S", "#A7693F"),
+    2: ("Bronze", "B2", "S", "#A7693F"),
+    1: ("Bronze", "B3", "S", "#A7693F"),
+}
+
 
 def fetch_teammates(uid, season=-1):
     result = 7
@@ -23,6 +56,8 @@ def strip_rank_tier2(rank_str):
 
 def strip_rank_tier(rank_str):
     # Match everything except the trailing Roman numeral (if present)
+    if not rank_str:
+        return rank_str
     return re.sub(r'\s+(I{1,3}|IV|V)$', '', rank_str)
         
 def getSegmentFromType(data, seg_type):
@@ -890,13 +925,15 @@ class MatchHistory:
 class Hero:
     def __init__(self, data):
         self.Id = str(data.get("hero_id", "Unknown"))
-
+        self.bRivalsData = False
         self.Name, self.Role = hero_id_to_info(self.Id)
 
         self.ProficiencyLevel = data.get("level", 0)
         self.Wins = 0
         self.Losses = 0
         self.WinRate = "0%"
+        self.WinRateRaw = 0.0
+        self.Matches = 0
         self.Stats = Stats(
             role=self.Role
         )
@@ -910,21 +947,40 @@ class Player:
         self.Name = data.get("name", "Unknown")
         self.Uid = str(data.get("uid", "Unknown"))
         self.best_rank = None
+        self.season_rank = None
+        self.lifetimePeakRanked = None
+        self.currentRank = None
+        self.seasonPeak = None
+        self.short_season = None
         self.Team = data.get("side")
         self.TeamId = data.get("team_id")
 
         self.Icon = data.get("icon", "Unknown")
         self.PlayerImgId = self.Icon
-
-        self.bPrivate = "**" in self.Name
+        self.bRivalsData = False    
+        #self.bPrivate = "**" in self.Name
+        self.bProfile = False
+        self.bMatchHistory = False
+        self.bHeroes = False
 
         self.Heroes: dict[str, Hero] = {}
-        self.bPrivate = True if "***" in self.Name else False
+        self.bPrivate =  False
         self.seasonal_overview = None
         self.full_overview = None
         self.matches: List[MatchHistory] = []
 
-        
+        losses = data.get("losses", None)
+        wins = data.get("wins", None)
+
+        rank_lv = data.get("rank", {}).get("level", None)
+
+        self.RivalsDataRankedInfo = RANK_DATA.get(rank_lv, (None, None, None, None)) if rank_lv is not None else (None, None, None, None)
+
+        if losses is not None and wins is not None:
+            total_matches = wins + losses
+            self.OVWinRate = f"{int(wins / total_matches * 100)}%" if total_matches > 0 else "0%"
+            self.OVMatches = total_matches
+            self.bRivalsData = True
         for hero_data in data.get("proficiency") or []:
             hero = Hero(hero_data)
             self.Heroes[hero.Name] = hero
@@ -935,12 +991,27 @@ class Player:
             if not name in self.Heroes:
                 continue
             hero = self.Heroes[name]
+
+
             hero.Wins = hero_data.get("wins", 0)
             hero.Losses = hero_data.get("losses", 0)
+            hero.Matches = hero.Wins + hero.Losses
             wp_raw = hero.Wins / (hero.Wins + hero.Losses) * 100 if (hero.Wins + hero.Losses) > 0 else 0
+            hero.WinRateRaw = wp_raw
             hero.WinRate = f"{int(wp_raw)}%"
+            hero.bRivalsData = True
 
-        self.bPrivate = True if not self.seasonal_overview else False
+        self.Heroes = dict(
+                sorted(
+                    self.Heroes.items(),
+                    key=lambda item: item[1].Matches,
+                    reverse=True
+                )
+            )
+
+        
+
+        #self.bPrivate = True if not self.seasonal_overview else False
 
     def getRolesData(self, data):
         roles = []
@@ -964,8 +1035,30 @@ class Player:
         if profile_data:
             overview_data = getSegmentFromType(profile_data, "overview")
             rank_data = getSegmentFromType(profile_data, "ranked-peaks")
-            self.best_rank = strip_rank_tier(rank_data['stats']['lifetimePeakRanked']['metadata']['tierName'])
-            self.season_rank = strip_rank_tier(overview_data['stats']['peakRanked']['metadata']['tierName'])
+
+            s = overview_data.get("attributes", {}).get("season", config.season) / 2
+            
+            short_season = f"S{int(s)}" if s.is_integer() else f"S{s}"
+            
+
+            # Rank data : stored as a tuple of (tierName, tierShortName, seasonShortName, color hex)
+
+
+            if not self.lifetimePeakRanked:
+                self.lifetimePeakRanked = (strip_rank_tier(rank_data.get('stats', {}).get('lifetimePeakRanked', {}).get('metadata', {}).get('tierName', None)),rank_data.get('stats', {}).get('lifetimePeakRanked', {}).get('metadata', {}).get('tierShortName', None),rank_data.get('stats', {}).get('lifetimePeakRanked', {}).get('metadata', {}).get('seasonShortName', None),rank_data.get('stats', {}).get('lifetimePeakRanked', {}).get('metadata', {}).get('color', "#a592e2"))
+            if not self.currentRank:
+                self.currentRank = (strip_rank_tier(overview_data.get('stats', {}).get('ranked', {}).get('metadata', {}).get('tierName', None)),overview_data.get('stats', {}).get('ranked', {}).get('metadata', {}).get('tierShortName', None), short_season if short_season else "S?", overview_data.get('stats', {}).get('ranked', {}).get('metadata', {}).get('color', "#a592e2"))
+            if not self.seasonPeak:
+                self.seasonPeak = (strip_rank_tier(overview_data.get('stats', {}).get('peakRanked', {}).get('metadata', {}).get('tierName', None)),overview_data.get('stats', {}).get('peakRanked', {}).get('metadata', {}).get('tierShortName', None),short_season if short_season else "S?", overview_data.get('stats', {}).get('peakRanked', {}).get('metadata', {}).get('color', "#a592e2"))
+
+
+
+            if not self.best_rank:
+                self.best_rank = self.lifetimePeakRanked[0] if self.lifetimePeakRanked[0] else self.seasonPeak[0] if self.seasonPeak[0] else self.currentRank[0] if self.currentRank[0] else  None
+            if not self.season_rank:
+                self.season_rank = self.seasonPeak[0] if self.seasonPeak[0] else self.currentRank[0] if self.currentRank[0] else None
+
+            
             self.seasons_string = ""
             if self.seasonal_overview is None:
                 self.seasonal_overview = Overview()
@@ -980,11 +1073,24 @@ class Player:
                     
             for h in sorted_heros:
                 hname = h.get("metadata", {}).get("name", None)
-                stats = h.get("stats",{})
-                HERO = self.Heroes.get(hname, None)
+                stats = h.get("stats", {})
+                HERO = self.Heroes.get(hname)
+
                 if HERO is None:
                     continue
+
                 HERO.add_stats(stats)
+
+                self.bHeroes = True
+
+            # Rebuild dict in descending matches-played order
+            self.Heroes = dict(
+                sorted(
+                    self.Heroes.items(),
+                    key=lambda item: item[1].Stats.matches_played,
+                    reverse=True
+                )
+            )
 
             self.bPrivate = False 
 
@@ -994,11 +1100,15 @@ class Player:
 
 
 class Match:
-    def __init__(self, data):
+    def __init__(self, data, enemy_team=None):
         self.UserId = str(UID)
 
         self.UserTeam = None
         self.EnemyTeam = None
+
+        if enemy_team is not None:
+            self.EnemyTeam = enemy_team
+            self.UserTeam = 1 if self.EnemyTeam == 2 else 2
 
         self.players: list[Player] = []
 
@@ -1008,11 +1118,12 @@ class Match:
         players_data = list(players_data)
 
         # Find user's team
-        for data in players_data:
-            if str(data.get("uid")) == self.UserId:
-                self.UserTeam = data.get("side")
-                self.EnemyTeam = 1 if self.UserTeam == 2 else 2
-                break
+        if self.UserTeam is None or self.EnemyTeam is None:
+            for data in players_data:
+                if str(data.get("uid")) == self.UserId:
+                    self.UserTeam = data.get("side")
+                    self.EnemyTeam = 1 if self.UserTeam == 2 else 2
+                    break
 
         # Build enemy players
         self.players = [

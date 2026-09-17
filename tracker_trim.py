@@ -19,7 +19,7 @@ from urllib.parse import quote
 
 BROWSER = None
 driver_path = "s"
-
+bFullDebug = False
 
 d = date.today()
 DAY = d.day
@@ -541,7 +541,7 @@ def getLive():
     except Exception as e:
         print(e)
     
-    return data
+    return data, m
 
 def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int | None = None):
     """Fetch Tracker.gg data and always return: (data, status, message).
@@ -583,13 +583,18 @@ def fetch_and_add_tracker(player: Player, browser: Browser, ign: str, kind: str,
     label = label or kind.replace("_", " ").title()
 
     if status == "Success":
+        # if True:
+        #     path = os.path.join(config.FullDebug_dir, f"{ign}_{kind}.json")
+        #     helpers.save_json(path=path, data=data)
         add_method = getattr(player, f"add_{kind}", None)
         if not callable(add_method):
             print(f"\t❌ \033[1m{label}\033[0m has no player.add_{kind}() method.")
             return "Error"
-
         add_method(data)
+            
+
         print(f"\t✅ \033[1m{label}\033[0m fetched successfully.")
+        
         return "Success"
 
     if status == "Private":
@@ -700,7 +705,7 @@ def doDebug(player: Player, ign: str):
             player.add_matches(data)
 
         
-def getTrackerGG(match: Match | list, bDebug: bool = False):
+def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool = False):
     # ----------------------------
     # Browser setup
     # ----------------------------
@@ -727,7 +732,7 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
 
     global BROWSER
     
-    if not bDebug:
+    if not bDebug or bFetchGGDebug:
         if BROWSER is None:
             BROWSER = Browser()
         elif BROWSER.driver is None:
@@ -763,9 +768,17 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
         
         
         ign = safe_ign(player.Name)
+        # if bFullDebug:
+        #     path = os.path.join(config.FullDebug_dir, f"players.txt")
+        #     helpers.save_list(path=path, items=players)
+
+        
         if bDebug:
-            doDebug(player, ign)
-            continue
+            if bFetchGGDebug:
+                pass
+            else:
+                doDebug(player, ign)
+                continue
         print(f"🔍 \033[1m - {player.Name}\033[0m")
         fetch_and_add_tracker(player, b, ign, "summary")
 
@@ -773,8 +786,9 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
 
         if profile_status == "Success":
             matches_played = player.seasonal_overview.matches_played
-            if matches_played and matches_played < 50:
-                fetch_and_add_tracker(
+            player.bProfile = True
+            if matches_played and matches_played < 35:
+                status = fetch_and_add_tracker(
                     player,
                     b,
                     ign,
@@ -784,7 +798,7 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
                 )
         elif profile_status == "Error":
             # If the current-season profile fails, try the previous season once.
-            fetch_and_add_tracker(
+            status = fetch_and_add_tracker(
                 player,
                 b,
                 ign,
@@ -792,31 +806,36 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
                 season=config.season - 1,
                 label="Previous Season Profile",
             )
+            player.bProfile = True if status == "Success" else False
 
-        fetch_and_add_tracker(
+        elif profile_status == "Private":
+            player.bPrivate = True
+
+        status = fetch_and_add_tracker(
             player,
             b,
             ign,
             "matches",
             label="Match History",
         )
+        player.bMatchHistory = True if status == "Success" else False
 
-        if (
-                isinstance(player.Heroes, dict)
-                and all(
-                    hasattr(hero, "Stats")
-                    and hasattr(hero.Stats, "matches_played")
-                    and hero.Stats.matches_played is not None
-                    for hero in player.Heroes.values()
-                )
-            ):
-                player.Heroes = dict(
-                    sorted(
-                        player.Heroes.items(),
-                        key=lambda item: item[1].Stats.matches_played,
-                        reverse=True
-                    )
-                )
+        # if (
+        #         isinstance(player.Heroes, dict)
+        #         and all(
+        #             hasattr(hero, "Stats")
+        #             and hasattr(hero.Stats, "matches_played")
+        #             and hero.Stats.matches_played is not None
+        #             for hero in player.Heroes.values()
+        #         )
+        #     ):
+        #         player.Heroes = dict(
+        #             sorted(
+        #                 player.Heroes.items(),
+        #                 key=lambda item: item[1].Stats.matches_played,
+        #                 reverse=True
+        #             )
+        #         )
 
 
         # url = build_tracker_url(ign=ign, kind="matches")
@@ -859,6 +878,7 @@ def getTrackerGG(match: Match | list, bDebug: bool = False):
         #     print(e)
     if not bDebug:
         b.kill_all()
+        b.close()
 def main():
         # Example usage
     bDebug = True

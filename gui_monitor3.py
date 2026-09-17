@@ -1181,7 +1181,7 @@ class PlayerFrame:
         #self._pull_player_data()
         
         self._build_outer()
-
+        #print(f"{self.player.Name}:bPrivate {self.player.bPrivate}\nbProfile {self.player.bProfile}\nbMatchHistory {self.player.bMatchHistory}\nbHeroes {self.player.bHeroes}\n")
         # All frames that have `outer` as parent:
         self._build_name_bar()
         self._build_overview_new()
@@ -1203,8 +1203,10 @@ class PlayerFrame:
     # ---------------------------
     
     def _get_foreground_color(self, label: str, value: str | int | float, flag=None):
+        if value == "-":
+            return "#424955" if not flag else "#424955"
         variable_colors_background = {
-            "Matches": {"9999": "#1F1F1F"},
+            "Matches": {"9999": "#424955"},
             "Win %": {"30": "#b34454", "45": "#cf9f00", "60": "#23ad58", "200": "#10b0eb"},
             "Kda": {"1": "#b34454", "3": "#cf9f00", "5": "#23ad58", "2222": "#10b0eb"},
             "Kd": {"1": "#b34454", "2": "#cf9f00", "4": "#23ad58", "200": "#10b0eb"},
@@ -1224,7 +1226,7 @@ class PlayerFrame:
             "LastKill": {"3": "#b34454", "6": "#cf9f00", "12": "#23ad58", "9899": "#10b0eb"},
             "Blocked": {"100": "#b34454", "900": "#cf9f00", "1800": "#23ad58", "99899": "#10b0eb"},
             "db": {"30": "#b34454", "60": "#cf9f00", "85": "#23ad58", "9899": "#10b0eb"},
-            "Time": {"9999": "#1F1F1F"},
+            "Time": {"9999": "#424955"},
             "db_img": {"25": "db_red", "40": "db_yellow", "60": "db_neutral", "85": "db_green", "9899": "db_blue"},
 
         }
@@ -1244,10 +1246,10 @@ class PlayerFrame:
                     if value_num <= float(k):
                         return thr[k] if not flag else thr[k]
 
-            return "#1F1F1F" if not flag else "#292929"
+            return "#424955" if not flag else "#424955"
         except Exception as e:
             print("getForegroundColor error:", e, "label:", repr(label), "value:", repr(value))
-            return "#1F1F1F" if not flag else "#171B20"
+            return "#424955" if not flag else "#424955"
 
     # ---------------------------
     # Pull data once (same intent)
@@ -1295,7 +1297,10 @@ class PlayerFrame:
     def _build_outer(self):
         
         self.superframe.createSuperFrameImage(img_key="Yellow Glow", x=self.x+214, y=self.y+745, anc="c")
-        self.superframe.createSuperFrameImage(img_key="heroframe", x=self.x, y=self.y, anc="nw")
+        self.superframe.createSuperFrameImage(img_key="heroframe2", x=self.x, y=self.y, anc="nw")
+        if self.player.bPrivate:
+            
+            self.superframe.createSuperFrameImage(img_key="private", x=self.x+5, y=self.y+264, anc="nw")
 
     
         
@@ -1305,7 +1310,29 @@ class PlayerFrame:
     def _build_overview_new(self):
         p = self.player.seasonal_overview
         if not p:
-            return
+            if not self.player.bRivalsData:
+                return
+            else:
+                offx = 64
+                offy = 186
+                x = self.x + offx
+                y = self.y + offy
+                set = 24
+                
+                # Games Played Top
+                
+                self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
+                self.superframe.createSuperFrameText(text="PRIVATE", x=x+150, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=True), fill="#9ec9fe")
+                self.superframe.createSuperFrameText(text=str(round(self.player.OVMatches,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
+                
+                # OV Stat Values
+                
+                
+                fg = self._get_foreground_color(label = "Win %", value=self.player.OVWinRate)
+                self.superframe.createSuperFrameText(text=self.player.OVWinRate, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+                self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+                return
+
         offx = 64
         offy = 186
         x = self.x + offx
@@ -1349,9 +1376,20 @@ class PlayerFrame:
         icon_string = "item_nameplate_" +self.player.Icon
         self.superframe.createSuperFrameImage(img_key=icon_string, x=self.x + 69, y=self.y + 71, anc="c")
         self.superframe.createSuperFrameText(text=self.player.Name, x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill="#FFFFFF")
-        rank = self.player.best_rank
+        ranktuple = self.player.lifetimePeakRanked
+        if ranktuple is None:
+
+            ranktuple = self.player.seasonPeak if self.player.seasonPeak else self.player.currentRank if self.player.currentRank else (None, None, None, None)
+        rank, shortrank, rankseason, color = ranktuple
+        if not rank:
+            if self.player.bRivalsData:
+                ranktuple = self.player.RivalsDataRankedInfo
+                rank, shortrank, rankseason, color = ranktuple
         if rank:
             self.superframe.createSuperFrameImage(img_key=rank, x=self.x + 312, y=self.y + 13, anc="nw")
+            if shortrank:
+                self.superframe.createSuperFrameText(text=shortrank, x=self.x + 373, y=self.y + 113, anchor="w", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill=color)
+                self.superframe.createSuperFrameText(text=rankseason, x=self.x + 363, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
 
     def _build_heroes_new(self):
 
@@ -1364,10 +1402,11 @@ class PlayerFrame:
         hero2: Hero | None = hli[1] if len(hli) > 1 else None
         hero3: Hero | None = hli[2] if len(hli) > 2 else None
         heroes = [hero1, hero2, hero3]
-        icon_position = [(5,456), (4, 611), (4, 766)]
+        icon_position = [(5,456), (4, 610), (4, 766)]
         badge_offset = (27, 155)
         frame_offset = [(5, 520), (5, 673), (4, 829)]
         stats_xy = [(184, 540), (184, 695), (184, 850)]
+        highlight_coord = [(10,509), (10, 663), (10, 819)]
         idx = 0
         offset = 3
 
@@ -1385,6 +1424,10 @@ class PlayerFrame:
         self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset, y=self.y + 316+2, anchor="w", font=fonttk(ft, 19, "bold", italic=True), fill="#C1C6E2")
         self.superframe.createSuperFrameImage(img_key=prestige_name, x=self.x + prestige[0], y=self.y + prestige[1], anc="nw")
         
+        for coord in highlight_coord:
+            x = coord[0] + self.x
+            y = coord[1] + self.y
+            self.superframe.createSuperFrameImage(img_key="highlight_upper", x=x, y=y, anc="nw")
         
 
         for hero in heroes:
@@ -1412,6 +1455,10 @@ class PlayerFrame:
                                         autoplay=True,
                                     )
             #hero_animate = self.superframe.createSuperFrameImage(img_key=heroname, x=x, y=y, anc="nw")
+            coord = highlight_coord[idx]
+            hx = coord[0] + self.x
+            hy = coord[1] + self.y
+            self.superframe.createSuperFrameImage(img_key="highlight_lower", x=hx, y=hy, anc="nw")
             if frame:
                 a, b = frame_offset[idx]
                 q = a + self.x
@@ -1438,42 +1485,60 @@ class PlayerFrame:
 
             x1 = x
             x2 = x + 65
-            x3 = x + 133
-            x4 = x + 198
+            x3 = x + 132
+            x4 = x + 200
             xmvp = -3
             ya = y -3
             yb = y + 23
             ykd = 2
+            adjust = 3
+
+            if self.player.bHeroes:
+
+                win_pct = hero.Stats.win_pct
+                kd = hero.Stats.kd_ratio
+                mvp_pct = hero.Stats.mvp_pct
+                matches_played = hero.Stats.matches_played
+
+            elif self.player.bRivalsData and hero.bRivalsData:
+                win_pct = hero.WinRate
+                kd = "-"
+                mvp_pct = "-"
+                matches_played = hero.Wins + hero.Losses
+
+            else:
+                win_pct = "-"
+                kd = "-"
+                mvp_pct = "-"
+                matches_played = "-"
 
 
-
-            self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
-            self.superframe.createSuperFrameImage(img_key="winrate2", x=x2, y=yb, anc="c")
+            self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameImage(img_key="winrate2", x=x2, y=yb-1, anc="c")#, size=(25, 24))
             
-            self.superframe.createSuperFrameText(text="KD", x=x3, y=ya, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="KD", x=x3, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
-            self.superframe.createSuperFrameImage(img_key="kd2", x=x3, y=yb + ykd, anc="c")
+            self.superframe.createSuperFrameImage(img_key="kd2", x=x3, y=yb + ykd-1, anc="c")#, size=(34, 34))
             
-            self.superframe.createSuperFrameText(text="MVP%", x=x4, y=ya, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
-
-            self.superframe.createSuperFrameImage(img_key="mvp2", x=x4 + xmvp, y=yb, anc="c")
+            self.superframe.createSuperFrameText(text="MVP%", x=x4, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameImage(img_key="mvp", x=x4 + xmvp, y=yb-1, anc="c")#, size=(41, 17))
             
-            self.superframe.createSuperFrameText(text="MATCHES", x=x1, y=ya, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="MATCHES", x=x1, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
-            self.superframe.createSuperFrameImage(img_key="matches", x=x1, y=yb, anc="c")
+            self.superframe.createSuperFrameImage(img_key="matches", x=x1, y=yb+1, anc="c")#, size =(22,22))
             
             # Stat Values
-            set = 60
-            fg = self._get_foreground_color(label = "Win %", value=hero.Stats.win_pct)
-            self.superframe.createSuperFrameText(text=hero.Stats.win_pct, x=x2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
-            fg = self._get_foreground_color(label = "Kd", value=hero.Stats.kd_ratio)
-            self.superframe.createSuperFrameText(text=str(round(hero.Stats.kd_ratio,2)), x=x3+1, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
+            set = 57
+            fg = self._get_foreground_color(label = "Win %", value=win_pct)
+            self.superframe.createSuperFrameText(text=win_pct, x=x2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 19, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kd", value=kd)
+            self.superframe.createSuperFrameText(text=str(round(kd,2)) if isinstance(kd, (int, float)) else kd, x=x3, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 19, "bold", italic=False), fill=fg)
             
-            fg = self._get_foreground_color(label = "Mvp %", value=hero.Stats.mvp_pct)
-            self.superframe.createSuperFrameText(text=hero.Stats.mvp_pct, x=x4, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Mvp %", value=mvp_pct)
+            self.superframe.createSuperFrameText(text=mvp_pct, x=x4, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 19, "bold", italic=False), fill=fg)
             
-            fg = self._get_foreground_color(label = "Matches", value=hero.Stats.matches_played)
-            self.superframe.createSuperFrameText(text=str(round(hero.Stats.matches_played,1)), x=x1, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 18, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Matches", value=matches_played)
+            self.superframe.createSuperFrameText(text=str(round(matches_played,1)) if isinstance(matches_played, (int, float)) else matches_played, x=x1, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 19, "bold", italic=False), fill=fg)
             
     def _build_match_history(self):
         offx = 8
@@ -1517,14 +1582,14 @@ class PlayerFrame:
             except AttributeError:
                 rank_str = None
                 
-            self.superframe.createSuperFrameImage(img_key=h, x=x+136, y=y-3 , anc="nw",size=(51,61))
+            self.superframe.createSuperFrameImage(img_key=h, x=x+136, y=y-2 , anc="nw",size=(51,61))
             self.superframe.createSuperFrameText(text="+" + str(match.rank_delta) if match.result == "win" else str(match.rank_delta), x=x+32 if match.result != "win" else x+30, y=y+47, anchor="c", font=fonttk("Refrigerator Deluxe", 12, "normal", italic=False), fill=fg)
             self.superframe.createSuperFrameImage(img_key="kills_m", x=x+k, y=y+18 , anc="c")
             self.superframe.createSuperFrameImage(img_key="deaths_m", x=x+d, y=y+18 , anc="c")
             self.superframe.createSuperFrameImage(img_key="assists_m", x=x+a, y=y+18 , anc="c")
-            self.superframe.createSuperFrameText(text=match.kills, x=x+k-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#88ff78")
-            self.superframe.createSuperFrameText(text=match.deaths, x=x+d-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#d96262")
-            self.superframe.createSuperFrameText(text=match.assists, x=x+a-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "normal", italic=False), fill="#7ca5f1")
+            self.superframe.createSuperFrameText(text=match.kills, x=x+k-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe", 16, "bold", italic=False), fill="#88ff78")
+            self.superframe.createSuperFrameText(text=match.deaths, x=x+d-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe", 16, "bold", italic=False), fill="#d96262")
+            self.superframe.createSuperFrameText(text=match.assists, x=x+a-1, y=y+46, anchor="c", font=fonttk("Refrigerator Deluxe", 16, "bold", italic=False), fill="#7ca5f1")
 
             
 
@@ -2915,6 +2980,8 @@ class App:
 
     def on_f8_pressed(self, tvar_value):
         MATCH_PLAYERS = []
+        mid = None
+        live_match_data = None
         global bLiveDebug
         bLiveDebug = config.debug_mode
         print(f">> Script running. Press F8 to OCR names and check tracker.gg...")
@@ -2963,8 +3030,9 @@ class App:
                 li = helpers.load_json(path=p)
                 from RDMO import Match
                 import tracker_trim
-                MatchObject = Match(li)
-                tracker_trim.getTrackerGG(MatchObject, bLiveDebug)
+                import random
+                MatchObject = Match(li, enemy_team=random.randint(1, 2))
+                tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
                 MATCH_PLAYERS = []
                 names = None
                 for p in MatchObject.players:
@@ -3005,7 +3073,7 @@ class App:
                     sym = "✅" if t == 'int' else "❌"
                     print(f"🦸 {config.USER_NAME} ({type(config.USER_NAME).__name__})")
                     print(f"🆔 {config.USER_UID} ({type(config.USER_UID).__name__} {sym})")
-                    live_match_data = tracker_trim.getLive()
+                    live_match_data, mid = tracker_trim.getLive()
                     match = Match(live_match_data)
                     tracker_trim.getTrackerGG(match)
                     MATCH_PLAYERS = []
@@ -3041,6 +3109,13 @@ class App:
         players = []
         if len(MATCH_PLAYERS) > 0:
             self.show_match_page(MATCH_PLAYERS)
+            if mid and live_match_data:
+                mid = mid.split(":")[0]  # Remove any extra info after the match ID
+                path = os.path.join(config.FullDebug_dir, f"_liveMatch_{mid}.json")
+                helpers.save_json(path=path, data=live_match_data)
+                mid = None
+                live_match_data = None
+
         else:
             print(">> No valid player data to display.")
             self.show_launcher_page()  # Go back to launcher if no players
