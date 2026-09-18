@@ -78,9 +78,10 @@ def get_mastery_names() -> list[str]:
     return names
 
 
-def find_sheet(hero_name: str) -> Path | None:
+def find_sheet(hero_name: str, idx: int = 0) -> Path | None:
     """Find <hero_name>0 with a supported image extension."""
-    filename_stem = f"{hero_name}0"
+    filename_stem = f"{hero_name}{idx}"
+
 
     for directory in SEARCH_DIRECTORIES:
         for extension in SUPPORTED_EXTENSIONS:
@@ -96,11 +97,21 @@ def collect_sheets() -> tuple[list[tuple[str, Path]], list[str]]:
     missing: list[str] = []
 
     for hero_name in get_mastery_names():
-        sheet_path = find_sheet(hero_name)
+        idx = 0
+        
+        sheet_path = find_sheet(hero_name, idx=0)
         if sheet_path is None:
             missing.append(hero_name)
         else:
             sheets.append((hero_name, sheet_path))
+
+        if hero_name == "Phoenix":
+            # Phoenix has two mastery sheets, so check for the second one.
+            idx = 1
+            sheet_path = find_sheet(hero_name, idx=idx)
+            if sheet_path is not None:
+                sheets.append((hero_name, sheet_path))
+            
 
     return sheets, missing
 

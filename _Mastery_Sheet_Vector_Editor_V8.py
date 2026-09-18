@@ -1431,7 +1431,7 @@ def main() -> None:
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
         print(folder_name)
-        if folder_name not in ["1039","1049", "1054","1020"]:
+        if folder_name not in ["1049", "1054"]:
             continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "
