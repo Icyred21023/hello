@@ -104,10 +104,9 @@ if __name__ == "__main__":
     ##create_desktop_launcher()wwwwwwwww
     if config.bUseCloudSync:
         startup_cloud_sync()
-    if bNewGui:
-        import gui_monitor3 as gui
-    else:
-        import gui
+    
+    import gui_monitor3 as gui
+    
         
     config.debug_menu = True
     gui.start_app()

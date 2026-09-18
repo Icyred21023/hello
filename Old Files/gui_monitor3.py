@@ -190,12 +190,12 @@ CACHED_IMGS = {}
 
 import time
 t = time.perf_counter()
-# for path_folder in [assets_chars, assets_ui]:
-#     for filename in os.listdir(path_folder):
-#         if filename.lower().endswith(".png"):
-#             key = os.path.splitext(filename)[0]
-#             path = os.path.join(path_folder, filename)
-#             CACHED_IMGS[key] = Image.open(path)
+for path_folder in [assets_chars, assets_ui]:
+    for filename in os.listdir(path_folder):
+        if filename.lower().endswith(".png"):
+            key = os.path.splitext(filename)[0]
+            path = os.path.join(path_folder, filename)
+            CACHED_IMGS[key] = Image.open(path)
             
 
 
@@ -271,8 +271,8 @@ def create_root(scale=None):
     return root
 font_families = set()
 hide_function, debug_frame_global, main_frame_global, hide_button_global = None, None, None, None
-#BG_PATH = helpers.create_path("season_bg2.png", 'gui_assets')
-#BG_IMG = Image.open(BG_PATH)
+BG_PATH = helpers.create_path("season_bg2.png", 'gui_assets')
+BG_IMG = Image.open(BG_PATH)
 hotkeyoo = None
 NAME_BANNER = "#2D304B"
 SEASON_BANNER = "#1F252B"

@@ -891,15 +891,20 @@ class Role:
 class MatchHistory:
     def __init__(self, match_data):
         #match_data = match_data.get("data", None)
+        self.skipped = False
         match_stats = match_data['segments'][0]['stats']
         self.duration = match_data['metadata']['duration']
         self.winning_team = match_data['metadata']['winningTeamId']
+        self.timestamp = self.convert_timestamp(match_data.get('metadata', {}).get('timestamp', None))
         self.result = match_data['segments'][0]['metadata']['result']
         self.isMvp = match_data['segments'][0]['metadata']['isMvp']
         self.isSvp = match_data['segments'][0]['metadata']['isSvp']
         self.scores = match_data['metadata']['scores']
         self.player_team = match_data['segments'][0]['metadata']['teamId']
-        self.heroes_used = [hero['name'] for hero in match_data['segments'][0]['metadata']['heroes']]
+        self.heroes_used = [
+                hero['name']
+                for hero in (match_data['segments'][0]['metadata'].get('heroes') or [])
+            ]
         self.time_played = match_stats['timePlayed']['value']
         self.kills = match_stats['kills']['value']
         self.assists = match_stats['assists']['value']
@@ -914,7 +919,38 @@ class MatchHistory:
         self.total_damage_taken_per_minute = int(round(match_stats['totalDamageTakenPerMinute']['value']))
         self.last_kills = match_stats['lastKills']['value']
         self.rank, self.rank_tier = strip_rank_tier2(match_stats['ranked']['metadata']['tierName'])
-        self.rank_delta = match_stats.get('rankedDelta', {}).get('displayValue', "??")
+        self.rank_delta = match_stats.get('rankedDelta', {}).get('displayValue', "-")
+
+    def convert_timestamp(self, timestamp):
+        from datetime import datetime, timezone
+
+        try:
+        
+            then = datetime.fromisoformat(timestamp)
+            now = datetime.now(timezone.utc)
+
+            seconds = max(0, (now - then).total_seconds())
+
+            minutes = seconds / 60
+            hours = seconds / 3600
+            days = seconds / 86400
+
+            if minutes < 50:
+                return f"{round(minutes)}m"
+
+            elif hours < 16:
+                return f"{int(hours)}h"
+
+            elif days < 30:
+                return f"{int(days)}d"
+
+            elif days < 365:
+                return f"{int(days / 30)}mo"
+
+            else:
+                return f"{int(days / 365)}y"
+        except Exception:
+            return "-"
     def getSegmentFromType(self, data, seg_type):
         segments = data["data"]["segments"]
         hero_segment = next((segment for segment in segments if segment.get("type") == seg_type),
@@ -1028,6 +1064,7 @@ class Player:
     def add_matches(self, matches):
         matchhistory = matches['data']['matches']
         if matchhistory:
+            
             self.matches: List[MatchHistory] = [MatchHistory(match) for match in matchhistory]
 
     def add_profile(self, profile_data):

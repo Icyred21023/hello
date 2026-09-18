@@ -583,9 +583,9 @@ def fetch_and_add_tracker(player: Player, browser: Browser, ign: str, kind: str,
     label = label or kind.replace("_", " ").title()
 
     if status == "Success":
-        # if True:
-        #     path = os.path.join(config.FullDebug_dir, f"{ign}_{kind}.json")
-        #     helpers.save_json(path=path, data=data)
+        if kind == "matches":
+            path = os.path.join(config.FullDebug_dir, f"{player.Name}_{kind}.json")
+            #helpers.save_json(path=path, data=data)
         add_method = getattr(player, f"add_{kind}", None)
         if not callable(add_method):
             print(f"\t❌ \033[1m{label}\033[0m has no player.add_{kind}() method.")
@@ -762,6 +762,10 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
 
     for player in players:
         if "*" in player.Name:
+            #player.bPrivate = True
+            player.bHeroes = False
+            player.bProfile = False
+            player.bMatchHistory = False
             player.bPrivate = True
             continue
 
