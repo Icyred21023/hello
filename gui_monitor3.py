@@ -41,6 +41,133 @@ RANK_FG = {
 
 }
 
+HERO_SHORTNAME = {
+    "Gorr The God Butcher": "Gorr God-Butcher",
+    "Devil Dinosaur": "Devil Dinosaur",
+    "Black Cat": "Black Cat",
+    "White Fox": "White Fox",
+    "Elsa Bloodstone": "Elsa Bloodstone",
+    "Deadpool": "Deadpool",
+    "Rogue": "Rogue",
+    "Gambit": "Gambit",
+    "Daredevil": "Daredevil",
+    "Angela": "Angela",
+    "Blade": "Blade",
+    "Phoenix": "Phoenix",
+    "Ultron": "Ultron",
+    "Emma Frost": "Emma Frost",
+    "The Thing": "The Thing",
+    "Human Torch": "Human Torch",
+    "Invisible Woman": "Invisible Woman",
+    "Mister Fantastic": "Mister Fantastic",
+    "Hawkeye": "Hawkeye",
+    "Psylocke": "Psylocke",
+    "Iron Fist": "Iron Fist",
+    "Wolverine": "Wolverine",
+    "Moon Knight": "Moon Knight",
+    "Black Widow": "Black Widow",
+    "Squirrel Girl": "Squirrel Girl",
+    "Winter Soldier": "Winter Soldier",
+    "Cloak & Dagger": "Cloak & Dagger",
+    "Captain America": "Captain America",
+    "Thor": "Thor",
+    "Jeff the Land Shark": "Jeff",
+    "Venom": "Venom",
+    "Adam Warlock": "Adam Warlock",
+    "Hela": "Hela",
+    "Bruce Banner": "The Hulk",
+    "Loki": "Loki",
+    "Magik": "Magik",
+    "Namor": "Namor",
+    "Storm": "Storm",
+    "Groot": "Groot",
+    "Mantis": "Mantis",
+    "Iron Man": "Iron Man",
+    "Magneto": "Magneto",
+    "Star-Lord": "Star-Lord",
+    "Luna Snow": "Luna Snow",
+    "Spider-Man": "Spider-Man",
+    "Peni Parker": "Peni Parker",
+    "The Punisher": "The Punisher",
+    "Black Panther": "Black Panther",
+    "Scarlet Witch": "Scarlet Witch",
+    "Doctor Strange": "Doctor Strange",
+    "Rocket Raccoon": "Rocket Raccoon",
+    "Cyclops": "Cyclops",
+    "Jubilee": "Jubilee",
+    "The Hood": "The Hood",
+    "Unknown": "Unknown",
+}
+
+HERO_ANIMATION_DATA = {
+    "Gorr The God Butcher": {"fps": 38, "sheets": 1},
+    "Devil Dinosaur": {"fps": 26, "sheets": 1},
+    "Black Cat": {"fps": 30, "sheets": 1},
+    "White Fox": {"fps": 30, "sheets": 2},
+    "Elsa Bloodstone": {"fps": 30, "sheets": 1},
+    "Deadpool": {"fps": 30, "sheets": 1},
+    "Rogue": {"fps": 30, "sheets": 1},
+    "Gambit": {"fps": 30, "sheets": 1},
+    "Daredevil": {"fps": 30, "sheets": 1},
+    "Angela": {"fps": 30, "sheets": 1},
+    "Blade": {"fps": 30, "sheets": 1},
+    "Phoenix": {"fps": 30, "sheets": 1},
+    "Ultron": {"fps": 30, "sheets": 1},
+    "Emma Frost": {"fps": 30, "sheets": 1},
+    "The Thing": {"fps": 30, "sheets": 1},
+    "Human Torch": {"fps": 30, "sheets": 1},
+    "Invisible Woman": {"fps": 30, "sheets": 1},
+    "Mister Fantastic": {"fps": 30, "sheets": 1},
+    "Hawkeye": {"fps": 30, "sheets": 1},
+    "Psylocke": {"fps": 30, "sheets": 1},
+    "Iron Fist": {"fps": 30, "sheets": 1},
+    "Wolverine": {"fps": 30, "sheets": 1},
+    "Moon Knight": {"fps": 30, "sheets": 1},
+    "Black Widow": {"fps": 30, "sheets": 1},
+    "Squirrel Girl": {"fps": 30, "sheets": 1},
+    "Winter Soldier": {"fps": 30, "sheets": 1},
+    "Cloak & Dagger": {"fps": 30, "sheets": 1},
+    "Captain America": {"fps": 30, "sheets": 1},
+    "Thor": {"fps": 30, "sheets": 1},
+    "Jeff the Land Shark": {"fps": 30, "sheets": 1},
+    "Venom": {"fps": 30, "sheets": 1},
+    "Adam Warlock": {"fps": 30, "sheets": 1},
+    "Hela": {"fps": 30, "sheets": 1},
+    "Bruce Banner": {"fps": 30, "sheets": 1},
+    "Loki": {"fps": 30, "sheets": 2},
+    "Magik": {"fps": 30, "sheets": 2},
+    "Namor": {"fps": 30, "sheets": 1},
+    "Storm": {"fps": 30, "sheets": 1},
+    "Groot": {"fps": 30, "sheets": 1},
+    "Mantis": {"fps": 30, "sheets": 1},
+    "Iron Man": {"fps": 30, "sheets": 1},
+    "Magneto": {"fps": 30, "sheets": 1},
+    "Star-Lord": {"fps": 30, "sheets": 1},
+    "Luna Snow": {"fps": 30, "sheets": 1},
+    "Spider-Man": {"fps": 30, "sheets": 1},
+    "Peni Parker": {"fps": 30, "sheets": 1},
+    "The Punisher": {"fps": 30, "sheets": 1},
+    "Black Panther": {"fps": 30, "sheets": 1},
+    "Scarlet Witch": {"fps": 30, "sheets": 1},
+    "Doctor Strange": {"fps": 30, "sheets": 1},
+    "Rocket Raccoon": {"fps": 30, "sheets": 1},
+    "Cyclops": {"fps": 30, "sheets": 1},
+    "Jubilee": {"fps": 30, "sheets": 1},
+    "The Hood": {"fps": 30, "sheets": 2},
+    "Unknown": {"fps": 30, "sheets": 1},
+}
+
+def get_mastery_fps(hero_name):
+    import random
+    fps, qty = HERO_ANIMATION_DATA.get(hero_name, {}).get("fps", 30), HERO_ANIMATION_DATA.get(hero_name, {}).get("sheets", 1)
+    if qty > 1:
+        rng = random.randint(0, 100)
+        qty = 1 if rng >75 else 0
+        
+
+        return fps, qty
+    return fps , 0
+
 if not config.mobile_mode:
     
     import win32gui
@@ -1155,11 +1282,13 @@ class PlayerFrame:
     - I kept your logic and layout, but removed the UI dict and inlined the numbers.
     """
 
-    def __init__(self, parent: SuperFrame, player: Player, x, y):
+    def __init__(self, parent: SuperFrame, player: Player, x, y, len: int, teams):
         self.x = x
         self.y = y
+        self.len = len
         self.superframe = parent
         self.player = player
+        self.teams = teams
         self.db = DB
         self.overview_frame = 130
         self.stat_frame_height = 112 #112
@@ -1306,7 +1435,7 @@ class PlayerFrame:
     # ---------------------------
     def _build_outer(self):
         
-        self.superframe.createSuperFrameImage(img_key="Yellow Glow", x=self.x+214, y=self.y+745, anc="c")
+        self.superframe.createSuperFrameImage(img_key="Yellow Glow", x=self.x+214, y=self.y+745, anc="c") if self.len != 6 else None
         self.superframe.createSuperFrameImage(img_key="heroframe2", x=self.x, y=self.y, anc="nw")
         a = 1 if self.player.bProfile else 0
         a += 1 if self.player.bMatchHistory else 0
@@ -1392,7 +1521,7 @@ class PlayerFrame:
     def _build_name_bar(self):
         icon_string = "item_nameplate_" +self.player.Icon
         self.superframe.createSuperFrameImage(img_key=icon_string, x=self.x + 69, y=self.y + 71, anc="c")
-        self.superframe.createSuperFrameText(text=self.player.Name, x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill="#FFFFFF")
+        
         ranktuple = self.player.lifetimePeakRanked
         if ranktuple is None:
 
@@ -1407,6 +1536,11 @@ class PlayerFrame:
             if shortrank:
                 self.superframe.createSuperFrameText(text=shortrank, x=self.x + 375, y=self.y + 113, anchor="w", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill=color)
                 self.superframe.createSuperFrameText(text=rankseason, x=self.x + 361, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
+
+        self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill="#FFFFFF")
+        team = self.teams.get(self.player.TeamId, None)
+        if team:
+            self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116, y=self.y + 98, size=(28,28),anc="nw")
 
     def _build_heroes_new(self):
 
@@ -1431,14 +1565,15 @@ class PlayerFrame:
         ft = "Apotek Comp Bold"
         ft0 = "Refrigerator Deluxe"
         ft = "Refrigerator Deluxe ExtraBold"
-        if "-" in hero1.Name:
+        short = HERO_SHORTNAME.get(hero1.Name, hero1.Name)
+        if "-" in short:
             s = "-"
-        elif " & " in hero1.Name:
+        elif " & " in short:
             s = " & "
         else:
             s = " "
-        name1 = hero1.Name.split(s)[0] if len(hero1.Name.split(s)) > 0 else ""
-        name2 = hero1.Name.split(s)[1] if len(hero1.Name.split(s)) > 1 else ""
+        name1 = short.split(s)[0] if len(short.split(s)) > 0 else ""
+        name2 = short.split(s)[1] if len(short.split(s)) > 1 else ""
 
         self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset, y=self.y + 276, anc="c",size=(18,18))
         self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset, y=self.y + 277, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
@@ -1462,9 +1597,13 @@ class PlayerFrame:
                 idx += 1
                 continue
             proficiency = hero.ProficiencyLevel if hero else 0
-            bAnimated, frame, badge, heroname, rank = self.proficiency_handler(hero.Name, int(proficiency))
+            bAnimated, frame, badge, heroname, rank, fps = self.proficiency_handler(hero.Name, int(proficiency))
             #heroname = "Gorr The God Butcher0" if idx == 1 else heroname
             #bAnimated = True if idx == 1 else bAnimated
+            #fps, sheet = get_mastery_fps(hero.Name)
+            #if sheet == "1":
+
+
             self.hero_animation = HeroImager(
                                         self.superframe,
                                         image_key=heroname,  # Passed directly to image_loader()
@@ -1473,7 +1612,7 @@ class PlayerFrame:
                                         
                                         anchor="nw",
                                         bAnimated=bAnimated,
-                                        fps=24,
+                                        fps=fps,
                                         loop=True,
                                         autoplay=True,
                                     )
@@ -1608,11 +1747,11 @@ class PlayerFrame:
             except AttributeError:
                 rank_str = None
             try:
-                mvp_str = "mvp_M2" if match.isMvp else None
+                mvp_str = "mvp_m" if match.isMvp else None
                 if mvp_str is None:
-                    mvp_str = "svp_M2" if match.isSvp else None
+                    mvp_str = "svp_m" if match.isSvp else None
                 if mvp_str is not None:
-                    self.superframe.createSuperFrameImage(img_key=mvp_str, x=x+mvp[0], y=y+mvp[1] , anc="sw", size=(56,28))
+                    self.superframe.createSuperFrameImage(img_key=mvp_str, x=x+mvp[0], y=y+mvp[1] , anc="sw") #size=(56,28))
             except AttributeError:
                 rank_str = None
 
@@ -1664,31 +1803,31 @@ class PlayerFrame:
             # lv15 = 15/2
             # lv10 = 7.5/2
             # lv5 = 2.5/2
-
+            fps, sheet = get_mastery_fps(hero)
             if lv > 55: #200:
-                return True, "gold_frame_shad", 4, hero + "0", "Champion"
+                return True, "gold_frame_shad", 4, hero + str(sheet), "Champion",fps
             elif lv > 50: #140:
-                return True, "gold_frame_shad", 3, hero + "0", "Champion" 
+                return True, "gold_frame_shad", 3, hero + str(sheet), "Champion",fps
             elif lv > 45: #100:    
-                return False, "gold_frame_shad", 3, hero + "_l", "Guardian"
+                return False, "gold_frame_shad", 3, hero + "_l", "Guardian",fps
             elif lv > 40: #100:    
-                return False, "gold_frame_shad", 2, hero + "_l", "Elite"
+                return False, "gold_frame_shad", 2, hero + "_l", "Elite",fps
             elif lv > 35: #80:
-                return False, "purple_frame_shad", 2, hero + "_l", "Warrior"
+                return False, "purple_frame_shad", 2, hero + "_l", "Warrior",fps
             elif lv > 30: #55:
-                return False, 'purple_frame_shad', 1, hero + "_l", "Colonel"
+                return False, 'purple_frame_shad', 1, hero + "_l", "Colonel",fps
             elif lv > 25: #35:
-                return False, False, 1, hero + "_l", "Count"
+                return False, False, 1, hero + "_l", "Count",fps
             elif lv > 20: #25:
-                return False, False, False, hero + "_l", "Lord"
+                return False, False, False, hero + "_l", "Lord",fps
             elif lv > 15: #15:
-                return False, False, False, hero, "Centurion"
+                return False, False, False, hero, "Centurion",fps
             elif lv > 10: #7.5:
-                return False, False, False, hero, "Captain"
+                return False, False, False, hero, "Captain",fps
             elif lv > 5: #2.5:
-                return False, False, False, hero, "Knight"
+                return False, False, False, hero, "Knight",fps  
             else:
-                return False, False, False, hero, "Agent"
+                return False, False, False, hero, "Agent",fps
             
     def proficiency_handlerAll(self,hours, hero):
             lv60 = 195 #AnimatedLord, Badge4, Gold
@@ -2988,6 +3127,14 @@ class App:
         t = time.perf_counter()
         p_count = len(players)
         idx = 1
+        qty = len(players)
+        teams = {
+            team_id: f"team{i}"
+            for i, (team_id, count) in enumerate(
+                ((tid, count) for tid, count in Player.team_counts.items() if count > 1),
+                start=1
+            )
+        }
         for player in players:
             # Default placement preserves the old side-by-side layout, but the
             # values are now true offsets from the SuperFrame's top-left corner.
@@ -2995,7 +3142,7 @@ class App:
             x, y = self.coordinates.get(str(p_count), {}).get(str(idx), (0, 44))
             
             idx += 1
-            PlayerFrame(self.super_frame, player, x, y).build()
+            PlayerFrame(self.super_frame, player, x, y,qty,teams).build()
             #create_player_frame(player_slot, player)
         #print(f"Created player frames in {time.perf_counter() - t:.2f} seconds.")
         

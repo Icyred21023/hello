@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 import config
 
 
-PNG_DIR = r"C:\Users\Chloroform\Documents\_fGuiDesign\Cropped Prestige 3"
+PNG_DIR = r"C:\Users\Chloroform\Documents\_fGuiDesign\New Heads 2\Photoshopped"
 CACHE_FILE = os.path.join(config.script_dir,"debug", "hero_png_renamer_cache.json") 
 
 

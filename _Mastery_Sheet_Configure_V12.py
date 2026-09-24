@@ -338,16 +338,35 @@ class SpriteSheetEditor:
         if sel:
             self.select_frame(int(sel[0]), sync_tree=False)
 
-    def select_frame(self, index: int, sync_tree: bool = True) -> None:
+    def select_frame(
+        self,
+        index: int,
+        sync_tree: bool = True,
+        refresh_sheet: bool = True
+    ) -> None:
         if not self.cells:
             return
-        self.selected_index = max(0, min(index, len(self.cells)-1))
+
+        self.selected_index = max(0, min(index, len(self.cells) - 1))
         c = self.cells[self.selected_index]
-        self.x0_var.set(c.x0); self.y0_var.set(c.y0); self.x1_var.set(c.x1); self.y1_var.set(c.y1)
-        self.dx_var.set(c.dx); self.dy_var.set(c.dy)
+
+        self.x0_var.set(c.x0)
+        self.y0_var.set(c.y0)
+        self.x1_var.set(c.x1)
+        self.y1_var.set(c.y1)
+
+        self.dx_var.set(c.dx)
+        self.dy_var.set(c.dy)
+
         if sync_tree and self.tree.exists(str(c.index)):
-            self.tree.selection_set(str(c.index)); self.tree.focus(str(c.index)); self.tree.see(str(c.index))
-        self.refresh_preview(); self.refresh_sheet_view()
+            self.tree.selection_set(str(c.index))
+            self.tree.focus(str(c.index))
+            self.tree.see(str(c.index))
+
+        self.refresh_preview()
+
+        if refresh_sheet:
+            self.refresh_sheet_view()
 
     def validate_rect(self, x0: int, y0: int, x1: int, y1: int) -> bool:
         if x0 < 0 or y0 < 0 or x1 > self.original_image.width or y1 > self.original_image.height:
@@ -491,13 +510,23 @@ class SpriteSheetEditor:
         return out
 
     def get_processed_cell(self, c: Cell, scaled: bool) -> Image.Image:
-        img = self.apply_local_offset(self.get_cell_crop(c), c.dx, c.dy)
+        img = self.get_cell_crop(c)
+
+        if c.dx != 0 or c.dy != 0:
+            img = self.apply_local_offset(img, c.dx, c.dy)
+
         if scaled:
             p = max(1, int(self.scale_var.get()))
+
             nw = max(1, (img.width * p + 50) // 100)
             nh = max(1, (img.height * p + 50) // 100)
+
             if (nw, nh) != img.size:
-                img = img.resize((nw, nh), Image.Resampling.LANCZOS)
+                img = img.resize(
+                    (nw, nh),
+                    Image.Resampling.LANCZOS
+                )
+
         return img
 
     @staticmethod
@@ -512,6 +541,9 @@ class SpriteSheetEditor:
 
     # ---------- preview ----------
     def refresh_preview(self) -> None:
+        import time
+
+        t0 = time.perf_counter()
         if self.original_image is None or not self.cells:
             self.preview_canvas.delete("all")
             return
@@ -521,7 +553,6 @@ class SpriteSheetEditor:
             p = 100
         self.scale_var.set(p)
         c = self.cells[self.selected_index]
-        raw = self.get_processed_cell(c, False)
         scaled = self.get_processed_cell(c, True)
         cw, ch = max(50,self.preview_canvas.winfo_width()), max(50,self.preview_canvas.winfo_height())
         display = scaled
@@ -536,8 +567,22 @@ class SpriteSheetEditor:
         self.preview_canvas.delete("all"); self.preview_canvas.create_image(0,0,anchor="nw",image=self.preview_photo)
         self.frame_info_var.set(
             f"Frame {c.index+1}/{len(self.cells)}   Grid R{c.row+1} C{c.col+1}\n"
-            f"Crop [x0,y0,x1,y1): [{c.x0}, {c.y0}, {c.x1}, {c.y1}]   Source size: {raw.width}×{raw.height}\n"
+            f"Crop [x0,y0,x1,y1): [{c.x0}, {c.y0}, {c.x1}, {c.y1}]   Source size: {c.width}×{c.height}\n"
             f"Local offset: dx={c.dx}, dy={c.dy}   Scale: {p}%   Scaled size: {scaled.width}×{scaled.height}")
+        
+        elapsed = (time.perf_counter() - t0) * 1000
+
+        if elapsed > 30:
+            c = self.cells[self.selected_index]
+
+            print(
+                f"SLOW FRAME {c.index + 1}: "
+                f"{elapsed:.1f} ms | "
+                f"sheet={self.original_image.width}x{self.original_image.height} | "
+                f"cell={c.width}x{c.height} | "
+                f"offset=({c.dx},{c.dy}) | "
+                f"scale={self.scale_var.get()}%"
+            )
 
     def refresh_sheet_view(self) -> None:
         if self.original_image is None:
@@ -587,7 +632,12 @@ class SpriteSheetEditor:
 
     def _animation_tick(self) -> None:
         if self.playing and self.cells:
-            self.select_frame((self.selected_index+1) % len(self.cells)); self._schedule_next()
+            self.select_frame(
+                (self.selected_index + 1) % len(self.cells),
+                sync_tree=False,
+                refresh_sheet=False
+            )
+            self._schedule_next()
 
     def prev_frame(self) -> None:
         self.stop_animation()

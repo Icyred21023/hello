@@ -1,6 +1,7 @@
 import config
 from typing import List
 import re
+from collections import Counter
 
 SEASON = 9
 UID = config.USER_UID if not config.mobile_mode else "1324925930"
@@ -636,6 +637,25 @@ class Stats:
 
         return self.avg_match_duration_minutes
         
+class Role:
+    def __init__(self):
+        self.roles = None
+        self.Stats = Stats()
+        self.Season = ""
+        self.Name = None
+        self.Usage = None
+
+    def add_role(self, data):
+        self.Name = data.get("metadata", {}).get("name", "Unknown") if self.Name is None else self.Name
+        self.Season += str(data.get("attributes", {}).get("season", 0))
+        self.Stats.add(data.get("stats", {}))
+        self.Usage = data.get("attributes", {}).get("usage", None)
+
+
+    def add_stats(self, stats):
+
+        self.Stats.add(stats)
+
 class Overview:
     def __init__(self):
         
@@ -816,7 +836,7 @@ class Overview:
         return 0
 
 
-class Role:
+class RoleOld:
     def __init__(self, role_data=None, full_ov: Overview = None):
         try:
 
@@ -979,6 +999,7 @@ class Hero:
 
 
 class Player:
+    team_counts = Counter()
     def __init__(self, data):
         self.Name = data.get("name", "Unknown")
         self.Uid = str(data.get("uid", "Unknown"))
@@ -989,7 +1010,11 @@ class Player:
         self.seasonPeak = None
         self.short_season = None
         self.Team = data.get("side")
-        self.TeamId = data.get("team_id")
+        self.TeamId = data.get("team_id", None)
+        if self.TeamId is not None:
+            Player.team_counts[self.TeamId] += 1
+        self.TeamId_Img = None
+        self.seasons_string = ""
 
         self.Icon = data.get("icon", "Unknown")
         self.PlayerImgId = self.Icon
@@ -1000,7 +1025,9 @@ class Player:
         self.bHeroes = False
 
         self.Heroes: dict[str, Hero] = {}
+        self.Roles: dict[str, Role] = {}
         self.bPrivate =  False
+        self.bRoles = False
         self.seasonal_overview = None
         self.full_overview = None
         self.matches: List[MatchHistory] = []
@@ -1096,17 +1123,32 @@ class Player:
                 self.season_rank = self.seasonPeak[0] if self.seasonPeak[0] else self.currentRank[0] if self.currentRank[0] else None
 
             
-            self.seasons_string = ""
+            self.seasons_string += " + " + short_season if self.seasons_string != "" else short_season
             if self.seasonal_overview is None:
                 self.seasonal_overview = Overview()
             self.seasonal_overview.addOverviewData(overview_data)
             self.full_overview = self.seasonal_overview
             sorted_heros = self.sort_by_time(profile_data)
             
+
+
+            
             roles_data = self.getRolesData(profile_data)
-            if roles_data:
-                    self.roles: List[Role] = [Role(role_seg) for role_seg in roles_data]
-                    self.roles.sort(key=lambda r: r.time_played, reverse=True)
+            for role in roles_data:
+                role_name = role.get("metadata", {}).get("name", "Unknown")
+                if role_name not in self.Roles:
+                    self.Roles[role_name] = Role()
+                    self.Roles[role_name].add_role(role)
+                    self.bRoles = True
+                else:
+                    self.Roles[role_name].add_role(role)
+
+            
+
+
+            # if roles_data:
+            #         self.roles: List[Role] = [Role(role_seg) for role_seg in roles_data]
+            #         self.roles.sort(key=lambda r: r.time_played, reverse=True)
                     
             for h in sorted_heros:
                 hname = h.get("metadata", {}).get("name", None)
@@ -1121,6 +1163,14 @@ class Player:
                 self.bHeroes = True
 
             # Rebuild dict in descending matches-played order
+            self.Roles = dict(
+                sorted(
+                    self.Roles.items(),
+                    key=lambda item: item[1].Stats.matches_played,
+                    reverse=True
+                )
+            )
+
             self.Heroes = dict(
                 sorted(
                     self.Heroes.items(),

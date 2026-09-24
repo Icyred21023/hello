@@ -1431,7 +1431,30 @@ def main() -> None:
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
         print(folder_name)
-        if folder_name not in ["1011"]:
+#         if folder_name not in [
+#     "1065",  # Rogue
+#     "1057",  # Deadpool
+#     "1028",  # Ultron
+#     "1051",  # Thing
+#     "1050",  # Invis
+#     "1040",  # Mister Fantastic
+#     "1052",  # Iron Fist
+#     "1030",  # Moon Knight
+#     "1033",  # Black Widow
+#     "1041",  # Winter
+#     "1047",  # Jeff
+#     "1046",  # Adam
+#     "1045",  # Namor
+#     "1015",  # Storm
+#     "1027",  # Groot
+#     "1037",  # Magneto
+#     "1043",  # Star-Lord
+#     "1036",  # Spider-Man
+#     "1042",  # Peni
+#     "1014",  # Punisher
+#     "1023",  # Rocket
+# ]:
+        if folder_name not in ["1048"]:
             continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "
