@@ -1805,17 +1805,17 @@ class PlayerFrame:
             # lv5 = 2.5/2
             fps, sheet = get_mastery_fps(hero)
             if lv > 55: #200:
-                return True, "gold_frame_shad", 4, hero + str(sheet), "Champion",fps
+                return True, "gold_frame_shad_ai", 4, hero + str(sheet), "Champion",fps
             elif lv > 50: #140:
-                return True, "gold_frame_shad", 3, hero + str(sheet), "Champion",fps
+                return True, "gold_frame_shad_ai", 3, hero + str(sheet), "Champion",fps
             elif lv > 45: #100:    
-                return False, "gold_frame_shad", 3, hero + "_l", "Guardian",fps
+                return False, "gold_frame_shad_ai", 3, hero + "_l", "Guardian",fps
             elif lv > 40: #100:    
-                return False, "gold_frame_shad", 2, hero + "_l", "Elite",fps
+                return False, "gold_frame_shad_ai", 2, hero + "_l", "Elite",fps
             elif lv > 35: #80:
-                return False, "purple_frame_shad", 2, hero + "_l", "Warrior",fps
+                return False, "purple_frame_shad_ai4", 2, hero + "_l", "Warrior",fps
             elif lv > 30: #55:
-                return False, 'purple_frame_shad', 1, hero + "_l", "Colonel",fps
+                return False, 'purple_frame_shad_ai4', 1, hero + "_l", "Colonel",fps
             elif lv > 25: #35:
                 return False, False, 1, hero + "_l", "Count",fps
             elif lv > 20: #25:
