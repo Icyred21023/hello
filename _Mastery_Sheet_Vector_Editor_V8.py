@@ -53,6 +53,7 @@ SHEETS_DIR = os.path.join(EDITOR_DIR, "Raw Sheets")
 OUTPUTS_DIR = os.path.join(EDITOR_DIR, "Outputs")
 
 VECTOR_SVG = os.path.join(EDITOR_DIR, "svg.svg")
+VECTOR_PREVIEW_PNG = os.path.join(EDITOR_DIR, "svg.png")
 VECTOR_WIDTH = 322
 VECTOR_HEIGHT = 368
 REFERENCE_FRAME_W = 600
@@ -904,6 +905,7 @@ class VectorPlacementGUI(tk.Tk):
         self,
         frame_img: Image.Image,
         vector_mask: Image.Image,
+        vector_preview_img: Optional[Image.Image],
         title: str,
         initial_position: Optional[Tuple[int, int]] = None,
         initial_scale_multiplier: float = 1.0,
@@ -915,6 +917,11 @@ class VectorPlacementGUI(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self.on_quit)
 
         self.frame_img = frame_img.convert("RGBA")
+        self.vector_preview_base = (
+            vector_preview_img.convert("RGBA").copy()
+            if vector_preview_img is not None
+            else None
+)
 
         # Keep an untouched copy of the automatic per-frame vector size. The
         # automatic size has already been snapped to the exact reduced SVG ratio.
@@ -1054,6 +1061,38 @@ class VectorPlacementGUI(tk.Tk):
         self._update_preview()
         self.after(100, self.focus_force)
 
+    def _get_scaled_vector_preview(self) -> Optional[Image.Image]:
+        """
+        Scale svg.png by exactly the same scale currently being applied
+        to the vector.
+
+        VECTOR_WIDTH x VECTOR_HEIGHT represents the reference SVG size.
+        """
+
+        if self.vector_preview_base is None:
+            return None
+
+        scale_x = self.mw / float(VECTOR_WIDTH)
+        scale_y = self.mh / float(VECTOR_HEIGHT)
+
+        new_w = max(
+            1,
+            int(round(self.vector_preview_base.width * scale_x))
+        )
+
+        new_h = max(
+            1,
+            int(round(self.vector_preview_base.height * scale_y))
+        )
+
+        if self.vector_preview_base.size == (new_w, new_h):
+            return self.vector_preview_base.copy()
+
+        return self.vector_preview_base.resize(
+            (new_w, new_h),
+            Image.Resampling.LANCZOS
+        )
+
     def _cleanup_global_bindings(self) -> None:
         try:
             self.unbind_all("<MouseWheel>")
@@ -1083,10 +1122,75 @@ class VectorPlacementGUI(tk.Tk):
         )
         outside = ImageChops.invert(full_frame_mask)
         shade_alpha = outside.point(lambda p: (p * 145) // 255)
-        shade = Image.new("RGBA", self.frame_img.size, (0, 0, 0, 0))
+        shade = Image.new(
+            "RGBA",
+            self.frame_img.size,
+            (0, 0, 0, 0)
+        )
+
         shade.putalpha(shade_alpha)
-        shaded_frame = Image.alpha_composite(self.frame_img, shade)
-        preview.alpha_composite(shaded_frame, (pad, pad))
+
+        shaded_frame = Image.alpha_composite(
+            self.frame_img,
+            shade
+        )
+
+
+        # ============================================================
+        # DRAW VECTOR PREVIEW PNG UNDER SOURCE SPRITE
+        # ============================================================
+
+        vector_preview = self._get_scaled_vector_preview()
+
+        if vector_preview is not None:
+
+            preview_png_w, preview_png_h = vector_preview.size
+
+            # --------------------------------------------------------
+            # SOUTH ANCHOR ALIGNMENT
+            #
+            # Match the bottom-center of svg.png to the bottom-center
+            # of the currently scaled SVG/vector canvas.
+            # --------------------------------------------------------
+
+            vector_center_x = (
+                self.x +
+                self.mw / 2.0
+            )
+
+            vector_bottom_y = (
+                self.y +
+                self.mh
+            )
+
+            preview_png_x = int(round(
+                vector_center_x -
+                preview_png_w / 2.0
+            ))
+
+            preview_png_y = int(round(
+                vector_bottom_y -
+                preview_png_h
+            ))
+
+            # Convert source-frame coordinates into padded-preview coords.
+            preview.alpha_composite(
+                vector_preview,
+                (
+                    preview_png_x + pad,
+                    preview_png_y + pad-16
+                )
+            )
+
+
+        # ============================================================
+        # SOURCE SPRITE GOES ABOVE svg.png
+        # ============================================================
+
+        preview.alpha_composite(
+            shaded_frame,
+            (pad, pad)
+        )
 
         # Place the SVG mask in PREVIEW coordinates so its path remains visible
         # when it extends outside the source-frame boundary.
@@ -1097,8 +1201,7 @@ class VectorPlacementGUI(tk.Tk):
         )
 
         expanded = preview_mask.filter(ImageFilter.MaxFilter(5))
-        contracted = preview_mask.filter(ImageFilter.MinFilter(5))
-        outline_alpha = ImageChops.subtract(expanded, contracted)
+        outline_alpha = ImageChops.subtract(expanded, preview_mask)
 
         outline = Image.new("RGBA", preview.size, (255, 230, 0, 0))
         outline.putalpha(outline_alpha)
@@ -1256,6 +1359,7 @@ def process_sheet(
     hero_name: str,
     file_idx_in_folder: int,
     vector_mask: Image.Image,
+    vector_preview_img: Optional[Image.Image],
     position_cache: Dict[str, Dict[str, Union[int, float]]],
     initial_placement: Optional[Tuple[int, int, float]],
 ) -> Tuple[Optional[Tuple[int, int, float]], bool]:
@@ -1304,6 +1408,7 @@ def process_sheet(
     gui = VectorPlacementGUI(
         first,
         auto_scaled_vector_mask,
+        vector_preview_img,
         title=f"{hero_name} | {sheet_name}",
         initial_position=starting_position,
         initial_scale_multiplier=starting_scale_multiplier,
@@ -1412,6 +1517,26 @@ def main() -> None:
     vector_mask = load_svg_mask(VECTOR_SVG, VECTOR_WIDTH, VECTOR_HEIGHT)
     print("Loaded SVG vector mask:", vector_mask.size)
 
+    if os.path.exists(VECTOR_PREVIEW_PNG):
+
+        vector_preview_img = Image.open(
+            VECTOR_PREVIEW_PNG
+        ).convert("RGBA")
+
+        print(
+            "Loaded vector preview PNG:",
+            vector_preview_img.size
+        )
+
+    else:
+
+        vector_preview_img = None
+
+        print(
+            "WARNING: Vector preview PNG not found:",
+            VECTOR_PREVIEW_PNG
+        )
+
     position_cache = load_position_cache(POSITION_CACHE_PATH)
     print("Loaded cached sheet positions:", len(position_cache))
     print("----")
@@ -1431,31 +1556,32 @@ def main() -> None:
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
         print(folder_name)
-#         if folder_name not in [
-#     "1065",  # Rogue
-#     "1057",  # Deadpool
-#     "1028",  # Ultron
-#     "1051",  # Thing
-#     "1050",  # Invis
-#     "1040",  # Mister Fantastic
-#     "1052",  # Iron Fist
-#     "1030",  # Moon Knight
-#     "1033",  # Black Widow
-#     "1041",  # Winter
-#     "1047",  # Jeff
-#     "1046",  # Adam
-#     "1045",  # Namor
-#     "1015",  # Storm
-#     "1027",  # Groot
-#     "1037",  # Magneto
-#     "1043",  # Star-Lord
-#     "1036",  # Spider-Man
-#     "1042",  # Peni
-#     "1014",  # Punisher
-#     "1023",  # Rocket
-# ]:
-        if folder_name not in ["1048"]:
+        if folder_name in [
+    "1065",  # Rogue
+    "1057",  # Deadpool
+    "1028",  # Ultron
+    "1051",  # Thing
+    "1050",  # Invis
+    "1040",  # Mister Fantastic
+    "1052",  # Iron Fist
+    "1030",  # Moon Knight
+    "1033",  # Black Widow
+    "1041",  # Winter
+    "1047",  # Jeff
+    "1046",  # Adam
+    "1045",  # Namor
+    "1015",  # Storm
+    "1027",  # Groot
+    "1037",  # Magneto
+    "1043",  # Star-Lord
+    "1036",  # Spider-Man
+    "1042",  # Peni
+    "1014",  # Punisher
+    "1023",  # Rocket
+]:
             continue
+        # if folder_name not in ["1048"]:
+        #     continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "
             f"-> {hero_name} ({len(png_paths)} PNGs)"
@@ -1478,6 +1604,7 @@ def main() -> None:
                 hero_name=hero_name,
                 file_idx_in_folder=file_idx_in_folder,
                 vector_mask=vector_mask,
+                vector_preview_img=vector_preview_img,
                 position_cache=position_cache,
                 initial_placement=last_confirmed_placement,
             )

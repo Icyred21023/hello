@@ -13,12 +13,212 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 VERSION_FILE = os.path.join(script_dir, "version.txt")
 REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Icyred21023/hello/main/version.txt"
 REMOTE_ZIP_URL = "https://github.com/Icyred21023/hello/archive/refs/heads/main.zip"
+# ============================================================
+# UPDATE CLEANUP EXCLUSIONS
+# ============================================================
+#
+# These paths are RELATIVE to script_dir.
+#
+# EXCLUDED FILES:
+#   Put individual files here that should NEVER be deleted.
+#
+#   Examples:
+#       "config.json",
+#       "user_settings.json",
+#       "data/my_database.json",
+#
+# EXCLUDED FOLDERS:
+#   Put folders here that should NEVER be deleted.
+#   EVERYTHING inside an excluded folder is automatically protected,
+#   including all subfolders and files.
+#
+#   Examples:
+#       "UserData",
+#       "Cache",
+#       "assets/custom",
+#
+# Use forward slashes "/" for nested paths.
+# Matching is case-insensitive on purpose.
+# ============================================================
 
+DELETE_EXCLUDED_FILES = {
+    # "config.json",
+    # "user_settings.json",
+}
+
+DELETE_EXCLUDED_FOLDERS = {
+    ".git",
+    "update_temp",
+    ".vscode",
+    "update_backup",
+    "_update_logs",
+    "__pycache__",
+    "debug",
+    "config",
+    "Developer",
+    "_Mastery_Sheet_Editor",
+
+
+    # Add your own below:
+    # "UserData",
+    # "Custom Assets",
+    # "data/cache",
+}
 def get_current_version():
     if not os.path.exists(VERSION_FILE):
         return "0.0.0"
     with open(VERSION_FILE) as f:
         return f.read().strip()
+
+
+def delete_obsolete_update_files(update_root, destination_root, log=print):
+    """
+    Delete files/folders from destination_root that no longer exist
+    in update_root.
+
+    Files/folders listed in DELETE_EXCLUDED_FILES or
+    DELETE_EXCLUDED_FOLDERS are never deleted.
+
+    Excluding a folder automatically excludes its entire contents.
+
+    Returns:
+        True if cleanup completed successfully.
+        False if one or more deletions failed.
+    """
+
+    def normalize_relative_path(path):
+        return path.replace("\\", "/").strip("/").lower()
+
+    excluded_files = {
+        normalize_relative_path(path)
+        for path in DELETE_EXCLUDED_FILES
+    }
+
+    excluded_folders = {
+        normalize_relative_path(path)
+        for path in DELETE_EXCLUDED_FOLDERS
+    }
+
+    def is_excluded(relative_path, is_directory=False):
+        relative_path = normalize_relative_path(relative_path)
+
+        # Exact excluded file
+        if not is_directory and relative_path in excluded_files:
+            return True
+
+        # Excluded folder OR anything contained within one
+        for excluded_folder in excluded_folders:
+
+            if relative_path == excluded_folder:
+                return True
+
+            if relative_path.startswith(excluded_folder + "/"):
+                return True
+
+        return False
+
+    success = True
+
+    log("Checking for obsolete files and directories...")
+
+    # topdown=True lets us completely skip excluded folders and prevents
+    # os.walk() from descending into them.
+    for current_root, dirs, files in os.walk(destination_root, topdown=True):
+
+        relative_root = os.path.relpath(current_root, destination_root)
+
+        if relative_root == ".":
+            relative_root = ""
+
+        # --------------------------------------------------------
+        # DIRECTORIES
+        # --------------------------------------------------------
+
+        # Use a copy because we may remove entries from dirs.
+        for directory_name in dirs[:]:
+
+            destination_path = os.path.join(
+                current_root,
+                directory_name
+            )
+
+            relative_path = os.path.relpath(
+                destination_path,
+                destination_root
+            )
+
+            if is_excluded(relative_path, is_directory=True):
+                log(f"🔒 Keeping excluded directory: {relative_path}")
+
+                # Prevent os.walk() from entering it.
+                dirs.remove(directory_name)
+
+                continue
+
+            source_path = os.path.join(
+                update_root,
+                relative_path
+            )
+
+            # Folder no longer exists in repo/update.
+            if not os.path.isdir(source_path):
+
+                try:
+                    log(f"🗑️ Removing obsolete directory: {relative_path}")
+
+                    shutil.rmtree(destination_path)
+
+                    # Don't walk into a directory we just deleted.
+                    dirs.remove(directory_name)
+
+                except Exception as e:
+                    log(
+                        f"❌ Failed removing obsolete directory "
+                        f"{relative_path}: {e}"
+                    )
+                    success = False
+
+        # --------------------------------------------------------
+        # FILES
+        # --------------------------------------------------------
+
+        for file_name in files:
+
+            destination_path = os.path.join(
+                current_root,
+                file_name
+            )
+
+            relative_path = os.path.relpath(
+                destination_path,
+                destination_root
+            )
+
+            if is_excluded(relative_path, is_directory=False):
+                log(f"🔒 Keeping excluded file: {relative_path}")
+                continue
+
+            source_path = os.path.join(
+                update_root,
+                relative_path
+            )
+
+            # File no longer exists in repo/update.
+            if not os.path.isfile(source_path):
+
+                try:
+                    log(f"🗑️ Removing obsolete file: {relative_path}")
+
+                    os.remove(destination_path)
+
+                except Exception as e:
+                    log(
+                        f"❌ Failed removing obsolete file "
+                        f"{relative_path}: {e}"
+                    )
+                    success = False
+
+    return success
 
 def get_latest_version():
     try:
@@ -149,6 +349,22 @@ def apply_update(from_path):
             break
 
     # --- Step 2: Copy version.txt only if everything succeeded ---
+    # ------------------------------------------------------------
+# DELETE FILES/FOLDERS THAT NO LONGER EXIST IN THE REPO
+# ------------------------------------------------------------
+    import config
+    if success and not config.IS_ADMIN:
+        yesno = messagebox.askyesno("Update Cleanup", "Do you want to remove obsolete files from the previous version?\n\nThis will delete files/folders that no longer exist in the update package.\n\nExcluded files/folders will be kept.\n\nClick 'Yes' to proceed with cleanup, or 'No' to skip.")
+        if not yesno:
+            cleanup_success = delete_obsolete_update_files(
+                update_root=update_root,
+                destination_root=script_dir,
+                log=log
+            )
+
+            if not cleanup_success:
+                success = False
+                string_ = "❌ Update cleanup failed. Check update logs."
     version_src = os.path.join(update_root, "version.txt")
     version_dst = os.path.join(script_dir, "version.txt")
 

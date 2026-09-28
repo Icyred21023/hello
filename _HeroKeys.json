@@ -144,9 +144,8 @@
     "roles": ["Duelist"]
   },
   "1011": {
-    "name": "Hulk",
-    "roles": ["Vanguard"],
-    "slug": "bruce-banner"
+    "name": "Bruce Banner",
+    "roles": ["Vanguard"]
   },
   "1016": {
     "name": "Loki",

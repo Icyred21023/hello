@@ -1324,6 +1324,7 @@ class PlayerFrame:
         # All frames that have `outer` as parent:
         self._build_name_bar()
         self._build_overview_new()
+
         self._build_heroes_new()
         self._build_match_history()
         #self._build_history()
@@ -1458,6 +1459,9 @@ class PlayerFrame:
         if not p:
             if not self.player.bRivalsData:
                 return
+            if not self.player.bRivalsOV:
+                print(f"Player {self.player.Name} has no Rivals Overview data via self.bRivalsOV")
+                return
             else:
                 offx = 64
                 offy = 186
@@ -1520,8 +1524,9 @@ class PlayerFrame:
     # ---------------------------
     def _build_name_bar(self):
         icon_string = "item_nameplate_" +self.player.Icon
-        self.superframe.createSuperFrameImage(img_key=icon_string, x=self.x + 69, y=self.y + 71, anc="c")
-        
+        result = self.superframe.createSuperFrameImage(img_key=icon_string, x=self.x + 69, y=self.y + 71, anc="c")
+        if not result:
+            self.superframe.createSuperFrameImage(img_key="item_nameplate_30000001", x=self.x + 69, y=self.y + 71, anc="c")
         ranktuple = self.player.lifetimePeakRanked
         if ranktuple is None:
 
@@ -1543,7 +1548,18 @@ class PlayerFrame:
             self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116, y=self.y + 98, size=(28,28),anc="nw")
 
     def _build_heroes_new(self):
-
+        if self.player.bPrivate:
+            if not self.player.bRivalsData:
+                print(f"1: Skipping heroes section for player {self.player.Name}. False flag for self.bRivalsData.")
+                return
+            elif not self.player.bRivalsHeroes:
+                print(f"2: Skipping heroes section for player {self.player.Name}. False flag for self.bRivalsHeroes.")
+                return
+            elif not self.player.bRivalsTopHeroes and not self.player.bRivalsProficiency:
+                print(f"3: Skipping heroes section for player {self.player.Name}. False flag for self.bRivalsTopHeroes or self.bRivalsProficiency.")
+                return
+            else:
+                print(f"Player {self.player.Name} is private but has Rivals data, proceeding to build heroes section.")
         prestige = (-29,167)
 
         print()
@@ -1565,7 +1581,8 @@ class PlayerFrame:
         ft = "Apotek Comp Bold"
         ft0 = "Refrigerator Deluxe"
         ft = "Refrigerator Deluxe ExtraBold"
-        short = HERO_SHORTNAME.get(hero1.Name, hero1.Name)
+        na = hero1.Name if hero1 else "Unknown"
+        short = HERO_SHORTNAME.get(na, na)
         if "-" in short:
             s = "-"
         elif " & " in short:
@@ -1574,12 +1591,19 @@ class PlayerFrame:
             s = " "
         name1 = short.split(s)[0] if len(short.split(s)) > 0 else ""
         name2 = short.split(s)[1] if len(short.split(s)) > 1 else ""
+        rolex_offset = 45
+        roley_offset = 16
 
-        self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset, y=self.y + 276, anc="c",size=(18,18))
-        self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset, y=self.y + 277, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
+        name1x= 29
+        name1y= 19
+
+        name2x = name1x -22
+        self.superframe.createSuperFrameImage(img_key=hero1.Name + "_icon", x=self.x + 90, y=self.y + 349, anc="se")
+        self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset+rolex_offset, y=self.y + 276+roley_offset, anc="c",size=(18,18))
+        self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset+rolex_offset, y=self.y + 277+roley_offset, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
         
-        self.superframe.createSuperFrameText(text=name1.upper(), x=self.x + 12+offset, y=self.y + 293+3, anchor="w", font=fonttk(ft, 21, "bold", italic=True), fill="#CACFE4")
-        self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset, y=self.y + 316+3, anchor="w", font=fonttk(ft, 21, "bold", italic=True), fill="#CACFE4")
+        self.superframe.createSuperFrameText(text=name1.upper(), x=self.x + 12+offset + name1x, y=self.y + 293+3 + name1y, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
+        self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset + name2x, y=self.y + 316+3+ name1y+6, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
         self.superframe.createSuperFrameImage(img_key=prestige_name, x=self.x + prestige[0], y=self.y + prestige[1], anc="nw")
         
         for coord in highlight_coord:
@@ -3243,7 +3267,10 @@ class App:
                     if "*" in p.Name:
                         #print(f"Skipping {p.Name}: Private Account")
                         if p.bRivalsData:
-                            pass
+                            if p.bRivalsProficiency or p.bRivalsHeroes or p.bRivalsTopHeroes:
+                                pass
+                            else:
+                                continue
                         else:
                             continue
                     MATCH_PLAYERS.append(p)
@@ -3263,7 +3290,13 @@ class App:
                 for p in matches.players:
                     if "*" in p.Name:
                         #print(f"Skipping {p.Name}: Private Account")
-                        continue
+                        if p.bRivalsData:
+                            if p.bRivalsProficiency or p.bRivalsHeroes or p.bRivalsTopHeroes:
+                                pass
+                            else:
+                                continue
+                        else:
+                            continue
                     MATCH_PLAYERS.append(p)
                 
 
@@ -3288,7 +3321,13 @@ class App:
                     for p in match.players:
                         if "*" in p.Name:
                             #print(f"Skipping {p.Name}: Private Account")
-                            continue
+                            if p.bRivalsData:
+                                if p.bRivalsProficiency or p.bRivalsHeroes or p.bRivalsTopHeroes:
+                                    pass
+                                else:
+                                    continue
+                            else:
+                                continue
                         MATCH_PLAYERS.append(p)
                     
                     #print(names)

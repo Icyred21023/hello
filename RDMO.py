@@ -1018,7 +1018,11 @@ class Player:
 
         self.Icon = data.get("icon", "Unknown")
         self.PlayerImgId = self.Icon
-        self.bRivalsData = False    
+        self.bRivalsData = False  
+        self.bRivalsOV = False
+        self.bRivalsHeroes = False
+        self.bRivalsTopHeroes = False
+        self.bRivalsProficiency = False  
         #self.bPrivate = "**" in self.Name
         self.bProfile = False
         self.bMatchHistory = False
@@ -1044,16 +1048,28 @@ class Player:
             self.OVWinRate = f"{int(wins / total_matches * 100)}%" if total_matches > 0 else "0%"
             self.OVMatches = total_matches
             self.bRivalsData = True
-        for hero_data in data.get("proficiency") or []:
-            hero = Hero(hero_data)
-            self.Heroes[hero.Name] = hero
+            self.bRivalsOV = True
 
+        flag = False
+        for hero_data in data.get("proficiency") or []:
+            flag = True
+            hero = Hero(hero_data)
+            hero.bRivalsData = True
+            self.Heroes[hero.Name] = hero
+        if flag:
+            self.bRivalsProficiency = True
+            self.bRivalsHeroes = True
+            self.bRivalsData = True
+
+        flag = False
         for hero_data in data.get("top_heroes") or []:
+            flag = True
             id = str(hero_data.get("hero_id", "Unknown"))
             name, role = hero_id_to_info(id)
             if not name in self.Heroes:
                 continue
             hero = self.Heroes[name]
+            hero.bRivalsData = True
 
 
             hero.Wins = hero_data.get("wins", 0)
@@ -1062,15 +1078,28 @@ class Player:
             wp_raw = hero.Wins / (hero.Wins + hero.Losses) * 100 if (hero.Wins + hero.Losses) > 0 else 0
             hero.WinRateRaw = wp_raw
             hero.WinRate = f"{int(wp_raw)}%"
-            hero.bRivalsData = True
+            
+        if flag:
+            self.bRivalsTopHeroes = True
+            self.bRivalsHeroes = True
+            self.bRivalsData = True
 
-        self.Heroes = dict(
+        if self.bRivalsProficiency and not self.bRivalsTopHeroes:
+            self.Heroes = dict(
                 sorted(
                     self.Heroes.items(),
-                    key=lambda item: item[1].Matches,
+                    key=lambda item: item[1].ProficiencyLevel,
                     reverse=True
                 )
             )
+        else: 
+            self.Heroes = dict(
+                    sorted(
+                        self.Heroes.items(),
+                        key=lambda item: item[1].Matches,
+                        reverse=True
+                    )
+                )
 
         
 
