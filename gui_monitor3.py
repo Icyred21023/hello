@@ -3242,7 +3242,10 @@ class App:
                 for p in MatchObject.players:
                     if "*" in p.Name:
                         #print(f"Skipping {p.Name}: Private Account")
-                        continue
+                        if p.bRivalsData:
+                            pass
+                        else:
+                            continue
                     MATCH_PLAYERS.append(p)
                 #from tracker_trim import open_multiple_tracker_profiles
                 #open_multiple_tracker_profiles(MatchObject)
