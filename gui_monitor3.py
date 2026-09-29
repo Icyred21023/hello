@@ -1596,14 +1596,15 @@ class PlayerFrame:
 
         name1x= 29
         name1y= 19
-
+        y_extra = 5
+        x_xtra = 2
         name2x = name1x -22
-        self.superframe.createSuperFrameImage(img_key=hero1.Name + "_icon", x=self.x + 90, y=self.y + 349, anc="se")
-        self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset+rolex_offset, y=self.y + 276+roley_offset, anc="c",size=(18,18))
-        self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset+rolex_offset, y=self.y + 277+roley_offset, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
+        self.superframe.createSuperFrameImage(img_key=hero1.Name + "_icon3", x=self.x + 90 + x_xtra, y=self.y + 349 + y_extra, anc="se")
+        self.superframe.createSuperFrameImage(img_key=hero1.Role + "_S", x=self.x + 20+offset+rolex_offset + x_xtra, y=self.y + 276+roley_offset + y_extra, anc="c",size=(18,18))
+        self.superframe.createSuperFrameText(text=hero1.Role.upper(), x=self.x + 29+offset+rolex_offset + x_xtra, y=self.y + 277+roley_offset + y_extra, anchor="w", font=fonttk(ft0, 10, "normal", italic=True), fill="#9AA4DB")
         
-        self.superframe.createSuperFrameText(text=name1.upper(), x=self.x + 12+offset + name1x, y=self.y + 293+3 + name1y, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
-        self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset + name2x, y=self.y + 316+3+ name1y+6, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
+        self.superframe.createSuperFrameText(text=name1.upper(), x=self.x + 12+offset + name1x+ x_xtra, y=self.y + 293+3 + name1y + y_extra, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
+        self.superframe.createSuperFrameText(text=name2.upper(), x=self.x + 27+offset + name2x + x_xtra, y=self.y + 316+3+ name1y+6 + y_extra, anchor="w", font=fonttk(ft, 27, "bold", italic=True), fill="#CACFE4")
         self.superframe.createSuperFrameImage(img_key=prestige_name, x=self.x + prestige[0], y=self.y + prestige[1], anc="nw")
         
         for coord in highlight_coord:
@@ -2972,7 +2973,7 @@ class App:
             
         )
         super_frame.pack(side="top",fill="both", expand=True)
-        super_frame.createSuperFrameImage(img_key="bgDLSS4", anc="nw", x=0, y=0)
+        super_frame.createSuperFrameImage(img_key="bgDLSS5", anc="nw", x=0, y=0)
 
 
         # Keep the SuperFrame at its requested 2560x1440 logical size instead of
