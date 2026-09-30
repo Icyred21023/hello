@@ -429,11 +429,19 @@ class Browser:
 
 
 
-def build_rivalsdata_url_payload(kind="player", mid="null"):
+def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID, season=config.season):
     if "player" in kind.lower():
-        return "https://api.rivalsdata.com/player", { "uid": config.USER_UID}
+        return "https://api.rivalsdata.com/player", { "uid": uid}
     elif "live" in kind.lower():
-        return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": config.USER_UID}
+        return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": uid}
+    elif "teammates" in kind.lower():
+        if uid is None:
+            return None, None
+        return "https://api.rivalsdata.com/player/teammates", {"uid": int(uid), "season": season}
+    elif "proficiency" in kind.lower():
+        if uid is None:
+            return None, None
+        return "https://api.rivalsdata.com/player/proficiency", {"uid": int(uid)}   
         
     
     
@@ -478,7 +486,63 @@ def parsePlayer(j: dict = None):
         mid = status.get("battle_id", False)
         return mid
     return False
+
+def BROWSER_check_init():
+    global BROWSER
+    bGetSite = True
+    if BROWSER is None:
+        BROWSER = Browser()
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+
+    else:
+        bGetSite = False
+        print()
+            
+    b = BROWSER
+    return b, bGetSite
+
+def getRivalsDataProficiency(player: Player):
+    b, bGetSite = BROWSER_check_init()
+    driver = b.driver
+    if bGetSite:
+        driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+    url, pay = build_rivalsdata_url_payload(kind="proficiency", uid=player.Uid)
+    if url is None or pay is None:
+        print(f"❌ RivalsData proficiency fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return data
+    except Exception as e:
+        print(e)
+        return None
     
+def getRivalsDataTeammates(player: Player, season=config.season):
+    b, bGetSite = BROWSER_check_init()
+    driver = b.driver
+    if bGetSite:
+        driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+
+    url, pay = build_rivalsdata_url_payload(kind="teammates", uid=player.Uid, season=season)
+    if url is None or pay is None:
+        print(f"❌ RivalsData teammates fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return data
+    except Exception as e:
+        print(e)
+        return None
+
     
 def getLive():
     # ----------------------------

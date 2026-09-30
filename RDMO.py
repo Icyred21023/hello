@@ -1,7 +1,7 @@
 import config
 from typing import List
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 
 SEASON = 9
 UID = config.USER_UID if not config.mobile_mode else "1324925930"
@@ -979,7 +979,7 @@ class MatchHistory:
         return hero_segment
 
 class Hero:
-    def __init__(self, data):
+    def __init__(self, data, ):
         self.Id = str(data.get("hero_id", "Unknown"))
         self.bRivalsData = False
         self.Name, self.Role = hero_id_to_info(self.Id)
@@ -1022,7 +1022,8 @@ class Player:
         self.bRivalsOV = False
         self.bRivalsHeroes = False
         self.bRivalsTopHeroes = False
-        self.bRivalsProficiency = False  
+        self.bRivalsProficiency = False
+        self.bDiscoveredIdentity = False
         #self.bPrivate = "**" in self.Name
         self.bProfile = False
         self.bMatchHistory = False
@@ -1104,6 +1105,20 @@ class Player:
         
 
         #self.bPrivate = True if not self.seasonal_overview else False
+
+    def add_proficiency_late(self, data):
+        flag = False
+        prof_data = next(iter(data.values()), {}).get("hero_proficiency_infos", {})
+        for hero in prof_data:
+            hero_data = { "hero_id": int(hero), "level": int(prof_data[hero].get("proficiency_level", 0)), "points": int(prof_data[hero].get("proficiency_points", 0)) }
+            flag = True
+            hero = Hero(hero_data)
+            hero.bRivalsData = True
+            self.Heroes[hero.Name] = hero
+        if flag:
+            self.bRivalsProficiency = True
+            self.bRivalsHeroes = True
+            self.bRivalsData = True
 
     def getRolesData(self, data):
         roles = []
@@ -1218,7 +1233,7 @@ class Player:
 class Match:
     def __init__(self, data, enemy_team=None):
         self.UserId = str(UID)
-
+        self.Teammates = defaultdict(list)
         self.UserTeam = None
         self.EnemyTeam = None
 
@@ -1249,6 +1264,67 @@ class Match:
         ]
 
         #print("Done")
+
+    def check_for_teammates(self):
+        from collections import defaultdict
+
+        
+
+        for player in self.players:
+            if player.TeamId is not None and Player.team_counts[player.TeamId] > 1:
+                self.Teammates[player.TeamId].append(player)
+
+        for team in self.Teammates:
+            players = self.Teammates[team]
+            if len(players) > 1:
+                private_players = {}
+                public_players = []
+                for player in players:
+                    if "**" in player.Name:
+                        private_players[player.Icon] = player
+                    elif player.bRivalsData:
+                        public_players.append(player)
+
+                    
+
+                if private_players and public_players:
+                    import tracker_trim
+                    for pub in public_players:
+                        data = tracker_trim.getRivalsDataTeammates(pub)
+                        if data is None:
+                            continue
+                        if data:
+                            for teammate in data:
+                                t_icon = str(teammate.get("icon", "null"))
+                                
+                                if t_icon in private_players:
+                                    t_name = teammate.get("name", None)
+                                    t_uid = teammate.get("teammate_uid", None)
+                                    if t_name is not None and t_uid is not None:
+                                        found_player = private_players.pop(t_icon)
+                                        print(f"🕵️ Discovered identity! '{found_player.Name}' -> '{t_name}' via teammate '{pub.Name}'")
+                                        found_player.Name = t_name
+                                        found_player.Uid = t_uid
+                                        found_player.bPrivate = False
+                                        
+                                        found_player.bDiscoveredIdentity = True
+                                        proficiency = tracker_trim.getRivalsDataProficiency(found_player)
+                                        if proficiency is None:
+                                            continue
+                                        found_player.add_proficiency_late(proficiency)
+
+                                        if not private_players:
+                                            break
+                            if not private_players:
+                                break
+                    
+
+
+
+
+                                
+
+        
     
 class LiveMatch:
     

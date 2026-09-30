@@ -3261,6 +3261,7 @@ class App:
                 import tracker_trim
                 import random
                 MatchObject = Match(li, enemy_team=random.randint(1, 2))
+                MatchObject.check_for_teammates()
                 tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
                 MATCH_PLAYERS = []
                 names = None
@@ -3316,6 +3317,7 @@ class App:
                     print(f"🆔 {config.USER_UID} ({type(config.USER_UID).__name__} {sym})")
                     live_match_data, mid = tracker_trim.getLive()
                     match = Match(live_match_data)
+                    match.check_for_teammates()
                     tracker_trim.getTrackerGG(match)
                     MATCH_PLAYERS = []
                     names = None
