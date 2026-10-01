@@ -1656,7 +1656,20 @@ class PlayerFrame:
                 q = a + self.x
                 w = b + self.y
                 #print(f"Creating superframe image for {heroname} with frame {frame} at ({q}, {w})")
-                self.superframe.createSuperFrameImage(img_key=frame, x=q, y=w, anc="nw")
+                fkey = "Golden" if frame == "gold_frame_shad_ai" else "Purple"
+                
+                self.frame_animation = HeroImager(
+                        master=self.superframe,
+                        
+                        image_key=fkey,
+                        bAnimated=True,
+                        individual_frames=True,
+                        start_frame=random.randint(0, 10),
+                        x=q,
+                        y=w,
+                        anchor="nw",
+                        fps=30,
+                )
 
             if badge:
                 x += badge_offset[0]+96

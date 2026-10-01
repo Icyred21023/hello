@@ -40,15 +40,12 @@ def s(v):
         return tuple(int(x * 1) for x in v)
     return int(v * 1)
 class HeroImager:
-    """Splice a cached sprite sheet and animate it on an existing canvas.
-
+    """Animate a cached sprite sheet or naturally sorted directory of PNGs.
     ``master`` may be either a ``tk.Canvas`` or a ``SuperFrame``. Coordinates
     are canvas coordinates for a Canvas and local coordinates for a SuperFrame.
-
     Sheets are read left-to-right, then top-to-bottom. The fixed 966x1840,
     6x10 layout produces 60 frames of 161x184 pixels each.
     """
-
     SHEET_WIDTH: ClassVar[int] = 966
     SHEET_HEIGHT: ClassVar[int] = 1840
     COLUMNS: ClassVar[int] = 6
@@ -56,18 +53,15 @@ class HeroImager:
     FRAME_WIDTH: ClassVar[int] = SHEET_WIDTH // COLUMNS
     FRAME_HEIGHT: ClassVar[int] = SHEET_HEIGHT // ROWS
     FRAME_COUNT: ClassVar[int] = COLUMNS * ROWS
-
     # image_loader already caches the full raw sheet. This second cache avoids
     # repeating the crop/resize work when the same animation is placed twice.
     _pil_frame_cache: ClassVar[
-        dict[tuple[str, tuple[int, int], int], tuple[Image.Image, ...]]
+        dict[tuple, tuple[Image.Image, ...]]
     ] = {}
-
     @staticmethod
     def _normalize_image_key(image_key: str) -> str:
         """Match ImageCache.normalize_key from fGui_ImgHelpers_beta."""
         return ASSET_CACHE.normalize_key(image_key)
-
     def __init__(
         self,
         master: Union[tk.Canvas, "SuperFrame"],
@@ -77,8 +71,8 @@ class HeroImager:
         y: float = 0,
         anchor: str = "nw",
         bAnimated: bool = False,
+        individual_frames: bool = False,
         size: tuple[int, int] | None = None,
-        
         scale: float = 1.0,
         fps: float = 30.0,
         loop: bool = True,
@@ -89,7 +83,6 @@ class HeroImager:
     ) -> None:
         if not isinstance(image_key, str) or not image_key.strip():
             raise ValueError("image_key must be a non-empty string.")
-
         if isinstance(master, tk.Canvas):
             self.canvas = master
             self.super_frame = None
@@ -102,15 +95,10 @@ class HeroImager:
             self._origin_y = float(master.bbox[1])
         else:
             raise TypeError("master must be a tk.Canvas or SuperFrame.")
-
         if fps <= 0:
             raise ValueError("fps must be greater than zero.")
         if scale <= 0:
             raise ValueError("scale must be greater than zero.")
-        
-            
-
-            
         self.master = master
         self.image_key = image_key
         self.x = float(x)
@@ -123,17 +111,26 @@ class HeroImager:
         self._after_id: str | None = None
         self._destroyed = False
         self.bStatic = not bAnimated
-        
-        if not bAnimated:
+        self.individual_frames = bool(individual_frames)
+        if not bAnimated and not individual_frames:
             self.super_frame.createSuperFrameImage(
                 img_key=image_key,x=x, y=y, anc="nw")
             return
-
-        output_size = self._get_output_size(size, scale)
-        self._pil_frames = self._get_pil_frames(image_key, output_size)
+        source_frames = None
+        if individual_frames:
+            source_frames = image_loader(image_key, individual_frames=True)
+            native_size = source_frames[0].size
+            if any(frame.size != native_size for frame in source_frames):
+                raise ValueError("All PNG frames must have the same canvas dimensions.")
+            output_size = self._get_output_size(size, scale, native_size)
+        else:
+            output_size = self._get_output_size(size, scale)
+        self._pil_frames = self._get_pil_frames(image_key, output_size, source_frames)
         resampling = getattr(Image, "Resampling", Image)
         frame_variant_base = (
             "hero-animation-frame",
+            "png-directory" if individual_frames else "sprite-sheet",
+            id(self._pil_frames),
             output_size,
             int(resampling.LANCZOS),
             self.COLUMNS,
@@ -148,13 +145,11 @@ class HeroImager:
             )
             for frame_index, frame in enumerate(self._pil_frames)
         ]
-
         self.index = int(start_frame) % len(self.frames)
         create_args = {} if canvas_args is None else dict(canvas_args)
         create_args.pop("image", None)
         create_args.pop("anchor", None)
         create_args.pop("tags", None)
-
         self.image_id = self.canvas.create_image(
             self._origin_x + self.x - 4,
             self._origin_y + self.y,
@@ -164,10 +159,8 @@ class HeroImager:
             **create_args,
         )
         self._store_canvas_references()
-
-        if autoplay:
+        if autoplay and bAnimated:
             self.play()
-
     @classmethod
     def clear_frame_cache(cls, image_key: str | None = None) -> None:
         """Clear cropped PIL frames without touching the main image cache."""
@@ -178,59 +171,58 @@ class HeroImager:
             for key in tuple(cls._pil_frame_cache):
                 if key[0] == normalized:
                     del cls._pil_frame_cache[key]
-
         clear_cached_photoimages(
             img_key=image_key,
             variant_namespace="hero-animation-frame",
         )
-
     @classmethod
     def _get_output_size(
         cls,
         size: tuple[int, int] | None,
         scale: float,
+        native_size: tuple[int, int] | None = None,
     ) -> tuple[int, int]:
         if size is not None:
             if len(size) != 2:
                 raise ValueError("size must contain exactly two values.")
             return max(1, int(size[0])), max(1, int(size[1]))
-
-        return (
-            max(1, round(cls.FRAME_WIDTH * scale)),
-            max(1, round(cls.FRAME_HEIGHT * scale)),
-        )
-
+        width, height = native_size or (cls.FRAME_WIDTH, cls.FRAME_HEIGHT)
+        return max(1, round(width * scale)), max(1, round(height * scale))
     @classmethod
     def _get_pil_frames(
         cls,
         image_key: str,
         output_size: tuple[int, int],
+        source_frames: list[Image.Image] | None = None,
     ) -> tuple[Image.Image, ...]:
         resampling = getattr(Image, "Resampling", Image)
         resample = resampling.LANCZOS
-        cache_key = (cls._normalize_image_key(image_key), output_size, int(resample))
-
+        cache_key = (cls._normalize_image_key(image_key), output_size, int(resample),
+                     "png-directory" if source_frames is not None else "sprite-sheet",
+                     tuple(id(frame) for frame in source_frames) if source_frames else ())
         cached = cls._pil_frame_cache.get(cache_key)
         if cached is not None:
             return cached
+        if source_frames is not None:
+            result = tuple(frame if frame.size == output_size else
+                           frame.resize(output_size, resample) for frame in source_frames)
+            cls._pil_frame_cache[cache_key] = result
+            return result
 
         # Placeholder requested by the caller: image_key is passed directly to
         # the project's cached loader. Change only this line if sheet lookup
         # later needs a prefix, suffix, or asset category.
-        sheet = image_loader(image_key)
-
+        sheet = image_loader(image_key, individual_frames=False)
         if not isinstance(sheet, Image.Image):
             raise FileNotFoundError(
                 f"image_loader could not load sprite sheet {image_key!r}."
             )
-
         expected = (cls.SHEET_WIDTH, cls.SHEET_HEIGHT)
         if sheet.size != expected:
             raise ValueError(
                 f"Sprite sheet {image_key!r} is {sheet.size[0]}x{sheet.size[1]}; "
                 f"expected {expected[0]}x{expected[1]}."
             )
-
         frames: list[Image.Image] = []
         for row in range(cls.ROWS):
             top = row * cls.FRAME_HEIGHT
@@ -247,71 +239,56 @@ class HeroImager:
                 if frame.size != output_size:
                     frame = frame.resize(output_size, resample)
                 frames.append(frame)
-
         result = tuple(frames)
         cls._pil_frame_cache[cache_key] = result
         return result
-
     def _store_canvas_references(self) -> None:
         """Follow SuperFrame's canvas reference convention for Tk/PIL images."""
         if not hasattr(self.canvas, "_images"):
             self.canvas._images = {}
         if not hasattr(self.canvas, "_pil_images"):
             self.canvas._pil_images = {}
-
         self.canvas._images[self.image_id] = self.frames[self.index]
         self.canvas._pil_images[self.image_id] = self._pil_frames[self.index]
-
     @property
     def frame_count(self) -> int:
         return len(self.frames)
-
     @property
     def current_frame(self) -> int:
         return self.index
-
     def show_frame(self, index: int) -> None:
         if self._destroyed:
             return
-
         if not 0 <= int(index) < self.frame_count:
             raise IndexError(
                 f"frame index must be between 0 and {self.frame_count - 1}."
             )
-
         self.index = int(index)
         self.canvas.itemconfigure(
             self.image_id,
             image=self.frames[self.index],
         )
         self._store_canvas_references()
-
     def play(self) -> None:
         if self._destroyed or self.running:
             return
-
         self.running = True
         self._schedule_next_frame()
-
     def pause(self) -> None:
         self.running = False
         self._cancel_scheduled_frame()
-
     def stop(self) -> None:
         self.pause()
         if not self._destroyed:
             self.show_frame(0)
-
     def set_fps(self, fps: float) -> None:
         if fps <= 0:
             raise ValueError("fps must be greater than zero.")
-
         self.fps = float(fps)
         self.delay_ms = max(1, round(1000 / self.fps))
         if self.running:
             self._cancel_scheduled_frame()
             self._schedule_next_frame()
-
     def move_to(self, x: float, y: float) -> None:
         """Move using coordinates local to the original master."""
         self.x = float(x)
@@ -322,59 +299,48 @@ class HeroImager:
                 self._origin_x + self.x,
                 self._origin_y + self.y,
             )
-
     def _schedule_next_frame(self) -> None:
         if self.running and self._after_id is None:
             self._after_id = self.canvas.after(self.delay_ms, self._tick)
-
     def _cancel_scheduled_frame(self) -> None:
         if self._after_id is None:
             return
-
         try:
             self.canvas.after_cancel(self._after_id)
         except tk.TclError:
             pass
         finally:
             self._after_id = None
-
     def _tick(self) -> None:
         self._after_id = None
         if not self.running or self._destroyed:
             return
-
         next_index = self.index + 1
         if next_index >= self.frame_count:
             if not self.loop:
                 self.running = False
                 return
             next_index = 0
-
         try:
             self.show_frame(next_index)
         except tk.TclError:
             self.running = False
             self._destroyed = True
             return
-
         self._schedule_next_frame()
-
     def destroy(self) -> None:
         """Stop callbacks, delete the canvas item, and release Tk references."""
         if self._destroyed:
             return
-
         self.pause()
         try:
             self.canvas.delete(self.image_id)
         except tk.TclError:
             pass
-
         if hasattr(self.canvas, "_images"):
             self.canvas._images.pop(self.image_id, None)
         if hasattr(self.canvas, "_pil_images"):
             self.canvas._pil_images.pop(self.image_id, None)
-
         self.frames.clear()
         self._pil_frames = ()
         self._destroyed = True
