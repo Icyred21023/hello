@@ -1002,6 +1002,7 @@ class Player:
     team_counts = Counter()
     def __init__(self, data):
         self.Name = data.get("name", "Unknown")
+        self.StarName = False
         self.Uid = str(data.get("uid", "Unknown"))
         self.best_rank = None
         self.season_rank = None
@@ -1303,7 +1304,9 @@ class Match:
                                     if t_name is not None and t_uid is not None:
                                         found_player = private_players.pop(t_icon)
                                         print(f"🕵️ Discovered identity! '{found_player.Name}' -> '{t_name}' via teammate '{pub.Name}'")
+                                        found_player.StarName = found_player.Name
                                         found_player.Name = t_name
+                                        
                                         found_player.Uid = t_uid
                                         found_player.bPrivate = False
                                         

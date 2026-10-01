@@ -80,7 +80,7 @@ class HeroImager:
         size: tuple[int, int] | None = None,
         
         scale: float = 1.0,
-        fps: float = 34.0,
+        fps: float = 30.0,
         loop: bool = True,
         autoplay: bool = True,
         start_frame: int = 0,

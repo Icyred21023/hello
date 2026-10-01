@@ -1523,6 +1523,11 @@ class PlayerFrame:
     # NAME BAR (outer -> name_bar + canvas)
     # ---------------------------
     def _build_name_bar(self):
+        name_fg = "#FFFFFF"
+        if self.player.bDiscoveredIdentity:
+            self.superframe.createSuperFrameImage(img_key="discovered", x=self.x + 171, y=self.y + 82, anc="ne")
+            self.superframe.createSuperFrameText(text=self.player.StarName, x=self.x + 165, y=self.y + 110, anchor="w", font=fonttk("Refrigerator Deluxe", 22, "bold", italic=False), fill="#77c4ff")
+            #name_fg = "#5effe3"
         icon_string = "item_nameplate_" +self.player.Icon
         result = self.superframe.createSuperFrameImage(img_key=icon_string, x=self.x + 69, y=self.y + 71, anc="c")
         if not result:
@@ -1542,10 +1547,10 @@ class PlayerFrame:
                 self.superframe.createSuperFrameText(text=shortrank, x=self.x + 375, y=self.y + 113, anchor="w", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill=color)
                 self.superframe.createSuperFrameText(text=rankseason, x=self.x + 361, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
 
-        self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill="#FFFFFF")
+        self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill=name_fg)
         team = self.teams.get(self.player.TeamId, None)
         if team:
-            self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116, y=self.y + 98, size=(28,28),anc="nw")
+            self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116 if not self.player.bDiscoveredIdentity else self.x + 15, y=self.y + 98, size=(28,28),anc="nw")
 
     def _build_heroes_new(self):
         if self.player.bPrivate:
