@@ -11,15 +11,18 @@ ASSETS_ROOTDIR = os.path.join(config.script_dir, "fGui Assets") # helpers.create
 ASSETS_HEROES = os.path.join(ASSETS_ROOTDIR, "Heroes")
 ASSETS_UI = os.path.join(ASSETS_ROOTDIR, "UI")
 ASSETS_NAMEPLATES = os.path.join(ASSETS_ROOTDIR, "Nameplates")
-ASSETS_MOOD = os.path.join(ASSETS_ROOTDIR, "Mood")
+ASSETS_UI_PIE = os.path.join(ASSETS_UI, "Pie")
+#ASSETS_MOOD = os.path.join(ASSETS_ROOTDIR, "Mood")
 ASSETS_IDX: dict[str, str] = {
     "hero": ASSETS_HEROES,
     "heroes": ASSETS_HEROES,
     "ui": ASSETS_UI,
     "nameplate": ASSETS_NAMEPLATES,
     "nameplates": ASSETS_NAMEPLATES,
-    "mood": ASSETS_MOOD,
-    "moods": ASSETS_MOOD,
+    "pie": ASSETS_UI_PIE,
+    "ui/pie": ASSETS_UI_PIE,
+    #"mood": ASSETS_MOOD,
+    #"moods": ASSETS_MOOD,
 }
 # =============================================================================
 # IMAGE CACHE
@@ -156,9 +159,10 @@ class ImageCache:
                 return [(normalized_idx, directory)]
         return [
             ("ui", ASSETS_UI),
+            ("ui/pie", ASSETS_UI_PIE),
             ("heroes", ASSETS_HEROES),
             ("nameplates", ASSETS_NAMEPLATES),
-            ("moods", ASSETS_MOOD),
+            #("moods", ASSETS_MOOD),
         ]
     def find_path(
         self,

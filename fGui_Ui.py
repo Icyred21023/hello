@@ -548,6 +548,28 @@ class SuperFrame:
     def _s2(self, xy):
         """Your existing s(...) scaler expects tuples sometimes."""
         return xy
+    def updateSuperFrameImage(self, item, img_key, size=None):
+            canvas = self.Canvas
+
+            img_raw = image_loader(img_key)
+
+            if size:
+                scaled = self._s2(size)
+                scaled_size = (int(scaled[0]), int(scaled[1]))
+                img_raw = img_raw.resize(scaled_size, Image.BICUBIC)
+
+            img = cached_photoimage(
+                img_key,
+                ("updated-image", size),
+                img_raw,
+                canvas,
+            )
+
+            canvas.itemconfig(item, image=img)
+
+            canvas._images[item] = img
+            canvas._pil_images[item] = img_raw
+
     def createSuperFrameImage(
         self,
         img_key: str,

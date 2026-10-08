@@ -38,7 +38,19 @@ RANK_DATA = {
     2: ("Bronze", "B2", "S", "#A7693F"),
     1: ("Bronze", "B3", "S", "#A7693F"),
 }
+import math
+def round_to_5_special(value):
+    if value == 0:
+        return 0
+    if value == 100:
+        return 100
 
+    if 0 < value < 5:
+        return 5
+    if 95 < value < 100:
+        return 95
+
+    return int(math.floor((value + 2.5) / 5) * 5)
 
 def fetch_teammates(uid, season=-1):
     result = 7
@@ -343,12 +355,25 @@ class Stats:
         # -----------------------------------------------------
 
         if self.matches_played > 0:
-            self.mvp_pct_raw = (
-                self.total_mvp / self.matches_played * 100
+
+            matches_lost = max(0.0, self.matches_played - self.matches_won)
+
+            self.mvp_pct_raw = min(
+                100.0,
+                (
+                    self.total_mvp / self.matches_won * 100
+                    if self.matches_won > 0
+                    else 0
+                )
             )
 
-            self.svp_pct_raw = (
-                self.total_svp / self.matches_played * 100
+            self.svp_pct_raw = min(
+                100.0,
+                (
+                    self.total_svp / matches_lost * 100
+                    if matches_lost > 0
+                    else 0
+                )
             )
 
             self.mvp_pct = f"{int(self.mvp_pct_raw)}%"
@@ -644,12 +669,22 @@ class Role:
         self.Season = ""
         self.Name = None
         self.Usage = None
+        self.Usage_raw = None
+        self.Usage_pie = None
+        
 
     def add_role(self, data):
         self.Name = data.get("metadata", {}).get("name", "Unknown") if self.Name is None else self.Name
         self.Season += str(data.get("attributes", {}).get("season", 0))
         self.Stats.add(data.get("stats", {}))
-        self.Usage = data.get("attributes", {}).get("usage", None)
+
+    def calculate_usage(self, total_matches):
+        self.Usage_raw = self.Stats.matches_played / total_matches * 100 if total_matches > 0 else 0
+        self.Usage = str(int(round(self.Usage_raw))) + '%'
+        self.Usage_pie = round_to_5_special(self.Usage_raw)
+        
+
+
 
 
     def add_stats(self, stats):
@@ -907,14 +942,21 @@ class RoleOld:
         if isinstance(seconds, (int, float)):
             hours = seconds / 3600
             return round(hours, 1)
-        
+from fGui_Ui import SuperFrame        
 class MatchHistory:
+    
     def __init__(self, match_data):
         #match_data = match_data.get("data", None)
         self.skipped = False
+        self.download_widget = None
+        self.superframe_object: SuperFrame = None
+        self.imagesRendered = {}
+        self.fullMatchFetched = match_data.get('metadata', {}).get('fullMatchFetched', False)
         match_stats = match_data['segments'][0]['stats']
         self.duration = match_data['metadata']['duration']
         self.winning_team = match_data['metadata']['winningTeamId']
+        self.mid = match_data['attributes']['id']
+        self.player_accountId = match_data['segments'][0]['attributes']['accountId']    
         self.timestamp = self.convert_timestamp(match_data.get('metadata', {}).get('timestamp', None))
         self.result = match_data['segments'][0]['metadata']['result']
         self.isMvp = match_data['segments'][0]['metadata']['isMvp']
@@ -925,6 +967,10 @@ class MatchHistory:
                 hero['name']
                 for hero in (match_data['segments'][0]['metadata'].get('heroes') or [])
             ]
+        #self.heroes_used = []
+        self.full_heroes: dict[str, Hero] = {}
+        self.check_if_hero_stats(match_data['segments'])
+        self.bIncomplete = True if not self.full_heroes else False
         self.time_played = match_stats['timePlayed']['value']
         self.kills = match_stats['kills']['value']
         self.assists = match_stats['assists']['value']
@@ -940,6 +986,46 @@ class MatchHistory:
         self.last_kills = match_stats['lastKills']['value']
         self.rank, self.rank_tier = strip_rank_tier2(match_stats['ranked']['metadata']['tierName'])
         self.rank_delta = match_stats.get('rankedDelta', {}).get('displayValue', "-")
+
+    def check_if_hero_stats(self, segments):
+        for segment in segments:
+            if segment.get("type") == "hero":
+                player_account = segment.get("attributes", {}).get("accountId", "Null")
+                if player_account == self.player_accountId:
+                    hero_id = segment.get("attributes", {}).get("heroId", "Unknown")
+                    mock_rivalsdata = {"hero_id": hero_id,"level": 0, "points": 0}
+                    hero = Hero(mock_rivalsdata)
+
+                    #hero_name, hero_role = hero_id_to_info(hero_id)
+                    hero_stats = segment.get("stats", {})
+                    hero.add_stats(hero_stats)
+                    self.full_heroes[hero.Name] = hero
+                    self.bIncomplete = False
+                    self.fullMatchFetched = True
+
+    def add_detailedmatch(self, detailed_match_data):
+        data = detailed_match_data.get("data", {})
+        if not data:
+            return print(f"No data. Failed at Match.add_detailedmatch method: MatchId - {self.mid}")
+        segments = data.get("segments", [])
+        self.check_if_hero_stats(segments)
+                    
+    def getFullMatch(self, event=None):
+        from tracker_trim import getFullMatchGG
+        if not self.bIncomplete:
+            return 
+        status = getFullMatchGG(self, self.mid)
+        if status == "Success":
+            self.bIncomplete = False
+            print(f"Full match data fetched successfully for MatchId - {self.mid}")
+            return status
+
+
+        else:
+            self.bIncomplete = True
+            return "Error"
+
+
 
     def convert_timestamp(self, timestamp):
         from datetime import datetime, timezone
@@ -1179,6 +1265,7 @@ class Player:
 
             
             roles_data = self.getRolesData(profile_data)
+            #total_matches = self.seasonal_overview.getOverviewMatchesPlayed() if self.seasonal_overview else 0
             for role in roles_data:
                 role_name = role.get("metadata", {}).get("name", "Unknown")
                 if role_name not in self.Roles:

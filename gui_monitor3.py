@@ -1,5 +1,6 @@
 
 
+import threading
 import tkinter as tk
 from tkinter import ttk
 import config
@@ -7,7 +8,7 @@ import tkinter.font as tkFont
 from PIL import Image, ImageGrab,  ImageDraw, ImageChops
 import os
 import random
-
+from RDMO import Role
 import sys
 from fGui_Ui import SuperFrame, HeroImager
 USED_HERO_BGS = []
@@ -1326,6 +1327,8 @@ class PlayerFrame:
         self._build_overview_new()
 
         self._build_heroes_new()
+        if not self.player.bMatchHistory and self.player.bRoles:
+            self._build_role_usage()
         self._build_match_history()
         #self._build_history()
         #self._finishing_touches()
@@ -1576,7 +1579,7 @@ class PlayerFrame:
         heroes = [hero1, hero2, hero3]
         icon_position = [(5,456), (4, 610), (4, 766)]
         badge_offset = (27, 155)
-        frame_offset = [(5, 520), (5, 673), (4, 829)]
+        frame_offset = [(9, 520), (9, 673), (8, 829)]
         stats_xy = [(184, 540), (184, 695), (184, 850)]
         highlight_coord = [(10,509), (10, 663), (10, 819)]
         idx = 0
@@ -1761,9 +1764,11 @@ class PlayerFrame:
             match = matches.popleft()
             if len(match.heroes_used) == 0 and not match.skipped:
                 match.skipped = True
+                match.bIncomplete = True
 
                 matches.append(match)
                 continue
+            match.superframe_object = self.superframe
             heroes = match.heroes_used
             row_img = "match_winFs" if match.result == "win" else "match_lossFs"
             fg = "#d66e86" if match.result == "loss" else "#8ceca4"
@@ -1798,19 +1803,42 @@ class PlayerFrame:
             except AttributeError:
                 rank_str = None
 
+            if match.bIncomplete:
+                match.download_widget = self.superframe.createSuperFrameImage(img_key="download", x=x + 50, y=y+25 , anc="nw")
+                
+                self.superframe.Canvas.tag_bind(
+                    match.download_widget,
+                    "<Button-1>",
+                    lambda event, m=match: self._start_full_match_download(m)
+                )
+
             dx, dy = (0,0)
             px, py = (137, 57)
+            scale_role = 0
             size = None
             h = "Unknown_small"
+            ind = 1
             for hero in heroes[:2]:
                 h = hero
-                self.superframe.createSuperFrameImage(img_key=h+"_small", x=x+px, y=y+py , anc="sw",size=size)
+                extra = None
+                if "Deadpool" in h:
+                    h, extra = h.split(" ", 1)
+                    h = "Deadpool"
+                hero_icon = self.superframe.createSuperFrameImage(img_key=h+"_small", x=x+px, y=y+py , anc="sw",size=size)
+                match.imagesRendered[f"hero_{ind}"] = hero_icon
+                print(f"{self.player.Name} - Creating superframe image for hero {h}")
+                if extra:
+                    deadpool_role = self.superframe.createSuperFrameImage(img_key=extra, x=x+px + 35, y=y+py-7 , anc="c",size=(28-scale_role,28-scale_role))
+                    match.imagesRendered[f"deadpool_role_{ind}"] = deadpool_role
+                scale_role = 6
                 px += 46
                 py += -17
                 size = (25,30)
+                ind += 1
 
-            self.superframe.createSuperFrameImage(img_key=h, x=x+px, y=y+py , anc="sw") if h == "Unknown_small" else None
-
+            unk = self.superframe.createSuperFrameImage(img_key=h, x=x+px, y=y+py , anc="sw") if h == "Unknown_small" else None
+            if unk:
+                match.imagesRendered["hero_unknown"] = unk
             
 
 
@@ -1833,6 +1861,263 @@ class PlayerFrame:
             if complete >= 5:
                 break      
             
+    def _build_role_usage(self):
+        self.superframe.createSuperFrameImage(img_key="RoleUsageSolo", x=self.x + 5, y=self.y + 984, anc="nw")
+
+        dps = self.player.Roles.get("Duelist", None)
+        tank = self.player.Roles.get("Vanguard", None)
+        heal = self.player.Roles.get("Strategist", None)
+        dps.calculate_usage(self.player.seasonal_overview.matches_played) if dps else None
+        print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
+        tank.calculate_usage(self.player.seasonal_overview.matches_played) if tank else None
+        print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
+        heal.calculate_usage(self.player.seasonal_overview.matches_played) if heal else None
+        print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
+        img1, img2, img3 = self._get_pie_chart_images(dps, tank, heal)
+        if img1 or img2 or img3:
+            self.superframe.createSuperFrameImage(img_key="BasePie", x=self.x + 6, y=self.y + 1015, anc="nw")
+            
+        if img1:
+            
+            self.superframe.createSuperFrameImage(img_key=img1, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+        if img2:
+            self.superframe.createSuperFrameImage(img_key=img2, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+        if img3:
+            self.superframe.createSuperFrameImage(img_key=img3, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+        
+
+
+
+        #self.player.Role.Usage = self.player.Role.Usage if hasattr(self.player.Role, "Usage") else 0
+
+    def _start_full_match_download(self, match):
+        # Prevent double-clicking while download is running
+        self.superframe.updateSuperFrameImage(
+            match.download_widget,
+            "download_fetching"
+        )
+
+        self.superframe.Canvas.itemconfig(
+            match.download_widget,
+            state="disabled"
+        )
+
+        
+
+        threading.Thread(
+            target=self._full_match_worker,
+            args=(match,),
+            daemon=True
+        ).start()
+
+    def _full_match_worker(self, match):
+        try:
+            success = match.getFullMatch()
+
+            self.superframe.Canvas.master.after(
+                0,
+                self._full_match_finished,
+                match,
+                success
+            )
+
+        except Exception as e:
+            self.superframe.Canvas.master.after(
+                0,
+                self._full_match_failed,
+                match,
+                e
+            )
+
+    def _full_match_finished(self, match, success):
+        print("FINISHED:", success)
+        if success:
+            self.superframe.Canvas.itemconfig(
+            match.download_widget,
+            state="normal"
+        )
+            self.superframe.updateSuperFrameImage(
+                match.download_widget,
+                "download_complete"
+            )
+
+            self.superframe.Canvas.itemconfig(
+                match.download_widget,
+                state="disabled"
+            )
+
+            # Also update hero images / KDA / rank / whatever here
+            #self.refresh_match_row(match)
+
+        else:
+            # Re-enable it so user can retry
+            self.superframe.Canvas.itemconfig(
+                match.download_widget,
+                state="normal"
+            )
+
+    def _get_pie_chart_images(
+                                self,
+                                dps: Role | None,
+                                tank: Role | None,
+                                heal: Role | None,
+                            ):
+        # ---------------------------------------------------------
+        # Get rounded usage values.
+        # Missing roles count as 0.
+        # ---------------------------------------------------------
+
+        blue = dps.Usage_pie if dps is not None else 0
+        green = tank.Usage_pie if tank is not None else 0
+        pink = heal.Usage_pie if heal is not None else 0
+
+        usage = {
+            "blue": int(blue),
+            "green": int(green),
+            "pink": int(pink),
+        }
+
+        # No role usage at all.
+        if sum(usage.values()) == 0:
+            return None, None, None
+
+        # ---------------------------------------------------------
+        # Correct rounding error so total is EXACTLY 100.
+        #
+        # Examples:
+        #   40 + 35 + 20 = 95
+        #       -> largest gets +5
+        #       -> 45 + 35 + 20
+        #
+        #   45 + 35 + 25 = 105
+        #       -> largest gets -5
+        #       -> 40 + 35 + 25
+        # ---------------------------------------------------------
+
+        difference = 100 - sum(usage.values())
+
+        if difference:
+            largest_role = max(
+                usage,
+                key=usage.get
+            )
+
+            usage[largest_role] += difference
+
+        blue = usage["blue"]
+        green = usage["green"]
+        pink = usage["pink"]
+
+        # Which roles actually have usage after normalization.
+        has_blue = blue > 0
+        has_green = green > 0
+        has_pink = pink > 0
+
+        role_count = sum((
+            has_blue,
+            has_green,
+            has_pink,
+        ))
+
+        # ---------------------------------------------------------
+        # THREE ROLES
+        #
+        # Green is the base/full circle.
+        # Blue draws from the beginning.
+        # Pink draws the ending portion.
+        #
+        # Green/Pink baked images are inverted:
+        #     actual 20% -> image value 80
+        #
+        # Blue is normal:
+        #     actual 45% -> Blue_45
+        # ---------------------------------------------------------
+
+        if role_count == 3:
+            image1 = "Green_0"
+            image2 = f"Blue_{blue}"
+            image3 = f"Pink_{100 - pink}"
+
+            return image1, image2, image3
+
+        # ---------------------------------------------------------
+        # TWO ROLES
+        # ---------------------------------------------------------
+
+        # BLUE + PINK
+        #
+        # Pink full-circle base, then blue overlays its percentage.
+        if has_blue and has_pink:
+            image1 = "Pink_0"
+            image2 = f"Blue_{blue}"
+
+            return image1, image2, None
+
+        # BLUE + GREEN
+        #
+        # Green full-circle base, then blue overlays its percentage.
+        if has_blue and has_green:
+            image1 = "Green_0"
+            image2 = f"Blue_{blue}"
+
+            return image1, image2, None
+
+        # GREEN + PINK
+        #
+        # Pink full-circle base, then green overlays its percentage.
+        # Green is inverted.
+        if has_green and has_pink:
+            image1 = "Pink_0"
+            image2 = f"Green_{100 - green}"
+
+            return image1, image2, None
+
+        # ---------------------------------------------------------
+        # ONE ROLE
+        # ---------------------------------------------------------
+
+        if has_blue:
+            return "Blue_100", None, None
+
+        if has_green:
+            return "Green_0", None, None
+
+        if has_pink:
+            return "Pink_0", None, None
+
+        return None, None, None
+
+    def _get_pie_chart_images2(self, dps: Role, tank: Role, heal: Role):
+        image1 = None
+        image2 = None
+        image3 = None
+        duelist_raw = 0
+        tank_raw = 0
+        heal_raw = 0
+        if dps is not None:
+            duelist_raw = dps.Usage_pie
+            image2 = f"Blue_"+ str(dps.Usage_pie)
+        if tank is not None:
+            tank_raw = tank.Usage_pie
+            image1 = f"Green_0"
+        elif heal is not None:
+            heal_raw = heal.Usage_pie
+            image1 = f"Pink_100"
+        else:
+            image1 = None
+
+        if heal is not None:
+            total = duelist_raw + tank_raw + heal_raw
+            difference  = 100 - total
+            if difference > 0:
+                add = difference
+            elif difference < 0:
+                add = -difference
+
+            image3 = f"Pink_"+ str(100 - heal.Usage_pie + add)
+        
+        return image1, image2, image3
+    
     def proficiency_handler(self,hero, lv):
             # lv60 = 195/2 #AnimatedLord, Badge4, Gold
             # lv55 = 165/2 #AnimatedLord, Badge4, Gold

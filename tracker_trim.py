@@ -446,22 +446,35 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
     
     
 
-def build_tracker_url(ign=None, kind="matches",season = config.season):
+def build_tracker_url(ign=None, kind="matches",season = config.season, mid=None):
     
-    if ign is None:
-        return False
+    
+    
         
-    if "match" in kind.lower():
+    if "matches" in kind.lower():
+        if ign is None:
+            return False
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/matches/ign/{ign}?mode=competitive&season={season}"
         
     elif "overview" in kind.lower():
+        if ign is None:
+            return False
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{ign}/segments/career?mode=competitive"
         
     elif "profile" in kind.lower():
+        if ign is None:
+            return False
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{ign}/segments/career?mode=competitive&season={season}"
         
     elif "summary" in kind.lower():
+        if ign is None:
+            return False
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{ign}/summary"
+    
+    elif "detailedmatch" in kind.lower():
+        if mid is None:
+            return None
+        return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/matches/{mid}"
     else:
         return None
         
@@ -586,28 +599,54 @@ def getLive():
     
     
     url, pay= build_rivalsdata_url_payload(kind="player")
-    try:
-        while True:
+    
+    attempt = 1
+    while True:
+        try:
+            print(f"Step 1: Attempt {attempt} to find live match for {config.USER_NAME} from RivalsData...")
             data = b.fetch_post(url, pay)
-            print(type(data))
+            
             m = parsePlayer(data)
             if m:
+                print(f"✅ Step 1: Live match found for {config.USER_NAME} from RivalsData: Match ID = {m}")
                 break
-            time.sleep(5)
+            time.sleep(3)
+            attempt += 1
+            if attempt > 5:
+                print("Step 1: Max attempts reached. Exiting.")
+                return None, None
+        except Exception as e:
+            print(f"Step 1: Attempt {attempt} failed: {e}")
+            time.sleep(3)
+            attempt += 1
+            if attempt > 5:
+                print("Step 1: Max attempts reached. Exiting.")
+                return None, None
                        
-    except Exception as e:
-        print(e)
+    
+
+    attempt = 1
+    while True:    
+        try:
+            print(f"Step 2: Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
+            url, pay = build_rivalsdata_url_payload(kind="live", mid=m)
+            data = b.fetch_post(url, pay)
+            if data:
+                print(f"✅ Step 2: Live match data fetched for {config.USER_NAME} from RivalsData.")
+                break
+            attempt += 1
         
-    try:
-        url, pay = build_rivalsdata_url_payload(kind="live", mid=m)
-        data = b.fetch_post(url, pay)
-       
-    except Exception as e:
-        print(e)
+        except Exception as e:
+            print(f"Step 2: Attempt {attempt} failed: {e}")
+            time.sleep(2)
+            attempt += 1
+            if attempt > 5:
+                print("Step 2: Max attempts reached. Exiting.")
+                return None, None
     
     return data, m
 
-def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int | None = None):
+def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int | None = None, mid: str | None = None):
     """Fetch Tracker.gg data and always return: (data, status, message).
 
     status is one of: "Success", "Private", "Error".
@@ -616,7 +655,7 @@ def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int 
         return None, "Error", "Browser is not initialized"
 
     season = config.season if season is None else season
-    url = build_tracker_url(ign=ign, kind=kind, season=season)
+    url = build_tracker_url(ign=ign, kind=kind, season=season, mid=mid)
 
     if not url:
         return None, "Error", f"Could not build Tracker.gg URL for kind '{kind}'"
@@ -635,20 +674,21 @@ def fetch_tracker_api(browser: Browser | None, ign: str, kind: str, season: int 
 
 
 def fetch_and_add_tracker(player: Player, browser: Browser, ign: str, kind: str,
-                          season: int | None = None, label: str | None = None):
+                          season: int | None = None, label: str | None = None, mid: str | None = None):
     """Fetch one Tracker.gg endpoint and add it to player only on success."""
     data, status, message = fetch_tracker_api(
         browser=browser,
         ign=ign,
         kind=kind,
         season=season,
+        mid=mid
     )
 
     label = label or kind.replace("_", " ").title()
 
     if status == "Success":
-        if kind == "matches":
-            path = os.path.join(config.FullDebug_dir, f"{player.Name}_{kind}.json")
+        #if kind == "matches":
+            #path = os.path.join(config.FullDebug_dir, f"{player.Name}_{kind}.json")
             #helpers.save_json(path=path, data=data)
         add_method = getattr(player, f"add_{kind}", None)
         if not callable(add_method):
@@ -768,6 +808,27 @@ def doDebug(player: Player, ign: str):
             data = json.load(f)
             player.add_matches(data)
 
+def getFullMatchGG(obj, mid):
+    global BROWSER
+    if BROWSER is None:
+        BROWSER = Browser()
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+    else:
+        #BROWSER.kill_all()
+        print()
+        
+    b = BROWSER
+    driver = b.driver
+    driver.get("https://tracker.gg/")
+    if driver.title == "Just a moment...":
+        b.set_captcha_window()
+        b.wait_for_captcha()
+        b.set_tiny_window()
+    status = fetch_and_add_tracker(player=obj, browser=b, ign=None, kind="detailedmatch", mid=mid)
+    #url = build_tracker_url(mid=mid, kind="detailedmatch")
+    #data = b.fetch_get(url)
+    return status
         
 def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool = False):
     # ----------------------------
@@ -945,6 +1006,7 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
         # except Exception as e:
         #     print(e)
     if not bDebug:
+        return
         b.kill_all()
         b.close()
 def main():
