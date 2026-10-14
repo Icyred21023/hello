@@ -432,6 +432,8 @@ class Browser:
 def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID, season=config.season):
     if "player" in kind.lower():
         return "https://api.rivalsdata.com/player", { "uid": uid}
+    elif "live2" in kind.lower():
+        return "https://api.rivalsdata.com/live", {"uid": uid}
     elif "live" in kind.lower():
         return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": uid}
     elif "teammates" in kind.lower():
@@ -498,6 +500,10 @@ def parsePlayer(j: dict = None):
     elif "battle_id" in status:
         mid = status.get("battle_id", False)
         return mid
+    elif "state" in status:
+        state = status.get("state", 0)
+        if state == 6:
+            return True
     return False
 
 def BROWSER_check_init():
@@ -601,6 +607,26 @@ def getLive():
     url, pay= build_rivalsdata_url_payload(kind="player")
     
     attempt = 1
+
+    while True:    
+        try:
+            print(f"Step 1: Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
+            url, pay = build_rivalsdata_url_payload(kind="live2")
+            data = b.fetch_post(url, pay)
+            if data:
+                print(f"✅ Step 2: Live match data fetched for {config.USER_NAME} from RivalsData.")
+                break
+            attempt += 1
+        
+        except Exception as e:
+            print(f"Step 2: Attempt {attempt} failed: {e}")
+            time.sleep(2)
+            attempt += 1
+            if attempt > 5:
+                print("Step 2: Max attempts reached. Exiting.")
+                return None, None
+    
+    return data, None
     while True:
         try:
             print(f"Step 1: Attempt {attempt} to find live match for {config.USER_NAME} from RivalsData...")
@@ -608,7 +634,7 @@ def getLive():
             
             m = parsePlayer(data)
             if m:
-                print(f"✅ Step 1: Live match found for {config.USER_NAME} from RivalsData: Match ID = {m}")
+                print(f"✅ Step 1: Live match found for {config.USER_NAME} from RivalsData: In Battle = {m}")
                 break
             time.sleep(3)
             attempt += 1
@@ -629,7 +655,7 @@ def getLive():
     while True:    
         try:
             print(f"Step 2: Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
-            url, pay = build_rivalsdata_url_payload(kind="live", mid=m)
+            url, pay = build_rivalsdata_url_payload(kind="live2", mid=m)
             data = b.fetch_post(url, pay)
             if data:
                 print(f"✅ Step 2: Live match data fetched for {config.USER_NAME} from RivalsData.")

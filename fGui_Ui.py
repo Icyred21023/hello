@@ -570,6 +570,8 @@ class SuperFrame:
             canvas._images[item] = img
             canvas._pil_images[item] = img_raw
 
+            return item
+
     def createSuperFrameImage(
         self,
         img_key: str,

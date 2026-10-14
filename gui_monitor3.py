@@ -2182,10 +2182,34 @@ class PlayerFrame:
                 match.download_widget,
                 state="disabled"
             )
+            match.full_heroes = dict(
+                sorted(
+                    match.full_heroes.items(),
+                    key=lambda item: item[1].Stats.time_played,
+                    reverse=True
+                )
+            )
+            new_list = [hero.Name for hero in match.full_heroes.values()] if match.full_heroes else []
+            from itertools import zip_longest
 
+            for i, (new, old) in enumerate(
+                zip_longest(new_list, match.heroes_used, fillvalue=None)
+            ):
+                if new != old and new is not None and old is not None:
+                    icon = match.imagesRendered.get(f"{old}", None)
+                    if icon:
+                        update = self.superframe.updateSuperFrameImage(icon, new+"_small")
+                        match.imagesRendered[new] = update
+                    else:
+                        print(f"Warning: Hero icon for {old} not found in match.imagesRendered.")
+                    
+
+                    
             for hero in match.full_heroes:
                 hero_object = match.full_heroes[hero]
+
                 name = hero_object.Name
+                new_list.append(name)
                 hero_icon = match.imagesRendered.get(name, None)
                 if hero_icon:
                     self.bind_hero_stats_popup(
