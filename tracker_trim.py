@@ -477,6 +477,10 @@ def build_tracker_url(ign=None, kind="matches",season = config.season, mid=None)
         if mid is None:
             return None
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/matches/{mid}"
+    elif "live" in kind.lower():
+        if ign is None:
+            return None
+        return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/matches/ign/{ign}/live?"
     else:
         return None
         
@@ -617,6 +621,76 @@ def getLive():
                 print(f"✅ Live match data fetched for {config.USER_NAME} from RivalsData.")
                 break
             attempt += 1
+        
+        except Exception as e:
+            print(f"Attempt {attempt} failed: {e}")
+            time.sleep(3)
+            attempt += 1
+            if "load" in str(e).lower():
+                print("Loading Trigger")
+            if attempt > 5:
+                print("Max attempts reached. Exiting.")
+                return None, None
+    
+    return data, None
+
+def getLiveGG():
+    # ----------------------------
+    # Browser setup
+    # ----------------------------
+    #kill_selenium_chrome()
+    # brave_path = r"C:\Program Files\BraveSoftware\Brave-Browser\Application"
+    # chrome_path = r"C:\Program Files\Google\Chrome\Application"
+
+
+
+    # # ---- BRAVE BROWSER DETECTION ----
+
+    # if os.path.exists(brave_path):
+    #     bBraveBrowser = True
+    #     data_dir = config.brave_data_dir
+    #     browser_path = r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+    #     kill_brave_selenium_instances()
+    #     brave_major = get_installed_brave_major_version(default=147)
+
+
+    # Added only because the requested source excerpt ends here.
+    global BROWSER
+    if BROWSER is None:
+        
+        BROWSER = Browser()
+
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+    else:
+        #BROWSER.kill_all()
+        print()
+        
+    b = BROWSER
+    driver = b.driver
+    driver.get("https://tracker.gg/")
+    if driver.title == "Just a moment...":
+        b.set_captcha_window()
+        b.wait_for_captcha()
+        b.set_tiny_window()
+    
+    
+    url = build_tracker_url(ign=config.USER_NAME, kind="live")
+    
+    
+    attempt = 1
+
+    while True:    
+        try:
+            print(f"Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
+            data = b.fetch_get(url)
+            if data:
+                print(f"✅ Live match data fetched for {config.USER_NAME} from RivalsData.")
+                break
+            attempt += 1
+            if attempt > 5:
+                print("Max attempts reached. Exiting.")
+                return None, None
         
         except Exception as e:
             print(f"Attempt {attempt} failed: {e}")
@@ -937,14 +1011,14 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
                 doDebug(player, ign)
                 continue
         print(f"🔍 \033[1m - {player.Name}\033[0m")
-        fetch_and_add_tracker(player, b, ign, "summary")
+        #fetch_and_add_tracker(player, b, ign, "summary")
 
         profile_status = fetch_and_add_tracker(player, b, ign, "profile")
 
         if profile_status == "Success":
             matches_played = player.seasonal_overview.matches_played
             player.bProfile = True
-            if matches_played and matches_played < 35:
+            if matches_played and matches_played < 50:
                 status = fetch_and_add_tracker(
                     player,
                     b,

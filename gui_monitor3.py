@@ -1331,6 +1331,25 @@ class PlayerFrame:
         if not self.player.bMatchHistory and self.player.bRoles:
             self._build_role_usage()
         self._build_match_history()
+        # canvas = self.superframe.Canvas
+
+        # for icon in [175, 190, 204, 308, 322, 336, 443, 457, 473]:
+
+        #     bbox = canvas.bbox(icon)
+
+        #     if not bbox:
+        #         continue
+
+        #     x = (bbox[0] + bbox[2]) / 2
+        #     y = (bbox[1] + bbox[3]) / 2
+
+        #     overlapping = canvas.find_overlapping(x, y, x, y)
+
+        #     print(
+        #         f"Icon {icon}:",
+        #         f"Items at center = {overlapping}",
+        #         f"Topmost = {overlapping[-1] if overlapping else None}"
+        #     )
         #self._build_history()
         #self._finishing_touches()
         return self.outer
@@ -1673,10 +1692,252 @@ class PlayerFrame:
             25,
             watch_mouse
         )
+
+    
+    def bind_hero_stats_popup_TOP3(self, image_item, hero):
+        canvas = self.superframe.Canvas
+
+        def on_enter(event):
+            self.superframe.updateSuperFrameImage(item=image_item, img_key="hero_more_blue")
+            canvas.configure(cursor="hand2")
+
+        def on_leave(event):
+            self.superframe.updateSuperFrameImage(item=image_item, img_key="hero_more")
+            canvas.configure(cursor="")
+
+        def on_click(event):
+            self._show_hero_stats_popup_TOP3(
+                hero,
+                image_item
+            )
+
+        canvas.tag_bind(image_item, "<Enter>", on_enter)
+        canvas.tag_bind(image_item, "<Leave>", on_leave)
+        canvas.tag_bind(image_item, "<Button-1>", on_click)
+
+    def _show_hero_stats_popup_TOP3(self, hero: Hero, image_item):
+        canvas = self.superframe.Canvas
+
+        # Delete old popup
+        canvas.delete("hero_stats_popup")
+
+        # Get actual hero image bounds on THIS canvas
+        bbox = canvas.bbox(image_item)
+
+        if not bbox:
+            return
+
+        x1, y1, x2, y2 = bbox
+
+        hero_center_x = (x1 + x2) / 2
+        hero_top_y = y1
+
+        stats = hero.Stats
+        t = stats.time_played
+        
+        h, m = int(round(t // 3600)), int(round((t % 3600) // 60))
+        t = " ".join(f"{v}{unit}" for v, unit in [(h, "h"), (m, "m")] if v) or "0m"
+        #t = f"{m}m {s}s" if m else f"{s}s"
+        from RDMO import Stats
+
+        def get_stat_per_time(stats: Stats = None, total: int = None, time: int = None, matches: float = None, decimals: int = 0):
+            if not stats or not total:
+                return "NA"
+            if not time:
+                matches = max(stats.matches_played, 1)
+                if decimals > 0:
+                    ret = round(total / matches, decimals)
+                else:
+                    ret = int(round(total / matches, 0))
+
+                return ret
+            time_played = max(stats.time_played, 60)
+            if decimals > 0:
+                ret = round(total / (time_played / time), decimals)
+            else:
+                ret = int(round(total / (time_played / time), 0))
+            return ret
+        
+        columns = [
+            [
+                ("Kills", get_stat_per_time(stats, stats.kills)),
+                ("Deaths", get_stat_per_time(stats, stats.deaths)),
+                ("Assists", get_stat_per_time(stats, stats.assists)),
+                ("Damage", get_stat_per_time(stats, stats.total_damage)),
+                ("Healing", get_stat_per_time(stats, stats.total_healing)),
+                ("Blocked", get_stat_per_time(stats, stats.total_damage_taken)),
+            ],
+            [   
+                ("Matches", round(stats.matches_played,1)),
+                ("Time Played", t),
+                ("Win %", stats.win_pct),
+                ("SVP %", stats.svp_pct),
+                ("MVP %", stats.mvp_pct),
+                
+                
+                
+                
+            ],
+            [   ("KD", round(stats.kd_ratio,1)),
+                ("KDA", round(stats.kda_ratio,1)),
+                ("Accuracy", stats.accuracy),
+                ("Headshot Acc", stats.headshot_accuracy),
+                ("Final Hits", get_stat_per_time(stats, stats.last_kills, decimals=1)),
+                
+            ]
+        ]
+
+        # ---------------------------------------------------------
+        # Popup dimensions / placement
+        # ---------------------------------------------------------
+
+        popup_width = 375
+        popup_height = 150
+
+        x_offset = -200
+        y_offset = -35
+
+        popup_x1 = int(
+            hero_center_x
+            - popup_width / 2
+            + x_offset
+        )
+
+        popup_y1 = int(
+            hero_top_y
+            - popup_height
+            + y_offset
+        )
+
+        popup_x2 = popup_x1 + popup_width
+        popup_y2 = popup_y1 + popup_height
+
+        # ---------------------------------------------------------
+        # Background
+        # ---------------------------------------------------------
+
+        canvas.create_rectangle(
+            popup_x1,
+            popup_y1,
+            popup_x2,
+            popup_y2,
+            fill="#17172b",
+            outline="#759ad4",
+            width=2,
+            tags="hero_stats_popup"
+        )
+
+        # ---------------------------------------------------------
+        # Hero title
+        # ---------------------------------------------------------
+
+        canvas.create_text(
+            popup_x1 + 10,
+            popup_y1 + 10,
+            text=hero.Name,
+            anchor="nw",
+            fill="#e6e6f5",
+            font=fonttk(
+                "Refrigerator Deluxe ExtraBold",
+                12,
+                "bold"
+            ),
+            tags="hero_stats_popup"
+        )
+
+        # ---------------------------------------------------------
+        # Columns
+        # ---------------------------------------------------------
+
+        column_x = [
+            popup_x1 + 10,
+            popup_x1 + 135,
+            popup_x1 + 255
+        ]
+
+        text_start_y = popup_y1 + 32
+        row_height = 17
+
+        for col_index, column in enumerate(columns):
+
+            tx = column_x[col_index]
+
+            for row_index, (label, value) in enumerate(column):
+
+                ty = text_start_y + row_index * row_height
+
+                # label
+                canvas.create_text(
+                    tx,
+                    ty,
+                    text=f"{label}:",
+                    anchor="nw",
+                    fill="#b9bad0",
+                    font=fonttk(
+                        "Refrigerator Deluxe",
+                        10,
+                        "normal"
+                    ),
+                    tags="hero_stats_popup"
+                )
+
+                # value
+                canvas.create_text(
+                    tx + 68,
+                    ty,
+                    text=str(value),
+                    anchor="nw",
+                    fill="#e6e6f5",
+                    font=fonttk(
+                        "Refrigerator Deluxe ExtraBold",
+                        10,
+                        "bold"
+                    ),
+                    tags="hero_stats_popup"
+                )
+
+        # Make sure popup is above everything else
+        canvas.tag_raise("hero_stats_popup")
+
+        # ---------------------------------------------------------
+        # Close once mouse moves >= 10 px from click position
+        # ---------------------------------------------------------
+
+        start_x = canvas.winfo_pointerx()
+        start_y = canvas.winfo_pointery()
+
+        def watch_mouse():
+            # popup may already have been deleted
+            if not canvas.find_withtag("hero_stats_popup"):
+                return
+
+            mx = canvas.winfo_pointerx()
+            my = canvas.winfo_pointery()
+
+            distance = math.hypot(
+                mx - start_x,
+                my - start_y
+            )
+
+            if distance >= 40:
+                canvas.delete("hero_stats_popup")
+                return
+
+            canvas.after(
+                25,
+                watch_mouse
+            )
+
+        canvas.after(
+            25,
+            watch_mouse
+        )
+
+    
         
     def _build_outer(self):
         
-        self.superframe.createSuperFrameImage(img_key="Yellow Glow", x=self.x+214, y=self.y+745, anc="c") if self.len != 6 else None
+        #self.superframe.createSuperFrameImage(img_key="Yellow Glow", x=self.x+214, y=self.y+745, anc="c") if self.len != 6 else None
         self.superframe.createSuperFrameImage(img_key="heroframe2", x=self.x, y=self.y, anc="nw")
         a = 1 if self.player.bProfile else 0
         a += 1 if self.player.bMatchHistory else 0
@@ -1710,7 +1971,7 @@ class PlayerFrame:
                 set = 24
                 
                 # Games Played Top
-                
+                self.superframe.createSuperFrameText(text=self.player.seasons_string, x=x+213, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=False), fill="#8685B6")
                 self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
                 #self.superframe.createSuperFrameText(text="PRIVATE", x=x+150, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=True), fill="#9ec9fe")
                 self.superframe.createSuperFrameText(text=str(round(self.player.OVMatches,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
@@ -1730,7 +1991,7 @@ class PlayerFrame:
         set = 24
         
         # Games Played Top
-        
+        self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#8685B6")
         self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
         
         self.superframe.createSuperFrameText(text=str(round(p.matches_played,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
@@ -1815,6 +2076,7 @@ class PlayerFrame:
         hero3: Hero | None = hli[2] if len(hli) > 2 else None
         heroes = [hero1, hero2, hero3]
         icon_position = [(5,456), (4, 610), (4, 766)]
+        btn_position = [(400,548), (400, 703), (400, 858)]
         badge_offset = (27, 155)
         frame_offset = [(9, 520), (9, 673), (8, 829)]
         stats_xy = [(184, 540), (184, 695), (184, 850)]
@@ -1971,6 +2233,23 @@ class PlayerFrame:
             self.superframe.createSuperFrameText(text="MATCHES", x=x1, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
 
             self.superframe.createSuperFrameImage(img_key="matches2", x=x1, y=yb+1, anc="c")#, size =(22,22))
+
+            if self.player.bHeroes:
+                ix, iy = btn_position[idx-1]
+                ix += self.x
+                iy += self.y
+                icon = self.superframe.createSuperFrameImage(img_key="hero_more", x=ix, y=iy, anc="nw")
+                self.bind_hero_stats_popup_TOP3(icon, hero)
+
+                # canvas = self.superframe.Canvas
+
+                # print(f"\nHero: {hero.Name}")
+                # print(f"Icon ID: {icon}")
+                # print(f"Item type: {canvas.type(icon)}")
+                # print(f"Item state: {canvas.itemcget(icon, 'state')}")
+                # print(f"Item bbox: {canvas.bbox(icon)}")
+                # print(f"Enter bind: {canvas.tag_bind(icon, '<Enter>')}")
+                # print(f"Leave bind: {canvas.tag_bind(icon, '<Leave>')}")
             
             # Stat Values
             set = 57
@@ -2063,7 +2342,8 @@ class PlayerFrame:
                 #print(f"{self.player.Name} - Creating superframe image for hero {h}")
                 if not match.bIncomplete:
                     hero_object = match.full_heroes.get(hero, None)
-                    if hero_object:
+                    
+                    if hero_object and hero_icon:
                         self.bind_hero_stats_popup(
                             hero_icon,
                             hero_object
@@ -2110,11 +2390,11 @@ class PlayerFrame:
         tank = self.player.Roles.get("Vanguard", None)
         heal = self.player.Roles.get("Strategist", None)
         dps.calculate_usage(self.player.seasonal_overview.matches_played) if dps else None
-        print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
+        #print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
         tank.calculate_usage(self.player.seasonal_overview.matches_played) if tank else None
-        print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
+        #print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
         heal.calculate_usage(self.player.seasonal_overview.matches_played) if heal else None
-        print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
+        #print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
         img1, img2, img3 = self._get_pie_chart_images(dps, tank, heal)
         if img1 or img2 or img3:
             self.superframe.createSuperFrameImage(img_key="BasePie", x=self.x + 6, y=self.y + 1015, anc="nw")
@@ -2173,77 +2453,66 @@ class PlayerFrame:
 
     def _full_match_finished(self, match: MatchHistory, success):
         print("FINISHED:", success)
-        if success:
-            self.superframe.Canvas.itemconfig(
-            match.download_widget,
-            state="normal"
+
+        canvas = self.superframe.Canvas
+
+        if not success:
+            canvas.itemconfig(match.download_widget, state="normal")
+            return
+
+        canvas.itemconfig(match.download_widget, state="disabled")
+        self.superframe.deleteSuperFrameImage(match.download_widget)
+
+        match.full_heroes = dict(
+            sorted(
+                match.full_heroes.items(),
+                key=lambda item: item[1].Stats.time_played,
+                reverse=True
+            )
         )
-            
 
-            self.superframe.Canvas.itemconfig(
-                match.download_widget,
-                state="disabled"
-            )
+        new_heroes = list(match.full_heroes.values())[:2]
+        old_names = match.heroes_used.copy()
+        old_icons = match.imagesRendered.copy()
 
-            self.superframe.deleteSuperFrameImage(
-                match.download_widget
+        new_icons = {}
+        new_names = []
+        sizes = [None, (25, 30)]
+
+        for i, hero in enumerate(new_heroes):
+            new_name = hero.Name
+            old_name = old_names[i] if i < len(old_names) else None
+
+            icon = old_icons.get(old_name)
+
+            # Validate that the Canvas item actually exists
+            if not isinstance(icon, int) or not canvas.type(icon):
+                print(
+                    f"Invalid Canvas icon: "
+                    f"position={i}, old={old_name}, "
+                    f"new={new_name}, icon={icon}"
                 )
-                        # Sort full heroes by time played
-            match.full_heroes = dict(
-                sorted(
-                    match.full_heroes.items(),
-                    key=lambda item: item[1].Stats.time_played,
-                    reverse=True
-                )
-            )
+                continue
 
-            # New order based on full match statistics
-            new_heroes = list(match.full_heroes.values())
-            old_names = match.heroes_used
-
-            # First hero = 28x28, second = 22x22
-            sizes = [None, (25,30)]
-
-            for i, hero in enumerate(new_heroes[:2]):
-
-                new_name = hero.Name
-                old_name = old_names[i] if i < len(old_names) else None
-
-                # Retrieve the existing icon occupying this position
-                icon = match.imagesRendered.get(old_name) if old_name else None
-
-                if icon is None:
-                    print(f"Warning: No existing icon at position {i}")
-                    continue
-
-                # Update image only if hero changed
-                if new_name != old_name:
-
-                    icon = self.superframe.updateSuperFrameImage(
-                        icon,
-                        new_name + "_small",
-                        size=sizes[i]
-                    )
-
-                    # Update the dictionary mapping
-                    match.imagesRendered.pop(old_name, None)
-                    match.imagesRendered[new_name] = icon
-
-                # Bind popup to the correct hero object
-                self.bind_hero_stats_popup(
+            if new_name != old_name:
+                icon = self.superframe.updateSuperFrameImage(
                     icon,
-                    hero
+                    new_name + "_small",
+                    size=sizes[i]
                 )
 
-            # Update original hero order for future reference
-            match.heroes_used = [hero.Name for hero in new_heroes[:2]]
+            # Always bind stats, even for unchanged heroes
+            self.bind_hero_stats_popup(icon, hero)
 
-        else:
-            # Re-enable it so user can retry
-            self.superframe.Canvas.itemconfig(
-                match.download_widget,
-                state="normal"
-            )
+            new_icons[new_name] = icon
+            new_names.append(new_name)
+
+        # Remove old mappings, then insert updated mappings
+        for name in old_names:
+            match.imagesRendered.pop(name, None)
+
+        match.imagesRendered.update(new_icons)
+        match.heroes_used = new_names
 
     def _get_pie_chart_images(
                                 self,
@@ -3635,6 +3904,8 @@ class App:
 
         def go_back_to_launcher():
             # Instead of destroying root, just go back
+            #import tracker_trim
+            #tracker_trim.BROWSER.kill_all()
             self.show_launcher_page()
 
         close_btn = tk.Button(
@@ -3852,6 +4123,9 @@ class App:
                 from RDMO import Match
                 import tracker_trim
                 import random
+                if not li:
+                    print("Error: The selected JSON file is empty or invalid.")
+                    return
                 MatchObject = Match(li, enemy_team=random.randint(1, 2))
                 MatchObject.check_for_teammates()
                 tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
@@ -3877,6 +4151,7 @@ class App:
                 from tracker_trim_debug_helper import make_debug_live_match
                 live_match_data = make_debug_live_match(bTrackerNames)
                 from RDMO import Match
+                
                 matches = Match(live_match_data)
                 tracker_trim.getTrackerGG(matches)
                 MATCH_PLAYERS = []
@@ -3908,6 +4183,9 @@ class App:
                     print(f"🦸 {config.USER_NAME} ({type(config.USER_NAME).__name__})")
                     print(f"🆔 {config.USER_UID} ({type(config.USER_UID).__name__} {sym})")
                     live_match_data, mid = tracker_trim.getLive()
+                    if not live_match_data:
+                        pass
+                        live_match_data = tracker_trim.getLiveGG()
                     match = Match(live_match_data)
                     match.check_for_teammates()
                     tracker_trim.getTrackerGG(match)
@@ -3946,11 +4224,11 @@ class App:
         #print("\n🎯 Captured Player Names:")
         #for name in names:
             #print(f"- {name}")
-
+        import random
         players = []
         if len(MATCH_PLAYERS) > 0:
             self.show_match_page(MATCH_PLAYERS)
-            if mid and live_match_data:
+            if live_match_data:
                 #mid = mid.split(":")[0]  # Remove any extra info after the match ID
                 while True:
                     mid = random.randint(10000000001, 199999999999)

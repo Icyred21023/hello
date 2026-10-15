@@ -305,9 +305,13 @@ class Stats:
         value = self._value
 
         self.time_played += value(stats, "timePlayed")
-        self.matches_played += value(stats, "matchesPlayed")
-        self.matches_won += value(stats, "matchesWon")
+        #self.matches_played += value(stats, "matchesPlayed")
+        #self.matches_won += value(stats, "matchesWon")
+        season_matches = value(stats, "matchesPlayed")
+        season_win_pct = value(stats, "matchesWinPct")
 
+        self.matches_played += season_matches
+        self.matches_won += season_matches * (season_win_pct / 100)
         self.kills += value(stats, "kills")
         self.assists += value(stats, "assists")
         self.deaths += value(stats, "deaths")
@@ -354,7 +358,14 @@ class Stats:
         # -----------------------------------------------------
         # Percentages
         # -----------------------------------------------------
-
+        if self.matches_played > 0:
+            self.win_pct_raw = (
+                self.matches_won / self.matches_played * 100
+            )
+            self.win_pct = f"{self.win_pct_raw:.1f}%"
+        else:
+            self.win_pct_raw = 0
+            self.win_pct = "0%"
         if self.matches_played > 0:
 
             matches_lost = max(0.0, self.matches_played - self.matches_won)
@@ -404,21 +415,14 @@ class Stats:
                 self.total_damage_taken / minutes
             )
 
-            self.win_pct_raw = (
-                self.time_played_won /
-                self.time_played *
-                100
-            )
-
-            self.win_pct = f"{int(self.win_pct_raw)}%"
+            
 
         else:
             self.damage_per_minute = 0
             self.healing_per_minute = 0
             self.total_damage_taken_per_minute = 0
 
-            self.win_pct_raw = 0
-            self.win_pct = "0%"
+            
 
         # -----------------------------------------------------
         # KD / KDA
@@ -747,7 +751,9 @@ class Overview:
         self.calculateValues()
 
     def calculateValues(self):
-
+        matches = max(self.matches_played, 1)
+        
+        matches_won = max(self.matches_won, 1) if self.matches_won > 0 else 0
         # KD
         self.kd_ratio = (
             round(self.kills / self.deaths, 2)
@@ -764,14 +770,15 @@ class Overview:
 
         # MVP %
         self.mvp_pct = (
-            str(int(round((self.mvps / self.matches_played) * 100))) + '%'
+            str(int(round((self.mvps / matches_won) * 100))) + '%'
             if self.matches_played > 0
             else '0%'
         )
 
         # SVP %
+
         self.svp_pct = (
-            str(int(round((self.svps / self.matches_played) * 100))) + '%'
+            str(int(round((self.svps / matches - matches_won) * 100))) + '%'
             if self.matches_played > 0
             else '0%'
         )
@@ -1330,6 +1337,9 @@ class Player:
 
 class Match:
     def __init__(self, data, enemy_team=None):
+        if not data:
+            raise ValueError("Match data is empty or None.")
+            return None
         self.UserId = str(UID)
         self.Teammates = defaultdict(list)
         self.UserTeam = None
