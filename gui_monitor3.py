@@ -2390,22 +2390,22 @@ class PlayerFrame:
         tank = self.player.Roles.get("Vanguard", None)
         heal = self.player.Roles.get("Strategist", None)
         dps.calculate_usage(self.player.seasonal_overview.matches_played) if dps else None
-        #print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
+        print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
         tank.calculate_usage(self.player.seasonal_overview.matches_played) if tank else None
-        #print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
+        print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
         heal.calculate_usage(self.player.seasonal_overview.matches_played) if heal else None
-        #print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
-        img1, img2, img3 = self._get_pie_chart_images(dps, tank, heal)
+        print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
+        img1, img2, img3 = self._get_pie_chart_images_2_5(dps, tank, heal)
         if img1 or img2 or img3:
-            self.superframe.createSuperFrameImage(img_key="BasePie", x=self.x + 6, y=self.y + 1015, anc="nw")
+            self.superframe.createSuperFrameImage(img_key="BasePie2_extra2", x=self.x + 4, y=self.y + 1014, anc="nw")
             
         if img1:
             
-            self.superframe.createSuperFrameImage(img_key=img1, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+            self.superframe.createSuperFrameImage(img_key=img1, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
         if img2:
-            self.superframe.createSuperFrameImage(img_key=img2, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+            self.superframe.createSuperFrameImage(img_key=img2, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
         if img3:
-            self.superframe.createSuperFrameImage(img_key=img3, x=self.x + 87, y=self.y + 1099, anc="c",size=(136,136))
+            self.superframe.createSuperFrameImage(img_key=img3, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
         
 
 
@@ -2645,36 +2645,98 @@ class PlayerFrame:
 
         return None, None, None
 
-    def _get_pie_chart_images2(self, dps: Role, tank: Role, heal: Role):
-        image1 = None
-        image2 = None
-        image3 = None
-        duelist_raw = 0
-        tank_raw = 0
-        heal_raw = 0
-        if dps is not None:
-            duelist_raw = dps.Usage_pie
-            image2 = f"Blue_"+ str(dps.Usage_pie)
-        if tank is not None:
-            tank_raw = tank.Usage_pie
-            image1 = f"Green_0"
-        elif heal is not None:
-            heal_raw = heal.Usage_pie
-            image1 = f"Pink_100"
-        else:
-            image1 = None
+    def _get_pie_chart_images_2_5(
+        self,
+        dps: Role | None,
+        tank: Role | None,
+        heal: Role | None,
+    ):
+        # ---------------------------------------------------------
+        # Get usage values.
+        # Convert percentages into 2.5% units.
+        #
+        # 92.5% -> 37 units
+        #  5.0% ->  2 units
+        #  2.5% ->  1 unit
+        # 100%  -> 40 units
+        # ---------------------------------------------------------
 
-        if heal is not None:
-            total = duelist_raw + tank_raw + heal_raw
-            difference  = 100 - total
-            if difference > 0:
-                add = difference
-            elif difference < 0:
-                add = -difference
+        raw_usage = {
+        "blue": dps.Usage_pie if dps is not None else 0,
+        "green": tank.Usage_pie if tank is not None else 0,
+        "pink": heal.Usage_pie if heal is not None else 0,
+    }
 
-            image3 = f"Pink_"+ str(100 - heal.Usage_pie + add)
-        
-        return image1, image2, image3
+        # Convert to integer units of 2.5%
+        usage = {
+            color: int(value / 2.5 + 0.5)
+            for color, value in raw_usage.items()
+        }
+
+        if sum(usage.values()) == 0:
+            return None, None, None
+
+        # Normalize to exactly 100% (40 units)
+        difference = 40 - sum(usage.values())
+
+        if difference:
+            largest_role = max(usage, key=usage.get)
+            usage[largest_role] += difference
+
+        blue = usage["blue"] * 2.5
+        green = usage["green"] * 2.5
+        pink = usage["pink"] * 2.5
+
+        def image_key(color, percentage):
+            return f"{color}_{round(percentage * 10)}"
+
+        has_blue = blue > 0
+        has_green = green > 0
+        has_pink = pink > 0
+
+        role_count = sum((has_blue, has_green, has_pink))
+
+        # THREE ROLES
+        if role_count == 3:
+            return (
+                image_key("Green", 100),
+                image_key("Blue", blue),
+                image_key("Pink", pink),
+            )
+
+        # TWO ROLES
+        if has_blue and has_pink:
+            return (
+                image_key("Pink", 100),
+                image_key("Blue", blue),
+                None,
+            )
+
+        if has_blue and has_green:
+            return (
+                image_key("Green", 100),
+                image_key("Blue", blue),
+                None,
+            )
+
+        if has_green and has_pink:
+            return (
+                image_key("Pink", 100),
+                image_key("Green", green),
+                None,
+            )
+
+        # ONE ROLE
+        if has_blue:
+            return "Blue_1000", None, None
+
+        if has_green:
+            return "Green_1000", None, None
+
+        if has_pink:
+            return "Pink_1000", None, None
+
+        return None, None, None
     
     def proficiency_handler(self,hero, lv):
             # lv60 = 195/2 #AnimatedLord, Badge4, Gold

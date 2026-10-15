@@ -39,6 +39,19 @@ RANK_DATA = {
     1: ("Bronze", "B3", "S", "#A7693F"),
 }
 import math
+def round_to_2_5_special(value):
+    if value == 0:
+        return 0
+    if value == 100:
+        return 100
+
+    if 0 < value < 2.5:
+        return 2.5
+    if 97.5 < value < 100:
+        return 97.5
+
+    return math.floor((value + 1.25) / 2.5) * 2.5
+
 def round_to_5_special(value):
     if value == 0:
         return 0
@@ -686,7 +699,7 @@ class Role:
     def calculate_usage(self, total_matches):
         self.Usage_raw = self.Stats.matches_played / total_matches * 100 if total_matches > 0 else 0
         self.Usage = str(int(round(self.Usage_raw))) + '%'
-        self.Usage_pie = round_to_5_special(self.Usage_raw)
+        self.Usage_pie = round_to_2_5_special(self.Usage_raw)
         
 
 
@@ -771,15 +784,15 @@ class Overview:
         # MVP %
         self.mvp_pct = (
             str(int(round((self.mvps / matches_won) * 100))) + '%'
-            if self.matches_played > 0
+            if matches_won > 0
             else '0%'
         )
 
         # SVP %
 
         self.svp_pct = (
-            str(int(round((self.svps / matches - matches_won) * 100))) + '%'
-            if self.matches_played > 0
+            str(int(round((self.svps / (matches - matches_won)) * 100))) + '%'
+            if matches - matches_won > 0
             else '0%'
         )
 
