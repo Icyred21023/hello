@@ -1506,7 +1506,10 @@ class PlayerFrame:
         hero_top_y = y1
 
         stats = hero.Stats
-
+        t = stats.time_played
+        
+        m, s = t // 60000, (t % 60000) // 1000
+        t = f"{m}m {s}s" if m else f"{s}s"
         columns = [
             [
                 ("Kills", stats.kills),
@@ -1514,13 +1517,14 @@ class PlayerFrame:
                 ("Assists", stats.assists),
             ],
             [
-                ("Time Played", stats.time_played),
-                ("KD", stats.kd_ratio),
+                ("Time Played", t),
+                ("KD", round(stats.kd_ratio,1)),
+                ("Accuracy", stats.accuracy),
             ],
             [
-                ("Accuracy", stats.accuracy),
-                ("Damage", stats.total_damage),
-                ("Healing", stats.total_healing),
+                ("Final Hits", stats.last_kills),
+                ("Damage", int(round(stats.total_damage))),
+                ("Healing", int(round(stats.total_healing))),
             ]
         ]
 
@@ -1531,7 +1535,7 @@ class PlayerFrame:
         popup_width = 390
         popup_height = 90
 
-        x_offset = 20
+        x_offset = 45
         y_offset = -5
 
         popup_x1 = int(
@@ -1656,7 +1660,7 @@ class PlayerFrame:
                 my - start_y
             )
 
-            if distance >= 10:
+            if distance >= 20:
                 canvas.delete("hero_stats_popup")
                 return
 
@@ -2037,7 +2041,8 @@ class PlayerFrame:
                 rank_str = None
 
             if match.bIncomplete:
-                match.download_widget = self.superframe.createSuperFrameImage(img_key="download", x=x + 50, y=y+25 , anc="nw")
+                na = "download_w" if match.result == "win" else "download_l"
+                match.download_widget = self.superframe.createSuperFrameImage(img_key=na, x=x + 44, y=y+21 , anc="nw")
                 self.bind_dl(match.download_widget, match)
                 
 
@@ -2131,7 +2136,7 @@ class PlayerFrame:
         # Prevent double-clicking while download is running
         self.superframe.updateSuperFrameImage(
             match.download_widget,
-            "download_fetching"
+            "download_r"
         )
 
         self.superframe.Canvas.itemconfig(
@@ -2173,15 +2178,17 @@ class PlayerFrame:
             match.download_widget,
             state="normal"
         )
-            self.superframe.updateSuperFrameImage(
-                match.download_widget,
-                "download_complete"
-            )
+            
 
             self.superframe.Canvas.itemconfig(
                 match.download_widget,
                 state="disabled"
             )
+
+            self.superframe.deleteSuperFrameImage(
+                match.download_widget
+                )
+                        # Sort full heroes by time played
             match.full_heroes = dict(
                 sorted(
                     match.full_heroes.items(),
@@ -2189,38 +2196,47 @@ class PlayerFrame:
                     reverse=True
                 )
             )
-            new_list = [hero.Name for hero in match.full_heroes.values()] if match.full_heroes else []
-            from itertools import zip_longest
 
-            for i, (new, old) in enumerate(
-                zip_longest(new_list, match.heroes_used, fillvalue=None)
-            ):
-                if new != old and new is not None and old is not None:
-                    icon = match.imagesRendered.get(f"{old}", None)
-                    if icon:
-                        update = self.superframe.updateSuperFrameImage(icon, new+"_small")
-                        match.imagesRendered[new] = update
-                    else:
-                        print(f"Warning: Hero icon for {old} not found in match.imagesRendered.")
-                    
+            # New order based on full match statistics
+            new_heroes = list(match.full_heroes.values())
+            old_names = match.heroes_used
 
-                    
-            for hero in match.full_heroes:
-                hero_object = match.full_heroes[hero]
+            # First hero = 28x28, second = 22x22
+            sizes = [None, (25,30)]
 
-                name = hero_object.Name
-                new_list.append(name)
-                hero_icon = match.imagesRendered.get(name, None)
-                if hero_icon:
-                    self.bind_hero_stats_popup(
-                        hero_icon,
-                        hero_object
+            for i, hero in enumerate(new_heroes[:2]):
+
+                new_name = hero.Name
+                old_name = old_names[i] if i < len(old_names) else None
+
+                # Retrieve the existing icon occupying this position
+                icon = match.imagesRendered.get(old_name) if old_name else None
+
+                if icon is None:
+                    print(f"Warning: No existing icon at position {i}")
+                    continue
+
+                # Update image only if hero changed
+                if new_name != old_name:
+
+                    icon = self.superframe.updateSuperFrameImage(
+                        icon,
+                        new_name + "_small",
+                        size=sizes[i]
                     )
-                else:
-                    print(f"Warning: Hero icon for {name} not found in match.imagesRendered.")
 
-            # Also update hero images / KDA / rank / whatever here
-            #self.refresh_match_row(match)
+                    # Update the dictionary mapping
+                    match.imagesRendered.pop(old_name, None)
+                    match.imagesRendered[new_name] = icon
+
+                # Bind popup to the correct hero object
+                self.bind_hero_stats_popup(
+                    icon,
+                    hero
+                )
+
+            # Update original hero order for future reference
+            match.heroes_used = [hero.Name for hero in new_heroes[:2]]
 
         else:
             # Re-enable it so user can retry
@@ -3935,8 +3951,13 @@ class App:
         if len(MATCH_PLAYERS) > 0:
             self.show_match_page(MATCH_PLAYERS)
             if mid and live_match_data:
-                mid = mid.split(":")[0]  # Remove any extra info after the match ID
-                path = os.path.join(config.FullDebug_dir, f"_liveMatch_{mid}.json")
+                #mid = mid.split(":")[0]  # Remove any extra info after the match ID
+                while True:
+                    mid = random.randint(10000000001, 199999999999)
+                    path = os.path.join(config.FullDebug_dir, f"_liveMatch_{mid}.json")
+                    if os.path.exists(path):
+                        continue
+                    break
                 helpers.save_json(path=path, data=live_match_data)
                 mid = None
                 live_match_data = None

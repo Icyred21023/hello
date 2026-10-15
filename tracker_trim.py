@@ -610,20 +610,22 @@ def getLive():
 
     while True:    
         try:
-            print(f"Step 1: Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
+            print(f"Attempt {attempt} to fetch live match data for {config.USER_NAME} from RivalsData...")
             url, pay = build_rivalsdata_url_payload(kind="live2")
             data = b.fetch_post(url, pay)
             if data:
-                print(f"✅ Step 2: Live match data fetched for {config.USER_NAME} from RivalsData.")
+                print(f"✅ Live match data fetched for {config.USER_NAME} from RivalsData.")
                 break
             attempt += 1
         
         except Exception as e:
-            print(f"Step 2: Attempt {attempt} failed: {e}")
-            time.sleep(2)
+            print(f"Attempt {attempt} failed: {e}")
+            time.sleep(3)
             attempt += 1
+            if "load" in str(e).lower():
+                print("Loading Trigger")
             if attempt > 5:
-                print("Step 2: Max attempts reached. Exiting.")
+                print("Max attempts reached. Exiting.")
                 return None, None
     
     return data, None

@@ -301,6 +301,7 @@ class Stats:
     # =========================================================
 
     def add(self, stats):
+
         value = self._value
 
         self.time_played += value(stats, "timePlayed")
@@ -1196,16 +1197,24 @@ class Player:
     def add_proficiency_late(self, data):
         flag = False
         prof_data = next(iter(data.values()), {}).get("hero_proficiency_infos", {})
-        for hero in prof_data:
-            hero_data = { "hero_id": int(hero), "level": int(prof_data[hero].get("proficiency_level", 0)), "points": int(prof_data[hero].get("proficiency_points", 0)) }
-            flag = True
-            hero = Hero(hero_data)
+        for hero_id, proficiency in prof_data.items():
+            hero_data = {
+                "hero_id": int(hero_id),
+                "level": int(proficiency.get("proficiency_level", 0)),
+                "points": int(proficiency.get("proficiency_points", 0))
+            }
+
+            name, role = hero_id_to_info(str(hero_id))
+
+            if name in self.Heroes:
+                hero = self.Heroes[name]
+                hero.ProficiencyLevel = hero_data["level"]
+            else:
+                hero = Hero(hero_data)
+                self.Heroes[name] = hero
+
             hero.bRivalsData = True
-            self.Heroes[hero.Name] = hero
-        if flag:
-            self.bRivalsProficiency = True
-            self.bRivalsHeroes = True
-            self.bRivalsData = True
+            flag = True
 
     def getRolesData(self, data):
         roles = []
@@ -1289,7 +1298,8 @@ class Player:
 
                 if HERO is None:
                     continue
-
+                if HERO == "Winter Solider":
+                    print("Winter Solider found")
                 HERO.add_stats(stats)
 
                 self.bHeroes = True

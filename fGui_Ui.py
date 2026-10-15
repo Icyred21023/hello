@@ -572,6 +572,37 @@ class SuperFrame:
 
             return item
 
+    def deleteSuperFrameImage(self, item):
+        canvas = self.Canvas
+
+        canvas.delete(item)
+
+        canvas._images.pop(item, None)
+        canvas._pil_images.pop(item, None)
+
+        if hasattr(canvas, "_super_images"):
+            canvas._super_images.pop(item, None)
+            
+    def configureSuperFrameImage(self, tkImage, hover=False, button: function = None):
+
+        canvas = self.Canvas
+
+        def on_enter(event):
+            canvas.configure(cursor="hand2")
+
+        def on_leave(event):
+            canvas.configure(cursor="")
+
+        if hover:
+            canvas.tag_bind(tkImage, "<Enter>", on_enter)
+            canvas.tag_bind(tkImage, "<Leave>", on_leave)
+        if button:
+            canvas.tag_bind(
+                    tkImage,
+                    "<Button-1>",
+                    button
+                )
+
     def createSuperFrameImage(
         self,
         img_key: str,
