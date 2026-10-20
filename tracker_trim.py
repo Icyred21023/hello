@@ -436,6 +436,11 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
         return "https://api.rivalsdata.com/live", {"uid": uid}
     elif "live" in kind.lower():
         return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": uid}
+    elif "heroes" in kind.lower():
+        if uid is None:
+            return None, None
+        
+        return "https://api.rivalsdata.com/player/stats/heroes", {"uid": int(uid), "season": int(season-1)}
     elif "teammates" in kind.lower():
         if uid is None:
             return None, None
@@ -524,6 +529,30 @@ def BROWSER_check_init():
             
     b = BROWSER
     return b, bGetSite
+
+def getRivalsDataHeroesData(player: Player, browser: Browser | None = None):
+    b = browser
+
+
+    
+    if b.driver.title == "Just a moment...":
+        b.set_captcha_window()
+        b.wait_for_captcha()
+        b.set_tiny_window()
+    if player.Uid == "Unknown" or player.Uid == "None" or not player.Uid:
+        print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid UID.")
+        return None
+    url, pay = build_rivalsdata_url_payload(kind="heroes", uid=int(player.Uid))
+    if url is None or pay is None:
+        print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return data
+    except Exception as e:
+        print(e)
+        return None
+    
 
 def getRivalsDataProficiency(player: Player):
     b, bGetSite = BROWSER_check_init()
@@ -931,6 +960,36 @@ def getFullMatchGG(obj, mid):
     #url = build_tracker_url(mid=mid, kind="detailedmatch")
     #data = b.fetch_get(url)
     return status
+
+def getRivalsDataHeroes(match: Match | list):
+    global BROWSER
+    if BROWSER is None:
+        BROWSER = Browser()
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+    else:
+        #BROWSER.kill_all()
+        print()
+        
+    b = BROWSER
+    driver = b.driver
+    driver.get(f"https://rivalsdata.com")
+    if driver.title == "Just a moment...":
+        b.set_captcha_window()
+        b.wait_for_captcha()
+        b.set_tiny_window()
+
+    players = match.players
+    for player in players:
+        if player.Uid is None:
+            continue
+        data = getRivalsDataHeroesData(player, browser=b)
+        if data:
+            player.add_RivalsData_heroes(data)
+            print(f"\t✅ \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
+
+
+        
         
 def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool = False):
     # ----------------------------
@@ -1013,20 +1072,20 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
         print(f"🔍 \033[1m - {player.Name}\033[0m")
         #fetch_and_add_tracker(player, b, ign, "summary")
 
-        profile_status = fetch_and_add_tracker(player, b, ign, "profile")
+        profile_status = fetch_and_add_tracker(player, b, ign, "profile",season=config.season - 1)
 
         if profile_status == "Success":
             matches_played = player.seasonal_overview.matches_played
             player.bProfile = True
-            if matches_played and matches_played < 50:
-                status = fetch_and_add_tracker(
-                    player,
-                    b,
-                    ign,
-                    "profile",
-                    season=config.season - 1,
-                    label="Previous Season Profile",
-                )
+            # if matches_played and matches_played < 50:
+            #     status = fetch_and_add_tracker(
+            #         player,
+            #         b,
+            #         ign,
+            #         "profile",
+            #         season=config.season - 1,
+            #         label="Previous Season Profile",
+            #     )
         elif profile_status == "Error":
             # If the current-season profile fails, try the previous season once.
             status = fetch_and_add_tracker(
@@ -1034,7 +1093,7 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
                 b,
                 ign,
                 "profile",
-                season=config.season - 1,
+                season=config.season - 2,
                 label="Previous Season Profile",
             )
             player.bProfile = True if status == "Success" else False
@@ -1051,6 +1110,21 @@ def getTrackerGG(match: Match | list, bDebug: bool = False, bFetchGGDebug: bool 
         )
         player.bMatchHistory = True if status == "Success" else False
 
+        # time_pl = 0
+        # time_pl2 = 0
+        # for hero in player.Heroes:
+        #     obj = player.Heroes.get(hero, None)
+        #     if obj:
+        #         time_pl += obj.Stats.time_played / 60
+        #         time_pl2 += obj.RivalsDataStats.time_played if obj.bRivalsHeroes else 0
+        #         time_per = obj.Stats.time_played/ 60 / obj.Stats.matches_played if obj.Stats.matches_played > 0 else 0
+        #         time_per2 = obj.RivalsDataStats.time_played / obj.RivalsDataStats.matches_played if obj.RivalsDataStats.matches_played > 0 else 0
+        #         print(f"\t⏱️ {obj.Name}: {obj.Stats.time_played / 60} minutes played ({time_per:.2f} minutes per match) - Matches Played: {obj.Stats.matches_played}")
+        #         print(f"\t⏱️ {obj.Name}: {obj.RivalsDataStats.time_played} minutes played ({time_per2:.2f} minutes per match) - Matches Played: {obj.RivalsDataStats.matches_played}")
+        
+        # print(f"\t⏱️ Total Time Played ALL HEROES: {time_pl}")
+        # print(f"\t⏱️ Total Time Played ALL HEROES: {player.seasonal_overview.time_played} minutes")
+        # print(f"\t⏱️ Total Time Played RivalsData: {time_pl2} minutes")
         # if (
         #         isinstance(player.Heroes, dict)
         #         and all(

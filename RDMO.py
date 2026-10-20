@@ -680,6 +680,90 @@ class Stats:
 
         return self.avg_match_duration_minutes
         
+class RivalsData_Stats:
+    def __init__(self):
+        self.matches_played = 0
+        self.matches_won = 0
+        self.matches_win_pct = "0%"
+        self.kills = 0
+        self.kills_per_10 = 0
+        self.assists = 0
+        self.assists_per_10 = 0
+        self.deaths = 0
+        self.deaths_per_10 = 0
+
+        self.total_damage = 0
+        self.total_damage_per_10 = 0
+        self.total_healing = 0
+        self.total_healing_per_10 = 0
+        self.total_damage_taken = 0
+        self.total_damage_taken_per_10 = 0
+        self.last_kills_per_10 = 0
+        self.solo_kills_per_10 = 0
+
+        self.last_kills = 0
+        self.head_kills = 0
+        self.head_kills_per_10 = 0
+        self.solo_kills = 0
+        self.total_mvp = 0
+        self.total_svp = 0
+        self.total_svp_pct = "0%"
+        self.total_mvp_pct = "0%"
+        self.time_played = 0
+        self.time_played_won = 0
+
+        self.kd_ratio = 0
+        self.kda_ratio = 0
+        self.accuracy = "0%"
+        self.headshot_accuracy = "0%"
+
+    def calc_stat_total(self, stat):
+
+        return int(round(self.per_game.get(stat, 0) * self.matches_played))
+    
+    def getStatPer10(self, stat):
+        return self.per_10.get(stat, 0)
+        
+    def add(self, stats):
+        self.per_game = stats.get("per_game", {})
+        self.per_10 = stats.get("per_10", {})
+        self.matches_played = stats.get("games", 0)
+        self.matches_won = stats.get("wins", 0)
+        self.matches_lost = stats.get("losses", 0)
+        self.matches_win_pct = str(int(round(stats.get("winrate", 0))))+"%"
+        self.total_svp = stats.get("svps", 0)
+        self.total_mvp = stats.get("mvps", 0)
+        self.total_svp_pct = str(int(round(self.total_svp / self.matches_lost * 100 if self.matches_lost > 0 else 0 )))+"%"
+        self.total_mvp_pct = str(int(round(self.total_mvp / self.matches_won * 100 if self.matches_won > 0 else 0)))+"%"
+
+        self.kills = self.calc_stat_total("kills")
+        self.deaths = self.calc_stat_total("deaths")
+        self.assists = self.calc_stat_total("assists")
+        self.last_kills = self.calc_stat_total("finals")
+        self.solo_kills = self.calc_stat_total("solo_kills")
+        self.total_damage = self.calc_stat_total("damage")
+        self.total_healing = self.calc_stat_total("healing")
+        self.total_damage_taken = self.calc_stat_total("damage_blocked")
+
+        self.kills_per_10 = self.getStatPer10("kills")
+        self.deaths_per_10 = self.getStatPer10("deaths")
+        self.assists_per_10 = self.getStatPer10("assists")
+        self.total_damage_per_10 = self.getStatPer10("damage")
+        self.total_healing_per_10 = self.getStatPer10("healing")
+        self.total_damage_taken_per_10 = self.getStatPer10("damage_blocked")
+        self.last_kills_per_10 = self.getStatPer10("finals")
+        self.solo_kills_per_10 = self.getStatPer10("solo_kills")
+
+        self.kd_ratio = round(self.kills / self.deaths, 1) if self.deaths > 0 else round(self.kills, 1)
+        self.kda_ratio = round(stats.get("kda", 0), 1)
+
+        self.accuracy  = str(int(round(stats.get("accuracy", 0))))+"%"
+
+        self.time_played  = round(self.kills * 10 / self.kills_per_10) if self.kills_per_10 > 0 else 0
+        self.time_played_won  = round(self.matches_won / self. matches_played * self.time_played) if self.matches_played > 0 else 0
+        
+        return self.time_played
+        
 class Role:
     def __init__(self):
         self.roles = None
@@ -1100,9 +1184,18 @@ class Hero:
         self.Stats = Stats(
             role=self.Role
         )
+        self.RivalsDataStats = RivalsData_Stats()
+        self.bRivalsHeroes = False
         
     def add_stats(self, stats):
         self.Stats.add(stats)
+    
+    def add_RivalsData_stats(self, stats):
+        if not stats:
+            return
+        
+        time = self.RivalsDataStats.add(stats)
+        return time
 
 
 class Player:
@@ -1110,7 +1203,9 @@ class Player:
     def __init__(self, data):
         self.Name = data.get("name", "Unknown")
         self.StarName = False
+        self.RivalsDataTotalTime = 0
         self.Uid = str(data.get("uid", "Unknown"))
+        #self.UidInt = int(data.get("uid", 0))
         self.best_rank = None
         self.season_rank = None
         self.lifetimePeakRanked = None
@@ -1254,6 +1349,20 @@ class Player:
             
             self.matches: List[MatchHistory] = [MatchHistory(match) for match in matchhistory]
 
+    def add_RivalsData_heroes(self, data):
+        if data:
+            time = 0
+            for entry in data:
+                hero_name, Role = hero_id_to_info(entry.get("hero_id", 0))
+                HeroObj = self.Heroes.get(hero_name, None)
+                if HeroObj:
+                    time_ = HeroObj.add_RivalsData_stats(entry.get("competitive", {}))
+                    HeroObj.bRivalsHeroes = True
+                    if isinstance(time_, (int, float)) and time_ is not None:
+                        time += time_
+            self.RivalsDataTotalTime = time
+
+
     def add_profile(self, profile_data):
         
         if profile_data:
@@ -1336,7 +1445,7 @@ class Player:
             self.Heroes = dict(
                 sorted(
                     self.Heroes.items(),
-                    key=lambda item: item[1].Stats.matches_played,
+                    key=lambda item: item[1].RivalsDataStats.matches_played,
                     reverse=True
                 )
             )

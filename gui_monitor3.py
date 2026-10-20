@@ -1709,6 +1709,7 @@ class PlayerFrame:
             self._show_hero_stats_popup_TOP3(
                 hero,
                 image_item
+                
             )
 
         canvas.tag_bind(image_item, "<Enter>", on_enter)
@@ -1732,11 +1733,17 @@ class PlayerFrame:
         hero_center_x = (x1 + x2) / 2
         hero_top_y = y1
 
-        stats = hero.Stats
-        t = stats.time_played
-        
-        h, m = int(round(t // 3600)), int(round((t % 3600) // 60))
-        t = " ".join(f"{v}{unit}" for v, unit in [(h, "h"), (m, "m")] if v) or "0m"
+        stats = hero.Stats if not hero.bRivalsHeroes else hero.RivalsDataStats
+        if hero.bRivalsHeroes:
+            t = round(stats.time_played)
+
+            h, m = divmod(t, 60)
+            t = " ".join(f"{v}{unit}" for v, unit in [(h, "h"), (m, "m")] if v) or "0m"
+        else:
+            t = stats.time_played
+            
+            h, m = int(round(t // 3600)), int(round((t % 3600) // 60))
+            t = " ".join(f"{v}{unit}" for v, unit in [(h, "h"), (m, "m")] if v) or "0m"
         #t = f"{m}m {s}s" if m else f"{s}s"
         from RDMO import Stats
 
@@ -1757,35 +1764,69 @@ class PlayerFrame:
             else:
                 ret = int(round(total / (time_played / time), 0))
             return ret
-        
-        columns = [
-            [
-                ("Kills", get_stat_per_time(stats, stats.kills)),
-                ("Deaths", get_stat_per_time(stats, stats.deaths)),
-                ("Assists", get_stat_per_time(stats, stats.assists)),
-                ("Damage", get_stat_per_time(stats, stats.total_damage)),
-                ("Healing", get_stat_per_time(stats, stats.total_healing)),
-                ("Blocked", get_stat_per_time(stats, stats.total_damage_taken)),
-            ],
-            [   
-                ("Matches", round(stats.matches_played,1)),
-                ("Time Played", t),
-                ("Win %", stats.win_pct),
-                ("SVP %", stats.svp_pct),
-                ("MVP %", stats.mvp_pct),
+        if hero.bRivalsHeroes:
+            
+            columns = [
+                [   
+                    ("Matches", round(stats.matches_played,1)),
+                    ("Time Played", t),
+                    ("Win %", stats.matches_win_pct),
+                    ("SVP %", stats.total_svp_pct),
+                    ("MVP %", stats.total_mvp_pct),
+                    
+                    
+                    
+                    
+                ],
+                [
+                    ("Kills / 10m", round(stats.kills_per_10,1)),
+                    ("Deaths / 10m", round(stats.deaths_per_10,1)),
+                    ("Assists / 10m", round(stats.assists_per_10,1)),
+                    ("Damage / 10m", int(round(stats.total_damage_per_10,0))),
+                    ("Heals / 10m", int(round(stats.total_healing_per_10,0))),
+                    ("Blocked / 10m", int(round(stats.total_damage_taken_per_10,0))),
+                ],
                 
-                
-                
-                
-            ],
-            [   ("KD", round(stats.kd_ratio,1)),
-                ("KDA", round(stats.kda_ratio,1)),
-                ("Accuracy", stats.accuracy),
-                ("Headshot Acc", stats.headshot_accuracy),
-                ("Final Hits", get_stat_per_time(stats, stats.last_kills, decimals=1)),
-                
+                [   
+                    ("KD", round(stats.kd_ratio,1)),
+                    ("KDA", round(stats.kda_ratio,1)),
+                    ("Accuracy", hero.Stats.accuracy),
+                    ("Headshot %", hero.Stats.headshot_accuracy),
+                    ("Finals / 10m", round(stats.last_kills_per_10,1)),
+                    
+                    
+                    
+                ]
             ]
-        ]
+        else:
+            columns = [
+                [
+                    ("Kills", get_stat_per_time(stats, stats.kills)),
+                    ("Deaths", get_stat_per_time(stats, stats.deaths)),
+                    ("Assists", get_stat_per_time(stats, stats.assists)),
+                    ("Damage", get_stat_per_time(stats, stats.total_damage)),
+                    ("Healing", get_stat_per_time(stats, stats.total_healing)),
+                    ("Blocked", get_stat_per_time(stats, stats.total_damage_taken)),
+                ],
+                [   
+                    ("Matches", round(stats.matches_played,1)),
+                    ("Time Played", t),
+                    ("Win %", stats.win_pct),
+                    ("SVP %", stats.svp_pct),
+                    ("MVP %", stats.mvp_pct),
+                    
+                    
+                    
+                    
+                ],
+                [   ("KD", round(stats.kd_ratio,1)),
+                    ("KDA", round(stats.kda_ratio,1)),
+                    ("Accuracy", stats.accuracy),
+                    ("Headshot Acc", stats.headshot_accuracy),
+                    ("Final Hits", get_stat_per_time(stats, stats.last_kills, decimals=1)),
+                    
+                ]
+            ]
 
         # ---------------------------------------------------------
         # Popup dimensions / placement
@@ -1844,6 +1885,35 @@ class PlayerFrame:
             ),
             tags="hero_stats_popup"
         )
+        snum = self.player.seasons_string[1:]
+        canvas.create_text(
+            popup_x1 + 150,
+            popup_y1 + 10,
+            text="Season " + snum,
+            anchor="nw",
+            fill="#b6c1ff",
+            font=fonttk(
+                "Refrigerator Deluxe ExtraBold",
+                12,
+                "bold"
+            ),
+            tags="hero_stats_popup"
+        )
+        
+        source = "RivalsData" if hero.bRivalsHeroes else "TrackerGG"
+        canvas.create_text(
+            popup_x1 + 285,
+            popup_y1 + 10,
+            text=source,
+            anchor="nw",
+            fill="#ffe59f",
+            font=fonttk(
+                "Refrigerator Deluxe ExtraBold",
+                12,
+                "bold"
+            ),
+            tags="hero_stats_popup"
+        )
 
         # ---------------------------------------------------------
         # Columns
@@ -1851,8 +1921,8 @@ class PlayerFrame:
 
         column_x = [
             popup_x1 + 10,
-            popup_x1 + 135,
-            popup_x1 + 255
+            popup_x1 + 140,
+            popup_x1 + 265
         ]
 
         text_start_y = popup_y1 + 32
@@ -1876,14 +1946,14 @@ class PlayerFrame:
                     font=fonttk(
                         "Refrigerator Deluxe",
                         10,
-                        "normal"
+                        "bold"
                     ),
                     tags="hero_stats_popup"
                 )
 
                 # value
                 canvas.create_text(
-                    tx + 68,
+                    tx + 78,
                     ty,
                     text=str(value),
                     anchor="nw",
@@ -2081,6 +2151,7 @@ class PlayerFrame:
         frame_offset = [(9, 520), (9, 673), (8, 829)]
         stats_xy = [(184, 540), (184, 695), (184, 850)]
         highlight_coord = [(10,509), (10, 663), (10, 819)]
+        lightning_offset = [(90,583),(90, 736),(90, 891)]
         idx = 0
         offset = 3
 
@@ -2119,8 +2190,10 @@ class PlayerFrame:
             y = coord[1] + self.y
             self.superframe.createSuperFrameImage(img_key="highlight_upper", x=x, y=y, anc="nw")
         
-
+        
         for hero in heroes:
+
+            fkey = "None"
             icon_x, icon_y = icon_position[idx]
             stats_x, stats_y = stats_xy[idx]
             x = icon_x + self.x
@@ -2172,11 +2245,31 @@ class PlayerFrame:
                         anchor="nw",
                         fps=30,
                 )
-
+                
             if badge:
                 x += badge_offset[0]+96
                 y += badge_offset[1]+5
                 self.superframe.createSuperFrameImage(img_key=f"badge_{str(badge)}", x=x, y=y, size=(46, 46), anc="c")
+
+            if fkey == "Golden":
+                    
+                a, b = lightning_offset[idx]
+                q = a + self.x + 5
+                w = b + self.y - 3
+                
+                rframe = random.randint(0, 60)
+                self.frame_animation = HeroImager(
+                        master=self.superframe,
+                        
+                        image_key="lightning",
+                        bAnimated=True,
+                        individual_frames=True,
+                        start_frame=rframe,
+                        x=q,
+                        y=w,
+                        anchor="c",
+                        fps=30,
+                )
             idx += 1
 
             
@@ -2218,6 +2311,13 @@ class PlayerFrame:
                 kd = "-"
                 mvp_pct = "-"
                 matches_played = "-"
+
+            if hero.bRivalsHeroes:
+                
+                win_pct = hero.RivalsDataStats.matches_win_pct
+                kd = hero.RivalsDataStats.kd_ratio
+                mvp_pct = hero.RivalsDataStats.total_mvp_pct
+                matches_played = hero.RivalsDataStats.matches_played
 
 
             self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
@@ -4197,6 +4297,7 @@ class App:
                     return
                 MatchObject = Match(li, enemy_team=random.randint(1, 2))
                 MatchObject.check_for_teammates()
+                tracker_trim.getRivalsDataHeroes(MatchObject)
                 tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
                 MATCH_PLAYERS = []
                 names = None
@@ -4222,6 +4323,7 @@ class App:
                 from RDMO import Match
                 
                 matches = Match(live_match_data)
+                tracker_trim.getRivalsDataHeroes(matches)
                 tracker_trim.getTrackerGG(matches)
                 MATCH_PLAYERS = []
                 names = None
@@ -4257,6 +4359,7 @@ class App:
                         live_match_data = tracker_trim.getLiveGG()
                     match = Match(live_match_data)
                     match.check_for_teammates()
+                    tracker_trim.getRivalsDataHeroes(match)
                     tracker_trim.getTrackerGG(match)
                     MATCH_PLAYERS = []
                     names = None
