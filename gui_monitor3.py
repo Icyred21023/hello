@@ -2389,25 +2389,32 @@ class PlayerFrame:
         dps = self.player.Roles.get("Duelist", None)
         tank = self.player.Roles.get("Vanguard", None)
         heal = self.player.Roles.get("Strategist", None)
+        
         dps.calculate_usage(self.player.seasonal_overview.matches_played) if dps else None
-        print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
+        #print(f"{self.player.Name} - Role: {dps.Name}, Usage: {dps.Usage}, Usage Pie: {dps.Usage_pie}") if dps else print(f"{self.player.Name} - Role: Duelist not found in Roles.")
         tank.calculate_usage(self.player.seasonal_overview.matches_played) if tank else None
-        print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
+        #print(f"{self.player.Name} - Role: {tank.Name}, Usage: {tank.Usage}, Usage Pie: {tank.Usage_pie}") if tank else print(f"{self.player.Name} - Role: Vanguard not found in Roles.")
         heal.calculate_usage(self.player.seasonal_overview.matches_played) if heal else None
-        print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
+        #print(f"{self.player.Name} - Role: {heal.Name}, Usage: {heal.Usage}, Usage Pie: {heal.Usage_pie}") if heal else print(f"{self.player.Name} - Role: Strategist not found in Roles.")
+
+        text_iter = [(264, 1040, 262 , 1073, "DUELIST", dps.Usage if dps and dps.Usage else "0%","#3bc0fe"), (298, 1131, 296 , 1164, "VANGUARD", tank.Usage if tank and tank.Usage else "0%", "#8dfa74"), (264, 1222, 261 , 1255, "STRATEGIST", heal.Usage if heal and heal.Usage else "0%", "#f938c0")]
         img1, img2, img3 = self._get_pie_chart_images_2_5(dps, tank, heal)
         if img1 or img2 or img3:
-            self.superframe.createSuperFrameImage(img_key="BasePie2_extra2", x=self.x + 4, y=self.y + 1014, anc="nw")
+            
+            self.superframe.createSuperFrameImage(img_key="RolePie", x=self.x + 5, y=self.y + 1013, anc="nw")
             
         if img1:
             
-            self.superframe.createSuperFrameImage(img_key=img1, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
+            self.superframe.createSuperFrameImage(img_key=img1, x=self.x + 107, y=self.y + 1149, anc="c")
         if img2:
-            self.superframe.createSuperFrameImage(img_key=img2, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
+            self.superframe.createSuperFrameImage(img_key=img2, x=self.x + 107, y=self.y + 1149, anc="c")
         if img3:
-            self.superframe.createSuperFrameImage(img_key=img3, x=self.x + 107, y=self.y + 1124, anc="c",size=(195,195))
+            self.superframe.createSuperFrameImage(img_key=img3, x=self.x + 107, y=self.y + 1149, anc="c")
         
 
+        for x1, y1, x2, y2, label, value, color in text_iter:
+            self.superframe.createSuperFrameText(text=label, x=self.x + x1, y=self.y + y1, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=True), fill="#cae1ff")
+            self.superframe.createSuperFrameText(text=value, x=self.x + x2, y=self.y + y2, anchor="w", font=fonttk("Refrigerator Deluxe Heavy", 28, "normal", italic=True), fill=color)
 
 
         #self.player.Role.Usage = self.player.Role.Usage if hasattr(self.player.Role, "Usage") else 0
