@@ -486,6 +486,8 @@ def build_tracker_url(ign=None, kind="matches",season = config.season, mid=None)
         if ign is None:
             return None
         return f"https://api.tracker.gg/api/v2/marvel-rivals/standard/matches/ign/{ign}/live?"
+    elif "metadata" in kind.lower():
+        return f"https://api.tracker.gg/api/v1/marvel-rivals/metadata/type/hero"
     else:
         return None
         
@@ -553,8 +555,21 @@ def getRivalsDataHeroesData(player: Player, browser: Browser | None = None):
         print(e)
         return None
     
-
-def getRivalsDataProficiency(player: Player):
+def getGGHeroesMetadata():
+    b, bGetSite = BROWSER_check_init()
+    driver = b.driver
+    
+    url = build_tracker_url(kind="metadata")
+    if url is None:
+        print(f"❌ Tracker.gg heroes metadata fetch failed - Invalid URL.")
+        return None
+    try:
+        data = b.fetch_get(url)
+        return data
+    except Exception as e:
+        print(e)
+        return None
+def getRivalsDataProficiency(uid):
     b, bGetSite = BROWSER_check_init()
     driver = b.driver
     if bGetSite:
@@ -563,9 +578,9 @@ def getRivalsDataProficiency(player: Player):
             b.set_captcha_window()
             b.wait_for_captcha()
             b.set_tiny_window()
-    url, pay = build_rivalsdata_url_payload(kind="proficiency", uid=player.Uid)
+    url, pay = build_rivalsdata_url_payload(kind="proficiency", uid=uid)
     if url is None or pay is None:
-        print(f"❌ RivalsData proficiency fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        print(f"❌ RivalsData proficiency fetch failed for UID: {uid} - Invalid URL or payload.")
         return None
     try:
         data = b.fetch_post(url, pay)

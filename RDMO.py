@@ -1,3 +1,4 @@
+from time import time
 import config
 from typing import List
 import re
@@ -1200,7 +1201,7 @@ class Hero:
 
 class Player:
     team_counts = Counter()
-    def __init__(self, data):
+    def __init__(self, data, bGG=False):
         self.Name = data.get("name", "Unknown")
         self.StarName = False
         self.RivalsDataTotalTime = 0
@@ -1453,8 +1454,255 @@ class Player:
             self.bPrivate = False 
 
 
+
+import helpers  
+
+
+
+    
+def getDefaultProficiency():
+    import time
+
+    timestamp = int(time.time())
+    if config.BLANK_PROFICIENCY is None:
+        if config.HEROES_METADATA is None:
+            config.updateHeroesMetadata()
+
+        else:
+            s = config.HEROES_METADATA.get("data", {}).get("date", {}).get("season", None)
+            if s is None or s != config.season:
+                config.updateHeroesMetadata()
+
+        
+
+    else:
+        s = config.HEROES_METADATA.get("data", {}).get("date", {}).get("season", None)
+        if s is None or s != config.season:
+            config.updateHeroesMetadata()
+
+    return config.BLANK_PROFICIENCY
+
+
+
+
+
+
+class MatchGG:
+    def __init__(self, data, enemy_team=None):
+        if not data:
+            raise ValueError("Match data is empty or None.")
+            return None
+        self.UserId = str(UID)
+        self.Teammates = defaultdict(list)
+        self.UserTeam = None
+        self.EnemyTeam = None
+
+        if enemy_team is not None:
+            self.EnemyTeam = enemy_team
+            self.UserTeam = 1 if self.EnemyTeam == 0 else 0
+
+        self.players: list[Player] = []
+        if not isinstance(data, dict):
+            data = data[0]
+        players_data = self.getPlayerSegments(data)
+
+
+        
+
+        # Find user's team
+        if self.UserTeam is None or self.EnemyTeam is None:
+            for player in players_data:
+                if str(player.get("attributes", {}).get("playerUid", {})) == self.UserId:
+                    self.UserTeam = player.get("side")
+                    self.EnemyTeam = 1 if self.UserTeam == 0 else 0
+                    break
+
+        self.blank_proficiency = getDefaultProficiency()
             
 
+        
+
+
+        players_rd_data = [self.buildPlayerDict(player) for player in players_data if player.get("metadata", {}).get("teamId", None) == self.EnemyTeam]
+
+        
+
+
+        # Build enemy players
+        self.players = [
+            Player(data, bGG=True)
+            for data in players_rd_data
+            if data.get("side") == self.EnemyTeam
+        ]
+
+        
+
+         
+        #print("Done")
+
+    
+
+    def getPlayerSegments(self, data):
+        try:
+            segments = data.get("data", {}).get("segments", [])
+            player_segments = [segment for segment in segments if segment.get("type") == "player"]
+            return player_segments
+        except Exception as e:
+            print(f"Error getting player segments: {e}")
+            return []
+    
+    def buildTopHeroes(self, top):
+        top_heroes = []
+        for hero in top:
+
+            hero_id = hero.get("heroId", "Unknown")
+            matches_played = hero.get("matchesPlayed", 0)
+            top_heroes.append({
+                "hero_id": hero_id,
+                "losses": round(matches_played/2, 1),
+                "wins": round(matches_played/2, 1),
+            })
+        return top_heroes
+    
+    
+    def getProficiency(self, name, uid):
+        if "**" in name or uid is None:
+
+            
+            return self.blank_proficiency
+        from tracker_trim import getRivalsDataProficiency
+        pdata = getRivalsDataProficiency(uid)
+        if pdata is None:
+            return self.blank_proficiency
+        proficiency = []
+        try:
+            prof_dict = next(iter(pdata.values()))["hero_proficiency_infos"]
+            prof_dict = dict(sorted(
+            prof_dict.items(),
+            key=lambda item: item[1].get("proficiency_level", 0),
+            reverse=True
+        ))
+            for hero_id in prof_dict:
+                hero_data = prof_dict[hero_id]
+                proficiency.append({
+                    "hero_id": int(hero_id),
+                    "level": int(hero_data.get("proficiency_level", 0)),
+                    "points": int(hero_data.get("proficiency_points", 0))
+                })
+            return proficiency
+        except Exception as e:
+            print(f"Error processing proficiency data: {e}")
+            return self.blank_proficiency
+    
+    def buildPlayerDict(self, pdata):
+        stats = pdata.get("stats", {})
+
+        games = stats.get("seasonMatchesPlayed", {}).get("value") or 0
+
+        win_ratio = (stats.get("seasonWinPct", {}).get("value") or 0) / 100
+
+        losses = int(round(games * (1 - win_ratio)))
+
+        wins = int(round(games * win_ratio))
+
+        level = stats.get("level", {}).get("value") or 0
+
+        score = stats.get("peakRank", {}).get("value") or 0
+
+        uid = pdata.get("attributes", {}).get("playerUid")
+        uid = str(uid) if uid is not None else None
+
+        md = pdata.get("metadata", {})
+
+        side = md.get("teamId", None)
+
+        partyid = md.get("partyId", None)
+
+        top_heroes = md.get("topHeroes", [])
+
+        top_heroes_list = self.buildTopHeroes(top_heroes)
+
+        name = md.get("platformInfo", {}).get("platformUserHandle", "******69")
+
+        proficiency = self.getProficiency(name, uid) 
+
+
+
+
+
+        player_dict = {
+            "ai": False,
+            "games": games,
+            "icon": "3TRACKERGG",
+            "losses": losses,
+            "name": name,
+            "proficiency": proficiency,
+            "rank": {
+                "level": level,
+                "score": score
+            },
+            "side": side,
+            "team_id": partyid,
+            "top_heroes": top_heroes_list,
+            "uid": uid,
+            "wins": wins
+        }
+        return player_dict
+        
+    def check_for_teammates(self):
+        from collections import defaultdict
+
+        
+
+        for player in self.players:
+            if player.TeamId is not None and Player.team_counts[player.TeamId] > 1:
+                self.Teammates[player.TeamId].append(player)
+
+        for team in self.Teammates:
+            players = self.Teammates[team]
+            if len(players) > 1:
+                private_players = {}
+                public_players = []
+                for player in players:
+                    if "**" in player.Name:
+                        private_players[player.Icon] = player
+                    elif player.bRivalsData:
+                        public_players.append(player)
+
+                    
+
+                if private_players and public_players:
+                    import tracker_trim
+                    for pub in public_players:
+                        data = tracker_trim.getRivalsDataTeammates(pub)
+                        if data is None:
+                            continue
+                        if data:
+                            for teammate in data:
+                                t_icon = str(teammate.get("icon", "null"))
+                                
+                                if t_icon in private_players:
+                                    t_name = teammate.get("name", None)
+                                    t_uid = teammate.get("teammate_uid", None)
+                                    if t_name is not None and t_uid is not None:
+                                        found_player = private_players.pop(t_icon)
+                                        print(f"🕵️ Discovered identity! '{found_player.Name}' -> '{t_name}' via teammate '{pub.Name}'")
+                                        found_player.StarName = found_player.Name
+                                        found_player.Name = t_name
+                                        
+                                        found_player.Uid = t_uid
+                                        found_player.bPrivate = False
+                                        
+                                        found_player.bDiscoveredIdentity = True
+                                        proficiency = tracker_trim.getRivalsDataProficiency(found_player)
+                                        if proficiency is None:
+                                            continue
+                                        found_player.add_proficiency_late(proficiency)
+
+                                        if not private_players:
+                                            break
+                            if not private_players:
+                                break
 
 
 class Match:
@@ -1540,7 +1788,7 @@ class Match:
                                         found_player.bPrivate = False
                                         
                                         found_player.bDiscoveredIdentity = True
-                                        proficiency = tracker_trim.getRivalsDataProficiency(found_player)
+                                        proficiency = tracker_trim.getRivalsDataProficiency(found_player.Uid)
                                         if proficiency is None:
                                             continue
                                         found_player.add_proficiency_late(proficiency)

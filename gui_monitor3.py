@@ -4233,7 +4233,7 @@ class App:
     # Bridge (refactor of on_f8_pressed)
     # =========================
 
-
+    
     def on_f8_pressed(self, tvar_value):
         MATCH_PLAYERS = []
         mid = None
@@ -4289,13 +4289,20 @@ class App:
                 except Exception as e:
                     print(f"Error loading JSON file: {e}")
                     return
-                from RDMO import Match
+                
                 import tracker_trim
                 import random
                 if not li:
                     print("Error: The selected JSON file is empty or invalid.")
                     return
-                MatchObject = Match(li, enemy_team=random.randint(1, 2))
+                bGGLive = is_live_match_GG(li)
+                if bGGLive:
+                    from RDMO import MatchGG as Match
+                    team = random.randint(0, 1)
+                else:
+                    from RDMO import Match
+                    team = random.randint(1, 2)
+                MatchObject = Match(li, enemy_team=team)
                 MatchObject.check_for_teammates()
                 tracker_trim.getRivalsDataHeroes(MatchObject)
                 tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
@@ -4341,7 +4348,7 @@ class App:
                 
 
             else:
-                from RDMO import Match
+                
                 import tracker_trim
                 if not True:
                     MATCH_PLAYERS = tracker_trim.main()
@@ -4355,8 +4362,12 @@ class App:
                     print(f"🆔 {config.USER_UID} ({type(config.USER_UID).__name__} {sym})")
                     live_match_data, mid = tracker_trim.getLive()
                     if not live_match_data:
-                        pass
+                        from RDMO import MatchGG as Match
+                        print("Using Tracker.gg Live Match API... ⛔ ")
                         live_match_data = tracker_trim.getLiveGG()
+                    else:
+                        from RDMO import Match
+                        print("Using RivalsData Live Match API... ✅ ")
                     match = Match(live_match_data)
                     match.check_for_teammates()
                     tracker_trim.getRivalsDataHeroes(match)
@@ -4481,7 +4492,10 @@ class App:
     def run(self):
         self.root.mainloop()
 
-
+def is_live_match_GG(data):
+    data_dict = data.get("data", {}).get("attributes", None)
+    return False if data_dict is None else True
+    
 
 # ENTRY POINT:
 def start_app():

@@ -346,7 +346,24 @@ def save_season(s):
         f.write(str(s))
 
     reload_season()
-    
+
+def updateHeroesMetadata():
+    global HEROES_METADATA, BLANK_PROFICIENCY
+    print("[CONFIG] Updating Heroes Metadata and Blank Proficiency...")
+    def buildProficiencyTemplate(data):
+        return [
+            {"hero_id": int(hero["key"]), "level": 0, "points": 0}
+            for hero in data.get("data", {}).get("items", [])
+            if hero.get("key") is not None
+        ]
+    from tracker_trim import getGGHeroesMetadata
+    import time
+    timestamp = int(time.time())
+    HEROES_METADATA = getGGHeroesMetadata()
+    HEROES_METADATA["data"]["date"] = {"timestamp": timestamp, "season": season}
+    helpers.save_json(path=HeroesMetadataPath, data=HEROES_METADATA)
+    BLANK_PROFICIENCY = buildProficiencyTemplate(HEROES_METADATA)
+    helpers.save_json(path=BlankProficiencyPath, data=BLANK_PROFICIENCY)
 
 randomize_ban = False
 randomize_matchup = False
@@ -358,7 +375,11 @@ bPrivateLookup = False
 MATCHUP = "type_matchupNEWDPS.json"
 
 p = os.path.join(script_dir, "debug","LiveDebug.json")
+HeroesMetadataPath = p = os.path.join(script_dir, "debug", "__Heroes_Metadata.json")
+BlankProficiencyPath = p = os.path.join(script_dir, "debug", "__Blank_Proficieny.json")
 
+HEROES_METADATA = helpers.load_json(path=HeroesMetadataPath) if os.path.exists(HeroesMetadataPath) else None
+BLANK_PROFICIENCY = helpers.load_json(path=BlankProficiencyPath) if os.path.exists(BlankProficiencyPath) else None
 livedebug= helpers.load_json(path=p)
 FullDebug_dir = os.path.join(script_dir, "debug","_FullDebug")
 if not os.path.exists(FullDebug_dir):
