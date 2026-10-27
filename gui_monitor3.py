@@ -2239,11 +2239,11 @@ class PlayerFrame:
                         image_key=fkey,
                         bAnimated=True,
                         individual_frames=True,
-                        start_frame=random.randint(0, 10),
+                        start_frame=random.randint(0, 120),
                         x=q,
                         y=w,
                         anchor="nw",
-                        fps=30,
+                        fps=28,
                 )
                 
             if badge:
@@ -2258,18 +2258,18 @@ class PlayerFrame:
                 w = b + self.y - 3
                 
                 rframe = random.randint(0, 60)
-                self.frame_animation = HeroImager(
-                        master=self.superframe,
+                # self.frame_animation = HeroImager(
+                #         master=self.superframe,
                         
-                        image_key="lightning",
-                        bAnimated=True,
-                        individual_frames=True,
-                        start_frame=rframe,
-                        x=q,
-                        y=w,
-                        anchor="c",
-                        fps=30,
-                )
+                #         image_key="lightning",
+                #         bAnimated=True,
+                #         individual_frames=True,
+                #         start_frame=rframe,
+                #         x=q,
+                #         y=w,
+                #         anchor="c",
+                #         fps=30,
+                # )
             idx += 1
 
             
