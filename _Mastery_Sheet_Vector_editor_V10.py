@@ -7,9 +7,9 @@ clipping every frame with the same fixed SVG vector mask.
 
 Workflow for each PNG:
   1) Resolve the hero from the containing folder using config.HERO_KEYS.
-  2) Slice the sheet into ROWS x COLS using integer-perfect edges.
-  3) Show the first frame with the SVG mask overlaid.
-  4) Move the fixed-size vector with the arrow keys (1 source pixel per keypress).
+  2) Floor-divide the sheet into equal cells and discard right/bottom remainder pixels.
+  3) Show the first cell against the locked hero frame and SVG mask.
+  4) Arrows move the cell; the wheel scales the hero frame and vector together.
   5) Confirm the position.
   6) Apply the same vector position to all frames.
   7) Extract a NEW frame exactly the size of the scaled SVG canvas.
@@ -23,13 +23,16 @@ Requirements:
 SVG notes:
   - Export the Illustrator clipping path as SVG with a TRANSPARENT background.
   - The clipping shape itself should have a solid fill.
-  - VECTOR_WIDTH / VECTOR_HEIGHT are the final mask dimensions in source pixels.
+  - SVG intrinsic canvas dimensions define its native mask size.
+  - SVG and hero frame start scaled to half the native cell dimensions.
+  - Camera zoom affects display only; crop coordinates remain source pixels.
 """
 
 from __future__ import annotations
 
 import io
 import json
+import math
 import os
 import re
 import sys
@@ -40,7 +43,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageTk
 
 import config
 
-VECTOR_EDITOR_BUILD = "2026-08-31-vector-crop-output-v5"
+VECTOR_EDITOR_BUILD = "2026-10-28-cell-relative-v11"
 
 
 # ============================================================
@@ -48,14 +51,12 @@ VECTOR_EDITOR_BUILD = "2026-08-31-vector-crop-output-v5"
 # ============================================================
 
 EDITOR_DIR = os.path.join(config.script_dir, "_Mastery_Sheet_Editor")
-SHEETS_DIR = os.path.join(EDITOR_DIR, "Raw Sheets")
-OUTPUTS_DIR = os.path.join(EDITOR_DIR, "Outputs")
+SHEETS_DIR = os.path.join(EDITOR_DIR, "Final Attempt Raws")
+OUTPUTS_DIR = os.path.join(EDITOR_DIR, "Final Attempt Outputs")
 
 VECTOR_SVG = os.path.join(EDITOR_DIR, "svg.svg")
-VECTOR_WIDTH = 322
-VECTOR_HEIGHT = 368
-REFERENCE_FRAME_W = 600
-REFERENCE_FRAME_H = 400
+VECTOR_PREVIEW_PNG = os.path.join(EDITOR_DIR, "heroframe_editor.png")
+VECTOR_ANCHOR = (0, 908.0)  # SVG TOP-LEFT relative to native hero frame top-left.
 
 ROWS = 10
 COLS = 6
@@ -65,11 +66,17 @@ COLS = 6
 # 1 -> HeroName1.png, HeroName2.png, ...
 FILE_INDEX_START = 0
 
-CANVAS_MAX = 720
-PREVIEW_PADDING = 100  # source-frame pixels shown around every side in the placement preview
+CANVAS_MAX = 1200
+CELL_TO_VECTOR_RATIO = 2.0  # Cell is approximately twice the SVG size.
+PREVIEW_ZOOM = 1  # Camera zoom only; never affects export coordinates.
+# Wheel steps change SVG width by one native pixel (Shift: five).
+VECTOR_WHEEL_UNIT_STEP = 1
+VECTOR_WHEEL_SHIFT_UNIT_STEP = 5
+VECTOR_MIN_SCALE_MULTIPLIER = 0.10
+VECTOR_MAX_SCALE_MULTIPLIER = 5.00
 
 # New cache lives directly in EDITOR_DIR, not Raw Sheets.
-POSITION_CACHE_PATH = os.path.join(EDITOR_DIR, "_mastery_vector_position_cache.json")
+POSITION_CACHE_PATH = os.path.join(EDITOR_DIR, "_mastery_vector_position_cache_v11_cell_relative.json")
 
 # Lossless PNG compression. 9 is slowest/smallest and does NOT alter pixels.
 PNG_COMPRESS_LEVEL = 9
@@ -106,7 +113,13 @@ def relative_cache_key(path: str) -> str:
 # POSITION CACHE
 # ============================================================
 
-def load_position_cache(path: str) -> Dict[str, Dict[str, int]]:
+def load_position_cache(path: str) -> Dict[str, Dict[str, Union[int, float]]]:
+    """
+    Load cached vector placement.
+
+    Older cache files containing only x/y remain valid; their manual scale
+    defaults to 1.0 (automatic half-cell size). The v11 cache uses this baseline.
+    """
     if not os.path.exists(path):
         return {}
 
@@ -114,7 +127,7 @@ def load_position_cache(path: str) -> Dict[str, Dict[str, int]]:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        out: Dict[str, Dict[str, int]] = {}
+        out: Dict[str, Dict[str, Union[int, float]]] = {}
         if isinstance(data, dict):
             for key, value in data.items():
                 if (
@@ -125,6 +138,7 @@ def load_position_cache(path: str) -> Dict[str, Dict[str, int]]:
                     out[str(key)] = {
                         "x": int(value["x"]),
                         "y": int(value["y"]),
+                        "scale": float(value.get("scale", 1.0)),
                     }
         return out
 
@@ -146,31 +160,62 @@ def save_position_cache(path: str, cache: Dict[str, Dict[str, int]]) -> None:
 # ============================================================
 # HERO / FOLDER DISCOVERY
 # ============================================================
-def get_frame_scale(frame_w: int, frame_h: int) -> float:
-    return min(
-        frame_w / REFERENCE_FRAME_W,
-        frame_h / REFERENCE_FRAME_H
-    )
+def _round_positive_half_up(value: float) -> int:
+    """Round a non-negative value conventionally: .5 always rounds upward."""
+    return int(math.floor(float(value) + 0.5))
 
-def scale_vector_mask_for_frame(
-    base_mask: Image.Image,
-    frame_w: int,
-    frame_h: int
-):
-    scale = min(
-        frame_w / REFERENCE_FRAME_W,
-        frame_h / REFERENCE_FRAME_H
-    )
 
-    new_w = max(1, round(VECTOR_WIDTH * scale))
-    new_h = max(1, round(VECTOR_HEIGHT * scale))
+def resize_mask_to_ratio_units(base_mask: Image.Image, ratio_units: int) -> Image.Image:
+    """Scale from the native SVG canvas, preserving its aspect ratio."""
+    width = max(1, int(ratio_units))
+    height = max(1, _round_positive_half_up(width * base_mask.height / base_mask.width))
+    size = (width, height)
+    return base_mask.copy() if base_mask.size == size else base_mask.resize(size, Image.Resampling.LANCZOS)
 
-    scaled_mask = base_mask.resize(
-        (new_w, new_h),
-        Image.Resampling.LANCZOS
-    )
 
-    return scaled_mask, scale
+def automatic_vector_units(mask, cell_size):
+    """Fit SVG within half the cell, retaining the SVG aspect ratio."""
+    fw, fh = cell_size
+    scale = min(fw / (CELL_TO_VECTOR_RATIO * mask.width),
+                fh / (CELL_TO_VECTOR_RATIO * mask.height))
+    return max(1, _round_positive_half_up(mask.width * scale))
+
+
+def scaled_vector_units(base_units, multiplier):
+    low = max(1, round(base_units * VECTOR_MIN_SCALE_MULTIPLIER))
+    high = max(low, round(base_units * VECTOR_MAX_SCALE_MULTIPLIER))
+    return clamp(_round_positive_half_up(base_units * float(multiplier)), low, high)
+
+
+def load_preview_cell(sheet_path):
+    """Decode once, detach only cell 0, and release the full sheet before GUI."""
+    with Image.open(sheet_path) as source:
+        size = source.size
+        xs, ys = split_edges(size[0], COLS), split_edges(size[1], ROWS)
+        with source.crop((0, 0, xs[1], ys[1])) as cell:
+            first = cell.convert("RGBA")
+    return first, size
+
+
+def crop_sheet_after_confirmation(sheet_path, original_size, mask, x, y):
+    """Reopen only on confirmation; process one cell at a time into output."""
+    xs = split_edges(original_size[0], COLS)
+    ys = split_edges(original_size[1], ROWS)
+    output = Image.new("RGBA", (mask.width * COLS, mask.height * ROWS))
+    try:
+        with Image.open(sheet_path) as source:
+            if source.size != original_size:
+                raise RuntimeError("Sheet dimensions changed during placement; reopen it.")
+            for row in range(ROWS):
+                for col in range(COLS):
+                    with source.crop((xs[col], ys[row], xs[col+1], ys[row+1])) as raw:
+                        with raw.convert("RGBA") as cell:
+                            with extract_frame_through_vector(cell, mask, x, y) as edited:
+                                output.paste(edited, (col * mask.width, row * mask.height))
+        return output
+    except Exception:
+        output.close()
+        raise
 
 
 def get_hero_name(folder_name: str) -> str:
@@ -242,24 +287,16 @@ def walk_sheet_folders(root: str) -> Iterator[Tuple[str, str, str, List[str]]]:
 # ============================================================
 
 def split_edges(total: int, parts: int) -> List[int]:
-    """
-    Return integer edges [0..total] split into `parts` segments.
-    Remainder pixels are distributed deterministically from the beginning.
+    if parts <= 0:
+        raise ValueError("parts must be greater than zero.")
 
-    This lets us rebuild to the exact original sheet dimensions even when
-    width/height are not perfectly divisible by COLS/ROWS.
-    """
+    if total < parts:
+        raise ValueError(
+            f"Cannot split {total} pixels into {parts} non-empty cells."
+        )
+
     base = total // parts
-    rem = total % parts
-
-    edges = [0]
-    acc = 0
-
-    for i in range(parts):
-        acc += base + (1 if i < rem else 0)
-        edges.append(acc)
-
-    return edges
+    return [i * base for i in range(parts + 1)]
 
 
 def slice_frames(
@@ -272,6 +309,19 @@ def slice_frames(
 
     xs = split_edges(w, cols)
     ys = split_edges(h, rows)
+
+    cell_w = xs[1] - xs[0]
+    cell_h = ys[1] - ys[0]
+    used_w = cell_w * cols
+    used_h = cell_h * rows
+    discarded_right = w - used_w
+    discarded_bottom = h - used_h
+
+    print(
+        f"    Fixed cell size: {cell_w}x{cell_h} | "
+        f"used grid: {used_w}x{used_h} | "
+        f"discarding right={discarded_right}px, bottom={discarded_bottom}px"
+    )
 
     frames: List[Image.Image] = []
 
@@ -388,8 +438,8 @@ def _render_svg_rgba_resvg(svg_string: str) -> Optional[Image.Image]:
 
 def _render_svg_rgba_cairo(
     svg_string: str,
-    width: int,
-    height: int,
+    width: Optional[int] = None,
+    height: Optional[int] = None,
 ) -> Optional[Image.Image]:
     try:
         import cairosvg
@@ -410,15 +460,15 @@ def _render_svg_rgba_cairo(
 
 def _alpha_from_rendered_svg(
     rendered: Optional[Image.Image],
-    width: int,
-    height: int,
+    width: Optional[int] = None,
+    height: Optional[int] = None,
 ) -> Optional[Image.Image]:
     if rendered is None:
         return None
 
     # Resize ONLY the rasterized VECTOR MASK canvas. Sprite pixels are never
     # resized. Transparent Illustrator artboard padding remains transparent.
-    if rendered.size != (width, height):
+    if width is not None and height is not None and rendered.size != (width, height):
         rendered = rendered.resize((width, height), Image.Resampling.LANCZOS)
 
     alpha = rendered.getchannel("A")
@@ -595,7 +645,7 @@ def _geometry_only_svg(svg_string: str) -> tuple[str, int]:
     return ET.tostring(out_root, encoding='unicode'), count
 
 
-def load_svg_mask(svg_path: str, width: int, height: int) -> Image.Image:
+def load_svg_mask(svg_path: str) -> Image.Image:
     """
     Rasterize the Illustrator SVG into an 8-bit alpha clipping mask.
 
@@ -604,8 +654,8 @@ def load_svg_mask(svg_path: str, width: int, height: int) -> Image.Image:
     and finally rebuilds a geometry-only SVG so CSS/masks/defs cannot make the
     path disappear.
     """
-    if width <= 0 or height <= 0:
-        raise ValueError("VECTOR_WIDTH and VECTOR_HEIGHT must be > 0")
+    # Let the renderer use SVG width/height (or viewBox), without target resizing.
+    width = height = None
 
     if not os.path.exists(svg_path):
         raise FileNotFoundError(f"SVG mask not found: {svg_path}")
@@ -754,224 +804,179 @@ def extract_frame_through_vector(
 # ============================================================
 
 class VectorPlacementGUI(tk.Tk):
-    """
-    Shows frame 0 with PREVIEW_PADDING source pixels around every side and the
-    real scaled SVG mask overlaid. The vector is NOT constrained to the source
-    frame; it may be moved into the padded preview area or beyond it.
+    """A fixed-size sprite cell beneath a jointly scaled frame and SVG.
 
-    Keyboard:
-        Left / Right / Up / Down -> move exactly 1 SOURCE pixel
-        Shift + Arrow             -> move 10 SOURCE pixels
-        Enter                     -> confirm
-        Escape                    -> skip
+    World coordinates are source pixels. The vector center stays at (0, 0).
+    VECTOR_ANCHOR locates the SVG top-left within the hero frame. Only the sprite's
+    origin moves with the arrows. Confirmation converts this scene back to
+    an integer crop origin relative to the original sprite cell.
     """
 
-    def __init__(
-        self,
-        frame_img: Image.Image,
-        vector_mask: Image.Image,
-        title: str,
-        initial_position: Optional[Tuple[int, int]] = None,
-    ):
+    def __init__(self, frame_img, vector_mask, vector_preview_img, title,
+                 initial_position=None, initial_scale_multiplier=1.0):
         super().__init__()
-
+        self.attributes("-fullscreen", True)
         self.title(title)
-        self.resizable(False, False)
         self.protocol("WM_DELETE_WINDOW", self.on_quit)
-
         self.frame_img = frame_img.convert("RGBA")
-        self.vector_mask = vector_mask.convert("L")
-
         self.fw, self.fh = self.frame_img.size
-        self.mw, self.mh = self.vector_mask.size
-        self.preview_padding = int(PREVIEW_PADDING)
-
+        if vector_preview_img is None:
+            self.destroy()
+            raise FileNotFoundError(f"Hero frame not found: {VECTOR_PREVIEW_PNG}")
+        self.heroframe = vector_preview_img.convert("RGBA")
+        self.base_vector_mask = vector_mask.convert("L").copy()
+        self.base_ratio_units = automatic_vector_units(self.base_vector_mask, (self.fw, self.fh))
+        self.min_ratio_units = max(1, round(self.base_ratio_units * VECTOR_MIN_SCALE_MULTIPLIER))
+        self.max_ratio_units = max(self.min_ratio_units, round(self.base_ratio_units * VECTOR_MAX_SCALE_MULTIPLIER))
+        self.ratio_units = clamp(_round_positive_half_up(self.base_ratio_units * initial_scale_multiplier),
+                                 self.min_ratio_units, self.max_ratio_units)
+        self._resize_vector()
         if initial_position is None:
-            self.x = (self.fw - self.mw) // 2
-            self.y = (self.fh - self.mh) // 2
+            self.cell_x, self.cell_y = -self.fw / 2, -self.fh / 2
         else:
-            self.x = int(initial_position[0])
-            self.y = int(initial_position[1])
+            self.cell_x = -self.mw / 2 - int(initial_position[0])
+            self.cell_y = -self.mh / 2 - int(initial_position[1])
+        self.result = None
 
-        self.result: Optional[Union[Tuple[int, int], str]] = None
-
-        # Preview canvas is the source frame plus fixed padding on all sides.
-        self.preview_w = self.fw + self.preview_padding * 2
-        self.preview_h = self.fh + self.preview_padding * 2
-
-        self.display_scale = min(
-            CANVAS_MAX / self.preview_w,
-            CANVAS_MAX / self.preview_h,
-            1.0,
-        )
-
-        self.disp_w = max(1, int(round(self.preview_w * self.display_scale)))
-        self.disp_h = max(1, int(round(self.preview_h * self.display_scale)))
-
-        self.canvas = tk.Canvas(
-            self,
-            width=self.disp_w,
-            height=self.disp_h,
-            highlightthickness=1,
-        )
-        self.canvas.grid(row=0, column=0, columnspan=5, padx=8, pady=(8, 4))
-
-        self.canvas_image_id = self.canvas.create_image(0, 0, anchor="nw")
-        self.tk_preview: Optional[ImageTk.PhotoImage] = None
-
+        # Fixed camera zoom for all layers; source/crop coordinates stay native.
+        self.display_scale = min(PREVIEW_ZOOM,
+                                 max(200, min(CANVAS_MAX, self.winfo_screenwidth()-100)-80) / self.fw,
+                                 max(200, min(CANVAS_MAX, self.winfo_screenheight()-240)-80) / self.fh)
+        self.canvas = tk.Canvas(self, width=min(CANVAS_MAX, max(400, self.winfo_screenwidth() - 100)),
+                                height=min(CANVAS_MAX, max(300, self.winfo_screenheight() - 240)),
+                                background="#303030", highlightthickness=0)
+        self.canvas.grid(row=0, column=0, sticky="nsew")
+        horizontal = tk.Scrollbar(self, orient="horizontal", command=self.canvas.xview)
+        vertical = tk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        horizontal.grid(row=1, column=0, sticky="ew")
+        vertical.grid(row=0, column=1, sticky="ns")
+        self.canvas.configure(xscrollcommand=horizontal.set, yscrollcommand=vertical.set)
         self.position_var = tk.StringVar()
-        self.position_label = tk.Label(
-            self,
-            textvariable=self.position_var,
-            font=("TkDefaultFont", 10, "bold"),
-        )
-        self.position_label.grid(row=1, column=0, columnspan=5, pady=(4, 2))
-
-        instruction = (
-            "Arrows = 1 px    Shift+Arrows = 10 px    Enter = Confirm    Esc = Skip"
-        )
-        tk.Label(self, text=instruction).grid(
-            row=2,
-            column=0,
-            columnspan=5,
-            padx=8,
-            pady=(0, 8),
-        )
-
-        self.btn_center = tk.Button(
-            self, text="Center", command=self.on_center, takefocus=False
-        )
-        self.btn_confirm = tk.Button(
-            self, text="Confirm", command=self.on_confirm, takefocus=False
-        )
-        self.btn_skip = tk.Button(
-            self, text="Skip sheet", command=self.on_skip, takefocus=False
-        )
-        self.btn_quit = tk.Button(
-            self, text="Quit", command=self.on_quit, takefocus=False
-        )
-
-        self.btn_center.grid(row=3, column=0, padx=4, pady=(0, 8))
-        self.btn_confirm.grid(row=3, column=1, padx=4, pady=(0, 8))
-        self.btn_skip.grid(row=3, column=2, padx=4, pady=(0, 8))
-        self.btn_quit.grid(row=3, column=3, padx=4, pady=(0, 8))
-
-        # Movement is deliberately UNCLAMPED. mask_x/mask_y are real source-frame
-        # coordinates and can be negative or greater than the frame bounds.
-        self.bind("<Left>", lambda event: self.move_mask(-1, 0))
-        self.bind("<Right>", lambda event: self.move_mask(1, 0))
-        self.bind("<Up>", lambda event: self.move_mask(0, -1))
-        self.bind("<Down>", lambda event: self.move_mask(0, 1))
-        self.bind("<Shift-Left>", lambda event: self.move_mask(-10, 0))
-        self.bind("<Shift-Right>", lambda event: self.move_mask(10, 0))
-        self.bind("<Shift-Up>", lambda event: self.move_mask(0, -10))
-        self.bind("<Shift-Down>", lambda event: self.move_mask(0, 10))
-        self.bind("<Return>", lambda event: self.on_confirm())
-        self.bind("<Escape>", lambda event: self.on_skip())
-
+        tk.Label(self, textvariable=self.position_var).grid(row=2, column=0, columnspan=2)
+        tk.Label(self, text="Arrows: move cell 1 px | Shift: 10 px | Wheel: scale frame + vector | Shift+Wheel: 5 px").grid(row=3, column=0, columnspan=2)
+        tk.Label(self, text="Enter: confirm | Esc: skip | Scrollbars: inspect full frame after resizing").grid(row=4, column=0, columnspan=2)
+        buttons = tk.Frame(self)
+        buttons.grid(row=5, column=0, columnspan=2, pady=8)
+        for label, command in (("Center cell", self.on_center), ("Reset size", self.on_reset_size),
+                               ("Confirm", self.on_confirm), ("Skip sheet", self.on_skip), ("Quit", self.on_quit)):
+            tk.Button(buttons, text=label, command=command, takefocus=False).pack(side="left", padx=5)
+        for key, dx, dy in (("Left", -1, 0), ("Right", 1, 0), ("Up", 0, -1), ("Down", 0, 1)):
+            self.bind(f"<{key}>", lambda e, dx=dx, dy=dy: self.move_cell(dx, dy))
+            self.bind(f"<Shift-{key}>", lambda e, dx=dx, dy=dy: self.move_cell(dx*10, dy*10))
+        self.bind("<Return>", lambda e: self.on_confirm())
+        self.bind("<Escape>", lambda e: self.on_skip())
+        for event in ("<MouseWheel>", "<Button-4>", "<Button-5>"):
+            self.bind_all(event, self.on_mousewheel)
         self._update_preview()
+        # Start near the SVG/cell overlap; the rest of the native frame scrolls.
+        self.update_idletasks()
+        left, top, right, bottom = (v * self.display_scale for v in self._scene_bounds())
+        self.canvas.xview_moveto(max(0, (-self.canvas.winfo_width()/2 - left + 20) / (right-left+40)))
+        self.canvas.yview_moveto(max(0, (-self.canvas.winfo_height()/2 - top + 20) / (bottom-top+40)))
         self.after(100, self.focus_force)
 
-    def _make_padded_preview(self) -> Image.Image:
-        """Build the source-frame preview with 100 px padding on every side."""
-        pad = self.preview_padding
+    def _resize_vector(self):
+        self.vector_mask = resize_mask_to_ratio_units(self.base_vector_mask, self.ratio_units)
+        self.mw, self.mh = self.vector_mask.size
+        self.scale_multiplier = self.ratio_units / self.base_ratio_units
 
-        # Neutral opaque background makes transparent/out-of-frame areas visible.
-        preview = Image.new(
-            "RGBA",
-            (self.preview_w, self.preview_h),
-            (48, 48, 48, 255),
-        )
+    def _frame_bounds(self):
+        scale = self.mw / self.base_vector_mask.width
+        x = -self.mw / 2 - VECTOR_ANCHOR[0] * scale
+        y = -self.mh / 2 - VECTOR_ANCHOR[1] * scale
+        return x, y, x + self.heroframe.width * scale, y + self.heroframe.height * scale
 
-        # Darken source pixels that will be clipped, but only INSIDE the source
-        # frame. The vector outline itself is drawn later across the full preview.
-        full_frame_mask = make_full_frame_mask(
-            self.frame_img.size,
-            self.vector_mask,
-            self.x,
-            self.y,
-        )
-        outside = ImageChops.invert(full_frame_mask)
-        shade_alpha = outside.point(lambda p: (p * 145) // 255)
-        shade = Image.new("RGBA", self.frame_img.size, (0, 0, 0, 0))
-        shade.putalpha(shade_alpha)
-        shaded_frame = Image.alpha_composite(self.frame_img, shade)
-        preview.alpha_composite(shaded_frame, (pad, pad))
+    def _scene_bounds(self):
+        x0, y0, x1, y1 = self._frame_bounds()
+        return (min(x0, -self.mw/2, self.cell_x), min(y0, -self.mh/2, self.cell_y),
+                max(x1, self.mw/2, self.cell_x+self.fw), max(y1, self.mh/2, self.cell_y+self.fh))
 
-        # Place the SVG mask in PREVIEW coordinates so its path remains visible
-        # when it extends outside the source-frame boundary.
-        preview_mask = Image.new("L", preview.size, 0)
-        preview_mask.paste(
-            self.vector_mask,
-            (self.x + pad, self.y + pad),
-        )
+    def crop_position(self):
+        return (int(round(-self.mw/2 - self.cell_x)),
+                int(round(-self.mh/2 - self.cell_y)))
 
-        expanded = preview_mask.filter(ImageFilter.MaxFilter(5))
-        contracted = preview_mask.filter(ImageFilter.MinFilter(5))
-        outline_alpha = ImageChops.subtract(expanded, contracted)
+    def _image(self, img, x, y, width, height):
+        d = self.display_scale
+        size = (max(1, round(width*d)), max(1, round(height*d)))
+        resized = img if img.size == size else img.resize(size, Image.Resampling.LANCZOS)
+        photo = ImageTk.PhotoImage(resized)
+        self._photos.append(photo)
+        self.canvas.create_image(x*d, y*d, image=photo, anchor="nw")
 
-        outline = Image.new("RGBA", preview.size, (255, 230, 0, 0))
-        outline.putalpha(outline_alpha)
-        preview = Image.alpha_composite(preview, outline)
+    def _update_preview(self):
+        self.canvas.delete("all")
+        self._photos = []
+        d = self.display_scale
+        x0, y0, x1, y1 = self._frame_bounds()
+        self._image(self.heroframe, x0, y0, x1-x0, y1-y0)
+        # Show retained sprite pixels normally; dim excluded pixels without
+        # painting opaque black over transparent parts of the UI frame.
+        x, y = self.crop_position()
+        keep = make_full_frame_mask(self.frame_img.size, self.vector_mask, x, y)
+        alpha = self.frame_img.getchannel("A")
+        sprite = self.frame_img.copy()
+        visibility = keep.point(lambda p: round(255 * 0.25 + p * 0.75))
+        sprite.putalpha(ImageChops.multiply(alpha, visibility))
+        self._image(sprite, self.cell_x, self.cell_y, self.fw, self.fh)
+        # Outline actual SVG geometry, with the cyan box showing its canvas.
+        edge = ImageChops.subtract(self.vector_mask.filter(ImageFilter.MaxFilter(5)),
+                                   self.vector_mask.filter(ImageFilter.MinFilter(5)))
+        outline = Image.new("RGBA", self.vector_mask.size, (255, 230, 0, 0))
+        outline.putalpha(edge)
+        self._image(outline, -self.mw/2, -self.mh/2, self.mw, self.mh)
+        self.canvas.create_rectangle(-self.mw*d/2, -self.mh*d/2, self.mw*d/2, self.mh*d/2,
+                                     outline="#00dcff")
+        self.canvas.create_rectangle(self.cell_x*d, self.cell_y*d,
+                                     (self.cell_x+self.fw)*d, (self.cell_y+self.fh)*d, outline="#dddddd")
+        bounds = self._scene_bounds()
+        self.canvas.configure(scrollregion=(bounds[0]*d-20, bounds[1]*d-20,
+                                           bounds[2]*d+20, bounds[3]*d+20))
+        self.position_var.set(f"Crop: ({x}, {y}) | Output: {self.mw} × {self.mh} | "
+                              f"User scale: {self.scale_multiplier:.4f} | View: {self.display_scale:.0%} | Cell: {self.fw} × {self.fh}")
 
-        # Also show the complete SVG/output CANVAS bounds. This rectangle includes
-        # the transparent padding contained in the SVG and therefore shows exactly
-        # what each final extracted frame will contain.
-        draw = ImageDraw.Draw(preview)
-        left = self.x + pad
-        top = self.y + pad
-        right = left + self.mw - 1
-        bottom = top + self.mh - 1
-        draw.rectangle((left, top, right, bottom), outline=(0, 220, 255, 255), width=1)
+    def move_cell(self, dx, dy):
+        self.cell_x += dx
+        self.cell_y += dy
+        self._update_preview()
+        return "break"
 
-        # Source frame boundary, useful when the vector overlaps the padded area.
-        draw.rectangle(
-            (pad, pad, pad + self.fw - 1, pad + self.fh - 1),
-            outline=(220, 220, 220, 255),
-            width=1,
-        )
-
-        return preview
-
-    def _update_preview(self) -> None:
-        preview = self._make_padded_preview()
-
-        if preview.size != (self.disp_w, self.disp_h):
-            preview = preview.resize(
-                (self.disp_w, self.disp_h),
-                Image.Resampling.LANCZOS,
-            )
-
-        self.tk_preview = ImageTk.PhotoImage(preview)
-        self.canvas.itemconfigure(self.canvas_image_id, image=self.tk_preview)
-
-        self.position_var.set(
-            f"Vector position: x={self.x}, y={self.y}   |   "
-            f"output frame={self.mw}x{self.mh}   source frame={self.fw}x{self.fh}"
-        )
-
-    def move_mask(self, dx: int, dy: int) -> None:
-        self.x += int(dx)
-        self.y += int(dy)
+    def set_ratio_units(self, units):
+        self.ratio_units = clamp(int(units), self.min_ratio_units, self.max_ratio_units)
+        self._resize_vector()
+        # Cell origin and size stay fixed; frame and vector scale about (0, 0).
         self._update_preview()
 
-    def on_center(self) -> None:
-        self.x = (self.fw - self.mw) // 2
-        self.y = (self.fh - self.mh) // 2
-        self._update_preview()
-        self.focus_force()
+    def on_mousewheel(self, event):
+        delta = getattr(event, "delta", 0)
+        direction = (1 if delta > 0 else -1) if delta else (1 if getattr(event, "num", None) == 4 else -1)
+        step = VECTOR_WHEEL_SHIFT_UNIT_STEP if getattr(event, "state", 0) & 1 else VECTOR_WHEEL_UNIT_STEP
+        self.set_ratio_units(self.ratio_units + direction * step)
+        return "break"
 
-    def on_confirm(self) -> None:
-        self.result = (self.x, self.y)
+    def on_reset_size(self):
+        self.set_ratio_units(self.base_ratio_units)
+
+    def on_center(self):
+        self.cell_x, self.cell_y = -self.fw/2, -self.fh/2
+        self._update_preview()
+
+    def _close(self):
+        for event in ("<MouseWheel>", "<Button-4>", "<Button-5>"):
+            self.unbind_all(event)
         self.destroy()
 
-    def on_skip(self) -> None:
+    def on_confirm(self):
+        x, y = self.crop_position()
+        self.result = (x, y, float(self.scale_multiplier))
+        self._close()
+
+    def on_skip(self):
         self.result = None
-        self.destroy()
+        self._close()
 
-    def on_quit(self) -> None:
+    def on_quit(self):
         self.result = RESULT_QUIT
-        self.destroy()
+        self._close()
 
 
 # ============================================================
@@ -983,53 +988,49 @@ def process_sheet(
     hero_name: str,
     file_idx_in_folder: int,
     vector_mask: Image.Image,
-    position_cache: Dict[str, Dict[str, int]],
-    initial_position: Optional[Tuple[int, int]],
-) -> Tuple[Optional[Tuple[int, int]], bool]:
+    vector_preview_img: Optional[Image.Image],
+    position_cache: Dict[str, Dict[str, Union[int, float]]],
+    initial_placement: Optional[Tuple[int, int, float]],
+) -> Tuple[Optional[Tuple[int, int, float]], bool]:
     """
     Returns:
-        (confirmed_position_or_None, quit_requested)
+        ((confirmed_x, confirmed_y, manual_scale_multiplier) or None, quit_requested)
     """
     sheet_key = relative_cache_key(sheet_path)
     sheet_name = os.path.basename(sheet_path)
 
     print(f"    Loading: {sheet_name}")
 
-    with Image.open(sheet_path) as source:
-        sheet = source.convert("RGBA")
+    first, original_size = load_preview_cell(sheet_path)
+    base_units = automatic_vector_units(vector_mask, first.size)
+    print(f"    Preview cell: {first.size}; automatic SVG width: {base_units}px")
 
-    original_size = sheet.size
-    frames, xs, ys = slice_frames(sheet, ROWS, COLS)
-
-    if len(frames) != ROWS * COLS:
-        print("    -> Incorrect frame count; skipping.")
-        return None, False
-
-    first = frames[0]
-    frame_w, frame_h = first.size
-
-    scaled_vector_mask, vector_scale = scale_vector_mask_for_frame(
-        vector_mask,
-        frame_w,
-        frame_h
-    )
-    # Exact per-sheet cache wins. Otherwise inherit the previous confirmed
-    # position from the same folder so the next sheet starts nearby.
     cached = position_cache.get(sheet_key)
     if cached is not None:
         starting_position = (int(cached["x"]), int(cached["y"]))
+        starting_scale_multiplier = float(cached.get("scale", 1.0))
+    elif initial_placement is not None:
+        starting_position = (int(initial_placement[0]), int(initial_placement[1]))
+        starting_scale_multiplier = float(initial_placement[2])
     else:
-        starting_position = initial_position
+        starting_position = None
+        starting_scale_multiplier = 1.0
 
     gui = VectorPlacementGUI(
         first,
-        scaled_vector_mask,
+        vector_mask,
+        vector_preview_img,
         title=f"{hero_name} | {sheet_name}",
         initial_position=starting_position,
+        initial_scale_multiplier=2,
     )
     gui.mainloop()
 
     result = gui.result
+    # Release preview buffers before reopening the large source sheet.
+    gui.frame_img.close()
+    first.close()
+    del gui
 
     if result == RESULT_QUIT:
         return None, True
@@ -1038,26 +1039,35 @@ def process_sheet(
         print("    -> Skipped.")
         return None, False
 
-    mask_x, mask_y = result
+    mask_x, mask_y, manual_scale_multiplier = result
+
+    # Recreate the final mask from the untouched native SVG mask.
+    # The same sizing helper guarantees the exported mask matches the preview.
+    final_vector_mask = resize_mask_to_ratio_units(
+        vector_mask, scaled_vector_units(base_units, manual_scale_multiplier),
+    )
 
     position_cache[sheet_key] = {
         "x": int(mask_x),
         "y": int(mask_y),
+        "scale": float(manual_scale_multiplier),
     }
     save_position_cache(POSITION_CACHE_PATH, position_cache)
 
-    print(f"    -> Applying vector at x={mask_x}, y={mask_y} to {len(frames)} frames...")
+    print(
+        f"    -> Applying vector at x={mask_x}, y={mask_y}, "
+        f"manual scale={manual_scale_multiplier * 100:.2f}% "
+        f"({final_vector_mask.width}x{final_vector_mask.height}) "
+        f"to {ROWS * COLS} frames..."
+    )
 
-    edited_frames = [
-        extract_frame_through_vector(frame, scaled_vector_mask, mask_x, mask_y)
-        for frame in frames
-    ]
-
-    rebuilt = rebuild_fixed_frame_sheet(edited_frames, ROWS, COLS)
+    rebuilt = crop_sheet_after_confirmation(
+        sheet_path, original_size, final_vector_mask, mask_x, mask_y,
+    )
 
     expected_output_size = (
-        scaled_vector_mask.width * COLS,
-        scaled_vector_mask.height * ROWS,
+        final_vector_mask.width * COLS,
+        final_vector_mask.height * ROWS,
     )
     if rebuilt.size != expected_output_size:
         raise RuntimeError(
@@ -1077,10 +1087,13 @@ def process_sheet(
 
     print(f"    -> Saved: {output_path}")
     print(f"       original sheet: {original_size}")
-    print(f"       output frame: {scaled_vector_mask.size}")
+    print(f"       native vector frame: {vector_mask.size}")
+    print(f"       final output frame: {final_vector_mask.size}")
     print(f"       output sheet: {rebuilt.size}")
 
-    return (mask_x, mask_y), False
+    rebuilt.close()
+    final_vector_mask.close()
+    return (mask_x, mask_y, manual_scale_multiplier), False
 
 
 def main() -> None:
@@ -1099,13 +1112,22 @@ def main() -> None:
     print("SHEETS_DIR:", SHEETS_DIR)
     print("OUTPUTS_DIR:", OUTPUTS_DIR)
     print("VECTOR_SVG:", VECTOR_SVG)
-    print(f"REFERENCE VECTOR SIZE: {VECTOR_WIDTH}x{VECTOR_HEIGHT} @ {REFERENCE_FRAME_W}x{REFERENCE_FRAME_H} frame")
-    print(f"PREVIEW PADDING: {PREVIEW_PADDING}px per side")
+    print("Preview: shared camera zoom; SVG starts at half-cell size; wheel scales frame + SVG")
+    print(
+        f"WHEEL RESIZE: {VECTOR_WHEEL_UNIT_STEP} ratio unit per notch | "
+        f"Shift={VECTOR_WHEEL_SHIFT_UNIT_STEP} units"
+    )
     print(f"GRID: {COLS} columns x {ROWS} rows")
     print("----")
 
-    vector_mask = load_svg_mask(VECTOR_SVG, VECTOR_WIDTH, VECTOR_HEIGHT)
+    vector_mask = load_svg_mask(VECTOR_SVG)
     print("Loaded SVG vector mask:", vector_mask.size)
+
+    if not os.path.exists(VECTOR_PREVIEW_PNG):
+        raise FileNotFoundError(f"Hero frame not found: {VECTOR_PREVIEW_PNG}")
+    with Image.open(VECTOR_PREVIEW_PNG) as image:
+        vector_preview_img = image.convert("RGBA")
+    print("Loaded hero frame:", VECTOR_PREVIEW_PNG, vector_preview_img.size)
 
     position_cache = load_position_cache(POSITION_CACHE_PATH)
     print("Loaded cached sheet positions:", len(position_cache))
@@ -1125,15 +1147,43 @@ def main() -> None:
     global_sheet_idx = 0
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
+        print(folder_name)
+        #if folder_name not in ["1039"]:
+#         if folder_name in [
+#     "1065",  # Rogue
+#     "1057",  # Deadpool
+#     "1028",  # Ultron
+#     "1051",  # Thing
+#     "1050",  # Invis
+#     "1040",  # Mister Fantastic
+#     "1052",  # Iron Fist
+#     "1030",  # Moon Knight
+#     "1033",  # Black Widow
+#     "1041",  # Winter
+#     "1047",  # Jeff
+#     "1046",  # Adam
+#     "1045",  # Namor
+#     "1015",  # Storm
+#     "1027",  # Groot
+#     "1037",  # Magneto
+#     "1043",  # Star-Lord
+#     "1036",  # Spider-Man
+#     "1042",  # Peni
+#     "1014",  # Punisher
+#     "1023",  # Rocket
+# ]:
+            #continue
+        # if folder_name not in ["1048"]:
+        #     continue
         print(
             f"[{folder_idx}/{len(folders)}] HERO FOLDER: {folder_name} "
             f"-> {hero_name} ({len(png_paths)} PNGs)"
         )
         print("  PATH:", folder_path)
 
-        # Start subsequent sheets in this hero folder at the position confirmed
-        # on the previous sheet. Exact per-sheet cache still overrides this.
-        last_confirmed_position: Optional[Tuple[int, int]] = None
+        # Subsequent sheets in a hero folder inherit both the previous position
+        # and manual size multiplier. Exact per-sheet cache still wins.
+        last_confirmed_placement: Optional[Tuple[int, int, float]] = None
 
         for file_idx_in_folder, sheet_path in enumerate(png_paths):
             global_sheet_idx += 1
@@ -1142,21 +1192,22 @@ def main() -> None:
                 f"folder index={file_idx_in_folder + FILE_INDEX_START}"
             )
 
-            confirmed_position, quit_requested = process_sheet(
+            confirmed_placement, quit_requested = process_sheet(
                 sheet_path=sheet_path,
                 hero_name=hero_name,
                 file_idx_in_folder=file_idx_in_folder,
                 vector_mask=vector_mask,
+                vector_preview_img=vector_preview_img,
                 position_cache=position_cache,
-                initial_position=last_confirmed_position,
+                initial_placement=last_confirmed_placement,
             )
 
             if quit_requested:
                 print("Quit requested. Exiting.")
                 return
 
-            if confirmed_position is not None:
-                last_confirmed_position = confirmed_position
+            if confirmed_placement is not None:
+                last_confirmed_placement = confirmed_placement
 
         print("----")
 
@@ -1165,5 +1216,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

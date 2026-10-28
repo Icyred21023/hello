@@ -49,8 +49,8 @@ VECTOR_EDITOR_BUILD = "2026-09-01-floor-grid-crop-v8"
 # ============================================================
 
 EDITOR_DIR = os.path.join(config.script_dir, "_Mastery_Sheet_Editor")
-SHEETS_DIR = os.path.join(EDITOR_DIR, "Raw Sheets")
-OUTPUTS_DIR = os.path.join(EDITOR_DIR, "Outputs")
+SHEETS_DIR = os.path.join(EDITOR_DIR, "Raw Sheets Giga")
+OUTPUTS_DIR = os.path.join(EDITOR_DIR, "Outputs Giga")
 
 VECTOR_SVG = os.path.join(EDITOR_DIR, "svg.svg")
 VECTOR_PREVIEW_PNG = os.path.join(EDITOR_DIR, "svg.png")
@@ -1556,7 +1556,7 @@ def main() -> None:
 
     for folder_idx, (folder_path, folder_name, hero_name, png_paths) in enumerate(folders, start=1):
         print(folder_name)
-        if folder_name not in ["1034"]:
+        if not folder_name:
 #         if folder_name in [
 #     "1065",  # Rogue
 #     "1057",  # Deadpool
