@@ -9,7 +9,7 @@ import tkinter.font as tkFont
 from PIL import Image, ImageGrab,  ImageDraw, ImageChops
 import os
 import random
-from RDMO import MatchHistory, Role
+from RDMO import RivalsDataMatchHistory as MatchHistory, Role, MatchHero
 import sys
 from fGui_Ui import SuperFrame, HeroImager
 USED_HERO_BGS = []
@@ -1507,7 +1507,7 @@ class PlayerFrame:
         canvas.tag_bind(image_item, "<Leave>", on_leave)
         canvas.tag_bind(image_item, "<Button-1>", on_click)
 
-    def _show_hero_stats_popup(self, hero: Hero, image_item):
+    def _show_hero_stats_popup(self, hero: MatchHero, image_item):
         canvas = self.superframe.Canvas
 
         # Delete old popup
@@ -1524,38 +1524,45 @@ class PlayerFrame:
         hero_center_x = (x1 + x2) / 2
         hero_top_y = y1
 
-        stats = hero.Stats
-        t = stats.time_played
         
-        m, s = t // 60000, (t % 60000) // 1000
+        t = hero.time_played
+
+        m, s = divmod(int(t), 60)
         t = f"{m}m {s}s" if m else f"{s}s"
         columns = [
             [
-                ("Kills", stats.kills),
-                ("Deaths", stats.deaths),
-                ("Assists", stats.assists),
-            ],
-            [
-                ("Time Played", t),
-                ("KD", round(stats.kd_ratio,1)),
-                ("Accuracy", stats.accuracy),
-            ],
-            [
-                ("Final Hits", stats.last_kills),
-                ("Damage", int(round(stats.total_damage))),
-                ("Healing", int(round(stats.total_healing))),
+            ("Time Played", t),
+            ("Accuracy", hero.accuracy),
+            ("Crit Accuracy", hero.headshot_accuracy)
             ]
         ]
+        # columns = [
+        #     [
+        #         ("Kills", hero.kills),
+        #         ("Deaths", hero.deaths),
+        #         ("Assists", hero.assists),
+        #     ],
+        #     [
+        #         ("Time Played", t),
+        #         ("KD", round(hero.kd_ratio,1)),
+        #         ("Accuracy", hero.accuracy),
+        #     ],
+        #     [
+        #         ("Final Hits", stats.last_kills),
+        #         ("Damage", int(round(stats.total_damage))),
+        #         ("Healing", int(round(stats.total_healing))),
+        #     ]
+        # ]
 
         # ---------------------------------------------------------
         # Popup dimensions / placement
         # ---------------------------------------------------------
 
-        popup_width = 390
+        popup_width = 120
         popup_height = 90
 
-        x_offset = 45
-        y_offset = -5
+        x_offset = 60
+        y_offset = -10
 
         popup_x1 = int(
             hero_center_x
@@ -1592,25 +1599,39 @@ class PlayerFrame:
         # ---------------------------------------------------------
 
         canvas.create_text(
-            popup_x1 + 10,
+            popup_x1 + 5,
             popup_y1 + 10,
             text=hero.Name,
             anchor="nw",
-            fill="#e6e6f5",
+            fill="#fff67d",
             font=fonttk(
                 "Refrigerator Deluxe ExtraBold",
-                12,
+                11,
                 "bold"
             ),
             tags="hero_stats_popup"
         )
+
+        canvas.create_text(
+                    popup_x1 + 75,
+                    popup_y1 + 10,
+                    text=hero.Role,
+                    anchor="nw",
+                    fill="#c5c5ff",
+                    font=fonttk(
+                        "Refrigerator Deluxe ExtraBold",
+                        11,
+                        "bold"
+                    ),
+                    tags="hero_stats_popup"
+                )
 
         # ---------------------------------------------------------
         # Columns
         # ---------------------------------------------------------
 
         column_x = [
-            popup_x1 + 10,
+            popup_x1 + 20,
             popup_x1 + 135,
             popup_x1 + 255
         ]
@@ -1643,7 +1664,7 @@ class PlayerFrame:
 
                 # value
                 canvas.create_text(
-                    tx + 52,
+                    tx + 58,
                     ty,
                     text=str(value),
                     anchor="nw",
@@ -1733,7 +1754,8 @@ class PlayerFrame:
         hero_center_x = (x1 + x2) / 2
         hero_top_y = y1
 
-        stats = hero.Stats if not hero.bRivalsHeroes else hero.RivalsDataStats
+        #stats = hero.Stats if not hero.bRivalsHeroes else hero.RivalsDataStats
+        stats = hero.RivalsDataStats
         if hero.bRivalsHeroes:
             t = round(stats.time_played)
 
@@ -1790,8 +1812,8 @@ class PlayerFrame:
                 [   
                     ("KD", round(stats.kd_ratio,1)),
                     ("KDA", round(stats.kda_ratio,1)),
-                    ("Accuracy", hero.Stats.accuracy),
-                    ("Headshot %", hero.Stats.headshot_accuracy),
+                    ("Accuracy", stats.accuracy),
+                    ("Headshot %", stats.headshot_accuracy),
                     ("Finals / 10m", round(stats.last_kills_per_10,1)),
                     
                     
@@ -1811,9 +1833,9 @@ class PlayerFrame:
                 [   
                     ("Matches", round(stats.matches_played,1)),
                     ("Time Played", t),
-                    ("Win %", stats.win_pct),
-                    ("SVP %", stats.svp_pct),
-                    ("MVP %", stats.mvp_pct),
+                    ("Win %", stats.matches_win_pct),
+                    ("SVP %", stats.total_svp_pct),
+                    ("MVP %", stats.total_mvp_pct),
                     
                     
                     
@@ -2026,69 +2048,107 @@ class PlayerFrame:
     # OVERVIEW (outer -> ov + canvas)
     # ---------------------------
     def _build_overview_new(self):
-        p = self.player.seasonal_overview
-        if not p:
-            if not self.player.bRivalsData:
-                return
-            if not self.player.bRivalsOV:
-                print(f"Player {self.player.Name} has no Rivals Overview data via self.bRivalsOV")
-                return
-            else:
-                offx = 64
-                offy = 186
-                x = self.x + offx
-                y = self.y + offy
-                set = 24
-                
-                # Games Played Top
-                self.superframe.createSuperFrameText(text=self.player.seasons_string, x=x+213, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=False), fill="#8685B6")
-                self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
-                #self.superframe.createSuperFrameText(text="PRIVATE", x=x+150, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=True), fill="#9ec9fe")
-                self.superframe.createSuperFrameText(text=str(round(self.player.OVMatches,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
-                
-                # OV Stat Values
-                
-                
-                fg = self._get_foreground_color(label = "Win %", value=self.player.OVWinRate)
-                self.superframe.createSuperFrameText(text=self.player.OVWinRate, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-                self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
-                return
+        r = self.player.RivalsDataOverview
+        if r:
+            
 
-        offx = 64
-        offy = 186
-        x = self.x + offx
-        y = self.y + offy
-        set = 24
-        
-        # Games Played Top
-        self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#8685B6")
-        self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
-        
-        self.superframe.createSuperFrameText(text=str(round(p.matches_played,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
-        
-        # OV Stat Values
-        
-        
-        fg = self._get_foreground_color(label = "Win %", value=p.win_pct)
-        self.superframe.createSuperFrameText(text=p.win_pct, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-        fg = self._get_foreground_color(label = "Kd", value=p.kd_ratio)
-        self.superframe.createSuperFrameText(text=str(round(p.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-        fg = self._get_foreground_color(label = "Mvp %", value=p.mvp_pct)
-        self.superframe.createSuperFrameText(text=p.mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-        fg = self._get_foreground_color(label = "Kda", value=p.kda_ratio)
-        self.superframe.createSuperFrameText(text=str(round(p.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-        
-        # Ov Stat Labels
-        
-        self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text="KD RATIO", x=x+98, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text="MVP RATE", x=x+201, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
-        
-        self.superframe.createSuperFrameText(text="KDA RATIO", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            offx = 64
+            offy = 186
+            x = self.x + offx
+            y = self.y + offy
+            set = 24
+            
+            # Games Played Top
+            self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#BEFF0B")
+            self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
+            
+            self.superframe.createSuperFrameText(text=str(round(r.matches_played,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
+            
+            # OV Stat Values
+            
+            
+            fg = self._get_foreground_color(label = "Win %", value=r.matches_win_pct)
+            self.superframe.createSuperFrameText(text=r.matches_win_pct, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kd", value=r.kd_ratio)
+            self.superframe.createSuperFrameText(text=str(round(r.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Mvp %", value=r.total_mvp_pct)
+            self.superframe.createSuperFrameText(text=r.total_mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kda", value=r.kda_ratio)
+            self.superframe.createSuperFrameText(text=str(round(r.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            
+            # Ov Stat Labels
+            
+            self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="KD RATIO", x=x+98, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="MVP RATE", x=x+201, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="KDA RATIO", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+        else:
+            p = self.player.seasonal_overview
+            if not p:
+                if not self.player.bRivalsData:
+                    return
+                if not self.player.bRivalsOV:
+                    print(f"Player {self.player.Name} has no Rivals Overview data via self.bRivalsOV")
+                    return
+                else:
+                    offx = 64
+                    offy = 186
+                    x = self.x + offx
+                    y = self.y + offy
+                    set = 24
+                    
+                    # Games Played Top
+                    self.superframe.createSuperFrameText(text=self.player.seasons_string, x=x+213, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=False), fill="#8685B6")
+                    self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
+                    #self.superframe.createSuperFrameText(text="PRIVATE", x=x+150, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "normal", italic=True), fill="#9ec9fe")
+                    self.superframe.createSuperFrameText(text=str(round(self.player.OVMatches,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
+                    
+                    # OV Stat Values
+                    
+                    
+                    fg = self._get_foreground_color(label = "Win %", value=self.player.OVWinRate)
+                    self.superframe.createSuperFrameText(text=self.player.OVWinRate, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+                    self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+                    return
 
-        
+            offx = 64
+            offy = 186
+            x = self.x + offx
+            y = self.y + offy
+            set = 24
+            
+            # Games Played Top
+            self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#8685B6")
+            self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
+            
+            self.superframe.createSuperFrameText(text=str(round(p.matches_played,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
+            
+            # OV Stat Values
+            
+            
+            fg = self._get_foreground_color(label = "Win %", value=p.win_pct)
+            self.superframe.createSuperFrameText(text=p.win_pct, x=x, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kd", value=p.kd_ratio)
+            self.superframe.createSuperFrameText(text=str(round(p.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Mvp %", value=p.mvp_pct)
+            self.superframe.createSuperFrameText(text=p.mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Kda", value=p.kda_ratio)
+            self.superframe.createSuperFrameText(text=str(round(p.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            
+            # Ov Stat Labels
+            
+            self.superframe.createSuperFrameText(text="WIN RATE", x=x-2, y=y+set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="KD RATIO", x=x+98, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="MVP RATE", x=x+201, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            
+            self.superframe.createSuperFrameText(text="KDA RATIO", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+
+            
 
     # ---------------------------
     # NAME BAR (outer -> name_bar + canvas)
@@ -2305,11 +2365,14 @@ class PlayerFrame:
             adjust = 3
 
             if self.player.bHeroes:
-
-                win_pct = hero.Stats.win_pct
-                kd = hero.Stats.kd_ratio
-                mvp_pct = hero.Stats.mvp_pct
-                matches_played = hero.Stats.matches_played
+                win_pct = hero.RivalsDataStats.matches_win_pct
+                kd = hero.RivalsDataStats.kd_ratio
+                mvp_pct = hero.RivalsDataStats.total_mvp_pct
+                matches_played = hero.RivalsDataStats.matches_played
+                # win_pct = hero.Stats.win_pct
+                # kd = hero.Stats.kd_ratio
+                # mvp_pct = hero.Stats.mvp_pct
+                # matches_played = hero.Stats.matches_played
 
             elif self.player.bRivalsData and hero.bRivalsData:
                 win_pct = hero.WinRate
@@ -2382,6 +2445,7 @@ class PlayerFrame:
         statsx = 45
         x = self.x + offx
         y = self.y + offy
+
         complete = 0
         nohero_list = []
         from collections import deque
@@ -2449,7 +2513,9 @@ class PlayerFrame:
                     h, extra = h.split(" ", 1)
                     h = "Deadpool"
                 hero_icon = self.superframe.createSuperFrameImage(img_key=h+"_small", x=x+px, y=y+py , anc="sw",size=size)
-                match.imagesRendered[hero] = hero_icon
+                match.Hero_Icon = hero_icon
+                match.x = x+px
+                match.y = y+py
                 #print(f"{self.player.Name} - Creating superframe image for hero {h}")
                 if not match.bIncomplete:
                     hero_object = match.full_heroes.get(hero, None)
@@ -2460,9 +2526,7 @@ class PlayerFrame:
                             hero_object
                         )
                     
-                if extra:
-                    deadpool_role = self.superframe.createSuperFrameImage(img_key=extra, x=x+px + 35, y=y+py-7 , anc="c",size=(28-scale_role,28-scale_role))
-                    match.imagesRendered[f"deadpool_role_{ind}"] = deadpool_role
+                
                 scale_role = 6
                 px += 46
                 py += -17
@@ -2530,7 +2594,7 @@ class PlayerFrame:
 
         #self.player.Role.Usage = self.player.Role.Usage if hasattr(self.player.Role, "Usage") else 0
 
-    def _start_full_match_download(self, match):
+    def _start_full_match_download(self, match: MatchHistory):
         # Prevent double-clicking while download is running
         self.superframe.updateSuperFrameImage(
             match.download_widget,
@@ -2550,7 +2614,7 @@ class PlayerFrame:
             daemon=True
         ).start()
 
-    def _full_match_worker(self, match):
+    def _full_match_worker(self, match: MatchHistory):
         try:
             success = match.getFullMatch()
 
@@ -2562,12 +2626,7 @@ class PlayerFrame:
             )
 
         except Exception as e:
-            self.superframe.Canvas.master.after(
-                0,
-                self._full_match_failed,
-                match,
-                e
-            )
+            pass
 
     def _full_match_finished(self, match: MatchHistory, success):
         print("FINISHED:", success)
@@ -2580,57 +2639,41 @@ class PlayerFrame:
 
         canvas.itemconfig(match.download_widget, state="disabled")
         self.superframe.deleteSuperFrameImage(match.download_widget)
+        self.superframe.deleteSuperFrameImage(match.Hero_Icon)
 
-        match.full_heroes = dict(
-            sorted(
-                match.full_heroes.items(),
-                key=lambda item: item[1].Stats.time_played,
-                reverse=True
-            )
-        )
+        
 
-        new_heroes = list(match.full_heroes.values())[:2]
-        old_names = match.heroes_used.copy()
-        old_icons = match.imagesRendered.copy()
-
+        new_heroes = match.full_heroes[:2]
+        
         new_icons = {}
         new_names = []
-        sizes = [None, (25, 30)]
+        size = None
+        px = match.x
+        py = match.y
+        for hero in new_heroes:
+            h = hero.Name
+            extra = None
+            if "Deadpool" in h:
+                h, extra = h.split(" ", 1)
+                h = "Deadpool"
+            hero_icon = self.superframe.createSuperFrameImage(img_key=h+"_small", x=px, y=py , anc="sw",size=size)
+            
 
-        for i, hero in enumerate(new_heroes):
-            new_name = hero.Name
-            old_name = old_names[i] if i < len(old_names) else None
-
-            icon = old_icons.get(old_name)
-
-            # Validate that the Canvas item actually exists
-            if not isinstance(icon, int) or not canvas.type(icon):
-                print(
-                    f"Invalid Canvas icon: "
-                    f"position={i}, old={old_name}, "
-                    f"new={new_name}, icon={icon}"
+            
+                
+            hero_object = hero
+            if hero_object and hero_icon:
+                self.bind_hero_stats_popup(
+                    hero_icon,
+                    hero_object
                 )
-                continue
-
-            if new_name != old_name:
-                icon = self.superframe.updateSuperFrameImage(
-                    icon,
-                    new_name + "_small",
-                    size=sizes[i]
-                )
-
-            # Always bind stats, even for unchanged heroes
-            self.bind_hero_stats_popup(icon, hero)
-
-            new_icons[new_name] = icon
-            new_names.append(new_name)
-
-        # Remove old mappings, then insert updated mappings
-        for name in old_names:
-            match.imagesRendered.pop(name, None)
-
-        match.imagesRendered.update(new_icons)
-        match.heroes_used = new_names
+                
+            
+            scale_role = 6
+            px +=  46
+            py -= 17
+            size = (25,30)
+            #ind += 1
 
     def _get_pie_chart_images(
                                 self,

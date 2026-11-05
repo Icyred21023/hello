@@ -1,9 +1,10 @@
+from __future__ import annotations
 from time import time
 import config
 from typing import List
 import re
 from collections import Counter, defaultdict
-
+from statistics import mean
 SEASON = 9
 UID = config.USER_UID if not config.mobile_mode else "1324925930"
 
@@ -685,6 +686,7 @@ class RivalsData_Stats:
     def __init__(self):
         self.matches_played = 0
         self.matches_won = 0
+        self.matches_lost = 0
         self.matches_win_pct = "0%"
         self.kills = 0
         self.kills_per_10 = 0
@@ -764,6 +766,92 @@ class RivalsData_Stats:
         self.time_played_won  = round(self.matches_won / self. matches_played * self.time_played) if self.matches_played > 0 else 0
         
         return self.time_played
+
+class RivalsData_Overview:
+    
+
+    def __init__(self):
+        self.matches_played = 0
+        self.matches_won = 0
+        self.matches_lost = 0
+        self.matches_win_pct = "0%"
+        self.kills = 0
+        self.kills_per_10 = 0
+        self.assists = 0
+        self.assists_per_10 = 0
+        self.deaths = 0
+        self.deaths_per_10 = 0
+
+        self.total_damage = 0
+        self.total_damage_per_10 = 0
+        self.total_healing = 0
+        self.total_healing_per_10 = 0
+        self.total_damage_taken = 0
+        self.total_damage_taken_per_10 = 0
+        self.last_kills_per_10 = 0
+        self.solo_kills_per_10 = 0
+
+        self.last_kills = 0
+        self.head_kills = 0
+        self.head_kills_per_10 = 0
+        self.solo_kills = 0
+        self.total_mvp = 0
+        self.total_svp = 0
+        self.total_svp_pct = "0%"
+        self.total_mvp_pct = "0%"
+        self.time_played = 0
+        self.time_played_won = 0
+
+        self.kd_ratio = 0
+        self.kda_ratio = 0
+        self.accuracy = "0%"
+        self.headshot_accuracy = "0%"
+        self.bInitialized = False
+    
+    def add_Heroes(self, Heroes: dict[str, Hero] | None = None):
+        if Heroes is None:
+            return
+        for Hero in Heroes.values():
+            stats = Hero.RivalsDataStats
+            self.time_played += stats.time_played
+            self.time_played_won += stats.time_played_won
+            self.matches_played += stats.matches_played
+            self.matches_won += stats.matches_won
+            self.matches_lost += stats.matches_lost
+            self.kills += stats.kills
+            self.assists += stats.assists
+            self.deaths += stats.deaths
+            self.total_damage += stats.total_damage
+            self.total_healing += stats.total_healing
+            self.total_damage_taken += stats.total_damage_taken
+            self.last_kills += stats.last_kills
+            self.head_kills += stats.head_kills
+            self.solo_kills += stats.solo_kills
+            self.total_mvp += stats.total_mvp
+            self.total_svp += stats.total_svp
+        self.calculate_dynamic_stats()
+        self.bInitialized = True
+
+
+
+    def calculate_dynamic_stats(self):
+        
+        self.kills_per_10 = self.calc_stat_per_10(self.kills)
+        self.assists_per_10 = self.calc_stat_per_10(self.assists)
+        self.deaths_per_10 = self.calc_stat_per_10(self.deaths)
+        self.total_damage_per_10 = self.calc_stat_per_10(self.total_damage)
+        self.total_healing_per_10 = self.calc_stat_per_10(self.total_healing)
+        self.total_damage_taken_per_10 = self.calc_stat_per_10(self.total_damage_taken)
+        self.last_kills_per_10 = self.calc_stat_per_10(self.last_kills)
+        self.solo_kills_per_10 = self.calc_stat_per_10(self.solo_kills)
+        self.head_kills_per_10 = self.calc_stat_per_10(self.head_kills)
+        self.total_svp_pct = str(int(round(self.total_svp / self.matches_lost * 100 if self.matches_lost > 0 else 0 )))+"%"
+        self.total_mvp_pct = str(int(round(self.total_mvp / self.matches_won * 100 if self.matches_won > 0 else 0)))+"%"
+        self.matches_win_pct = str(int(round(self.matches_won / self.matches_played * 100 if self.matches_played > 0 else 0)))+"%"
+        self.kd_ratio = round(self.kills / self.deaths, 1) if self.deaths > 0 else round(self.kills, 1)
+        self.kda_ratio = round((self.kills + self.assists) / self.deaths, 1) if self.deaths > 0 else round(self.kills + self.assists, 1)
+    def calc_stat_per_10(self, stat):
+        return int(round(stat * 10 / self.time_played, 0)) if self.time_played > 0 else 0
         
 class Role:
     def __init__(self):
@@ -1049,14 +1137,28 @@ class RoleOld:
             hours = seconds / 3600
             return round(hours, 1)
 from fGui_Ui import SuperFrame
+
+class MatchHero:
+    def __init__(self, d):
+        self.hero_id = d.get('hero_id', "Unknown")
+        self.Name, self.Role = hero_id_to_info(self.hero_id) if self.hero_id != "Unknown" else ("Unknown", None)
+        self.time_played = d.get('play_time', 0)
+        self.accuracy = str(int(round(100 * d.get('accuracy', 0)))) + '%'
+        self.headshot_accuracy = str(d.get('crit_accuracy')) + '%'
+
+
 class RivalsDataMatchHistory:
     
-    def __init__(self, match_data):
+    def __init__(self, uid, match_data):
         #match_data = match_data.get("data", None)
+        self.x = None
+        self.y = None
+        self.Uid = uid
         self.skipped = False
         self.download_widget = None
         self.superframe_object: SuperFrame = None
         self.imagesRendered = {}
+        self.Hero_Icon = None
         self.fullMatchFetched = match_data.get('metadata', {}).get('fullMatchFetched', False)
         self.mid = match_data.get("match_uid", None)
         
@@ -1087,9 +1189,9 @@ class RivalsDataMatchHistory:
                 self.hero_name
             ]
         #self.heroes_used = []
-        self.full_heroes: dict[str, Hero] = {}
+        self.full_heroes: List[MatchHero] = []
         #self.check_if_hero_stats(match_data['segments'])
-        self.bIncomplete = True if not self.full_heroes else False
+        self.bIncomplete = True
         self.time_played = 600
         self.kills = match_data.get('kills', 0)
         self.assists = match_data.get('assists', 0)
@@ -1102,6 +1204,8 @@ class RivalsDataMatchHistory:
         self.healing_per_minute = 'null'
         self.total_damage_taken = 'null'
         self.total_damage_taken_per_minute = 'null'
+        self.accuracy = 'null'
+        self.final_hits = 'null'
         self.last_kills = 'null'
         rank_lv = match_data.get('rank_level', 1)
         self.rank = RANK_DATA.get(rank_lv, (None, None, None, None)) if rank_lv is not None else (None, None, None, None)
@@ -1109,43 +1213,54 @@ class RivalsDataMatchHistory:
         self.rank_delta = match_data.get('score_change', '-')
         self.placement = match_data.get('placement', 12)
 
-    def check_if_hero_stats(self, segments):
-        for segment in segments:
-            if segment.get("type") == "hero":
-                player_account = segment.get("attributes", {}).get("accountId", "Null")
-                if player_account == self.player_accountId:
-                    hero_id = segment.get("attributes", {}).get("heroId", "Unknown")
-                    mock_rivalsdata = {"hero_id": hero_id,"level": 0, "points": 0}
-                    hero = Hero(mock_rivalsdata)
 
-                    #hero_name, hero_role = hero_id_to_info(hero_id)
-                    hero_stats = segment.get("stats", {})
-                    hero.add_stats(hero_stats)
-                    self.full_heroes[hero.Name] = hero
-                    self.bIncomplete = False
-                    self.fullMatchFetched = True
 
-    def add_detailedmatch(self, detailed_match_data):
-        data = detailed_match_data.get("data", {})
+
+
+    def get_stat_per_min(self, stat_value: int | float) -> int:
+        if self.duration <= 0:
+            return 0
+
+        return round(stat_value * 60 / self.duration)
+
+    def addFullMatch(self, data):
         if not data:
-            return print(f"No data. Failed at Match.add_detailedmatch method: MatchId - {self.mid}")
-        segments = data.get("segments", [])
-        self.check_if_hero_stats(segments)
+            return print(f"No data. Failed at Match.parseFullMatch method: MatchId - {self.mid}")
+        teams = data.get("teams", [])
+        self.duration = data.get("duration_seconds", 600)
+        for team in teams:
+            if team.get("camp", 3) == self.player_team:
+                players = team.get("players", [])
+                for player in players:
+                    if player.get("player_uid", "0") == str(self.Uid):
+                        self.total_damage = player.get("damage", 0)
+                        self.total_damage_taken = player.get("blocked", 0)
+                        self.total_healing = player.get("healing", 0)
+                        self.accuracy = player.get("accuracy", 0)
+                        self.final_hits = player.get("final_hits", 0)
+                        
+                        self.damage_per_minute = self.get_stat_per_min(self.total_damage)
+                        self.total_damage_taken_per_minute = self.get_stat_per_min(self.total_damage_taken)
+                        self.healing_per_minute = self.get_stat_per_min(self.total_healing)
+                        heroes = player.get("heroes", [])
+                        for hero_data in heroes:
+                            obj = MatchHero(hero_data)
+                            self.full_heroes.append(obj)
+
+                        self.full_heroes.sort(key=lambda hero: hero.time_played, reverse=True)
+
+
+                        
                     
     def getFullMatch(self, event=None):
-        from tracker_trim import getFullMatchGG
+        from tracker_trim import getFullMatchRivalsData
         if not self.bIncomplete:
-            return 
-        status = getFullMatchGG(self, self.mid)
-        if status == "Success":
+            return None
+        data = getFullMatchRivalsData(self.mid)
+        if data:
+            self.addFullMatch(data)
             self.bIncomplete = False
-            print(f"Full match data fetched successfully for MatchId - {self.mid}")
-            return status
-
-
-        else:
-            self.bIncomplete = True
-            return "Error"
+            return "Success"
 
 
 
@@ -1333,6 +1448,7 @@ class Hero:
             return
         
         time = self.RivalsDataStats.add(stats)
+        #self.Stats = self.RivalsDataStats
         return time
 
 
@@ -1341,6 +1457,7 @@ class Player:
     def __init__(self, data, bGG=False):
         self.Name = data.get("name", "Unknown")
         self.StarName = False
+        self.avg_placement = None
         self.RivalsDataTotalTime = 0
         self.Uid = str(data.get("uid", "Unknown"))
         #self.UidInt = int(data.get("uid", 0))
@@ -1377,7 +1494,7 @@ class Player:
         self.seasonal_overview = None
         self.full_overview = None
         self.matches: List[MatchHistory] = []
-
+        self.RivalsDataOverview: RivalsData_Overview = RivalsData_Overview()
         losses = data.get("losses", None)
         wins = data.get("wins", None)
 
@@ -1446,7 +1563,10 @@ class Player:
         
 
         #self.bPrivate = True if not self.seasonal_overview else False
-
+    def build_RivalsData_Overview(self):
+            
+            self.RivalsDataOverview.add_Heroes(self.Heroes)
+            self.bProfile = True
     def add_proficiency_late(self, data):
         flag = False
         prof_data = next(iter(data.values()), {}).get("hero_proficiency_infos", {})
@@ -1499,14 +1619,25 @@ class Player:
                     if isinstance(time_, (int, float)) and time_ is not None:
                         time += time_
             self.RivalsDataTotalTime = time
-    
+            
+            self.Heroes = dict(
+                                sorted(
+                                    self.Heroes.items(),
+                                    key=lambda item: item[1].RivalsDataStats.matches_played,
+                                    reverse=True
+                                )
+                            )
+            self.build_RivalsData_Overview()
+
     def add_RivalsData_MatchHistory(self, data):
         if data:
             matches = data.get("matches", [])
 
             
-        self.matches: List[RivalsDataMatchHistory] = [RivalsDataMatchHistory(match) for match in matches]
-        
+        self.matches: List[RivalsDataMatchHistory] = [RivalsDataMatchHistory(self.Uid,match) for match in matches]
+        placements = [m.placement for m in self.matches if m.placement is not None]
+        self.avg_placement = mean(placements) if placements else 0
+        print(f"Average placement: {self.avg_placement} - {self.Name}")
     def add_profile(self, profile_data):
         
         if profile_data:

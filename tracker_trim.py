@@ -27,7 +27,8 @@ MONTH = d.month
 YEAR = d.year
 DAY_COUNT = d.toordinal()
 NAMES_LIST = []
-
+class TurnstileRequired(Exception):
+    pass
 
 def safe_del(self):
     try:
@@ -278,11 +279,44 @@ class Browser:
             )
 
         if not result.get("ok"):
-            raise RuntimeError(
-                f"HTTP {result.get('status')} "
-                f"{result.get('statusText', '')}\n"
-                f"{result.get('text', '')[:1000]}"
-            )
+            status = result.get("status")
+            text = result.get("text", "")
+
+            if status == 403 and "turnstile required" in text.lower():
+                print("⚠️ Turnstile detected, refreshing browser: try to verify.")
+                self.driver.get("https://rivalsdata.com/player/21398881")
+                self.set_captcha_window()
+                time.sleep(6)
+                self.set_tiny_window()
+                
+                result = self.driver.execute_async_script(
+                            script,
+                            url,
+                            payload,
+                        )
+
+                if result.get("error"):
+                            raise RuntimeError(
+                                f"Browser fetch failed: {result['error']}"
+                            )
+                
+                if not result.get("ok"):
+                    status = result.get("status")
+                    text = result.get("text", "")
+        
+                    if status == 403 and "turnstile required" in text.lower():
+                        
+        
+                        return  None
+        
+                try:
+                    return json.loads(result["text"])
+                except json.JSONDecodeError as exc:
+                    raise RuntimeError(
+                        "Response was not valid JSON.\n"
+                        f"Content-Type: {result.get('contentType')}\n"
+                        f"Body: {result.get('text', '')[:1000]}"
+                    ) from exc
 
         try:
             return json.loads(result["text"])
@@ -497,6 +531,9 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
         return "https://api.rivalsdata.com/live", {"uid": int(uid)}
     elif "live" in kind.lower():
         return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": int(uid)}
+
+    elif "match_full" in kind.lower():
+        return "https://api.rivalsdata.com/match", {"match_id": str(mid)}
     elif "match_history" in kind.lower():
         if uid is None:
             return None, None
@@ -505,7 +542,7 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
         if uid is None:
             return None, None
         
-        return "https://api.rivalsdata.com/player/stats/heroes", {"uid": int(uid), "season": int(season-1)}
+        return "https://api.rivalsdata.com/player/stats/heroes", {"uid": int(uid), "season": int(season)}
     elif "teammates" in kind.lower():
         if uid is None:
             return None, None
@@ -667,7 +704,7 @@ def getRivalsDataProficiency(uid):
     b, bGetSite = BROWSER_check_init()
     driver = b.driver
     if bGetSite:
-        driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        driver.get(f"https://rivalsdata.com")
         if driver.title == "Just a moment...":
             b.set_captcha_window()
             b.wait_for_captcha()
@@ -687,7 +724,7 @@ def getRivalsDataTeammates(player: Player, season=config.season):
     b, bGetSite = BROWSER_check_init()
     driver = b.driver
     if bGetSite:
-        driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        driver.get(f"https://rivalsdata.com")
         #print("getting teammate")
         if driver.title == "Just a moment...":
             b.set_captcha_window()
@@ -731,20 +768,27 @@ def getLive():
     if BROWSER is None:
         
         BROWSER = Browser()
-
+        b  = BROWSER
+        driver = b.driver
+        driver.get(f"https://rivalsdata.com")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
     elif BROWSER.driver is None:
         BROWSER = Browser()
-    else:
-        #BROWSER.kill_all()
-        print()
+        b  = BROWSER
+        driver = b.driver
+        driver.get(f"https://rivalsdata.com")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+
         
     b = BROWSER
     driver = b.driver
-    driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
-    if driver.title == "Just a moment...":
-        b.set_captcha_window()
-        b.wait_for_captcha()
-        b.set_tiny_window()
+    
     
     
     url, pay= build_rivalsdata_url_payload(kind="player")
@@ -1049,6 +1093,42 @@ def doDebug(player: Player, ign: str):
             data = json.load(f)
             player.add_matches(data)
 
+def getFullMatchRivalsData(mid):
+    global BROWSER
+    if BROWSER is None:
+        BROWSER = Browser()
+        b = BROWSER
+        driver = b.driver
+        driver.get("https://rivalsdata.com")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+        b = BROWSER
+        driver = b.driver
+        driver.get("https://rivalsdata.com")
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+    b = BROWSER
+    url, pay = build_rivalsdata_url_payload(mid=mid, kind="match_full")
+    data = b.fetch_post(url, pay)
+    if data and "error" not in data:
+        return data
+        
+    else:
+        return None
+    
+        
+
+
+    #url = build_tracker_url(mid=mid, kind="detailedmatch")
+    #data = b.fetch_get(url)
+    return status
+
 def getFullMatchGG(obj, mid):
     global BROWSER
     if BROWSER is None:
@@ -1074,23 +1154,107 @@ def getFullMatchGG(obj, mid):
 def getRivalsDataFull(match: Match | list):
     def parseJSSeason(js):
         import chompjs
-        # Find the object assigned to `var e`.
+
         match = re.search(r"\bvar\s+e\s*=\s*(?=\{)", js)
+
         if not match:
             raise ValueError("Could not find 'var e = {' in the JS file")
 
-        # Parses the first object, ignoring the JavaScript after it.
-        data = chompjs.parse_js_object(js[match.end():])
-        import time
+        return chompjs.parse_js_object(js[match.end():])
 
-        current_season = next(
-            season["id"]
-            for season in reversed(data["seasons"])
-            if season["starts_at"] <= time.time()
+
+    def saveLatestSeasonData(d):
+        path = os.path.join(config.local_marvel_tracker_path, "season.json")
+        helpers.save_json(path=path, data=d)
+
+
+    def fetchLatestSeasonData():
+        js = b.fetch_get_js(
+            "https://rivalsdata.com/assets/ranks-PWdHicQc.js"
         )
 
-        
-        return current_season
+        data = parseJSSeason(js)
+
+        saveLatestSeasonData(data)
+
+        print("❗❗ Fetched and saved latest season data.")
+
+        return data
+
+
+    def parseSeasonJSON(data):
+        import time
+
+        now = time.time()
+
+        for season in reversed(data["seasons"]):
+
+            starts_at = season.get("starts_at")
+            ends_at = season.get("ends_at")
+            name = season.get("name")
+
+            if starts_at is None:
+                continue
+
+            # Season hasn't started yet
+            if now < starts_at:
+                continue
+
+            # Season already ended
+            if ends_at is not None and now >= ends_at:
+                continue
+
+            # Found current season, but metadata incomplete
+            if name is None:
+                return None
+
+            return season["id"]
+
+        # No valid current season
+        return None
+
+
+    def handleCurrentSeason():
+        path = os.path.join(
+            config.local_marvel_tracker_path,
+            "season.json"
+        )
+
+        data = None
+
+        # Attempt local cache first
+        if os.path.exists(path):
+            try:
+                data = helpers.load_json(path=path)
+            except (OSError, ValueError, TypeError):
+                print("⚠️ Invalid local season data. Refreshing.")
+
+        # Validate cached data
+        if data is not None:
+            try:
+                season = parseSeasonJSON(data)
+
+                if season is not None:
+                    return season
+
+            except (KeyError, TypeError, ValueError):
+                print("⚠️ Local season metadata invalid.")
+
+        # Fetch latest data
+        data = fetchLatestSeasonData()
+
+        # Recalculate using refreshed data
+        season = parseSeasonJSON(data)
+
+        if season is None:
+            raise RuntimeError(
+                "Unable to determine current season "
+                "from updated RivalsData metadata."
+            )
+        config.season = season
+        return season
+
+    
     global BROWSER
         
     
@@ -1113,8 +1277,9 @@ def getRivalsDataFull(match: Match | list):
     time.sleep(2.5)
     players = match.players
 
-    data = b.fetch_get_js("https://rivalsdata.com/assets/ranks-PWdHicQc.js")
-    season_api = parseJSSeason(data)
+    season_api = handleCurrentSeason()
+
+    
     
 
     if season_api > config.season:
@@ -1126,6 +1291,7 @@ def getRivalsDataFull(match: Match | list):
 
     for player in players:
         icon = '❌'
+        
         if "*" in player.Name:
             #player.bPrivate = True
             player.bHeroes = False
@@ -1138,15 +1304,25 @@ def getRivalsDataFull(match: Match | list):
 
         url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid)
         heroes_data = b.fetch_post(url, pay)
+        
+
+            
+
+
+        
+        
         if heroes_data and "error" not in heroes_data:
             player.add_RivalsData_heroes(heroes_data)
             player.bRivalsHeroes = True
+            player.bHeroes = True
+
             icon = '✅'
         print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
         #   player.add_RivalsData_heroes(heroes_data)
         icon = '❌'
         url, pay = build_rivalsdata_url_payload(kind="match_history", uid=player.Uid)
         match_history_data = b.fetch_post(url, pay)
+        
         if match_history_data and "error" not in match_history_data:
             player.add_RivalsData_MatchHistory(match_history_data)
             player.bMatchHistory = True
@@ -1156,13 +1332,7 @@ def getRivalsDataFull(match: Match | list):
 
         
         
-        ign = safe_ign(player.Name)
-        # if bFullDebug:
-        #     path = os.path.join(config.FullDebug_dir, f"players.txt")
-        #     helpers.save_list(path=path, items=players)
 
-        
-        
 def getRivalsDataHeroes(match: Match | list):
     global BROWSER
     if BROWSER is None:
