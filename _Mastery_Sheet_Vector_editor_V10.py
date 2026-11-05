@@ -1022,7 +1022,7 @@ def process_sheet(
         vector_preview_img,
         title=f"{hero_name} | {sheet_name}",
         initial_position=starting_position,
-        initial_scale_multiplier=2,
+        initial_scale_multiplier=1.70,
     )
     gui.mainloop()
 

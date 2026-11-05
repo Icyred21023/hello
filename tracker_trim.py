@@ -353,8 +353,69 @@ class Browser:
 }
     
         return json.loads(result["text"])
+
+    def fetch_get_js(self, url, timeout=10):
+            self.driver.set_script_timeout(timeout)
         
-    def fetch_post(self, url, payload, timeout=10):
+            script = """
+                const url = arguments[0];
+                const done = arguments[arguments.length - 1];
+        
+                fetch(url, {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Accept": "application/json, text/plain, */*"
+                    }
+                })
+                .then(async response => {
+                    const text = await response.text();
+        
+                    done({
+                        ok: response.ok,
+                        status: response.status,
+                        statusText: response.statusText,
+                        url: response.url,
+                        contentType: response.headers.get("content-type"),
+                        text: text
+                    });
+                })
+                .catch(error => {
+                    done({
+                        ok: false,
+                        status: 0,
+                        error: String(error),
+                        text: ""
+                    });
+                });
+            """
+        
+            result = self.driver.execute_async_script(script, url)
+        
+            if result.get("error"):
+                raise RuntimeError(
+                    f"Browser fetch failed: {result['error']}"
+                )
+        
+            if not result.get("ok"):
+                # raise RuntimeError(
+                #     f"HTTP {result.get('status')} "
+                #     f"{result.get('statusText', '')}\\n"
+                #     f"{result.get('text', '')[:1000]}"
+                # )
+                return {
+        "errors": [
+            {
+                "code": "Collector::Private",
+                "message": "Match history is private.",
+                "data": {}
+            }
+        ]
+    }
+        
+            return result["text"]
+        
+    def fetch_post2(self, url, payload, timeout=10):
         self.driver.set_script_timeout(timeout)
     
         script = """
@@ -431,11 +492,15 @@ class Browser:
 
 def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID, season=config.season):
     if "player" in kind.lower():
-        return "https://api.rivalsdata.com/player", { "uid": uid}
+        return "https://api.rivalsdata.com/player", { "uid": int(uid) }
     elif "live2" in kind.lower():
-        return "https://api.rivalsdata.com/live", {"uid": uid}
+        return "https://api.rivalsdata.com/live", {"uid": int(uid)}
     elif "live" in kind.lower():
-        return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": uid}
+        return "https://api.rivalsdata.com/live", {"match_id": mid, "uid": int(uid)}
+    elif "match_history" in kind.lower():
+        if uid is None:
+            return None, None
+        return "https://api.rivalsdata.com/player/matches/cached", {"uid": int(uid), "cursor":None,"season": int(season), "mode": 2}
     elif "heroes" in kind.lower():
         if uid is None:
             return None, None
@@ -444,7 +509,7 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
     elif "teammates" in kind.lower():
         if uid is None:
             return None, None
-        return "https://api.rivalsdata.com/player/teammates", {"uid": int(uid), "season": season}
+        return "https://api.rivalsdata.com/player/teammates", {"uid": int(uid), "season": int(season)}
     elif "proficiency" in kind.lower():
         if uid is None:
             return None, None
@@ -533,20 +598,49 @@ def BROWSER_check_init():
     return b, bGetSite
 
 def getRivalsDataHeroesData(player: Player, browser: Browser | None = None):
-    b = browser
-
+    b, bGetSite = BROWSER_check_init()
+    driver = b.driver
+    if bGetSite:
+        driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        time.sleep(0.5)
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
 
     
-    if b.driver.title == "Just a moment...":
-        b.set_captcha_window()
-        b.wait_for_captcha()
-        b.set_tiny_window()
+    
     if player.Uid == "Unknown" or player.Uid == "None" or not player.Uid:
         print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid UID.")
         return None
+    #b.set_captcha_window()
+    #b.driver.get(f"https://rivalsdata.com/player/{player.Uid}")
+
+    
     url, pay = build_rivalsdata_url_payload(kind="heroes", uid=int(player.Uid))
     if url is None or pay is None:
         print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return data
+    except Exception as e:
+        print(e)
+        return None
+
+def getRivalsDataMatchHistory(player: Player, browser: Browser | None = None):
+    
+    b= browser
+    if player.Uid == "Unknown" or player.Uid == "None" or not player.Uid:
+        print(f"❌ RivalsData match history fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid UID.")
+        return None
+    #b.set_captcha_window()
+    #b.driver.get(f"https://rivalsdata.com/player/{player.Uid}")
+
+    
+    url, pay = build_rivalsdata_url_payload(kind="match_history", uid=int(player.Uid))
+    if url is None or pay is None:
+        print(f"❌ RivalsData match history fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
         return None
     try:
         data = b.fetch_post(url, pay)
@@ -594,6 +688,7 @@ def getRivalsDataTeammates(player: Player, season=config.season):
     driver = b.driver
     if bGetSite:
         driver.get(f"https://rivalsdata.com/player/{config.USER_UID}")
+        #print("getting teammate")
         if driver.title == "Just a moment...":
             b.set_captcha_window()
             b.wait_for_captcha()
@@ -976,6 +1071,98 @@ def getFullMatchGG(obj, mid):
     #data = b.fetch_get(url)
     return status
 
+def getRivalsDataFull(match: Match | list):
+    def parseJSSeason(js):
+        import chompjs
+        # Find the object assigned to `var e`.
+        match = re.search(r"\bvar\s+e\s*=\s*(?=\{)", js)
+        if not match:
+            raise ValueError("Could not find 'var e = {' in the JS file")
+
+        # Parses the first object, ignoring the JavaScript after it.
+        data = chompjs.parse_js_object(js[match.end():])
+        import time
+
+        current_season = next(
+            season["id"]
+            for season in reversed(data["seasons"])
+            if season["starts_at"] <= time.time()
+        )
+
+        
+        return current_season
+    global BROWSER
+        
+    
+    if BROWSER is None:
+        BROWSER = Browser()
+    elif BROWSER.driver is None:
+        BROWSER = Browser()
+    else:
+        #BROWSER.kill_all()
+        print()
+    
+    b = BROWSER
+    driver = b.driver
+    driver.get(f"https://rivalsdata.com")
+    if driver.title == "Just a moment...":
+        b.set_captcha_window()
+        b.wait_for_captcha()
+        b.set_tiny_window()
+
+    time.sleep(2.5)
+    players = match.players
+
+    data = b.fetch_get_js("https://rivalsdata.com/assets/ranks-PWdHicQc.js")
+    season_api = parseJSSeason(data)
+    
+
+    if season_api > config.season:
+        print(f"Rivalsdata.com has a newer season ({season_api}) than the configured season ({config.season}). Updating config.season to {season_api}.")
+        config.save_season(season_api)
+    else:
+        
+        players = match.players
+
+    for player in players:
+        icon = '❌'
+        if "*" in player.Name:
+            #player.bPrivate = True
+            player.bHeroes = False
+            player.bProfile = False
+            player.bMatchHistory = False
+            player.bPrivate = True
+            continue
+        #url, pay = build_rivalsdata_url_payload(kind="player", uid=player.Uid)
+        #profile_data = b.fetch_post(url, pay)
+
+        url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid)
+        heroes_data = b.fetch_post(url, pay)
+        if heroes_data and "error" not in heroes_data:
+            player.add_RivalsData_heroes(heroes_data)
+            player.bRivalsHeroes = True
+            icon = '✅'
+        print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
+        #   player.add_RivalsData_heroes(heroes_data)
+        icon = '❌'
+        url, pay = build_rivalsdata_url_payload(kind="match_history", uid=player.Uid)
+        match_history_data = b.fetch_post(url, pay)
+        if match_history_data and "error" not in match_history_data:
+            player.add_RivalsData_MatchHistory(match_history_data)
+            player.bMatchHistory = True
+            icon = '✅'
+        print(f"\t{icon} \033[1m Rivals Data Match History\033[0m fetched successfully for {player.Name}.")
+
+
+        
+        
+        ign = safe_ign(player.Name)
+        # if bFullDebug:
+        #     path = os.path.join(config.FullDebug_dir, f"players.txt")
+        #     helpers.save_list(path=path, items=players)
+
+        
+        
 def getRivalsDataHeroes(match: Match | list):
     global BROWSER
     if BROWSER is None:
@@ -1002,6 +1189,13 @@ def getRivalsDataHeroes(match: Match | list):
         if data:
             player.add_RivalsData_heroes(data)
             print(f"\t✅ \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
+
+        data = getRivalsDataMatchHistory(player, browser=b)
+        if data:
+            player.add_RivalsData_MatchHistory(data)
+            print(f"\t✅ \033[1m Rivals Data Match History\033[0m fetched successfully for {player.Name}.")
+
+
 
 
         

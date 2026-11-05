@@ -2145,7 +2145,14 @@ class PlayerFrame:
         hero2: Hero | None = hli[1] if len(hli) > 1 else None
         hero3: Hero | None = hli[2] if len(hli) > 2 else None
         heroes = [hero1, hero2, hero3]
+        
         icon_position = [(5,456), (4, 610), (4, 766)]
+
+        #update positions for 3 heroes
+        icon_position = [(4,482), (4, 636), (4, 791)]
+        icon_position_animoffset = [(1,-26), (0, -26), (0, -25)]
+
+
         btn_position = [(400,548), (400, 703), (400, 858)]
         badge_offset = (27, 155)
         frame_offset = [(9, 520), (9, 673), (8, 829)]
@@ -2195,9 +2202,13 @@ class PlayerFrame:
 
             fkey = "None"
             icon_x, icon_y = icon_position[idx]
+            ox, oy = icon_position_animoffset[idx] 
+            
             stats_x, stats_y = stats_xy[idx]
             x = icon_x + self.x
             y = icon_y + self.y
+            animx = x +  ox
+            animy = y +  oy
             if hero is None:
                 idx += 1
                 continue
@@ -2212,8 +2223,8 @@ class PlayerFrame:
             self.hero_animation = HeroImager(
                                         self.superframe,
                                         image_key=heroname,  # Passed directly to image_loader()
-                                        x=x,
-                                        y=y,
+                                        x=x if not bAnimated else animx,
+                                        y=y if not bAnimated else animy,
                                         
                                         anchor="nw",
                                         bAnimated=bAnimated,
@@ -4304,8 +4315,8 @@ class App:
                     team = random.randint(1, 2)
                 MatchObject = Match(li, enemy_team=team)
                 MatchObject.check_for_teammates()
-                tracker_trim.getRivalsDataHeroes(MatchObject)
-                tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
+                tracker_trim.getRivalsDataFull(MatchObject)
+                #tracker_trim.getTrackerGG(MatchObject, bLiveDebug, bFetchGGDebug=True)
                 MATCH_PLAYERS = []
                 names = None
                 for p in MatchObject.players:
@@ -4330,8 +4341,8 @@ class App:
                 from RDMO import Match
                 
                 matches = Match(live_match_data)
-                tracker_trim.getRivalsDataHeroes(matches)
-                tracker_trim.getTrackerGG(matches)
+                tracker_trim.getRivalsDataFull(matches)
+                #tracker_trim.getTrackerGG(matches)
                 MATCH_PLAYERS = []
                 names = None
                 for p in matches.players:
@@ -4370,8 +4381,8 @@ class App:
                         print("Using RivalsData Live Match API... ✅ ")
                     match = Match(live_match_data)
                     match.check_for_teammates()
-                    tracker_trim.getRivalsDataHeroes(match)
-                    tracker_trim.getTrackerGG(match)
+                    tracker_trim.getRivalsDataFull(match)
+                    #tracker_trim.getTrackerGG(match)
                     MATCH_PLAYERS = []
                     names = None
                     for p in match.players:
