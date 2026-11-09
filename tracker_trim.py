@@ -534,10 +534,16 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
 
     elif "match_full" in kind.lower():
         return "https://api.rivalsdata.com/match", {"match_id": str(mid)}
-    elif "match_history" in kind.lower():
+    elif "cached_match_history" in kind.lower():
         if uid is None:
             return None, None
         return "https://api.rivalsdata.com/player/matches/cached", {"uid": int(uid), "cursor":None,"season": int(season), "mode": 2}
+
+    elif "match_history" in kind.lower():
+            if uid is None:
+                return None, None
+            return "https://api.rivalsdata.com/player/matches", {"uid": int(uid), "cursor":None,"season": int(season), "mode": 2}
+    
     elif "heroes" in kind.lower():
         if uid is None:
             return None, None
@@ -1302,15 +1308,18 @@ def getRivalsDataFull(match: Match | list):
         #url, pay = build_rivalsdata_url_payload(kind="player", uid=player.Uid)
         #profile_data = b.fetch_post(url, pay)
 
+
+        url, pay= build_rivalsdata_url_payload(kind="player", uid=player.Uid)
+        profile_data = b.fetch_post(url, pay)
+        if profile_data and "error" not in profile_data:
+            player.add_RivalsData_profile(profile_data)
+
+        #match_history_string = "match_history" if player.bRivalsMatchHistoryVisible else "cached_match_history"
+        match_history_string = "cached_match_history"
+        #print(f"\tFetching Rivals Data for {player.Name} with match history type: {match_history_string}")
+
         url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid)
         heroes_data = b.fetch_post(url, pay)
-        
-
-            
-
-
-        
-        
         if heroes_data and "error" not in heroes_data:
             player.add_RivalsData_heroes(heroes_data)
             player.bRivalsHeroes = True
@@ -1320,7 +1329,7 @@ def getRivalsDataFull(match: Match | list):
         print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
         #   player.add_RivalsData_heroes(heroes_data)
         icon = '❌'
-        url, pay = build_rivalsdata_url_payload(kind="match_history", uid=player.Uid)
+        url, pay = build_rivalsdata_url_payload(kind=match_history_string, uid=player.Uid)
         match_history_data = b.fetch_post(url, pay)
         
         if match_history_data and "error" not in match_history_data:

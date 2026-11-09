@@ -1388,7 +1388,12 @@ class PlayerFrame:
             "CritAcc": {"3": "#b34454", "6": "#cf9f00", "9": "#23ad58", "9899": "#10b0eb"},
             "LastKill": {"3": "#b34454", "6": "#cf9f00", "12": "#23ad58", "9899": "#10b0eb"},
             "Blocked": {"100": "#b34454", "900": "#cf9f00", "1800": "#23ad58", "99899": "#10b0eb"},
-            "Placement": {"10": "#b34454", "8": "#cf9f00", "6": "#23ad58", "4": "#10b0eb"},
+            "Placement": {
+                    "3.5": "#10b0eb",   # Blue: 1–3
+                    "7": "#23ad58",   # Green: 4–6
+                    "10": "#cf9f00",   # Yellow: 7–8
+                    "9999": "#b34454" # Red: 9+
+                },
             "db": {"30": "#b34454", "60": "#cf9f00", "85": "#23ad58", "9899": "#10b0eb"},
             "Time": {"9999": "#424955"},
             "db_img": {"25": "db_red", "40": "db_yellow", "60": "db_neutral", "85": "db_green", "9899": "db_blue"},
@@ -2075,8 +2080,7 @@ class PlayerFrame:
             self.superframe.createSuperFrameText(text=str(round(r.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
             fg = self._get_foreground_color(label = "Mvp %", value=r.total_mvp_pct)
             self.superframe.createSuperFrameText(text=r.total_mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-            fg = self._get_foreground_color(label = "Placement", value=r.kda_ratio)
-            self.superframe.createSuperFrameText(text=str(round(self.player.avg_placement,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            
             
             # Ov Stat Labels
             
@@ -2085,8 +2089,15 @@ class PlayerFrame:
             self.superframe.createSuperFrameText(text="KD RATIO", x=x+98, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
             
             self.superframe.createSuperFrameText(text="MVP RATE", x=x+201, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            la = "Placement" if self.player.avg_placement else "Kda"
+            fg_val = self.player.avg_placement if self.player.avg_placement else r.kda_ratio
+            val = str(round(self.player.avg_placement,2)) if self.player.avg_placement else str(round(r.kda_ratio,2))
+            text = "AVG PLACEMENT" if self.player.avg_placement else "KDA"
             
-            self.superframe.createSuperFrameText(text="AVG PLACEMENT", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+                
+            fg = self._get_foreground_color(label = la, value=fg_val)
+            self.superframe.createSuperFrameText(text=val, x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            self.superframe.createSuperFrameText(text=text, x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
         else:
             p = self.player.seasonal_overview
             if not p:
@@ -2178,7 +2189,7 @@ class PlayerFrame:
             self.superframe.createSuperFrameImage(img_key=rank, x=self.x + 312, y=self.y + 13, anc="nw")
             if shortrank:
                 self.superframe.createSuperFrameText(text=shortrank, x=self.x + 375, y=self.y + 113, anchor="w", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill=color)
-                self.superframe.createSuperFrameText(text=rankseason, x=self.x + 361, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
+                self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x + 361, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
 
         self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill=name_fg)
         team = self.teams.get(self.player.TeamId, None)
@@ -2321,8 +2332,8 @@ class PlayerFrame:
                 )
                 
             if badge:
-                x += badge_offset[0]+96
-                y += badge_offset[1]+5
+                x += badge_offset[0]+93-3
+                y += badge_offset[1]+5-18
                 self.superframe.createSuperFrameImage(img_key=f"badge_{str(badge)}", x=x, y=y, size=(46, 46), anc="c")
 
             if fkey == "Golden":
@@ -2366,7 +2377,7 @@ class PlayerFrame:
             yb = y + 23
             ykd = 2
             adjust = 3
-
+            rank = None
             if self.player.bHeroes:
                 win_pct = hero.RivalsDataStats.matches_win_pct
                 kd = hero.RivalsDataStats.kd_ratio
@@ -2401,8 +2412,8 @@ class PlayerFrame:
                 rankx, ranky = rank_position[idx-1]
                 rankx += self.x
                 ranky += self.y
-                self.superframe.createSuperFrameImage(img_key="topbanner2", x=rankx, y=ranky, anc="c")
-                self.superframe.createSuperFrameText(text=rank, x=rankx, y=ranky, anchor="c", font=fonttk("Refrigerator Deluxe Heavy", 12, "bold", italic=False), fill="#292929")
+                self.superframe.createSuperFrameImage(img_key="topbanner3", x=rankx, y=ranky, anc="c")
+                self.superframe.createSuperFrameText(text=f"#{str(rank)}", x=rankx-2, y=ranky-2, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "bold", italic=False), fill="#ffef38")
 
             self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
             self.superframe.createSuperFrameImage(img_key="winrate3", x=x2, y=yb-1, anc="c")#, size=(25, 24))

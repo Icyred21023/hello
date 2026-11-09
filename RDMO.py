@@ -1459,6 +1459,7 @@ class Player:
     def __init__(self, data, bGG=False):
         self.Name = data.get("name", "Unknown")
         self.StarName = False
+        self.bRivalsMatchHistoryVisible = False
         self.avg_placement = None
         self.RivalsDataTotalTime = 0
         self.Uid = str(data.get("uid", "Unknown"))
@@ -1475,7 +1476,7 @@ class Player:
             Player.team_counts[self.TeamId] += 1
         self.TeamId_Img = None
         self.seasons_string = ""
-
+        self.Mood = data.get("mood", None)
         self.Icon = data.get("icon", "Unknown")
         self.PlayerImgId = self.Icon
         self.bRivalsData = False  
@@ -1563,6 +1564,30 @@ class Player:
                 )
 
         
+    def add_RivalsData_profile(self, data):
+        
+
+        if not data:
+            return
+        history_visible = data.get("match_history_is_visible", 1)
+        print(history_visible)
+        self.bRivalsMatchHistoryVisible = True if history_visible < 1 else False
+        #overwrite
+        self.bRivalsMatchHistoryVisible = False
+        self.Mood = data.get("mood", None)
+        rank_data = data.get("rank_game_season", {})
+        best_info = max(
+        (info for season, info in rank_data.items() if str(season).startswith("1")),
+        key=lambda info: info["max_rank_score"],
+        default=None,
+        )
+        best_lv = best_info.get("max_level", 0) if best_info else 0
+        self.RivalsDataRankedInfo = RANK_DATA.get(best_lv, (None, None, None, None)) if best_lv is not None else (None, None, None, None)
+        self.lifetimePeakRanked = self.RivalsDataRankedInfo
+        best_season = best_info.get("rank_game_id", 0) / 2 if best_info else 0
+        self.short_season = "S" + str(best_season)
+        self.seasons_string = "S" + str(best_season)
+
 
         #self.bPrivate = True if not self.seasonal_overview else False
     def build_RivalsData_Overview(self):
@@ -1639,7 +1664,7 @@ class Player:
         self.matches: List[RivalsDataMatchHistory] = [RivalsDataMatchHistory(self.Uid,match) for match in matches]
         placements = [m.placement for m in self.matches if m.placement is not None]
         self.avg_placement = mean(placements) if placements else 0
-        print(f"Average placement: {self.avg_placement} - {self.Name}")
+        #print(f"Average placement: {self.avg_placement} - {self.Name}")
     def add_profile(self, profile_data):
         
         if profile_data:
