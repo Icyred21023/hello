@@ -1388,6 +1388,7 @@ class PlayerFrame:
             "CritAcc": {"3": "#b34454", "6": "#cf9f00", "9": "#23ad58", "9899": "#10b0eb"},
             "LastKill": {"3": "#b34454", "6": "#cf9f00", "12": "#23ad58", "9899": "#10b0eb"},
             "Blocked": {"100": "#b34454", "900": "#cf9f00", "1800": "#23ad58", "99899": "#10b0eb"},
+            "Placement": {"10": "#b34454", "8": "#cf9f00", "6": "#23ad58", "4": "#10b0eb"},
             "db": {"30": "#b34454", "60": "#cf9f00", "85": "#23ad58", "9899": "#10b0eb"},
             "Time": {"9999": "#424955"},
             "db_img": {"25": "db_red", "40": "db_yellow", "60": "db_neutral", "85": "db_green", "9899": "db_blue"},
@@ -2074,8 +2075,8 @@ class PlayerFrame:
             self.superframe.createSuperFrameText(text=str(round(r.kd_ratio,2)), x=x+98, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
             fg = self._get_foreground_color(label = "Mvp %", value=r.total_mvp_pct)
             self.superframe.createSuperFrameText(text=r.total_mvp_pct, x=x+202, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
-            fg = self._get_foreground_color(label = "Kda", value=r.kda_ratio)
-            self.superframe.createSuperFrameText(text=str(round(r.kda_ratio,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
+            fg = self._get_foreground_color(label = "Placement", value=r.kda_ratio)
+            self.superframe.createSuperFrameText(text=str(round(self.player.avg_placement,2)), x=x+301, y=y, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 20, "bold", italic=False), fill=fg)
             
             # Ov Stat Labels
             
@@ -2085,7 +2086,7 @@ class PlayerFrame:
             
             self.superframe.createSuperFrameText(text="MVP RATE", x=x+201, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
             
-            self.superframe.createSuperFrameText(text="KDA RATIO", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
+            self.superframe.createSuperFrameText(text="AVG PLACEMENT", x=x+300, y=y + set, anchor="c", font=fonttk("Refrigerator Deluxe", 9, "bold", italic=False), fill="#121225")
         else:
             p = self.player.seasonal_overview
             if not p:
