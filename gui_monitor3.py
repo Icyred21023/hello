@@ -1795,6 +1795,7 @@ class PlayerFrame:
                     ("Win %", stats.matches_win_pct),
                     ("SVP %", stats.total_svp_pct),
                     ("MVP %", stats.total_mvp_pct),
+                    ("Rank", stats.rank if stats.rank is not None else "N/A"),
                     
                     
                     
@@ -2207,7 +2208,7 @@ class PlayerFrame:
         heroes = [hero1, hero2, hero3]
         
         icon_position = [(5,456), (4, 610), (4, 766)]
-
+        rank_position = [(282, 515), (282, 669), (282, 825)]
         #update positions for 3 heroes
         icon_position = [(4,482), (4, 636), (4, 791)]
         icon_position_animoffset = [(1,-26), (0, -26), (0, -25)]
@@ -2263,6 +2264,7 @@ class PlayerFrame:
             fkey = "None"
             icon_x, icon_y = icon_position[idx]
             ox, oy = icon_position_animoffset[idx] 
+            
             
             stats_x, stats_y = stats_xy[idx]
             x = icon_x + self.x
@@ -2392,7 +2394,14 @@ class PlayerFrame:
                 kd = hero.RivalsDataStats.kd_ratio
                 mvp_pct = hero.RivalsDataStats.total_mvp_pct
                 matches_played = hero.RivalsDataStats.matches_played
+                rank = hero.RivalsDataStats.rank
 
+            if rank:
+                rankx, ranky = rank_position[idx-1]
+                rankx += self.x
+                ranky += self.y
+                self.superframe.createSuperFrameImage(img_key="topbanner2", x=rankx, y=ranky, anc="c")
+                self.superframe.createSuperFrameText(text=rank, x=rankx, y=ranky, anchor="c", font=fonttk("Refrigerator Deluxe Heavy", 12, "bold", italic=False), fill="#292929")
 
             self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
             self.superframe.createSuperFrameImage(img_key="winrate3", x=x2, y=yb-1, anc="c")#, size=(25, 24))

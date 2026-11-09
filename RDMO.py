@@ -719,6 +719,7 @@ class RivalsData_Stats:
         self.kda_ratio = 0
         self.accuracy = "0%"
         self.headshot_accuracy = "0%"
+        self.rank = None
 
     def calc_stat_total(self, stat):
 
@@ -727,7 +728,7 @@ class RivalsData_Stats:
     def getStatPer10(self, stat):
         return self.per_10.get(stat, 0)
         
-    def add(self, stats):
+    def add(self, stats, rank):
         self.per_game = stats.get("per_game", {})
         self.per_10 = stats.get("per_10", {})
         self.matches_played = stats.get("games", 0)
@@ -736,6 +737,7 @@ class RivalsData_Stats:
         self.matches_win_pct = str(int(round(stats.get("winrate", 0))))+"%"
         self.total_svp = stats.get("svps", 0)
         self.total_mvp = stats.get("mvps", 0)
+        self.rank = rank
         self.total_svp_pct = str(int(round(self.total_svp / self.matches_lost * 100 if self.matches_lost > 0 else 0 )))+"%"
         self.total_mvp_pct = str(int(round(self.total_mvp / self.matches_won * 100 if self.matches_won > 0 else 0)))+"%"
 
@@ -1443,11 +1445,11 @@ class Hero:
     def add_stats(self, stats):
         self.Stats.add(stats)
     
-    def add_RivalsData_stats(self, stats):
+    def add_RivalsData_stats(self, stats, rank):
         if not stats:
             return
         
-        time = self.RivalsDataStats.add(stats)
+        time = self.RivalsDataStats.add(stats, rank)
         #self.Stats = self.RivalsDataStats
         return time
 
@@ -1614,7 +1616,7 @@ class Player:
                 hero_name, Role = hero_id_to_info(entry.get("hero_id", 0))
                 HeroObj = self.Heroes.get(hero_name, None)
                 if HeroObj:
-                    time_ = HeroObj.add_RivalsData_stats(entry.get("competitive", {}))
+                    time_ = HeroObj.add_RivalsData_stats(entry.get("competitive", {}), entry.get("rank", None))
                     HeroObj.bRivalsHeroes = True
                     if isinstance(time_, (int, float)) and time_ is not None:
                         time += time_
