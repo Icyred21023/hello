@@ -2190,8 +2190,32 @@ class PlayerFrame:
             if shortrank:
                 self.superframe.createSuperFrameText(text=shortrank, x=self.x + 375, y=self.y + 113, anchor="w", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill=color)
                 self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x + 361, y=self.y + 113, anchor="e", font=fonttk("Saira SemiCondensed Medium", 12, "normal", italic=False), fill="#a592e2")
+        
 
-        self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", 30, "bold", italic=False), fill=name_fg)
+        if 6 <= len(self.player.Name) <= 10:
+            font_size = 30
+        elif 10 < len(self.player.Name) <= 12:
+            font_size = 26
+        elif 12 < len(self.player.Name) <= 14:
+            font_size = 24
+        else:
+            font_size = 30
+        name_text = self.superframe.createSuperFrameText(text=self.player.Name[:14], x=self.x + 120, y=self.y + 70, anchor="w", font=fonttk("Refrigerator Deluxe ExtraBold", font_size, "bold", italic=False), fill=name_fg)
+        east_coordinates = self.superframe.getBboxByAnchor(name_text, anchor="e")
+        ex, ey = east_coordinates
+        #x=self.x + 120, y=self.y + 30
+
+        #print(f"____ {self.player.Name} east coordinates: {ex}, {ey}. Offsets: {self.x}, {self.y}")
+        if self.player.Mood:
+            self.superframe.createSuperFrameImage(
+                img_key=f"item_{self.player.Mood}", 
+                x=ex , # self.x not added. Bbox return has global coordinates
+                y=ey, # self.y not added. Bbox return has global coordinates
+                anc="w",
+                interp= Image.Resampling.LANCZOS,
+                size=(50,50))
+
+        
         team = self.teams.get(self.player.TeamId, None)
         if team:
             self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116 if not self.player.bDiscoveredIdentity else self.x + 15, y=self.y + 98, size=(28,28),anc="nw")

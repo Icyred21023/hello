@@ -612,6 +612,12 @@ class SuperFrame:
         clip=False,
         tint_alpha=False,
         mask_glow = False,
+        interp: Literal[
+            Image.Resampling.BICUBIC,
+            Image.Resampling.LANCZOS,
+            Image.Resampling.BILINEAR,
+            Image.Resampling.NEAREST
+        ] = Image.Resampling.LANCZOS,
         factor=0.5,
         tags = False,
         arh=None,
@@ -662,7 +668,7 @@ class SuperFrame:
 
 
             if resize_mask and mask.size != img.size:
-                mask = mask.resize(img.size, Image.BICUBIC)
+                mask = mask.resize(img.size, Image.Resampling.BICUBIC)
             if flip:
                 mask = mask.transpose(Image.FLIP_LEFT_RIGHT)
 
@@ -822,7 +828,7 @@ class SuperFrame:
             #img_raw = make_circle(img_raw)
 
         if scaled_size:
-            img_raw = img_raw.resize(scaled_size, Image.BICUBIC)
+            img_raw = img_raw.resize(scaled_size, interp)
         if mask_glow:
             if isinstance(mask_glow, tuple):
                 bMask, bFlip = mask_glow
@@ -935,4 +941,25 @@ class SuperFrame:
         #     )
         return txt
     
-    
+    def getBboxByAnchor(self, item=None, anchor="e"):
+        bbox = self.Canvas.bbox(item)
+        if bbox is None:
+            return None
+
+        x1, y1, x2, y2 = bbox
+        cx = (x1 + x2) / 2
+        cy = (y1 + y2) / 2
+
+        anchors = {
+            "n":  (round(int(cx)), round(int(y1))),
+            "ne": (round(int(x2)), round(int(y1))),
+            "e":  (round(int(x2)), round(int(cy))),
+            "se": (round(int(x2)), round(int(y2))),
+            "s":  (round(int(cx)), round(int(y2))),
+            "sw": (round(int(x1)), round(int(y2))),
+            "w":  (round(int(x1)), round(int(cy))),
+            "nw": (round(int(x1)), round(int(y1))),
+            "center": (round(int(cx)), round(int(cy))),
+        }
+
+        return anchors.get(anchor.lower())

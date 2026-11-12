@@ -12,6 +12,7 @@ ASSETS_HEROES = os.path.join(ASSETS_ROOTDIR, "Heroes")
 ASSETS_UI = os.path.join(ASSETS_ROOTDIR, "UI")
 ASSETS_NAMEPLATES = os.path.join(ASSETS_ROOTDIR, "Nameplates")
 ASSETS_UI_PIE = os.path.join(ASSETS_UI, "Pie")
+ASSETS_MOOD = os.path.join(ASSETS_ROOTDIR, "Moods")
 #ASSETS_MOOD = os.path.join(ASSETS_ROOTDIR, "Mood")
 ASSETS_IDX: dict[str, str] = {
     "hero": ASSETS_HEROES,
@@ -21,8 +22,8 @@ ASSETS_IDX: dict[str, str] = {
     "nameplates": ASSETS_NAMEPLATES,
     "pie": ASSETS_UI_PIE,
     "ui/pie": ASSETS_UI_PIE,
-    #"mood": ASSETS_MOOD,
-    #"moods": ASSETS_MOOD,
+    "mood": ASSETS_MOOD,
+    "moods": ASSETS_MOOD,
 }
 # =============================================================================
 # IMAGE CACHE
@@ -162,6 +163,7 @@ class ImageCache:
             ("ui/pie", ASSETS_UI_PIE),
             ("heroes", ASSETS_HEROES),
             ("nameplates", ASSETS_NAMEPLATES),
+            ("moods", ASSETS_MOOD),
             #("moods", ASSETS_MOOD),
         ]
     def find_path(
