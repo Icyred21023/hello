@@ -1,0 +1,2318 @@
+[Mask109] ==============================================
+[Mask109] SCRIPT START
+[Mask109] Target count: 136
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 1 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_100thieves2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_100thieves2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_100thieves2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_100thieves2026_01.png | 4567 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 1
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 2 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_2026stage1_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_2026stage1_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_2026stage1_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_2026stage1_01.png | 5114 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 2
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 3 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_baihuanghou00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_baihuanghou00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_baihuanghou00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_baihuanghou00_01.png | 4223 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 3
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 4 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_bingyue00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_bingyue00_01.png | 4197 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 4
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 5 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_bingyue01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_bingyue01_01.png | 4312 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 5
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 6 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_bingyue01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_bingyue01_02.png | 4740 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 6
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 7 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_bingyue01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_bingyue01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_bingyue01_03.png | 4863 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 7
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 8 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_chengfazhe01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_chengfazhe01_01.png | 5595 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 8
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 9 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_chengfazhe01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_chengfazhe01_02.png | 4529 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 9
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 10 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_chengfazhe01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_chengfazhe01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_chengfazhe01_03.png | 4530 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 10
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 11 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_01.png | 3522 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 11
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 12 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_02.png | 3780 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 12
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 13 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_03.png | 4392 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 13
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 14 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_04.png | 3620 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 14
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 15 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_05.png | 3901 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 15
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 16 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng01_06.png | 3867 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 16
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 17 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng02_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng02_01.png | 5557 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 17
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 18 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng02_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng02_02.png | 5591 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 18
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 19 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_daofeng02_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_daofeng02_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_daofeng02_03.png | 6386 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 19
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 20 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_dongwuxi01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_dongwuxi01_01.png | 5680 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 20
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 21 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_dongwuxi01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_dongwuxi01_02.png | 5578 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 21
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 22 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_dongwuxi01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_dongwuxi01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_dongwuxi01_03.png | 5556 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 22
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 23 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi00_01.png | 4805 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 23
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 24 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_01.png | 4496 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 24
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 25 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_02.png | 4506 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 25
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 26 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_03.png | 4836 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 26
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 27 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_04.png | 4496 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 27
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 28 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_05.png | 4491 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 28
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 29 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_doubi01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_doubi01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_doubi01_06.png | 5142 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 29
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 30 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_emokonglong01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_emokonglong01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_emokonglong01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_emokonglong01_01.png | 5870 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 30
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 31 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_emokonglong01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_emokonglong01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_emokonglong01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_emokonglong01_02.png | 6147 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 31
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 32 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_fenghuangnv01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_fenghuangnv01_01.png | 6443 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 32
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 33 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_fenghuangnv01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_fenghuangnv01_02.png | 6382 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 33
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 34 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_fenghuangnv01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_fenghuangnv01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_fenghuangnv01_03.png | 6227 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 34
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 35 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_flyquest2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_flyquest2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_flyquest2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_flyquest2026_01.png | 5156 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 35
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 36 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gangtiexia01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gangtiexia01_01.png | 5256 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 36
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 37 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gangtiexia01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gangtiexia01_02.png | 5090 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 37
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 38 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gangtiexia01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gangtiexia01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gangtiexia01_03.png | 4833 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 38
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 39 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gelute01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gelute01_01.png | 5019 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 39
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 40 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gelute01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gelute01_02.png | 6148 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 40
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 41 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_gelute01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_gelute01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_gelute01_03.png | 5564 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 41
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 42 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_geng2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_geng2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_geng2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_geng2026_01.png | 4932 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 42
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 43 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_haila01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_haila01_01.png | 6241 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 43
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 44 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_haila01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_haila01_02.png | 6147 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 44
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 45 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_haila01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_haila01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_haila01_03.png | 6191 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 45
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 46 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_hjhx01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_hjhx01_01.png | 6039 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 46
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 47 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_hjhx01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_hjhx01_02.png | 5816 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 47
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 48 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_hjhx01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_hjhx01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_hjhx01_03.png | 6206 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 48
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 49 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_ignite25_00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ignite25_00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ignite25_00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_ignite25_00_01.png | 3306 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 49
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 50 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_ignite2025_00_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ignite2025_00_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ignite2025_00_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_ignite2025_00_02.png | 5105 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 50
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 51 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_01.png | 4665 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 51
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 52 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_02.png | 4474 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 52
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 53 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_03.png | 4808 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 53
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 54 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_04.png | 5100 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 54
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 55 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_05.png | 4337 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 55
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 56 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jianata01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jianata01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jianata01_06.png | 4137 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 56
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 57 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_01.png | 4339 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 57
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 58 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_02.png | 4059 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 58
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 59 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_03.png | 4225 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 59
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 60 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_04.png | 4418 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 60
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 61 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_05.png | 4204 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 61
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 62 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu01_06.png | 4285 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 62
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 63 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu02_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu02_01.png | 5388 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 63
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 64 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu02_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu02_02.png | 5717 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 64
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 65 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_jiefu02_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_jiefu02_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_jiefu02_03.png | 4970 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 65
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 66 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_01.png | 4957 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 66
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 67 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_02.png | 5408 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 67
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 68 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_03.png | 5544 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 68
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 69 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_04.png | 5704 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 69
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 70 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_05.png | 5316 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 70
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 71 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_lingdie01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_lingdie01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_lingdie01_06.png | 5417 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 71
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 72 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_linlie00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_linlie00_01.png | 4336 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 72
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 73 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_linlie01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_linlie01_01.png | 6117 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 73
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 74 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_linlie01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_linlie01_02.png | 5859 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 74
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 75 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_linlie01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_linlie01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_linlie01_03.png | 5912 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 75
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 76 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_liquidcitadel2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_liquidcitadel2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_liquidcitadel2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_liquidcitadel2026_01.png | 4019 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 76
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 77 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_luoji00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_luoji00_01.png | 4998 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 77
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 78 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_luoji01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_luoji01_01.png | 5090 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 78
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 79 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_luoji01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_luoji01_02.png | 4967 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 79
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 80 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_luoji01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_luoji01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_luoji01_03.png | 4947 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 80
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 81 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_magneto01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_magneto01_01.png | 6414 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 81
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 82 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_magneto01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_magneto01_02.png | 5844 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 82
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 83 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_magneto01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_magneto01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_magneto01_03.png | 6134 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 83
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 84 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_mood_2026preseason_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_mood_2026preseason_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_mood_2026preseason_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_mood_2026preseason_01.png | 5448 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 84
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 85 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_msf202601_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_msf202601_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_msf202601_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_msf202601_01.png | 5794 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 85
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 86 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_navi2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_navi2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_navi2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_navi2026_01.png | 5720 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 86
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 87 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_nrg2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nrg2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nrg2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_nrg2026_01.png | 5636 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 87
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 88 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_nvwu00_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu00_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu00_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_nvwu00_01.png | 4361 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 88
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 89 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_nvwu01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_nvwu01_01.png | 6028 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 89
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 90 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_nvwu01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_nvwu01_02.png | 6279 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 90
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 91 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_nvwu01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_nvwu01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_nvwu01_03.png | 5660 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 91
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 92 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_reject2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_reject2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_reject2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_reject2026_01.png | 5271 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 92
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 93 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_sentinels2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sentinels2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sentinels2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_sentinels2026_01.png | 5115 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 93
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 94 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_01.png | 4639 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 94
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 95 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_02.png | 4714 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 95
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 96 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_03.png | 5111 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 96
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 97 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_04.png | 5208 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 97
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 98 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_05.png | 4856 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 98
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 99 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenqixiansheng01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenqixiansheng01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenqixiansheng01_06.png | 4758 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 99
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 100 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenshou01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenshou01_01.png | 6012 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 100
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 101 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenshou01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenshou01_02.png | 5842 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 101
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 102 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_shenshou01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_shenshou01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_shenshou01_03.png | 4840 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 102
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 103 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv01_01.png | 5596 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 103
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 104 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv01_02.png | 5699 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 104
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 105 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv01_03.png | 5426 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 105
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 106 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv02_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv02_01.png | 5897 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 106
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 107 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv02_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv02_02.png | 5268 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 107
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 108 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_songshunv02_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_songshunv02_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_songshunv02_03.png | 6251 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 108
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 109 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_spacestation2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_spacestation2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_spacestation2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_spacestation2026_01.png | 4837 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 109
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 110 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_sqxs02_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_sqxs02_01.png | 6743 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 110
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 111 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_sqxs02_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_sqxs02_02.png | 6492 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 111
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 112 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_sqxs02_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_sqxs02_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_sqxs02_03.png | 6062 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 112
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 113 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_suoer01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_suoer01_01.png | 6310 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 113
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 114 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_suoer01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_suoer01_02.png | 5499 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 114
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 115 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_suoer01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_suoer01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_suoer01_03.png | 5944 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 115
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 116 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_teamheretics2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_teamheretics2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_teamheretics2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_teamheretics2026_01.png | 5310 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 116
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 117 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_tsm2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_tsm2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_tsm2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_tsm2026_01.png | 4652 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 117
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 118 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_virtuspro2026_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_virtuspro2026_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_virtuspro2026_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_virtuspro2026_01.png | 5093 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 118
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 119 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_wanshengmihun_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_wanshengmihun_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_wanshengmihun_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_wanshengmihun_01.png | 5542 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 119
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 120 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xiaohuanxiong01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xiaohuanxiong01_01.png | 5395 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 120
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 121 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xiaohuanxiong01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xiaohuanxiong01_02.png | 5715 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 121
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 122 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xiaohuanxiong01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xiaohuanxiong01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xiaohuanxiong01_03.png | 5395 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 122
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 123 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xingjue01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xingjue01_01.png | 5671 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 123
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 124 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xingjue01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xingjue01_02.png | 5632 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 124
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 125 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xingjue01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xingjue01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xingjue01_03.png | 5944 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 125
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 126 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_01.png | 5630 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 126
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 127 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_02.png | 5394 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 127
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 128 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_03.png | 4692 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 128
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 129 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_04.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_04.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_04.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_04.png | 5296 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 129
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 130 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_05.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_05.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_05.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_05.png | 5730 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 130
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 131 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_06.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_06.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_06.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_06.png | 5730 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 131
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 132 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_xixuegui01_07.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_07.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_xixuegui01_07.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_xixuegui01_07.png | 5790 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 132
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 133 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_yinxingnv01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_yinxingnv01_01.png | 5216 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 133
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 134 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_yinxingnv01_02.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_02.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_02.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_yinxingnv01_02.png | 4983 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 134
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 135 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_yinxingnv01_03.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_03.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_yinxingnv01_03.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_yinxingnv01_03.png | 4840 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 135
+[Mask109] 
+[Mask109] ----------------------------------------------
+[Mask109] ITERATION 136 / 136
+[Mask109] Input: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\item_mood_ylnh01_01.png
+[Mask109] Stage: applying Inner Shadow and Inner Glow
+[Mask109] Stage: rasterizing layer style before resize
+[Mask109] Rasterized layer style before resizing; alpha preserved.
+[Mask109] Stage: resizing to 109x109 Bicubic Sharper
+[Mask109] Resize result: 50x50
+[Mask109] Stage: creating masked output directory
+[Mask109] Exact output path: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ylnh01_01.png
+[Mask109] Stage: exporting output PNG
+[Mask109] Saving output PNG: C:\Users\Chloroform\Desktop\MarvelBans\fGui Assets\Moods - Copy\Scaled&SHADOW\item_mood_ylnh01_01.png
+[Mask109] Calling Photoshop exportDocument().
+[Mask109] SAVE VERIFIED: item_mood_ylnh01_01.png | 6569 bytes
+[Mask109] Stage: closing processed input
+[Mask109] ITERATION SUCCESS. Total saved: 136
+[Mask109] ==============================================
+[Mask109] ALL FILES COMPLETED SUCCESSFULLY
+[Mask109] ==============================================

@@ -2210,15 +2210,16 @@ class PlayerFrame:
             self.superframe.createSuperFrameImage(
                 img_key=f"item_{self.player.Mood}", 
                 x=ex , # self.x not added. Bbox return has global coordinates
-                y=ey, # self.y not added. Bbox return has global coordinates
+                y=ey+10, # self.y not added. Bbox return has global coordinates
                 anc="w",
-                interp= Image.Resampling.LANCZOS,
-                size=(50,50))
+                #interp= Image.Resampling.LANCZOS,
+                #size=(50,50))
+            )
 
         
         team = self.teams.get(self.player.TeamId, None)
         if team:
-            self.superframe.createSuperFrameImage(img_key=team, x=self.x + 116 if not self.player.bDiscoveredIdentity else self.x + 15, y=self.y + 98, size=(28,28),anc="nw")
+            self.superframe.createSuperFrameImage(img_key=team + "_", x=self.x + 116 if not self.player.bDiscoveredIdentity else self.x + 14, y=self.y + 96, size=(28,28),anc="nw")
 
     def _build_heroes_new(self):
         if self.player.bPrivate:
@@ -2436,7 +2437,7 @@ class PlayerFrame:
                 rankx, ranky = rank_position[idx-1]
                 rankx += self.x
                 ranky += self.y
-                self.superframe.createSuperFrameImage(img_key="topbanner3", x=rankx, y=ranky, anc="c")
+                self.superframe.createSuperFrameImage(img_key="topbanner4", x=rankx, y=ranky, anc="c")
                 self.superframe.createSuperFrameText(text=f"#{str(rank)}", x=rankx-2, y=ranky-2, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 16, "bold", italic=False), fill="#ffef38")
 
             self.superframe.createSuperFrameText(text="WIN%", x=x2, y=ya-adjust, anchor="c", font=fonttk("Refrigerator Deluxe", 10, "bold", italic=False), fill="#121225")
