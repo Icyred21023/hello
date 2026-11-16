@@ -1318,7 +1318,7 @@ def getRivalsDataFull(match: Match | list):
         match_history_string = "cached_match_history"
         #print(f"\tFetching Rivals Data for {player.Name} with match history type: {match_history_string}")
 
-        url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid)
+        url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid, season=config.season-1)
         heroes_data = b.fetch_post(url, pay)
         if heroes_data and "error" not in heroes_data:
             player.add_RivalsData_heroes(heroes_data)
