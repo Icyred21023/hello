@@ -1952,7 +1952,7 @@ class MatchGG:
         
     def check_for_teammates(self):
         from collections import defaultdict
-
+        print("Cchecking teammates...")
         
 
         for player in self.players:
@@ -2048,7 +2048,7 @@ class Match:
         from collections import defaultdict
 
         
-
+        print("Checking for teammates...")
         for player in self.players:
             if player.TeamId is not None and Player.team_counts[player.TeamId] > 1:
                 self.Teammates[player.TeamId].append(player)
