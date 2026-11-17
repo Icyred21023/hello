@@ -1427,6 +1427,7 @@ class MatchHistory:
 class Hero:
     def __init__(self, data, ):
         self.Id = str(data.get("hero_id", "Unknown"))
+        
         self.bRivalsData = False
         self.Name, self.Role = hero_id_to_info(self.Id)
 
@@ -1514,10 +1515,19 @@ class Player:
 
         flag = False
         for hero_data in data.get("proficiency") or []:
-            flag = True
-            hero = Hero(hero_data)
-            hero.bRivalsData = True
-            self.Heroes[hero.Name] = hero
+            id = hero_data.get("hero_id", "Unknown")
+            if id == 1057:
+                for i in range(1, 4):
+                    dead = {"hero_id": id *10 + i, "level": hero_data.get("level", 0), "points": hero_data.get("points", 0)}
+                    flag = True
+                    hero = Hero(dead)
+                    hero.bRivalsData = True
+                    self.Heroes[hero.Name] = hero
+            else:
+                flag = True
+                hero = Hero(hero_data)
+                hero.bRivalsData = True
+                self.Heroes[hero.Name] = hero
         if flag:
             self.bRivalsProficiency = True
             self.bRivalsHeroes = True

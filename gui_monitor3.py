@@ -2236,7 +2236,7 @@ class PlayerFrame:
                 print(f"Player {self.player.Name} is private but has Rivals data, proceeding to build heroes section.")
         prestige = (-29,167)
 
-        print()
+        
         hli = list(self.player.Heroes.values())
 
         hero1: Hero | None = hli[0] if len(hli) > 0 else None
