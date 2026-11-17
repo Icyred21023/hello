@@ -7,7 +7,7 @@ import sys
 
 bNewGui = True
 
-if config.bUseCloudSync:
+if config.bUseCloudSync:                
     from sdb_r2_sync import R2Client, regular_upload_spool_if_present, regular_bootstrap_local_db, admin_download_and_merge_diffs
     import os
 

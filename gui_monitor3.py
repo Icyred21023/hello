@@ -2555,9 +2555,7 @@ class PlayerFrame:
             for hero in heroes[:2]:
                 h = hero
                 extra = None
-                if "Deadpool" in h:
-                    h, extra = h.split(" ", 1)
-                    h = "Deadpool"
+                
                 hero_icon = self.superframe.createSuperFrameImage(img_key=h+"_small", x=x+px, y=y+py , anc="sw",size=size)
                 match.Hero_Icon = hero_icon
                 match.x = x+px

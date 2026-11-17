@@ -1329,7 +1329,7 @@ def getRivalsDataFull(match: Match | list):
         print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
         #   player.add_RivalsData_heroes(heroes_data)
         icon = '❌'
-        url, pay = build_rivalsdata_url_payload(kind=match_history_string, uid=player.Uid)
+        url, pay = build_rivalsdata_url_payload(kind=match_history_string, uid=player.Uid, season=config.season)
         match_history_data = b.fetch_post(url, pay)
         
         if match_history_data and "error" not in match_history_data:
