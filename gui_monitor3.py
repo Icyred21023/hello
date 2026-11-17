@@ -1914,7 +1914,7 @@ class PlayerFrame:
             ),
             tags="hero_stats_popup"
         )
-        snum = self.player.seasons_string[1:]
+        snum = self.player.season_string_fetched[1:]
         canvas.create_text(
             popup_x1 + 150,
             popup_y1 + 10,
@@ -2066,7 +2066,7 @@ class PlayerFrame:
             set = 24
             
             # Games Played Top
-            self.superframe.createSuperFrameText(text=self.player.seasons_string, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#BEFF0B")
+            self.superframe.createSuperFrameText(text=self.player.season_string_fetched, x=self.x+213, y=self.y+148, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "bold", italic=False), fill="#FFEF0B")
             self.superframe.createSuperFrameText(text="MATCHES", x=x+324, y=y-38, anchor="c", font=fonttk("Refrigerator Deluxe ExtraBold", 10, "normal", italic=False), fill="#8685B6")
             
             self.superframe.createSuperFrameText(text=str(round(r.matches_played,1)), x=x+300, y=y-38, anchor="e", font=fonttk("Refrigerator Deluxe ExtraBold", 14, "bold", italic=False), fill="#CDCEEB")
@@ -3784,12 +3784,20 @@ class App:
         #cb3 = tk.Checkbutton(frame, bg="#151426", fg="white", selectcolor="#151426",
                             # text="Use Classic Logic", font=fonttk(carbon, 10), variable=self.var3)
         cb4 = tk.Checkbutton(lef, bg="#151426", fg="white", selectcolor="#151426",
-                             text="Enable Debug", font=fonttk(carbon, 10), variable=self.var4)
+                             text="Debug", font=fonttk(carbon, 10), variable=self.var4)
         #cb3.pack(anchor="w")
         cb4.pack(side= "right", anchor="c",expand=True,padx=(s(5),s(5))) 
+
+
+
+        
         cb1 = tk.Button(lef, bg="#FCD92E", fg="#151426", relief="flat", command=show_ui_config,cursor="hand2",
-                                 text="UI Config", font=fonttk("Rajdhani", 'normal', 12))
-        cb1.pack(side="left",anchor="c",expand=True,padx=(s(30),s(5)))
+                                 text="Config", font=fonttk("Rajdhani", 'normal', 12))
+        cb1.pack(side="left",anchor="c",expand=True,padx=(s(5),s(5)))
+
+        byname = tk.Button(lef, bg="#FCD92E", fg="#151426", relief="flat", command=lambda: self.search_by_name(toggle_debug),cursor="hand2",
+                                 text="By Name", font=fonttk("Rajdhani", 'normal', 12))
+        byname.pack(side="left",anchor="c",expand=True,padx=(s(5),s(5)))
         # ---- local funcs that need access to widgets ----
         def toggle_hide():
             self.bhidden = not self.bhidden
@@ -4032,7 +4040,7 @@ class App:
         #     text="Search", state="normal",
         #     relief="flat", bg="#FCD92E",
         #     font=fonttk("Rajdhani Medium", 'normal', 12),
-        #     command=lambda: lookup(tvar.get()),
+        #     command=lambda: lookup(self.tvar.get()),
         #     cursor="hand2"
         # )
         self.tvar = tk.StringVar()
@@ -4198,6 +4206,8 @@ class App:
         )
         self.lock_btn.pack(side="right", padx=10)
 
+        
+
         self.indicator_label = tk.Label(
             title_bar, text="", fg="white", bg="#141420", font=fonttk("Arial", 12)
         )
@@ -4331,14 +4341,551 @@ class App:
     # Bridge (refactor of on_f8_pressed)
     # =========================
 
-    
+    def search_by_name(self, toggle_debug):
+        MAX_PLAYERS = 6
+
+        BG = "#151426"
+        ENTRY_BG = "#25263B"
+        FG = "#E6E6F5"
+        YELLOW = "#FCD92E"
+        RED = "#D94343"
+        self.autofill_list = helpers.load_list(path=config.autofill_cache_path)
+        # Prevent opening multiple popups
+        existing = getattr(self, "_search_popup", None)
+        if existing is not None and existing.winfo_exists():
+            existing.lift()
+            existing.focus_force()
+            return
+
+        # Store submitted names here
+        self.player_names = []
+
+        popup = tk.Toplevel(self.root)
+        self._search_popup = popup
+        popup.title("Search Players")
+        popup.configure(bg=BG)
+ 
+        x, y = self.get_launcher_position()
+        
+        popup.geometry("380x420")
+        popup.resizable(False, False)
+
+        popup.transient(self.root)
+
+        # Center popup on screen
+        popup.update_idletasks()
+        #x = (popup.winfo_screenwidth() - 380) // 2
+        #y = (popup.winfo_screenheight() - 420) // 2
+        popup.geometry(f"380x420+{x}+{y + 200}")
+
+        # Modal popup
+        popup.grab_set()
+
+        # Main container
+        container = tk.Frame(popup, bg=BG)
+        container.pack(fill="both", expand=True, padx=20, pady=15)
+
+        tk.Label(
+            container,
+            text="SEARCH PLAYERS",
+            bg=BG,
+            fg=YELLOW,
+            font=("Rajdhani", 18, "bold")
+        ).pack(pady=(0, 5))
+
+        tk.Label(
+            container,
+            text="Enter up to 6 player names",
+            bg=BG,
+            fg="#9999AA",
+            font=("Rajdhani", 11)
+        ).pack(pady=(0, 15))
+
+        # All player entry rows
+        entries_frame = tk.Frame(container, bg=BG)
+        entries_frame.pack(fill="x")
+
+        entry_rows = []
+
+
+        # Prepare cached autocomplete names
+        autocomplete_names = sorted(
+            {name.strip() for name in self.autofill_list
+             if isinstance(name, str) and name.strip()},
+            key=str.casefold
+        )
+
+        # One shared suggestion dropdown for all entry fields
+        autocomplete_entry = None
+        autocomplete_matches = []
+
+        suggestion_list = tk.Listbox(
+            popup,
+            bg="#25263B",
+            fg="#E6E6F5",
+            selectbackground="#414F78",
+            selectforeground="#FFFFFF",
+            activestyle="none",
+            relief="solid",
+            bd=1,
+            highlightthickness=1,
+            highlightbackground="#41445C",
+            font=("Rajdhani", 12),
+            exportselection=False,
+            cursor="hand2",
+            takefocus=0
+        )
+
+        def hide_autocomplete():
+            nonlocal autocomplete_entry, autocomplete_matches
+            suggestion_list.place_forget()
+            autocomplete_entry = None
+            autocomplete_matches = []
+
+        def show_autocomplete(entry):
+            nonlocal autocomplete_entry, autocomplete_matches
+
+            text = entry.get().strip().casefold()
+
+            if not text:
+                hide_autocomplete()
+                return
+
+            # Prioritize names beginning with the typed text
+            starts_with = [
+                name for name in autocomplete_names
+                if name.casefold().startswith(text)
+            ]
+
+            contains = [
+                name for name in autocomplete_names
+                if text in name.casefold()
+                and not name.casefold().startswith(text)
+            ]
+
+            matches = (starts_with + contains)[:8]
+
+            if not matches:
+                hide_autocomplete()
+                return
+
+            autocomplete_entry = entry
+            autocomplete_matches = matches
+
+            suggestion_list.delete(0, tk.END)
+
+            for name in matches:
+                suggestion_list.insert(tk.END, name)
+
+            suggestion_list.selection_clear(0, tk.END)
+
+            # Position directly below the active entry
+            popup.update_idletasks()
+
+            x = entry.winfo_rootx() - popup.winfo_rootx()
+            y = (
+                entry.winfo_rooty()
+                - popup.winfo_rooty()
+                + entry.winfo_height()
+            )
+
+            width = entry.winfo_width()
+            height = min(len(matches), 6) * 25 + 4
+
+            # If insufficient room below, position above
+            if y + height > popup.winfo_height():
+                y = (
+                    entry.winfo_rooty()
+                    - popup.winfo_rooty()
+                    - height
+                )
+
+            suggestion_list.config(height=min(len(matches), 6))
+
+            suggestion_list.place(
+                x=x,
+                y=y,
+                width=width,
+                height=height
+            )
+
+            suggestion_list.lift()
+
+        def accept_autocomplete(event=None):
+            if (
+                autocomplete_entry is None
+                or not autocomplete_matches
+            ):
+                return False
+
+            selected = suggestion_list.curselection()
+
+            if not selected:
+                return False
+
+            name = autocomplete_matches[selected[0]]
+
+            entry = autocomplete_entry
+            entry.delete(0, tk.END)
+            entry.insert(0, name)
+            entry.icursor(tk.END)
+
+            hide_autocomplete()
+            entry.focus_set()
+            clear_error()
+
+            return True
+
+        def autocomplete_key(event, entry):
+            if event.keysym in ("Up", "Down"):
+                if autocomplete_entry is not entry:
+                    show_autocomplete(entry)
+
+                if autocomplete_entry is None:
+                    return "break"
+
+                selected = suggestion_list.curselection()
+
+                if selected:
+                    index = selected[0]
+                else:
+                    index = -1 if event.keysym == "Down" else 0
+
+                if event.keysym == "Down":
+                    index = min(
+                        index + 1,
+                        suggestion_list.size() - 1
+                    )
+                else:
+                    index = max(index - 1, 0)
+
+                suggestion_list.selection_clear(0, tk.END)
+                suggestion_list.selection_set(index)
+                suggestion_list.activate(index)
+                suggestion_list.see(index)
+
+                return "break"
+
+            if event.keysym in ("Return", "KP_Enter"):
+                if accept_autocomplete():
+                    return "break"
+
+                submit()
+                return "break"
+
+            if event.keysym == "Tab":
+                if accept_autocomplete():
+                    return "break"
+                return None
+
+            if event.keysym == "Escape":
+                hide_autocomplete()
+                return "break"
+
+            return None
+
+        def autocomplete_changed(event, entry):
+            if event.keysym in (
+                "Up", "Down", "Return", "KP_Enter",
+                "Escape", "Tab"
+            ):
+                return
+
+            clear_error()
+            show_autocomplete(entry)
+
+        def autocomplete_click(event):
+            index = suggestion_list.nearest(event.y)
+
+            if 0 <= index < suggestion_list.size():
+                suggestion_list.selection_clear(0, tk.END)
+                suggestion_list.selection_set(index)
+                accept_autocomplete()
+
+            return "break"
+
+        suggestion_list.bind(
+            "<ButtonRelease-1>",
+            autocomplete_click
+        )
+
+
+        # Bottom controls remain stationary
+        bottom_frame = tk.Frame(container, bg=BG)
+        bottom_frame.pack(side="bottom", fill="x", pady=(10, 0))
+
+        error_label = tk.Label(
+            bottom_frame,
+            text="",
+            bg=BG,
+            fg=RED,
+            font=("Rajdhani", 11, "bold")
+        )
+        error_label.pack(pady=(0, 5))
+
+        def submit():
+            hide_autocomplete()
+            names = [
+                row["entry"].get().strip()
+                for row in entry_rows
+                if row["entry"].get().strip()
+            ]
+
+            if not names:
+                error_label.config(text="Enter a name")
+                lookup_button.config(
+                    bg=RED,
+                    activebackground=RED,
+                    fg="white"
+                )
+                return
+
+            # Store results on App instance
+            self.player_names = names
+
+            print("Players to look up:", self.player_names)
+
+            popup.destroy()
+            toggle_debug()  # Close debug menu if open
+            self.run_bans_with_names(self.player_names)
+
+            # Add your lookup logic here if desired
+            # self.on_f8_pressed(",".join(self.player_names))
+
+        def clear_error(event=None):
+            error_label.config(text="")
+            lookup_button.config(
+                bg=YELLOW,
+                activebackground=YELLOW,
+                fg="#151426"
+            )
+
+        def refresh_rows():
+            """Reorganize all rows after one is removed."""
+
+            for index, row in enumerate(entry_rows):
+                row["frame"].pack_forget()
+                row["frame"].pack(fill="x", pady=4)
+
+                row["label"].config(text=f"{index + 1}.")
+
+            # Disable Add Player at 6 entries
+            if len(entry_rows) >= MAX_PLAYERS:
+                add_button.config(
+                    state="disabled",
+                    bg="#444455",
+                    fg="#888899"
+                )
+            else:
+                add_button.config(
+                    state="normal",
+                    bg="#30334D",
+                    fg=FG
+                )
+
+        def remove_entry(row):
+            hide_autocomplete()
+            if row not in entry_rows:
+                return
+
+            entry_rows.remove(row)
+            row["frame"].destroy()
+
+            refresh_rows()
+            clear_error()
+
+        def add_entry():
+            hide_autocomplete()
+            if len(entry_rows) >= MAX_PLAYERS:
+                return
+
+            row_frame = tk.Frame(entries_frame, bg=BG)
+
+            number_label = tk.Label(
+                row_frame,
+                text=f"{len(entry_rows) + 1}.",
+                bg=BG,
+                fg=FG,
+                width=3,
+                font=("Rajdhani", 12, "bold")
+            )
+            number_label.pack(side="left")
+
+            entry = tk.Entry(
+                row_frame,
+                bg=ENTRY_BG,
+                fg=FG,
+                insertbackground="white",
+                relief="flat",
+                font=("Rajdhani", 13),
+                highlightthickness=1,
+                highlightbackground="#41445C",
+                highlightcolor=YELLOW
+            )
+            entry.pack(
+                side="left",
+                fill="x",
+                expand=True,
+                ipady=5,
+                padx=(0, 8)
+            )
+
+            remove_button = tk.Button(
+                row_frame,
+                text="✕",
+                width=3,
+                bg="#512B35",
+                fg="#FF8888",
+                activebackground=RED,
+                activeforeground="white",
+                relief="flat",
+                cursor="hand2",
+                font=("Arial", 10, "bold")
+            )
+            remove_button.pack(side="right")
+
+            row = {
+                "frame": row_frame,
+                "label": number_label,
+                "entry": entry,
+                "remove": remove_button
+            }
+
+            remove_button.config(
+                command=lambda r=row: remove_entry(r)
+            )
+
+            entry.bind(
+                "<KeyRelease>",
+                lambda event, e=entry: autocomplete_changed(event, e)
+            )
+
+            entry.bind(
+                "<KeyPress>",
+                lambda event, e=entry: autocomplete_key(event, e)
+            )
+
+            entry.bind(
+                "<FocusIn>",
+                lambda event, e=entry: show_autocomplete(e)
+            )
+
+            entry.bind(
+                "<FocusOut>",
+                lambda event: popup.after(150, hide_autocomplete)
+            )
+
+            entry_rows.append(row)
+
+            refresh_rows()
+            clear_error()
+
+            entry.focus_set()
+
+        # Add player button
+        add_button = tk.Button(
+            container,
+            text="+ Add Player",
+            command=add_entry,
+            bg="#30334D",
+            fg=FG,
+            activebackground="#444766",
+            activeforeground="white",
+            relief="flat",
+            cursor="hand2",
+            font=("Rajdhani", 12, "bold")
+        )
+        add_button.pack(fill="x", pady=(12, 0))
+
+        # Static lookup button
+        lookup_button = tk.Button(
+            bottom_frame,
+            text="LOOK UP",
+            command=submit,
+            bg=YELLOW,
+            fg=BG,
+            activebackground=YELLOW,
+            relief="flat",
+            cursor="hand2",
+            font=("Rajdhani", 15, "bold"),
+            height=2
+        )
+        lookup_button.pack(fill="x")
+
+        # Start with one entry
+        add_entry()
+
+    def run_bans_with_names(self, names):
+        # This function is called after the user submits names from the popup.
+        # You can implement your logic here to handle the names and run bans.
+        MATCH_PLAYERS = []
+        mid = None
+        live_match_data = None
+        global bLiveDebug
+        initialize_hide_pass(None, None, None,None)
+        import tracker_trim
+        
+        names_for_save = []
+        user_data_list = []
+        for entered_name in names:
+            user_data , bMatch = tracker_trim.getRivalsDataUID(entered_name)
+            if user_data is None:
+                print(f"Error: No data found for {entered_name}. Skipping.")
+                continue
+            names_for_save.append(user_data.get("name", None)) if bMatch and user_data.get("name", None) is not None else None
+            user_data_list.append(user_data)
+
+
+
+
+        if not user_data_list:
+            print("Error: No valid player data found. Aborting.")
+            return
+        if names_for_save:
+            self.autofill_list.extend(x for x in names_for_save if x not in self.autofill_list)
+            helpers.save_list(config.autofill_cache_path, self.autofill_list)
+        
+        from tracker_trim_debug_helper import make_bynames_live_match
+        live_match_data = make_bynames_live_match(user_data_list)
+        from RDMO import Match
+        matches = Match(live_match_data, enemy_team=0)
+        PlayerObjects = matches.players
+        for p in PlayerObjects:
+            proficiency = tracker_trim.getRivalsDataProficiency(p.Uid)
+            p.add_proficiency_late(proficiency)
+
+        tracker_trim.getRivalsDataFull(matches)
+        #tracker_trim.getTrackerGG(matches)
+        MATCH_PLAYERS = []
+        names = None
+        for p in matches.players:
+            if "*" in p.Name:
+                #print(f"Skipping {p.Name}: Private Account")
+                if p.bRivalsData:
+                    if p.bRivalsProficiency or p.bRivalsHeroes or p.bRivalsTopHeroes:
+                        pass
+                    else:
+                        continue
+                else:
+                    continue
+            MATCH_PLAYERS.append(p)
+
+        if len(MATCH_PLAYERS) > 0:
+            self.show_match_page(MATCH_PLAYERS)
+        else:
+            print(">> No valid player data to display.")
+            self.show_launcher_page()  # Go back to launcher if no players
+
+        return
+
+
     def on_f8_pressed(self, tvar_value):
         MATCH_PLAYERS = []
         mid = None
         live_match_data = None
         global bLiveDebug
         bLiveDebug = config.debug_mode
-        print(f">> Script running. Press F8 to OCR names and check tracker.gg...")
+        print(f"Bans Initiated 🔮")
         search_by_name = True if tvar_value and tvar_value != 'Name(s): "EyeingFlux, BicZilla"' else False
         initialize_hide_pass(None, None, None,None)
         

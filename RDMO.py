@@ -1458,6 +1458,8 @@ class Hero:
 class Player:
     team_counts = Counter()
     def __init__(self, data, bGG=False):
+        self.SeasonAPI = config.season
+        self.season_string_fetched = None
         self.Name = data.get("name", "Unknown")
         self.StarName = False
         self.bRivalsMatchHistoryVisible = False
@@ -1591,12 +1593,24 @@ class Player:
         key=lambda info: info["max_rank_score"],
         default=None,
         )
+
+        current_season_data = next(
+            (v for k, v in rank_data.items()
+            if k.startswith("1") and k.endswith(str(config.season))),
+            None
+        )
+        matches = current_season_data.get("battle_count", 0) if current_season_data else 0
+        self.SeasonAPI -= 1 if matches < 10 else 0
+        #print(f" ~ ⚠️ Player {self.Name} only played {matches} matches this season. Grabbing stats from \033[96m S{self.SeasonAPI} \033[0m instead.")
         best_lv = best_info.get("max_level", 0) if best_info else 0
         self.RivalsDataRankedInfo = RANK_DATA.get(best_lv, (None, None, None, None)) if best_lv is not None else (None, None, None, None)
         self.lifetimePeakRanked = self.RivalsDataRankedInfo
         best_season = best_info.get("rank_game_id", 0) / 2 if best_info else 0
         self.short_season = "S" + str(best_season)
         self.seasons_string = "S" + str(best_season)
+
+        season_fetched = self.SeasonAPI / 2 
+        self.season_string_fetched = "S" + str(season_fetched) 
 
 
         #self.bPrivate = True if not self.seasonal_overview else False

@@ -107,6 +107,8 @@ ap = helpers.create_path("user_account.json", "debug")
 ap2 = os.path.join(local_marvel_tracker_path, "config", "user_account.json")
 ap3 = os.path.join(local_marvel_tracker_path, "config", "user_account_config.json")
 
+autofill_cache_path = os.path.join(local_marvel_tracker_path, "config", "autofill.txt")
+
 
 if os.path.exists(ap2):
     USER_NAME, USER_UID = load_extract_user(ap2)

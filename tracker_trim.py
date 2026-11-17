@@ -524,7 +524,7 @@ class Browser:
 
 
 
-def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID, season=config.season):
+def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID, season=config.season, name=None):
     if "player" in kind.lower():
         return "https://api.rivalsdata.com/player", { "uid": int(uid) }
     elif "live2" in kind.lower():
@@ -556,7 +556,12 @@ def build_rivalsdata_url_payload(kind="player", mid="null", uid=config.USER_UID,
     elif "proficiency" in kind.lower():
         if uid is None:
             return None, None
-        return "https://api.rivalsdata.com/player/proficiency", {"uid": int(uid)}   
+        return "https://api.rivalsdata.com/player/proficiency", {"uid": int(uid)}  
+
+    elif "getuid" in kind.lower():
+        if name is None:
+            return None, None
+        return "https://api.rivalsdata.com/players/autocomplete", {"q": name}
         
     
     
@@ -656,6 +661,52 @@ def getRivalsDataHeroesData(player: Player, browser: Browser | None = None):
     if player.Uid == "Unknown" or player.Uid == "None" or not player.Uid:
         print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid UID.")
         return None
+    #b.set_captcha_window()
+    #b.driver.get(f"https://rivalsdata.com/player/{player.Uid}")
+
+    
+    url, pay = build_rivalsdata_url_payload(kind="heroes", uid=int(player.Uid))
+    if url is None or pay is None:
+        print(f"❌ RivalsData heroes fetch failed for player '{player.Name}' (UID: {player.Uid}) - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return data
+    except Exception as e:
+        print(e)
+        return None
+    
+def getRivalsDataUID(player: str = ""):
+    def parse_autocomplete_response(d):
+        for user in d:
+            if user.get("exact", False):
+                return user, True
+            else:
+                return user, False
+        return None, False
+            
+    b, bGetSite = BROWSER_check_init()
+    driver = b.driver
+    if bGetSite:
+        driver.get(f"https://rivalsdata.com")
+        time.sleep(0.5)
+        if driver.title == "Just a moment...":
+            b.set_captcha_window()
+            b.wait_for_captcha()
+            b.set_tiny_window()
+    url, pay = build_rivalsdata_url_payload(kind="getuid", name=player)
+    if url is None or pay is None:
+        print(f"❌ RivalsData UID fetch failed for player '{player}' - Invalid URL or payload.")
+        return None
+    try:
+        data = b.fetch_post(url, pay)
+        return parse_autocomplete_response(data)
+    except Exception as e:
+        print(e)
+        return None
+    
+    
+    
     #b.set_captcha_window()
     #b.driver.get(f"https://rivalsdata.com/player/{player.Uid}")
 
@@ -1318,7 +1369,7 @@ def getRivalsDataFull(match: Match | list):
         match_history_string = "cached_match_history"
         #print(f"\tFetching Rivals Data for {player.Name} with match history type: {match_history_string}")
 
-        url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid, season=config.season-1)
+        url, pay = build_rivalsdata_url_payload(kind="heroes", uid=player.Uid, season=player.SeasonAPI if player.SeasonAPI else config.season)
         heroes_data = b.fetch_post(url, pay)
         if heroes_data and "error" not in heroes_data:
             player.add_RivalsData_heroes(heroes_data)
@@ -1326,7 +1377,7 @@ def getRivalsDataFull(match: Match | list):
             player.bHeroes = True
 
             icon = '✅'
-        print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name}.")
+        print(f"\t{icon} \033[1m Rivals Data Heroes\033[0m fetched successfully for {player.Name} for Season {player.SeasonAPI if player.SeasonAPI else config.season}.")
         #   player.add_RivalsData_heroes(heroes_data)
         icon = '❌'
         url, pay = build_rivalsdata_url_payload(kind=match_history_string, uid=player.Uid, season=config.season)
